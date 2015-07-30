@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.AdminUserMapper">
+	<resultMap id="BaseResultMap" type="AdminUser">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="realname" property="realname" jdbcType="VARCHAR" />
+		<result column="nickname" property="nickname" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="CHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="tel" property="tel" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="enabled" property="enabled" jdbcType="CHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="position" property="position" jdbcType="VARCHAR" />
+		<result column="head_pic" property="headPic" jdbcType="VARCHAR" />
+		<association property="company" column="sh_company_id" javaType="Company" select="selectCompanyById"></association>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, sh_company_id, realname, nickname, password, sex, address, email, tel, create_time, update_time, enabled, remark, position, head_pic
+	</sql>
+	
+	<select id="selectCompanyById" parameterType="java.lang.Integer" resultType="Company">
+		select 
+	    	id, company_name, address, name, tel, enabled, create_time, update_time
+	    from 
+	    	sh_company
+	    where 
+	    	id = #{sh_company_id,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sh_admin_user
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		sh_admin_user
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<insert id="insert" parameterType="AdminUser">
+		<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+		    SELECT @@IDENTITY
+	    </selectKey>
+		insert into sh_admin_user (id,
+		sh_company_id, realname,
+		nickname, password, sex,
+		address, email, tel,
+		create_time, update_time, enabled,
+		remark, position, head_pic
+		)
+		values
+		(#{id,jdbcType=INTEGER}, #{company.id,jdbcType=INTEGER},
+		#{realname,jdbcType=VARCHAR},
+		#{nickname,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR},
+		#{address,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+		#{tel,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP}, 
+		<if test="enabled">
+			'1',
+		</if>
+		<if test="!enabled">
+			'0',
+		</if>
+		#{remark,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR},
+		#{headPic,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<insert id="insertSelective" parameterType="AdminUser">
+		insert into sh_admin_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="shCompanyId != null">
+				sh_company_id,
+			</if>
+			<if test="realname != null">
+				realname,
+			</if>
+			<if test="nickname != null">
+				nickname,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="tel != null">
+				tel,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="enabled != null">
+				enabled,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="position != null">
+				position,
+			</if>
+			<if test="headPic != null">
+				head_pic,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="shCompanyId != null">
+				#{shCompanyId,jdbcType=INTEGER},
+			</if>
+			<if test="realname != null">
+				#{realname,jdbcType=VARCHAR},
+			</if>
+			<if test="nickname != null">
+				#{nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=CHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				#{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="enabled != null">
+				#{enabled,jdbcType=CHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="position != null">
+				#{position,jdbcType=VARCHAR},
+			</if>
+			<if test="headPic != null">
+				#{headPic,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="AdminUser">
+		update sh_admin_user
+		<set>
+			<if test="company != null">
+				sh_company_id = #{company.id,jdbcType=INTEGER},
+			</if>
+			<if test="realname != null">
+				realname = #{realname,jdbcType=VARCHAR},
+			</if>
+			<if test="nickname != null">
+				nickname = #{nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=CHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				tel = #{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="enabled">
+					enabled = '1',
+			</if>
+			<if test="!enabled">
+					enabled = '0',
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="position != null">
+				position = #{position,jdbcType=VARCHAR},
+			</if>
+			<if test="headPic != null">
+				head_pic = #{headPic,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="AdminUser">
+		update
+		sh_admin_user
+		set sh_company_id = #{shCompanyId,jdbcType=INTEGER},
+		realname = #{realname,jdbcType=VARCHAR},
+		nickname =
+		#{nickname,jdbcType=VARCHAR},
+		password = #{password,jdbcType=VARCHAR},
+		sex = #{sex,jdbcType=CHAR},
+		address = #{address,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR},
+		tel = #{tel,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP},
+		enabled = #{enabled,jdbcType=CHAR},
+		remark = #{remark,jdbcType=VARCHAR},
+		position =
+		#{position,jdbcType=VARCHAR},
+		head_pic = #{headPic,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="getAdminUserByNickName" parameterType="String" resultMap="BaseResultMap">
+		select
+	 		id, company_name companyName, address, name, tel, enabled, DATE_FORMAT(create_time , '%Y-%m-%d %H:%i') createTime, DATE_FORMAT(update_time , '%Y-%m-%d %H:%i') updateTime
+	 	from 
+	 		sh_admin_user a
+	 	where 
+	 		a.nickname = #{nickname}
+	</select>
+	
+	<select id="getAdminUserList" resultMap="BaseResultMap"	parameterType="Company">
+		select
+			id, sh_company_id, realname, nickname, password, sex, address, email, tel, DATE_FORMAT(create_time , '%Y-%m-%d %H:%i') create_time, DATE_FORMAT(update_time , '%Y-%m-%d %H:%i') update_time, enabled, remark, position, head_pic
+		from 
+			sh_admin_user
+		where 1 = 1
+		<if test="id != null">
+			AND sh_company_id=#{id}
+		</if>
+	</select>
+	
+	<select id="getAdminUserById" resultMap="BaseResultMap" parameterType="AdminUser">
+	 	select
+			id, sh_company_id, realname, nickname, password, sex, address, email, tel, DATE_FORMAT(create_time , '%Y-%m-%d %H:%i') create_time, DATE_FORMAT(update_time , '%Y-%m-%d %H:%i') update_time, enabled, remark, position, head_pic
+		from 
+			sh_admin_user
+		where 1 = 1
+		<if test="id != null">
+			AND id=#{id}
+		</if>
+	</select>
+</mapper>

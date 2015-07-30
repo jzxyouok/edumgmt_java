@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.AdminUserHasAuthGroupMapper" >
+  <resultMap id="BaseResultMap" type="AdminUserHasAuthGroup" >
+    <id column="sh_admin_user_id" property="shAdminUserId" jdbcType="INTEGER" />
+    <id column="sh_authority_group_id" property="shAuthorityGroupId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="AdminUserHasAuthGroup" >
+    delete from 
+    	sh_admin_user_has_sh_authority_group
+    where 1 = 1
+      and sh_admin_user_id = #{adminUser.id,jdbcType=INTEGER}
+      and sh_authority_group_id = #{authorityGroup.id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="addAdminUserHasAuthGroup" parameterType="AdminUserHasAuthGroup" >
+    insert into 
+    	sh_admin_user_has_sh_authority_group (sh_admin_user_id, sh_authority_group_id)
+    values 
+    	(#{adminUser.id,jdbcType=INTEGER}, #{authorityGroup.id,jdbcType=INTEGER})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="AdminUserHasAuthGroup" >
+    insert into sh_admin_user_has_sh_authority_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shAdminUserId != null" >
+        sh_admin_user_id,
+      </if>
+      <if test="shAuthorityGroupId != null" >
+        sh_authority_group_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shAdminUserId != null" >
+        #{shAdminUserId,jdbcType=INTEGER},
+      </if>
+      <if test="shAuthorityGroupId != null" >
+        #{shAuthorityGroupId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="getAuthGroup" parameterType="AdminUser" resultMap="net.shinc.orm.mybatis.mappers.AuthorityGroupMapper.BaseResultMap">
+  	select
+  		id, sh_company_id, name, remark
+  	from
+  		sh_authority_group a
+  	join
+  		sh_admin_user_has_sh_authority_group b
+  	on
+  		a.id = b.sh_authority_group_id
+  	where 1 = 1
+  		<if test="null != id">
+	  		and b.sh_admin_user_id = #{id,jdbcType=INTEGER}
+  		</if>
+  </select>
+  
+</mapper>

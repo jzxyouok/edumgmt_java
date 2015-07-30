@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.AuthorityGroupMapper" >
+  <resultMap id="BaseResultMap" type="AuthorityGroup" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <association property="company" column="sh_company_id" javaType="Company" select="selectCompanyById"></association>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, sh_company_id, name, remark
+  </sql>
+  
+  <select id="selectCompanyById" parameterType="java.lang.Integer" resultType="Company">
+		select 
+	    	id, company_name companyName, address, name, tel, enabled, DATE_FORMAT(create_time , '%Y-%m-%d %H:%i') createTime, DATE_FORMAT(update_time , '%Y-%m-%d %H:%i') updateTime
+	    from 
+	    	sh_company
+	    where 
+	    	id = #{sh_company_id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sh_authority_group
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sh_authority_group
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="AuthorityGroup" >
+    insert into 
+    	sh_authority_group (id, sh_company_id, name, remark)
+    values 
+    	(#{id,jdbcType=INTEGER}, #{company.id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="AuthorityGroup" >
+    insert into sh_authority_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="company != null" >
+        sh_company_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="company != null" >
+        #{company.id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="AuthorityGroup" >
+    update sh_authority_group
+    <set >
+      <if test="shCompanyId != null" >
+        sh_company_id = #{company.id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="AuthorityGroup" >
+    update sh_authority_group
+    set 
+    	sh_company_id = #{company.id,jdbcType=INTEGER},
+      	name = #{name,jdbcType=VARCHAR},
+      	remark = #{remark,jdbcType=VARCHAR}
+    where 
+    	id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectAllAuthorityGroup" parameterType="Company" resultMap="BaseResultMap">
+   	select 
+    	<include refid="Base_Column_List" />
+    from 
+    	sh_authority_group
+    where 
+    	sh_company_id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>

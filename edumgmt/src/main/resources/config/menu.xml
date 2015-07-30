@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<contents>
+	<menus>
+		<!-- 题目视频管理 begin -->
+		<menu>
+			<level>1</level>
+			<parent>videoManage</parent>
+			<value>videoManage</value>                <!--    一级菜单  题目视频管理 -->
+			<url>none</url>
+		</menu>
+		<menu>
+			<level>2</level>
+			<parent>videoManage</parent>
+			<value>simulateIssuesManage</value>       <!--    二级菜单  真题/模拟题库管理 --> 
+			<url>node</url>
+		</menu>
+		<menu>
+			<level>2</level>
+			<parent>videoManage</parent>
+			<value>selfIssuesManage</value>           <!--    二级菜单  自编/改编题库管理 --> 
+			<url>node</url>
+		</menu>
+		<menu>
+			<level>2</level>
+			<parent>videoManage</parent>
+			<value>simulateStructureManage</value>    <!--    二级菜单  真题/模拟题库结构 --> 
+			<url>node</url>
+		</menu>
+		<!--  题目视频管理 end  -->
+		
+		
+		<!--  知识点管理 begin  -->
+		<menu>
+			<level>1</level>
+			<parent>knowledgeManage</parent>
+			<value>knowledgeManage</value>          <!--   一级菜单  知识点管理 -->
+			<url>none</url>
+		</menu>
+		<menu>
+			<level>2</level>
+			<parent>knowledgeManage</parent>
+			<value>knowledgeVideoManage</value>     <!--    二级菜单  知识点视频管理 -->
+			<url>none</url>
+		</menu>
+		<menu>
+			<level>2</level>
+			<parent>knowledgeManage</parent>
+			<value>knowledgeStructureManage</value>  <!--   二级菜单  知识点结构管理 -->
+			<url>none</url>
+		</menu>
+		<!--  知识点管理 end  -->
+		
+		
+		<!--  信息管理 begin  -->
+		<menu>
+			<level>1</level>
+			<parent>infoManage</parent>
+			<value>infoManage</value>				<!--   一级菜单  信息管理 -->
+			<url>none</url>
+		</menu>
+		<menu>
+			<level>2</level>
+			<parent>infoManage</parent>
+			<value>knowledgeTagManage</value>		<!--   二级菜单  知识点标签管理 -->
+			<url>none</url>
+		</menu>
+		<menu>
+			<level>2</level>
+			<parent>infoManage</parent>
+			<value>lectureManage</value>		    <!--   二级菜单  讲解人管理 -->
+			<url>none</url>
+		</menu>
+		<!--  信息管理 end  -->
+		
+		
+		<!--  教师管理 begin   -->
+		<menu>
+			<level>1</level>
+			<parent>adminUserManage</parent>
+			<value>adminUserManage</value>          <!--   一级菜单  教师管理 -->
+			<url>none</url>
+		</menu>
+		<menu>
+			<level>2</level>
+			<parent>adminUserManage</parent>
+			<value>adminUserList</value>            <!--   二级菜单  教师管理 -->
+			<url>/user/list/</url>
+		</menu>
+		<!--  教师管理 end   -->
+		
+	</menus>
+</contents>
