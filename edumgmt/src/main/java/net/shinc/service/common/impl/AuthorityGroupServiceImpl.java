@@ -7,9 +7,9 @@ import net.shinc.orm.mybatis.bean.common.AuthGroupHasAuth;
 import net.shinc.orm.mybatis.bean.common.Authority;
 import net.shinc.orm.mybatis.bean.common.AuthorityGroup;
 import net.shinc.orm.mybatis.bean.common.Company;
-import net.shinc.orm.mybatis.mappers.AdminUserMapper;
-import net.shinc.orm.mybatis.mappers.AuthGroupHasAuthMapper;
-import net.shinc.orm.mybatis.mappers.AuthorityGroupMapper;
+import net.shinc.orm.mybatis.mappers.common.AdminUserMapper;
+import net.shinc.orm.mybatis.mappers.common.AuthGroupHasAuthMapper;
+import net.shinc.orm.mybatis.mappers.common.AuthorityGroupMapper;
 import net.shinc.service.common.AuthorityGroupService;
 
 import org.springframework.beans.factory.annotation.Autowired;

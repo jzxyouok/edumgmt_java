@@ -5,7 +5,7 @@ import java.util.List;
 
 import net.shinc.common.ShincUtil;
 import net.shinc.orm.mybatis.bean.common.Company;
-import net.shinc.orm.mybatis.mappers.CompanyMapper;
+import net.shinc.orm.mybatis.mappers.common.CompanyMapper;
 import net.shinc.service.common.CompanyService;
 
 import org.springframework.beans.factory.annotation.Autowired;

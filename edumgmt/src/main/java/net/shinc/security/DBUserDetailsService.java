@@ -1,7 +1,7 @@
 package net.shinc.security;
 
 import net.shinc.orm.mybatis.bean.common.AdminUser;
-import net.shinc.orm.mybatis.mappers.AdminUserMapper;
+import net.shinc.orm.mybatis.mappers.common.AdminUserMapper;
 import net.shinc.service.common.AdminUserService;
 
 import org.slf4j.Logger;

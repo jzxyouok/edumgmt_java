@@ -4,7 +4,7 @@ import java.util.List;
 
 import net.shinc.orm.mybatis.bean.common.AdminUser;
 import net.shinc.orm.mybatis.bean.common.Authority;
-import net.shinc.orm.mybatis.mappers.AuthorityMapper;
+import net.shinc.orm.mybatis.mappers.common.AuthorityMapper;
 import net.shinc.service.common.AuthorityService;
 
 import org.springframework.beans.factory.annotation.Autowired;
