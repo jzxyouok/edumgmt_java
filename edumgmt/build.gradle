@@ -20,7 +20,7 @@ apply plugin: 'war'
 
 
 war {
-    baseName = 'infomgmt'
+    baseName = 'edumgmt'
 }
 
 bootRun {
