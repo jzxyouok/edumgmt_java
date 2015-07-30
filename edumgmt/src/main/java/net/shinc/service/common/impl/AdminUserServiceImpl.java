@@ -9,9 +9,9 @@ import net.shinc.orm.mybatis.bean.common.AdminUserHasAuthGroup;
 import net.shinc.orm.mybatis.bean.common.Authority;
 import net.shinc.orm.mybatis.bean.common.AuthorityGroup;
 import net.shinc.orm.mybatis.bean.common.Company;
-import net.shinc.orm.mybatis.mappers.AdminUserHasAuthGroupMapper;
-import net.shinc.orm.mybatis.mappers.AdminUserMapper;
-import net.shinc.orm.mybatis.mappers.CompanyMapper;
+import net.shinc.orm.mybatis.mappers.common.AdminUserHasAuthGroupMapper;
+import net.shinc.orm.mybatis.mappers.common.AdminUserMapper;
+import net.shinc.orm.mybatis.mappers.common.CompanyMapper;
 import net.shinc.service.common.AdminUserService;
 import net.shinc.service.common.MenuService;
 

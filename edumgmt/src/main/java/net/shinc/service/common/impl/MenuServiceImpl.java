@@ -12,7 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import net.shinc.orm.mybatis.bean.common.AdminUser;
 import net.shinc.orm.mybatis.bean.common.Authority;
 import net.shinc.orm.mybatis.bean.common.Menu;
-import net.shinc.orm.mybatis.mappers.AdminUserHasAuthGroupMapper;
+import net.shinc.orm.mybatis.mappers.common.AdminUserHasAuthGroupMapper;
 import net.shinc.service.common.MenuService;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;

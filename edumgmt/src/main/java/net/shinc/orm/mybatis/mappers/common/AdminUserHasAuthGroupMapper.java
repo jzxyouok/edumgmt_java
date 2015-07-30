@@ -1,4 +1,4 @@
-package net.shinc.orm.mybatis.mappers;
+package net.shinc.orm.mybatis.mappers.common;
 
 import java.util.List;
 
