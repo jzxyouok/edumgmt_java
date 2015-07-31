@@ -1,23 +1,31 @@
 package net.shinc.orm.mybatis.bean;
 
+/**
+ * @ClassName: VideoPoint
+ * @Description: 知识点信息
+ * @author hushichong
+ * @date 2015年7月31日 下午3:48:37
+ */
 public class VideoPoint {
-    private Integer id;
+	
+	private Integer id;
 
-    private Integer shVideoBaseId;
+	private Integer videoBaseId;
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Integer getShVideoBaseId() {
-        return shVideoBaseId;
-    }
+	public Integer getVideoBaseId() {
+		return videoBaseId;
+	}
 
-    public void setShVideoBaseId(Integer shVideoBaseId) {
-        this.shVideoBaseId = shVideoBaseId;
-    }
+	public void setVideoBaseId(Integer videoBaseId) {
+		this.videoBaseId = videoBaseId;
+	}
+
 }

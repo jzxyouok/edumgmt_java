@@ -1,43 +1,34 @@
 package net.shinc.orm.mybatis.bean;
-
+/**
+  * @ClassName: VideoSelf
+  * @Description: 自编题信息
+  * @author hushichong
+  * @date 2015年7月31日 下午3:51:17
+ */
 public class VideoSelf {
-    private Integer id;
+	
+	private Integer id;
 
-    private Integer shVideoBaseId;
+	private Integer videoBaseId;
 
-    private String type;
+	private String type;
 
-    private Integer shQuestionTypeId;
+	private Integer questionTypeId;
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Integer getShVideoBaseId() {
-        return shVideoBaseId;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setShVideoBaseId(Integer shVideoBaseId) {
-        this.shVideoBaseId = shVideoBaseId;
-    }
+	public void setType(String type) {
+		this.type = type == null ? null : type.trim();
+	}
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
-    }
-
-    public Integer getShQuestionTypeId() {
-        return shQuestionTypeId;
-    }
-
-    public void setShQuestionTypeId(Integer shQuestionTypeId) {
-        this.shQuestionTypeId = shQuestionTypeId;
-    }
 }

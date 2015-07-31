@@ -3,10 +3,10 @@
 <mapper namespace="net.shinc.orm.mybatis.mappers.VideoBaseMapper" >
   <resultMap id="BaseResultMap" type="VideoBase" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="sh_admin_user_id" property="shAdminUserId" jdbcType="INTEGER" />
-    <result column="sh_course_id" property="shCourseId" jdbcType="INTEGER" />
-    <result column="sh_question_type_id" property="shQuestionTypeId" jdbcType="INTEGER" />
-    <result column="sh_lecture_id" property="shLectureId" jdbcType="INTEGER" />
+    <result column="sh_admin_user_id" property="adminUserId" jdbcType="INTEGER" />
+    <result column="sh_course_id" property="courseId" jdbcType="INTEGER" />
+    <result column="sh_question_type_id" property="questionTypeId" jdbcType="INTEGER" />
+    <result column="sh_lecture_id" property="lectureId" jdbcType="INTEGER" />
     <result column="question_id" property="questionId" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="desc" property="desc" jdbcType="VARCHAR" />
@@ -35,8 +35,8 @@
       title, desc, difficulty, 
       status, question_number, updatetime
       )
-    values (#{id,jdbcType=INTEGER}, #{shAdminUserId,jdbcType=INTEGER}, #{shCourseId,jdbcType=INTEGER}, 
-      #{shQuestionTypeId,jdbcType=INTEGER}, #{shLectureId,jdbcType=INTEGER}, #{questionId,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{adminUserId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, 
+      #{questionTypeId,jdbcType=INTEGER}, #{lectureId,jdbcType=INTEGER}, #{questionId,jdbcType=VARCHAR}, 
       #{title,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, #{difficulty,jdbcType=VARCHAR}, 
       #{status,jdbcType=VARCHAR}, #{questionNumber,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}
       )
@@ -47,16 +47,16 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="shAdminUserId != null" >
+      <if test="adminUserId != null" >
         sh_admin_user_id,
       </if>
-      <if test="shCourseId != null" >
+      <if test="courseId != null" >
         sh_course_id,
       </if>
-      <if test="shQuestionTypeId != null" >
+      <if test="questionTypeId != null" >
         sh_question_type_id,
       </if>
-      <if test="shLectureId != null" >
+      <if test="lectureId != null" >
         sh_lecture_id,
       </if>
       <if test="questionId != null" >
@@ -85,17 +85,17 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="shAdminUserId != null" >
-        #{shAdminUserId,jdbcType=INTEGER},
+      <if test="adminUserId != null" >
+        #{adminUserId,jdbcType=INTEGER},
       </if>
-      <if test="shCourseId != null" >
-        #{shCourseId,jdbcType=INTEGER},
+      <if test="courseId != null" >
+        #{courseId,jdbcType=INTEGER},
       </if>
-      <if test="shQuestionTypeId != null" >
-        #{shQuestionTypeId,jdbcType=INTEGER},
+      <if test="questionTypeId != null" >
+        #{questionTypeId,jdbcType=INTEGER},
       </if>
-      <if test="shLectureId != null" >
-        #{shLectureId,jdbcType=INTEGER},
+      <if test="lectureId != null" >
+        #{lectureId,jdbcType=INTEGER},
       </if>
       <if test="questionId != null" >
         #{questionId,jdbcType=VARCHAR},
@@ -123,17 +123,17 @@
   <update id="updateByPrimaryKeySelective" parameterType="VideoBase" >
     update sh_video_base
     <set >
-      <if test="shAdminUserId != null" >
-        sh_admin_user_id = #{shAdminUserId,jdbcType=INTEGER},
+      <if test="adminUserId != null" >
+        sh_admin_user_id = #{adminUserId,jdbcType=INTEGER},
       </if>
-      <if test="shCourseId != null" >
-        sh_course_id = #{shCourseId,jdbcType=INTEGER},
+      <if test="courseId != null" >
+        sh_course_id = #{courseId,jdbcType=INTEGER},
       </if>
-      <if test="shQuestionTypeId != null" >
-        sh_question_type_id = #{shQuestionTypeId,jdbcType=INTEGER},
+      <if test="questionTypeId != null" >
+        sh_question_type_id = #{questionTypeId,jdbcType=INTEGER},
       </if>
-      <if test="shLectureId != null" >
-        sh_lecture_id = #{shLectureId,jdbcType=INTEGER},
+      <if test="lectureId != null" >
+        sh_lecture_id = #{lectureId,jdbcType=INTEGER},
       </if>
       <if test="questionId != null" >
         question_id = #{questionId,jdbcType=VARCHAR},
@@ -161,10 +161,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="VideoBase" >
     update sh_video_base
-    set sh_admin_user_id = #{shAdminUserId,jdbcType=INTEGER},
-      sh_course_id = #{shCourseId,jdbcType=INTEGER},
-      sh_question_type_id = #{shQuestionTypeId,jdbcType=INTEGER},
-      sh_lecture_id = #{shLectureId,jdbcType=INTEGER},
+    set sh_admin_user_id = #{adminUserId,jdbcType=INTEGER},
+      sh_course_id = #{courseId,jdbcType=INTEGER},
+      sh_question_type_id = #{questionTypeId,jdbcType=INTEGER},
+      sh_lecture_id = #{lectureId,jdbcType=INTEGER},
       question_id = #{questionId,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       desc = #{desc,jdbcType=VARCHAR},
