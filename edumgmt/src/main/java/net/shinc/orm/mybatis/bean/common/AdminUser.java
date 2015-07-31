@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
@@ -60,10 +61,10 @@ public class AdminUser implements UserDetails {
     private List<Menu> menuMap;
     
     public static AdminUser getCurrentUser() {
-//		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		if(o instanceof AdminUser) {
-//			return (AdminUser)o;
-//		}
+		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(o instanceof AdminUser) {
+			return (AdminUser)o;
+		}
 		return null;
 	}
 	
