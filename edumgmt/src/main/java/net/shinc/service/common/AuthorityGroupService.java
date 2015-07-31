@@ -32,21 +32,21 @@ public interface AuthorityGroupService {
 	
 	/**
 	 * 根据id获取权限组
-	 * @param id
+	 * @param authorityGroup
 	 * @return
 	 */
-	public AuthorityGroup getAuthorityGroupById(AuthorityGroup AuthorityGroup);
+	public AuthorityGroup getAuthorityGroupById(AuthorityGroup authorityGroup);
 	
 	/**
 	 * 新增权限组
-	 * @param AuthorityGroup
+	 * @param authorityGroup
 	 * @return
 	 */
-	public Integer addAuthorityGroup(AuthorityGroup AuthorityGroup);
+	public Integer addAuthorityGroup(AuthorityGroup authorityGroup);
 	
 	/**
 	 * 删除权限组
-	 * @param AuthorityGroup
+	 * @param authGroupId
 	 * @return
 	 */
 	public Integer deleteAuthorityGroup(Integer authGroupId);
@@ -60,13 +60,14 @@ public interface AuthorityGroupService {
 	
 	/**
 	 * 查询权限组下的员工
-	 * @param AuthorityGroup
+	 * @param authorityGroup
 	 * @return
 	 */
-	public List<AdminUser> getAdminUserListByPosition(AuthorityGroup AuthorityGroup,PageBounds pageBounds);
+	public List<AdminUser> getAdminUserListByPosition(AuthorityGroup authorityGroup,PageBounds pageBounds);
 	
 	/**
 	 * 给权限组添加权限
+	 * @param list
 	 * @return
 	 */
 	public Integer addAuthGroupHasAuth(List<AuthGroupHasAuth> list);
@@ -86,10 +87,19 @@ public interface AuthorityGroupService {
 	public Integer deleteAuthGroupHasUser(Integer authGroupId);
 	
 	/**
+	 * 删除该用户与权限组的对应关系
+	 * @param adminUserId
+	 * @return
+	 */
+	public Integer deleteAdminUserHasAuthGroup(Integer adminUserId);
+	
+	/**
 	 * 获取权限组的所有权限列表
-	 * @param AuthorityGroup
+	 * @param authorityGroup
 	 * @return
 	 */
 	public List<Authority> getAuthorityList(AuthorityGroup authorityGroup);
+	
+	
 	
 }

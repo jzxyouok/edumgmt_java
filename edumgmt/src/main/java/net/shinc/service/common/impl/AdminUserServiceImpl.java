@@ -32,9 +32,9 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
 /**
- * @ClassName AdminUserServiceImpl 
+ * @ClassName AdminUserServiceImpl
  * @Description 后台管理用户接口实现类
- * @author guoshijie 
+ * @author guoshijie
  * @date 2015年7月14日 上午11:53:24
  */
 @Service
@@ -42,34 +42,34 @@ public class AdminUserServiceImpl implements AdminUserService {
 
 	@Autowired
 	private AdminUserMapper adminUserMapper;
-	
+
 	@Autowired
 	private MessageSource messageSource;
-	
+
 	@Autowired
 	private CompanyMapper companyMapper;
-	
+
 	@Autowired
 	private ApplicationContext applicationContext;
-	
+
 	@Autowired
 	private AdminUserHasAuthGroupMapper adminUserHasAuthGroupMapper;
-	
+
 	@Autowired
-	private AuthorityGroupService authorityGroupService;
-	
+	private AuthorityGroupService authGroupService;
+
 	@Autowired
 	private MenuService menuService;
-	
+
 	private Logger logger = LoggerFactory.getLogger(getClass());
-	
+
 	public static String pattern = "yyyy-MM-dd HH:mm:ss";
-	
+
 	@Override
-	public PageList<AdminUser> getAdminUserList(PageBounds pageBounds,Company company) {
-		if(null != company) {
-			List<AdminUser> list = adminUserMapper.getAdminUserList(company,pageBounds);
-			PageList<AdminUser> pageList = (PageList<AdminUser>)list;
+	public PageList<AdminUser> getAdminUserList(PageBounds pageBounds, Company company) {
+		if (null != company) {
+			List<AdminUser> list = adminUserMapper.getAdminUserList(company, pageBounds);
+			PageList<AdminUser> pageList = (PageList<AdminUser>) list;
 			return pageList;
 		}
 		return null;
@@ -97,9 +97,8 @@ public class AdminUserServiceImpl implements AdminUserService {
 	@Override
 	@Transactional
 	public Integer deleteAdminUser(AdminUser adminUser) {
-		if(null != adminUser){
-			//解除用户与权限组的关系
-			
+		if (null != adminUser) {
+			authGroupService.deleteAdminUserHasAuthGroup(adminUser.getId());// 解除用户与权限组的关系
 			return adminUserMapper.deleteByPrimaryKey(adminUser.getId());
 		}
 		return 0;
@@ -107,7 +106,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 
 	@Override
 	public Integer updateAdminUser(AdminUser adminUser) {
-		if(null != adminUser){
+		if (null != adminUser) {
 			adminUser.setUpdateTime(ShincUtil.formatDate(new Date(), pattern));
 			return adminUserMapper.updateByPrimaryKeySelective(adminUser);
 		}
@@ -116,9 +115,9 @@ public class AdminUserServiceImpl implements AdminUserService {
 
 	@Override
 	public AdminUser getAdminUserById(Integer adminId) {
-		if(null != adminId ) {
+		if (null != adminId) {
 			AdminUser admin = adminUserMapper.getAdminUserById(adminId);
-			if(null != admin) {
+			if (null != admin) {
 				admin.setMenuMap(menuService.getMenu(admin));
 			}
 			return admin;
@@ -129,15 +128,15 @@ public class AdminUserServiceImpl implements AdminUserService {
 	@Override
 	public PageList<AdminUser> getAdminUserByCompany(Company company, PageBounds pageBounds) {
 		List<AdminUser> list = adminUserMapper.getAdminUserByCompany(company.getId(), pageBounds);
-		PageList<AdminUser> pageList = (PageList<AdminUser>)list;
+		PageList<AdminUser> pageList = (PageList<AdminUser>) list;
 		return pageList;
 	}
 
 	@Override
 	public AdminUser getAdminUserByNickName(String nickname) {
-		if(null != nickname) {
+		if (null != nickname) {
 			AdminUser admin = adminUserMapper.getAdminUserByNickName(nickname);
-			if(null != admin){
+			if (null != admin) {
 				admin.setMenuMap(menuService.getMenu(admin));
 				admin.setAuthorities(getAuthorities(admin));
 			}
@@ -156,13 +155,13 @@ public class AdminUserServiceImpl implements AdminUserService {
 
 	@Override
 	public List<AuthorityGroup> getAuthGroup(AdminUser adminUser) {
-		if(null != adminUser){
+		if (null != adminUser) {
 			List<AuthorityGroup> list = adminUserHasAuthGroupMapper.getAuthGroup(adminUser);
 			return list;
 		}
 		return null;
 	}
-	
+
 	@Override
 	public List<Authority> getAuthList(AdminUser adminUser) {
 		List<Authority> authList = new ArrayList<Authority>();
@@ -170,18 +169,18 @@ public class AdminUserServiceImpl implements AdminUserService {
 			List<AuthorityGroup> authGroup = getAuthGroup(adminUser);
 			if (null != authGroup && authGroup.size() > 0) {
 				for (AuthorityGroup authorityGroup : authGroup) {
-					List<Authority> list = authorityGroupService.getAuthorityList(authorityGroup);
+					List<Authority> list = authGroupService.getAuthorityList(authorityGroup);
 					authList.addAll(list);
 				}
 			}
 		}
 		return authList;
 	}
-	
+
 	@Override
-	public Collection<GrantedAuthority> getAuthorities(AdminUser adminUser){
+	public Collection<GrantedAuthority> getAuthorities(AdminUser adminUser) {
 		Collection<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
-		if(null != adminUser) {
+		if (null != adminUser) {
 			List<Authority> authList = getAuthList(adminUser);
 			for (Authority authority : authList) {
 				list.add(authority);
@@ -190,5 +189,5 @@ public class AdminUserServiceImpl implements AdminUserService {
 		}
 		return null;
 	}
-	
+
 }

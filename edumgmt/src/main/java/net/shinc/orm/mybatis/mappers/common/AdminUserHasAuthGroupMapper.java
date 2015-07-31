@@ -18,6 +18,13 @@ public interface AdminUserHasAuthGroupMapper {
      */
     public int deleteAdminUserHasAuthGroup(Integer authGroupId);
     
+    /**
+     * 解除该用户与权限组的对应关系
+     * @param adminUserId 用户id
+     * @return
+     */
+    public int deleteAdminHasAuthGroup(Integer adminUserId);
+    
     public List<AuthorityGroup> getAuthGroup(AdminUser adminUser);
     
 }

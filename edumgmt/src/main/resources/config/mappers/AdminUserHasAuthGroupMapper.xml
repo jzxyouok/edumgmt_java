@@ -13,12 +13,11 @@
       and sh_authority_group_id = #{authGroupId,jdbcType=INTEGER}
   </delete>
   
-  <delete id="deleteByPrimaryKey" parameterType="AdminUserHasAuthGroup" >
-    delete from 
+  <delete id="deleteAdminHasAuthGroup" parameterType="java.lang.Integer">
+  	delete from 
     	sh_admin_user_has_sh_authority_group
     where 1 = 1
-      and sh_admin_user_id = #{adminUser.id,jdbcType=INTEGER}
-      and sh_authority_group_id = #{authorityGroup.id,jdbcType=INTEGER}
+      and sh_admin_user_id = #{adminUserId,jdbcType=INTEGER}
   </delete>
   
   <insert id="addAdminUserHasAuthGroup" parameterType="AdminUserHasAuthGroup" >

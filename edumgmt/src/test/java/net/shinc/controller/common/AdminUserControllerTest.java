@@ -80,8 +80,8 @@ public class AdminUserControllerTest {
 	@Test
 	public void testAddAdminUser3() {
 		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/adminUser/addAdminUser")
-				.param("company.id", "1").param("realname", "张盼")
-				.param("nickname", "steven").param("password", "123456")
+				.param("company.id", "1").param("realname", "测试1")
+				.param("nickname", "test1").param("password", "123456")
 				.param("sex", "0").param("address", "北京朝阳区望京中心")
 				.param("email", "zhangpan@163.com").param("tel", "13611113333")
 				.param("enabled", "1").param("remark", "语文老师").param("position", "老师")
@@ -127,7 +127,7 @@ public class AdminUserControllerTest {
 	@Test
 	public void testDeleteAdminUser() {
 		try {
-			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/adminUser/deleteAdminUser").param("id", "3");
+			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/adminUser/deleteAdminUser").param("id", "4");
 			mockMvc.perform(reqbuild).andDo(handler);
 		} catch (Exception e) {
 			e.printStackTrace();
