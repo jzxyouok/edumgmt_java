@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.VideoPastpaperMapper" >
+  <resultMap id="BaseResultMap" type="VideoPastpaper" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sh_video_base_id" property="shVideoBaseId" jdbcType="INTEGER" />
+    <result column="sh_questionbank_id" property="shQuestionbankId" jdbcType="INTEGER" />
+    <result column="sh_questionbank_year_id" property="shQuestionbankYearId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sh_video_base_id, sh_questionbank_id, sh_questionbank_year_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sh_video_pastpaper
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sh_video_pastpaper
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="VideoPastpaper" >
+    insert into sh_video_pastpaper (id, sh_video_base_id, sh_questionbank_id, 
+      sh_questionbank_year_id)
+    values (#{id,jdbcType=INTEGER}, #{shVideoBaseId,jdbcType=INTEGER}, #{shQuestionbankId,jdbcType=INTEGER}, 
+      #{shQuestionbankYearId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="VideoPastpaper" >
+    insert into sh_video_pastpaper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="shVideoBaseId != null" >
+        sh_video_base_id,
+      </if>
+      <if test="shQuestionbankId != null" >
+        sh_questionbank_id,
+      </if>
+      <if test="shQuestionbankYearId != null" >
+        sh_questionbank_year_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="shVideoBaseId != null" >
+        #{shVideoBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="shQuestionbankId != null" >
+        #{shQuestionbankId,jdbcType=INTEGER},
+      </if>
+      <if test="shQuestionbankYearId != null" >
+        #{shQuestionbankYearId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="VideoPastpaper" >
+    update sh_video_pastpaper
+    <set >
+      <if test="shVideoBaseId != null" >
+        sh_video_base_id = #{shVideoBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="shQuestionbankId != null" >
+        sh_questionbank_id = #{shQuestionbankId,jdbcType=INTEGER},
+      </if>
+      <if test="shQuestionbankYearId != null" >
+        sh_questionbank_year_id = #{shQuestionbankYearId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="VideoPastpaper" >
+    update sh_video_pastpaper
+    set sh_video_base_id = #{shVideoBaseId,jdbcType=INTEGER},
+      sh_questionbank_id = #{shQuestionbankId,jdbcType=INTEGER},
+      sh_questionbank_year_id = #{shQuestionbankYearId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

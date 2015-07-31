@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.VideoBaseMapper" >
+  <resultMap id="BaseResultMap" type="VideoBase" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sh_admin_user_id" property="shAdminUserId" jdbcType="INTEGER" />
+    <result column="sh_course_id" property="shCourseId" jdbcType="INTEGER" />
+    <result column="sh_question_type_id" property="shQuestionTypeId" jdbcType="INTEGER" />
+    <result column="sh_lecture_id" property="shLectureId" jdbcType="INTEGER" />
+    <result column="question_id" property="questionId" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="desc" property="desc" jdbcType="VARCHAR" />
+    <result column="difficulty" property="difficulty" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="question_number" property="questionNumber" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sh_admin_user_id, sh_course_id, sh_question_type_id, sh_lecture_id, question_id, 
+    title, desc, difficulty, status, question_number, updatetime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sh_video_base
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sh_video_base
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="VideoBase" >
+    insert into sh_video_base (id, sh_admin_user_id, sh_course_id, 
+      sh_question_type_id, sh_lecture_id, question_id, 
+      title, desc, difficulty, 
+      status, question_number, updatetime
+      )
+    values (#{id,jdbcType=INTEGER}, #{shAdminUserId,jdbcType=INTEGER}, #{shCourseId,jdbcType=INTEGER}, 
+      #{shQuestionTypeId,jdbcType=INTEGER}, #{shLectureId,jdbcType=INTEGER}, #{questionId,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, #{difficulty,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{questionNumber,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="VideoBase" >
+    insert into sh_video_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="shAdminUserId != null" >
+        sh_admin_user_id,
+      </if>
+      <if test="shCourseId != null" >
+        sh_course_id,
+      </if>
+      <if test="shQuestionTypeId != null" >
+        sh_question_type_id,
+      </if>
+      <if test="shLectureId != null" >
+        sh_lecture_id,
+      </if>
+      <if test="questionId != null" >
+        question_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="desc != null" >
+        desc,
+      </if>
+      <if test="difficulty != null" >
+        difficulty,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="questionNumber != null" >
+        question_number,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="shAdminUserId != null" >
+        #{shAdminUserId,jdbcType=INTEGER},
+      </if>
+      <if test="shCourseId != null" >
+        #{shCourseId,jdbcType=INTEGER},
+      </if>
+      <if test="shQuestionTypeId != null" >
+        #{shQuestionTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="shLectureId != null" >
+        #{shLectureId,jdbcType=INTEGER},
+      </if>
+      <if test="questionId != null" >
+        #{questionId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="difficulty != null" >
+        #{difficulty,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="questionNumber != null" >
+        #{questionNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="VideoBase" >
+    update sh_video_base
+    <set >
+      <if test="shAdminUserId != null" >
+        sh_admin_user_id = #{shAdminUserId,jdbcType=INTEGER},
+      </if>
+      <if test="shCourseId != null" >
+        sh_course_id = #{shCourseId,jdbcType=INTEGER},
+      </if>
+      <if test="shQuestionTypeId != null" >
+        sh_question_type_id = #{shQuestionTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="shLectureId != null" >
+        sh_lecture_id = #{shLectureId,jdbcType=INTEGER},
+      </if>
+      <if test="questionId != null" >
+        question_id = #{questionId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        desc = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="difficulty != null" >
+        difficulty = #{difficulty,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="questionNumber != null" >
+        question_number = #{questionNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="VideoBase" >
+    update sh_video_base
+    set sh_admin_user_id = #{shAdminUserId,jdbcType=INTEGER},
+      sh_course_id = #{shCourseId,jdbcType=INTEGER},
+      sh_question_type_id = #{shQuestionTypeId,jdbcType=INTEGER},
+      sh_lecture_id = #{shLectureId,jdbcType=INTEGER},
+      question_id = #{questionId,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      desc = #{desc,jdbcType=VARCHAR},
+      difficulty = #{difficulty,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      question_number = #{questionNumber,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
