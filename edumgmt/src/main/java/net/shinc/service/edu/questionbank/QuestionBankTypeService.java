@@ -1,4 +1,4 @@
-package net.shinc.service.questionbank;
+package net.shinc.service.edu.questionbank;
 
 import net.shinc.orm.mybatis.bean.QuestionBankType;
 
