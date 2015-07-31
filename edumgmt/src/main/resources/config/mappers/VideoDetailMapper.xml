@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.VideoDetailMapper" >
+  <resultMap id="BaseResultMap" type="VideoDetail" >
+    <id column="type" property="type" jdbcType="VARCHAR" />
+    <id column="sh_video_base_id" property="videoBaseId" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="store_info" property="storeInfo" jdbcType="VARCHAR" />
+    <result column="store_type" property="storeType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    type, sh_video_base_id, url, updatetime, store_info, store_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="VideoDetail" >
+    select 
+    <include refid="Base_Column_List" />
+    from sh_video_detail
+    where type = #{type,jdbcType=VARCHAR}
+      and sh_video_base_id = #{videoBaseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="VideoDetail" >
+    delete from sh_video_detail
+    where type = #{type,jdbcType=VARCHAR}
+      and sh_video_base_id = #{videoBaseId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="VideoDetail" >
+    insert into sh_video_detail (type, sh_video_base_id, url, 
+      updatetime, store_info, store_type
+      )
+    values (#{type,jdbcType=VARCHAR}, #{videoBaseId,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{storeInfo,jdbcType=VARCHAR}, #{storeType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="VideoDetail" >
+    insert into sh_video_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="videoBaseId != null" >
+        sh_video_base_id,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="storeInfo != null" >
+        store_info,
+      </if>
+      <if test="storeType != null" >
+        store_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="videoBaseId != null" >
+        #{videoBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeInfo != null" >
+        #{storeInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="storeType != null" >
+        #{storeType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="VideoDetail" >
+    update sh_video_detail
+    <set >
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeInfo != null" >
+        store_info = #{storeInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="storeType != null" >
+        store_type = #{storeType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where type = #{type,jdbcType=VARCHAR}
+      and sh_video_base_id = #{videoBaseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="VideoDetail" >
+    update sh_video_detail
+    set url = #{url,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      store_info = #{storeInfo,jdbcType=VARCHAR},
+      store_type = #{storeType,jdbcType=VARCHAR}
+    where type = #{type,jdbcType=VARCHAR}
+      and sh_video_base_id = #{videoBaseId,jdbcType=INTEGER}
+  </update>
+</mapper>

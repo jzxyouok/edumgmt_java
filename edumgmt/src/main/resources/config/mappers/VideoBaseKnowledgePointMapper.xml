@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.VideoBaseKnowledgePointMapper" >
+  <resultMap id="BaseResultMap" type="VideoBaseKnowledgePointKey" >
+    <id column="sh_video_base_id" property="videoBaseId" jdbcType="INTEGER" />
+    <id column="sh_knowledge_point_id" property="knowledgePointId" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="VideoBaseKnowledgePointKey" >
+    delete from sh_video_base_knowledge_point
+    where sh_video_base_id = #{videoBaseId,jdbcType=INTEGER}
+      and sh_knowledge_point_id = #{knowledgePointId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="VideoBaseKnowledgePointKey" >
+    insert into sh_video_base_knowledge_point (sh_video_base_id, sh_knowledge_point_id
+      )
+    values (#{videoBaseId,jdbcType=INTEGER}, #{knowledgePointId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="VideoBaseKnowledgePointKey" >
+    insert into sh_video_base_knowledge_point
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="videoBaseId != null" >
+        sh_video_base_id,
+      </if>
+      <if test="knowledgePointId != null" >
+        sh_knowledge_point_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="videoBaseId != null" >
+        #{videoBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="knowledgePointId != null" >
+        #{knowledgePointId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>
