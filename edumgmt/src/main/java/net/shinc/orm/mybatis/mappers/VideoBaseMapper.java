@@ -1,17 +1,25 @@
 package net.shinc.orm.mybatis.mappers;
 
+import java.util.List;
+
 import net.shinc.orm.mybatis.bean.VideoBase;
-
+/**
+  * @ClassName: VideoBaseMapper
+  * @author hushichong
+  * @date 2015年7月31日 下午4:42:55
+ */
 public interface VideoBaseMapper {
-	int deleteByPrimaryKey(Integer id);
 
-	int insert(VideoBase record);
+	public void deleteVideoBaseById(Integer id);
 
-	int insertSelective(VideoBase record);
+	public Integer insertVideoBase(VideoBase videoBase);
 
-	VideoBase selectByPrimaryKey(Integer id);
+	public void updateVideoBase(VideoBase videoBase);
 
-	int updateByPrimaryKeySelective(VideoBase record);
+	public VideoBase getByVideoBaseById(Integer id);
 
-	int updateByPrimaryKey(VideoBase record);
+	public List<VideoBase> getVideoBaseList(VideoBase videoBase);
+
+	public Integer getVideoBaseListCount(VideoBase videoBase);
+
 }

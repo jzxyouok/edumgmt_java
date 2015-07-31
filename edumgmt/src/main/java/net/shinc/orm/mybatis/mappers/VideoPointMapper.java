@@ -1,17 +1,24 @@
 package net.shinc.orm.mybatis.mappers;
 
+import java.util.List;
+
 import net.shinc.orm.mybatis.bean.VideoPoint;
-
+/**
+  * @ClassName: VideoPointMapper
+  * @author hushichong
+  * @date 2015年7月31日 下午4:52:24
+ */
 public interface VideoPointMapper {
-    int deleteByPrimaryKey(Integer id);
+    
+    public void deleteVideoPointById(Integer id);
 
-    int insert(VideoPoint record);
+	public Integer insertVideoPoint(VideoPoint videoPoint);
 
-    int insertSelective(VideoPoint record);
+	public void updateVideoPoint(VideoPoint videoPoint);
 
-    VideoPoint selectByPrimaryKey(Integer id);
+	public VideoPoint getByVideoPointById(Integer id);
 
-    int updateByPrimaryKeySelective(VideoPoint record);
+	public List<VideoPoint> getVideoPointList(VideoPoint videoPoint);
 
-    int updateByPrimaryKey(VideoPoint record);
+	public Integer getVideoPointListCount(VideoPoint videoPoint);
 }

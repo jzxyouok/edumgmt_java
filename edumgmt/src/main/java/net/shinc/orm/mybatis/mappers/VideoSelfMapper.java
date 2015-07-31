@@ -1,17 +1,24 @@
 package net.shinc.orm.mybatis.mappers;
 
+import java.util.List;
+
 import net.shinc.orm.mybatis.bean.VideoSelf;
-
+/**
+  * @ClassName: VideoSelfMapper
+  * @author hushichong
+  * @date 2015年7月31日 下午4:56:56
+ */
 public interface VideoSelfMapper {
-    int deleteByPrimaryKey(Integer id);
+	
+	public void deleteVideoSelfById(Integer id);
 
-    int insert(VideoSelf record);
+	public Integer insertVideoSelf(VideoSelf videoSelf);
 
-    int insertSelective(VideoSelf record);
+	public void updateVideoSelf(VideoSelf videoSelf);
 
-    VideoSelf selectByPrimaryKey(Integer id);
+	public VideoSelf getByVideoSelfById(Integer id);
 
-    int updateByPrimaryKeySelective(VideoSelf record);
+	public List<VideoSelf> getVideoSelfList(VideoSelf videoSelf);
 
-    int updateByPrimaryKey(VideoSelf record);
+	public Integer getVideoSelfListCount(VideoSelf videoSelf);
 }

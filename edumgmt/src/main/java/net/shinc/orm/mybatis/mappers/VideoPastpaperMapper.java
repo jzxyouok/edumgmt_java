@@ -1,17 +1,24 @@
 package net.shinc.orm.mybatis.mappers;
 
+import java.util.List;
+
 import net.shinc.orm.mybatis.bean.VideoPastpaper;
-
+/**
+  * @ClassName: VideoPastpaperMapper
+  * @author hushichong
+  * @date 2015年7月31日 下午4:43:13
+ */
 public interface VideoPastpaperMapper {
-    int deleteByPrimaryKey(Integer id);
+	
+	public void deleteVideoPastpaperById(Integer id);
 
-    int insert(VideoPastpaper record);
+	public Integer insertVideoPastpaper(VideoPastpaper videoPastpaper);
 
-    int insertSelective(VideoPastpaper record);
+	public void updateVideoPastpaper(VideoPastpaper videoPastpaper);
 
-    VideoPastpaper selectByPrimaryKey(Integer id);
+	public VideoPastpaper getByVideoPastpaperById(Integer id);
 
-    int updateByPrimaryKeySelective(VideoPastpaper record);
+	public List<VideoPastpaper> getVideoPastpaperList(VideoPastpaper videoPastpaper);
 
-    int updateByPrimaryKey(VideoPastpaper record);
+	public Integer getVideoPastpaperListCount(VideoPastpaper videoPastpaper);
 }
