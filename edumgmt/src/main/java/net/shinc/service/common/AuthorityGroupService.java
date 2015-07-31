@@ -49,7 +49,7 @@ public interface AuthorityGroupService {
 	 * @param AuthorityGroup
 	 * @return
 	 */
-	public Integer deleteAuthorityGroup(AuthorityGroup AuthorityGroup);
+	public Integer deleteAuthorityGroup(Integer authGroupId);
 	
 	/**
 	 * 更新权限组
@@ -70,6 +70,20 @@ public interface AuthorityGroupService {
 	 * @return
 	 */
 	public Integer addAuthGroupHasAuth(List<AuthGroupHasAuth> list);
+	
+	/**
+	 * 删除权限组的所有权限
+	 * @param authorityGroup
+	 * @return
+	 */
+	public Integer deleteAuthGroupHasAuth(Integer authGroupId);
+	
+	/**
+	 * 删除该权限组与用户的对应关系
+	 * @param authGroupId
+	 * @return
+	 */
+	public Integer deleteAuthGroupHasUser(Integer authGroupId);
 	
 	/**
 	 * 获取权限组的所有权限列表

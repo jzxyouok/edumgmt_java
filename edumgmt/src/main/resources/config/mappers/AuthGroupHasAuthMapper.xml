@@ -30,6 +30,13 @@
 		</foreach>
   </insert>
   
+  <delete id="deleteAuthGroupHasAuth" parameterType="java.lang.Integer">
+  	delete from 
+    	sh_authority_group_has_sh_authority
+    where 1 = 1
+      and sh_authority_group_id = #{authGroupId,jdbcType=INTEGER}
+  </delete>
+  
   <insert id="insertSelective" parameterType="AuthGroupHasAuth" >
     insert into sh_authority_group_has_sh_authority
     <trim prefix="(" suffix=")" suffixOverrides="," >

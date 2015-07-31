@@ -6,6 +6,13 @@
     <id column="sh_authority_group_id" property="shAuthorityGroupId" jdbcType="INTEGER" />
   </resultMap>
   
+  <delete id="deleteAdminUserHasAuthGroup" parameterType="java.lang.Integer">
+  	delete from 
+    	sh_admin_user_has_sh_authority_group
+    where 1 = 1
+      and sh_authority_group_id = #{authGroupId,jdbcType=INTEGER}
+  </delete>
+  
   <delete id="deleteByPrimaryKey" parameterType="AdminUserHasAuthGroup" >
     delete from 
     	sh_admin_user_has_sh_authority_group

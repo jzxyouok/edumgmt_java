@@ -32,9 +32,9 @@ public class MenuController extends AbstractBaseController {
 	
 	@RequestMapping(value = "/getMenu")
 	@ResponseBody
-	public IRestMessage getMenu(AdminUser currentUser) {
+	public IRestMessage getMenu() {
 		IRestMessage msg = getRestMessage();
-//		AdminUser currentUser = AdminUser.getCurrentUser();
+		AdminUser currentUser = AdminUser.getCurrentUser();
 		if(null != currentUser){
 			try {
 				List<Menu> menu = menuService.getMenu(currentUser);

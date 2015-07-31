@@ -65,9 +65,20 @@ public class AuthorityGroupControllerTest {
 	}
 	
 	@Test
+	public void testAddAuthorityGroup3() {
+		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/authGroup/addAuthGroup")
+				.param("company.id", "1").param("name", "temp").param("remark", "普通人");
+		try {
+			mockMvc.perform(reqbuild).andDo(MockMvcResultHandlers.print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
 	public void testDeleteAuthorityGroup() {
 		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/authGroup/deleteAuthPostion")
-				.param("id", "1");
+				.param("id", "3");
 		try {
 			mockMvc.perform(reqbuild).andDo(MockMvcResultHandlers.print());
 		} catch (Exception e) {
@@ -113,6 +124,32 @@ public class AuthorityGroupControllerTest {
 			list.add(new AuthGroupHasAuth(new AuthorityGroup(1), new Authority(10)));
 			list.add(new AuthGroupHasAuth(new AuthorityGroup(1), new Authority(11)));
 			list.add(new AuthGroupHasAuth(new AuthorityGroup(1), new Authority(12)));
+			
+			Gson g = new Gson();
+			String str  = g.toJson(list);
+			RequestBuilder reqbuild =  MockMvcRequestBuilders.post("/authGroup/addAuthGroupAuth").header("Content-Type", MediaType.APPLICATION_JSON.toString()).content(str);
+			mockMvc.perform(reqbuild).andDo(handler);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testAddAuthGroupAuth3() {
+		try {
+			List<AuthGroupHasAuth> list = new ArrayList<AuthGroupHasAuth>();
+			list.add(new AuthGroupHasAuth(new AuthorityGroup(3), new Authority(1)));
+			list.add(new AuthGroupHasAuth(new AuthorityGroup(3), new Authority(2)));
+			list.add(new AuthGroupHasAuth(new AuthorityGroup(3), new Authority(3)));
+			list.add(new AuthGroupHasAuth(new AuthorityGroup(3), new Authority(4)));
+			list.add(new AuthGroupHasAuth(new AuthorityGroup(3), new Authority(5)));
+			list.add(new AuthGroupHasAuth(new AuthorityGroup(3), new Authority(6)));
+			list.add(new AuthGroupHasAuth(new AuthorityGroup(3), new Authority(7)));
+			list.add(new AuthGroupHasAuth(new AuthorityGroup(3), new Authority(8)));
+			list.add(new AuthGroupHasAuth(new AuthorityGroup(3), new Authority(9)));
+			list.add(new AuthGroupHasAuth(new AuthorityGroup(3), new Authority(10)));
+			list.add(new AuthGroupHasAuth(new AuthorityGroup(3), new Authority(11)));
+			list.add(new AuthGroupHasAuth(new AuthorityGroup(3), new Authority(12)));
 			
 			Gson g = new Gson();
 			String str  = g.toJson(list);

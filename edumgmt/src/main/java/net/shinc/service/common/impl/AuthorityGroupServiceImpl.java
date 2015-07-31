@@ -7,6 +7,7 @@ import net.shinc.orm.mybatis.bean.common.AuthGroupHasAuth;
 import net.shinc.orm.mybatis.bean.common.Authority;
 import net.shinc.orm.mybatis.bean.common.AuthorityGroup;
 import net.shinc.orm.mybatis.bean.common.Company;
+import net.shinc.orm.mybatis.mappers.common.AdminUserHasAuthGroupMapper;
 import net.shinc.orm.mybatis.mappers.common.AdminUserMapper;
 import net.shinc.orm.mybatis.mappers.common.AuthGroupHasAuthMapper;
 import net.shinc.orm.mybatis.mappers.common.AuthorityGroupMapper;
@@ -14,6 +15,7 @@ import net.shinc.service.common.AuthorityGroupService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
@@ -34,6 +36,9 @@ public class AuthorityGroupServiceImpl implements AuthorityGroupService {
 	
 	@Autowired
 	private AuthGroupHasAuthMapper authGroupHasAuthMapper;
+	
+	@Autowired
+	private AdminUserHasAuthGroupMapper adminUserHasAuthGroupMapper;
 	
 	@Override
 	public List<AuthorityGroup> getAuthorityGroupList(Company company) {
@@ -65,9 +70,12 @@ public class AuthorityGroupServiceImpl implements AuthorityGroupService {
 	}
 
 	@Override
-	public Integer deleteAuthorityGroup(AuthorityGroup authorityGroup) {
-		if(null != authorityGroup){
-			return authorityGroupMapper.deleteByPrimaryKey(authorityGroup.getId());
+	@Transactional
+	public Integer deleteAuthorityGroup(Integer authGroupId) {
+		if(null != authGroupId){
+			adminUserHasAuthGroupMapper.deleteAdminUserHasAuthGroup(authGroupId);//解除该权限组与用户的对应关系
+			authGroupHasAuthMapper.deleteAuthGroupHasAuth(authGroupId);//删除权限组所有权限
+			return authorityGroupMapper.deleteByPrimaryKey(authGroupId);//删除权限组
 		}
 		return 0;
 	}
@@ -93,12 +101,25 @@ public class AuthorityGroupServiceImpl implements AuthorityGroupService {
 		}
 		return 0;
 	}
+	
+	@Override
+	public Integer deleteAuthGroupHasAuth(Integer authGroupId) {
+		if(null != authGroupId) {
+			return authGroupHasAuthMapper.deleteAuthGroupHasAuth(authGroupId);
+		}
+		return 0;
+	}
 
 	@Override
 	public List<Authority> getAuthorityList(AuthorityGroup authorityGroup) {
 		if(null != authorityGroup) {
 			return authGroupHasAuthMapper.getAuthList(authorityGroup);
 		}
+		return null;
+	}
+
+	@Override
+	public Integer deleteAuthGroupHasUser(Integer authGroupId) {
 		return null;
 	}
 
