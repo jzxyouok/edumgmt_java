@@ -63,5 +63,17 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 		}
 	}
 
+	@Override
+	public List<VideoPastpaper> getVideoPastpaperAndRelevantInfoList(VideoPastpaper videoPastpaper) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<VideoPastpaper> getVideoPastpaperAndRelevantInfoListCount(VideoPastpaper videoPastpaper) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

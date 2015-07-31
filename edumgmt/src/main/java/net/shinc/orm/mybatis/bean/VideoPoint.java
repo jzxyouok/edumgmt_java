@@ -10,6 +10,8 @@ public class VideoPoint {
 	
 	private Integer id;
 
+	private VideoBase videoBase;
+	
 	private Integer videoBaseId;
 
 	public Integer getId() {
@@ -28,4 +30,13 @@ public class VideoPoint {
 		this.videoBaseId = videoBaseId;
 	}
 
+	public VideoBase getVideoBase() {
+		return videoBase;
+	}
+
+	public void setVideoBase(VideoBase videoBase) {
+		this.videoBase = videoBase;
+	}
+
+	
 }

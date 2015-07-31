@@ -2,6 +2,7 @@ package net.shinc.service.edu.video.impl;
 
 import java.util.List;
 
+import net.shinc.orm.mybatis.bean.VideoPastpaper;
 import net.shinc.orm.mybatis.bean.VideoSelf;
 import net.shinc.orm.mybatis.mappers.VideoSelfMapper;
 import net.shinc.service.edu.video.VideoSelfService;
@@ -61,6 +62,18 @@ public class VideoSelfServiceImpl implements VideoSelfService {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public List<VideoPastpaper> getVideoSelfAndRelevantInfoList(VideoPastpaper videoPastpaper) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<VideoPastpaper> getVideoSelfAndRelevantInfoListCount(VideoPastpaper videoPastpaper) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
