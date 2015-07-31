@@ -126,7 +126,32 @@ public class AdminUserController extends AbstractBaseController {
 	public IRestMessage getAdminUserById(AdminUser adminUser) {
 		IRestMessage msg = getRestMessage();
 		try {
-			AdminUser admin = adminUserService.getAdminUserById(adminUser);
+			AdminUser admin = adminUserService.getAdminUserById(adminUser.getId());
+			if(null != admin) {
+				msg.setCode(ErrorMessage.SUCCESS.getCode());
+				msg.setResult(admin);
+			} else {
+				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
+			}
+		} catch (Exception e) {
+			logger.error("后台管理用户查询失败==>" + ExceptionUtils.getStackTrace(e));
+		}
+		return msg;
+	}
+	
+	/**
+	 * 根据昵称获取后台用户
+	 * @param adminUser
+	 * @param bindingResult
+	 * @param locale
+	 * @return
+	 */
+	@RequestMapping(value = "/getAdminUserByNickName")
+	@ResponseBody
+	public IRestMessage getAdminUserByNickName(AdminUser adminUser) {
+		IRestMessage msg = getRestMessage();
+		try {
+			AdminUser admin = adminUserService.getAdminUserByNickName(adminUser.getNickname());
 			if(null != admin) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(admin);
@@ -207,7 +232,7 @@ public class AdminUserController extends AbstractBaseController {
 			@RequestParam(value = "newpassword2", required = true) String newpassword2) {
 		IRestMessage msg = getRestMessage();
 		try {
-			AdminUser admin = adminUserService.getAdminUserById(adminUser);
+			AdminUser admin = adminUserService.getAdminUserById(adminUser.getId());
 			
 			if (null == adminUser.getPassword() || !admin.getPassword().equals(adminUser.getPassword())) {
 				msg.setCode(ErrorMessage.PASSWORD_WRONG.getCode());

@@ -1,6 +1,9 @@
 package net.shinc.service.common;
 
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
 
 import net.shinc.orm.mybatis.bean.common.AdminUser;
 import net.shinc.orm.mybatis.bean.common.Authority;
@@ -56,7 +59,7 @@ public interface AdminUserService {
 	 * @param integer
 	 * @return
 	 */
-	public AdminUser getAdminUserById(AdminUser adminUser);
+	public AdminUser getAdminUserById(Integer adminId);
 	
 	public AdminUser getAdminUserByNickName(String nickname);
 	
@@ -88,5 +91,12 @@ public interface AdminUserService {
 	 * @return
 	 */
 	public List<Authority> getAuthList(AdminUser adminUser);
+	
+	/**
+	 * 获取用户所有的权限
+	 * @param adminUser
+	 * @return
+	 */
+	public Collection<GrantedAuthority> getAuthorities(AdminUser adminUser);
 	
 }

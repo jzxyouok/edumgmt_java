@@ -6,14 +6,15 @@ import java.text.MessageFormat;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  * @ClassName Authority 
- * @Description 权限bean
+ * @Description 权限
  * @author guoshijie 
  * @date 2015年7月31日 上午9:58:57
  */
-public class Authority implements Serializable{
+public class Authority implements GrantedAuthority,Serializable {
 	
 	private static final long serialVersionUID = -3830618257463315425L;
 

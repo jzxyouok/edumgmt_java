@@ -20,7 +20,7 @@ public interface AdminUserMapper {
     
     public AdminUser selectByPrimaryKey(Integer id);
     
-    public AdminUser getAdminUserById(AdminUser adminUser);
+    public AdminUser getAdminUserById(Integer id);
     
     public AdminUser getAdminUserByNickName(String nickname);
     

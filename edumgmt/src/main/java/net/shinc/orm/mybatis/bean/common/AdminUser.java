@@ -61,10 +61,10 @@ public class AdminUser implements UserDetails {
     private List<Menu> menuMap;
     
     public static AdminUser getCurrentUser() {
-//		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		if(o instanceof AdminUser) {
-//			return (AdminUser)o;
-//		}
+		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(o instanceof AdminUser) {
+			return (AdminUser)o;
+		}
 		return null;
 	}
 	
@@ -174,6 +174,10 @@ public class AdminUser implements UserDetails {
     public void setHeadPic(String headPic) {
         this.headPic = headPic == null ? null : headPic.trim();
     }
+    
+    public void setAuthorities(Collection<GrantedAuthority> authorities) {
+		this.authorities = authorities;
+	}
 
 	@Override
 	public Collection<GrantedAuthority> getAuthorities() {

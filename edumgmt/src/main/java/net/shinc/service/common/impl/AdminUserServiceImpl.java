@@ -1,6 +1,7 @@
 package net.shinc.service.common.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
@@ -92,9 +95,11 @@ public class AdminUserServiceImpl implements AdminUserService {
 	}
 
 	@Override
+	@Transactional
 	public Integer deleteAdminUser(AdminUser adminUser) {
 		if(null != adminUser){
-			//删除权限  待完成
+			//解除用户与权限组的关系
+			
 			return adminUserMapper.deleteByPrimaryKey(adminUser.getId());
 		}
 		return 0;
@@ -110,11 +115,11 @@ public class AdminUserServiceImpl implements AdminUserService {
 	}
 
 	@Override
-	public AdminUser getAdminUserById(AdminUser adminUser) {
-		if(null != adminUser ) {
-			AdminUser admin = adminUserMapper.getAdminUserById(adminUser);
+	public AdminUser getAdminUserById(Integer adminId) {
+		if(null != adminId ) {
+			AdminUser admin = adminUserMapper.getAdminUserById(adminId);
 			if(null != admin) {
-//				adminUser.setMenuMap(menuService.getMenu(admin));
+				admin.setMenuMap(menuService.getMenu(admin));
 			}
 			return admin;
 		}
@@ -134,6 +139,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 			AdminUser admin = adminUserMapper.getAdminUserByNickName(nickname);
 			if(null != admin){
 				admin.setMenuMap(menuService.getMenu(admin));
+				admin.setAuthorities(getAuthorities(admin));
 			}
 			return admin;
 		}
@@ -170,6 +176,19 @@ public class AdminUserServiceImpl implements AdminUserService {
 			}
 		}
 		return authList;
+	}
+	
+	@Override
+	public Collection<GrantedAuthority> getAuthorities(AdminUser adminUser){
+		Collection<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+		if(null != adminUser) {
+			List<Authority> authList = getAuthList(adminUser);
+			for (Authority authority : authList) {
+				list.add(authority);
+			}
+			return list;
+		}
+		return null;
 	}
 	
 }

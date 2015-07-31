@@ -107,7 +107,17 @@ public class AdminUserControllerTest {
 	@Test
 	public void testGetAdminUserById() {
 		try {
-			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/adminUser/getAdminUserById").param("id", "1");
+			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/adminUser/getAdminUserById").param("id", "2");
+			mockMvc.perform(reqbuild).andDo(handler);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testGetAdminUserByNickName() {
+		try {
+			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/adminUser/getAdminUserByNickName").param("nickname", "admin");
 			mockMvc.perform(reqbuild).andDo(handler);
 		} catch (Exception e) {
 			e.printStackTrace();

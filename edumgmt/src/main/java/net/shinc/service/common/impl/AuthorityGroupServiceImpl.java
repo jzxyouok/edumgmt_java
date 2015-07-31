@@ -120,6 +120,9 @@ public class AuthorityGroupServiceImpl implements AuthorityGroupService {
 
 	@Override
 	public Integer deleteAuthGroupHasUser(Integer authGroupId) {
+		if(null != authGroupId) {
+			return adminUserHasAuthGroupMapper.deleteAdminUserHasAuthGroup(authGroupId);
+		}
 		return null;
 	}
 
