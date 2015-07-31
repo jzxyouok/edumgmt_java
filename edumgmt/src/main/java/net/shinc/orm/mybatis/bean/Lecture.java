@@ -1,5 +1,11 @@
 package net.shinc.orm.mybatis.bean;
 
+/** 
+ * @ClassName Lecture 
+ * @Description 视频讲解人
+ * @author wangzhiying 
+ * @date 2015年7月31日 下午7:51:49  
+ */
 public class Lecture {
     private Integer id;
 

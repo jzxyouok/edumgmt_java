@@ -1,5 +1,11 @@
 package net.shinc.orm.mybatis.bean;
 
+/** 
+ * @ClassName KnowledgePoint 
+ * @Description 知识点
+ * @author wangzhiying 
+ * @date 2015年7月31日 下午7:51:30  
+ */
 public class KnowledgePoint {
     private Integer id;
 

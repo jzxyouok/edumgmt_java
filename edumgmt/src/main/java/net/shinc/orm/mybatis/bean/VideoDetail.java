@@ -2,6 +2,12 @@ package net.shinc.orm.mybatis.bean;
 
 import java.util.Date;
 
+/** 
+ * @ClassName VideoDetail 
+ * @Description 视频详细信息
+ * @author wangzhiying 
+ * @date 2015年7月31日 下午7:53:09  
+ */
 public class VideoDetail  {
     private String url;
 

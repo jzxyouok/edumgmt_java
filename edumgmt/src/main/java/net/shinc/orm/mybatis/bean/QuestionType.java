@@ -1,5 +1,11 @@
 package net.shinc.orm.mybatis.bean;
 
+/** 
+ * @ClassName QuestionType 
+ * @Description 题型
+ * @author wangzhiying 
+ * @date 2015年7月31日 下午7:54:38  
+ */
 public class QuestionType {
     private Integer id;
 
