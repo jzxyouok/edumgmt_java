@@ -1,7 +1,7 @@
-package net.shinc.service.questionbank.impl;
+package net.shinc.service.edu.questionbank.impl;
 
 import net.shinc.orm.mybatis.bean.QuestionBankYear;
-import net.shinc.service.questionbank.QuestionBankYearService;
+import net.shinc.service.edu.questionbank.QuestionBankYearService;
 
 /** 
  * @ClassName QuestionBankYearService 

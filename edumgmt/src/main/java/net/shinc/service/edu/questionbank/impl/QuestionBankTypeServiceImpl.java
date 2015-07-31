@@ -1,7 +1,7 @@
-package net.shinc.service.questionbank.impl;
+package net.shinc.service.edu.questionbank.impl;
 
 import net.shinc.orm.mybatis.bean.QuestionBankType;
-import net.shinc.service.questionbank.QuestionBankTypeService;
+import net.shinc.service.edu.questionbank.QuestionBankTypeService;
 
 public class QuestionBankTypeServiceImpl implements QuestionBankTypeService {
 
