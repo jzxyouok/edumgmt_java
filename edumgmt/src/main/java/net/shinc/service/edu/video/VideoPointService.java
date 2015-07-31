@@ -1,15 +1,15 @@
-package net.shinc.orm.mybatis.mappers;
+package net.shinc.service.edu.video;
 
 import java.util.List;
 
 import net.shinc.orm.mybatis.bean.VideoPoint;
 /**
-  * @ClassName: VideoPointMapper
-  * @Description: 知识点DAO接口
+  * @ClassName: VideoPointService
+  * @Description: 知识点服务接口
   * @author hushichong
-  * @date 2015年7月31日 下午4:52:24
+  * @date 2015年7月31日 下午5:21:13
  */
-public interface VideoPointMapper {
+public interface VideoPointService {
     
     public void deleteVideoPointById(Integer id);
 
@@ -22,4 +22,12 @@ public interface VideoPointMapper {
 	public List<VideoPoint> getVideoPointList(VideoPoint videoPoint);
 
 	public Integer getVideoPointListCount(VideoPoint videoPoint);
+	
+	/**
+	 * @Title: getVideoPoint
+	 * @Description: 根据对象参数得到单个实例
+	 * @param videoPoint
+	 * @return videoPoint
+	 */
+	public VideoPoint getVideoPoint(VideoPoint videoPoint);
 }

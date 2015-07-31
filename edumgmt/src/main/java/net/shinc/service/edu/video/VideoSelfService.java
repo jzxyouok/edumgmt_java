@@ -1,15 +1,15 @@
-package net.shinc.orm.mybatis.mappers;
+package net.shinc.service.edu.video;
 
 import java.util.List;
 
 import net.shinc.orm.mybatis.bean.VideoSelf;
 /**
-  * @ClassName: VideoSelfMapper
-  * @Description: 自编题DAO接口
+  * @ClassName: VideoSelfService
+  * @Description: 自编题服务接口
   * @author hushichong
-  * @date 2015年7月31日 下午4:56:56
+  * @date 2015年7月31日 下午5:22:01
  */
-public interface VideoSelfMapper {
+public interface VideoSelfService {
 	
 	public void deleteVideoSelfById(Integer id);
 
@@ -22,4 +22,12 @@ public interface VideoSelfMapper {
 	public List<VideoSelf> getVideoSelfList(VideoSelf videoSelf);
 
 	public Integer getVideoSelfListCount(VideoSelf videoSelf);
+	
+	/**
+	 * @Title: getVideoSelf
+	 * @Description: 根据对象参数得到单个实例
+	 * @param videoSelf
+	 * @return videoSelf
+	 */
+	public VideoSelf getVideoSelf(VideoSelf videoSelf);
 }
