@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.QuestionBankCourseMapper">
+	<resultMap id="BaseResultMap" type="QuestionBankCourseKey">
+		<id column="sh_questionbank_id" property="questionBankId" jdbcType="INTEGER" />
+		<id column="sh_course_id" property="courseId" jdbcType="INTEGER" />
+	</resultMap>
+
+	<delete id="deleteById" parameterType="QuestionBankCourseKey">
+		delete from sh_questionbank_course
+		where sh_questionbank_id = #{questionBankId,jdbcType=INTEGER}
+		and sh_course_id =
+		#{courseId,jdbcType=INTEGER}
+	</delete>
+
+	<insert id="insert" parameterType="QuestionBankCourseKey">
+		insert into sh_questionbank_course (sh_questionbank_id, sh_course_id)
+		values (#{questionBankId,jdbcType=INTEGER},
+		#{courseId,jdbcType=INTEGER})
+	</insert>
+
+	<insert id="insertSelective" parameterType="QuestionBankCourseKey">
+		insert into sh_questionbank_course
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="questionBankId != null">
+				sh_questionbank_id,
+			</if>
+			<if test="courseId != null">
+				sh_course_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="questionBankId != null">
+				#{questionBankId,jdbcType=INTEGER},
+			</if>
+			<if test="courseId != null">
+				#{courseId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+</mapper>
