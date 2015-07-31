@@ -40,6 +40,13 @@ public class AuthorityGroupController extends AbstractBaseController{
 	@Autowired
 	private AuthorityGroupService authorityGroupService;
 	
+	/**
+	 * 添加权限组
+	 * @param authorityGroup
+	 * @param bindingResult
+	 * @param locale
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/addAuthGroup")
 	public IRestMessage addAuthorityGroup(@Valid AuthorityGroup authorityGroup, BindingResult bindingResult, Locale locale) {
@@ -60,12 +67,17 @@ public class AuthorityGroupController extends AbstractBaseController{
 		return iRestMessage;
 	}
 	
+	/**
+	 * 删除权限组
+	 * @param authorityGroup
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/deleteAuthPostion")
 	public IRestMessage deleteAuthorityGroup(AuthorityGroup authorityGroup) {
 		IRestMessage msg = getRestMessage();
 		try {
-			int i = authorityGroupService.deleteAuthorityGroup(authorityGroup);
+			int i = authorityGroupService.deleteAuthorityGroup(authorityGroup.getId());
 			if(i > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(i);
@@ -76,6 +88,11 @@ public class AuthorityGroupController extends AbstractBaseController{
 		return msg;
 	}
 	
+	/**
+	 * 获取某公司下的所有权限组
+	 * @param company
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/getAuthGroupList")
 	public IRestMessage getAuthorityGroupList(Company company) {
@@ -92,6 +109,11 @@ public class AuthorityGroupController extends AbstractBaseController{
 		return msg;
 	}
 	
+	/**
+	 * 根据id获取权限组
+	 * @param authorityGroup
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/getAuthGroupById")
 	public IRestMessage getAuthorityGroupById(AuthorityGroup authorityGroup) {
@@ -111,7 +133,7 @@ public class AuthorityGroupController extends AbstractBaseController{
 	}
 	
 	/**
-	 * 添加权限组权限
+	 * 给权限组批量添加权限
 	 * @param list
 	 * @return
 	 */
@@ -124,9 +146,7 @@ public class AuthorityGroupController extends AbstractBaseController{
 			if(num > 0) {
 				msg.setResult(num);
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
-			} else {
-				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
-			}
+			} 
 		} catch (Exception e) {
 			logger.error("权限组查询失败==>" + ExceptionUtils.getStackTrace(e));
 		}

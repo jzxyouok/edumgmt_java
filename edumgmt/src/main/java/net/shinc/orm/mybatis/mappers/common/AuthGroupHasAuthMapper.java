@@ -21,5 +21,12 @@ public interface AuthGroupHasAuthMapper {
     
     public int insertBatch(List<AuthGroupHasAuth> list);
     
+    /**
+     * 删除用户组的所有权限
+     * @param authGroupId
+     * @return
+     */
+    public int deleteAuthGroupHasAuth(Integer authGroupId);
+    
     public List<Authority> getAuthList(AuthorityGroup record);
 }

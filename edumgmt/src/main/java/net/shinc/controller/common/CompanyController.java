@@ -62,6 +62,8 @@ public class CompanyController extends AbstractBaseController {
 			if(null != companyList && companyList.size() > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(companyList);
+			} else {
+				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("企业信息列表查询失败==>" + ExceptionUtils.getStackTrace(e));
@@ -78,6 +80,8 @@ public class CompanyController extends AbstractBaseController {
 			if(null != admin) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(admin);
+			} else {
+				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("企业信息查询失败==>" + ExceptionUtils.getStackTrace(e));

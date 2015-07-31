@@ -11,7 +11,13 @@ public interface AdminUserHasAuthGroupMapper {
 	
     public int addAdminUserHasAuthGroup(AdminUserHasAuthGroup record);
     
-    public int deleteAdminUserHasAuthGroup(AdminUser adminUser);
+    /**
+     * 解除该权限组与用户的对应关系
+     * @param authGroupId 权限组id
+     * @return
+     */
+    public int deleteAdminUserHasAuthGroup(Integer authGroupId);
     
     public List<AuthorityGroup> getAuthGroup(AdminUser adminUser);
+    
 }
