@@ -1,5 +1,6 @@
 package net.shinc.service.common.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import net.shinc.orm.mybatis.mappers.common.AdminUserHasAuthGroupMapper;
 import net.shinc.orm.mybatis.mappers.common.AdminUserMapper;
 import net.shinc.orm.mybatis.mappers.common.CompanyMapper;
 import net.shinc.service.common.AdminUserService;
+import net.shinc.service.common.AuthorityGroupService;
 import net.shinc.service.common.MenuService;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -49,6 +51,9 @@ public class AdminUserServiceImpl implements AdminUserService {
 	
 	@Autowired
 	private AdminUserHasAuthGroupMapper adminUserHasAuthGroupMapper;
+	
+	@Autowired
+	private AuthorityGroupService authorityGroupService;
 	
 	@Autowired
 	private MenuService menuService;
@@ -154,13 +159,17 @@ public class AdminUserServiceImpl implements AdminUserService {
 	
 	@Override
 	public List<Authority> getAuthList(AdminUser adminUser) {
+		List<Authority> authList = new ArrayList<Authority>();
 		if (null != adminUser) {
 			List<AuthorityGroup> authGroup = getAuthGroup(adminUser);
-			if (null != authGroup) {
-				//待完成
+			if (null != authGroup && authGroup.size() > 0) {
+				for (AuthorityGroup authorityGroup : authGroup) {
+					List<Authority> list = authorityGroupService.getAuthorityList(authorityGroup);
+					authList.addAll(list);
+				}
 			}
 		}
-		return null;
+		return authList;
 	}
 	
 }

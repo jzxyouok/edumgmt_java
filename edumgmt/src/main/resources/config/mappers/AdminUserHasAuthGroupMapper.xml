@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="net.shinc.orm.mybatis.mappers.AdminUserHasAuthGroupMapper" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.common.AdminUserHasAuthGroupMapper" >
   <resultMap id="BaseResultMap" type="AdminUserHasAuthGroup" >
     <id column="sh_admin_user_id" property="shAdminUserId" jdbcType="INTEGER" />
     <id column="sh_authority_group_id" property="shAuthorityGroupId" jdbcType="INTEGER" />
@@ -41,7 +41,7 @@
     </trim>
   </insert>
   
-  <select id="getAuthGroup" parameterType="AdminUser" resultMap="net.shinc.orm.mybatis.mappers.AuthorityGroupMapper.BaseResultMap">
+  <select id="getAuthGroup" parameterType="AdminUser" resultMap="net.shinc.orm.mybatis.mappers.common.AuthorityGroupMapper.BaseResultMap">
   	select
   		id, sh_company_id, name, remark
   	from

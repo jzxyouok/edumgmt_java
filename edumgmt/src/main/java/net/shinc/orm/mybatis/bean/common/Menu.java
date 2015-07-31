@@ -4,6 +4,12 @@ import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.List;
 
+/**
+ * @ClassName Menu 
+ * @Description 目录菜单类
+ * @author guoshijie 
+ * @date 2015年7月31日 上午9:57:45
+ */
 public class Menu implements Serializable{
 
 	private static final long serialVersionUID = -4234248111333800717L;

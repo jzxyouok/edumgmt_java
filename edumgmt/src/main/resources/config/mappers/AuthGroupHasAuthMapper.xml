@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="net.shinc.orm.mybatis.mappers.AuthGroupHasAuthMapper" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.common.AuthGroupHasAuthMapper" >
   <resultMap id="BaseResultMap" type="AuthGroupHasAuth" >
-    <association property="authorityGroup" column="sh_authority_group_id" javaType="AuthorityGroup" select="net.shinc.orm.mybatis.mappers.AuthorityGroupMapper.selectByPrimaryKey"></association>
-    <association property="authority" column="sh_authority_id" javaType="Authority" select="net.shinc.orm.mybatis.mappers.AuthorityMapper.selectByPrimaryKey"></association>
+    <association property="authorityGroup" column="sh_authority_group_id" javaType="AuthorityGroup" select="net.shinc.orm.mybatis.mappers.common.AuthorityGroupMapper.selectByPrimaryKey"></association>
+    <association property="authority" column="sh_authority_id" javaType="Authority" select="net.shinc.orm.mybatis.mappers.AuthorityMapper.common.selectByPrimaryKey"></association>
   </resultMap>
   
   <delete id="deleteByPrimaryKey" parameterType="AuthGroupHasAuth" >
@@ -50,7 +50,7 @@
     </trim>
   </insert>
   
-  <select id="getAuthList" parameterType="AuthorityGroup" resultMap="net.shinc.orm.mybatis.mappers.AuthorityMapper.BaseResultMap">
+  <select id="getAuthList" parameterType="AuthorityGroup" resultMap="net.shinc.orm.mybatis.mappers.common.AuthorityMapper.BaseResultMap">
   	select
 		a.id, a.sh_company_id, a.authority, a.remark
 	from 

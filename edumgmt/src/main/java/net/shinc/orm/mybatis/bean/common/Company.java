@@ -2,6 +2,12 @@ package net.shinc.orm.mybatis.bean.common;
 
 import java.io.Serializable;
 
+/**
+ * @ClassName Company 
+ * @Description 公司bean
+ * @author guoshijie 
+ * @date 2015年7月31日 上午9:58:15
+ */
 public class Company implements Serializable {
 	
 	private static final long serialVersionUID = -7783304322148516331L;

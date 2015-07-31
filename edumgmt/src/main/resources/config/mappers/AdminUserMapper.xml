@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="net.shinc.orm.mybatis.mappers.AdminUserMapper">
+<mapper namespace="net.shinc.orm.mybatis.mappers.common.AdminUserMapper">
 	<resultMap id="BaseResultMap" type="AdminUser">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="realname" property="realname" jdbcType="VARCHAR" />
@@ -250,7 +250,7 @@
 	
 	<select id="getAdminUserByNickName" parameterType="String" resultMap="BaseResultMap">
 		select
-	 		id, company_name companyName, address, name, tel, enabled, DATE_FORMAT(create_time , '%Y-%m-%d %H:%i') createTime, DATE_FORMAT(update_time , '%Y-%m-%d %H:%i') updateTime
+	 		id, sh_company_id, realname, nickname, password, sex, address, email, tel, DATE_FORMAT(create_time , '%Y-%m-%d %H:%i') create_time, DATE_FORMAT(update_time , '%Y-%m-%d %H:%i') update_time, enabled, remark, position, head_pic
 	 	from 
 	 		sh_admin_user a
 	 	where 

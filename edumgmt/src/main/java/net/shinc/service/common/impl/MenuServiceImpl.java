@@ -12,7 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import net.shinc.orm.mybatis.bean.common.AdminUser;
 import net.shinc.orm.mybatis.bean.common.Authority;
 import net.shinc.orm.mybatis.bean.common.Menu;
-import net.shinc.orm.mybatis.mappers.common.AdminUserHasAuthGroupMapper;
+import net.shinc.service.common.AdminUserService;
 import net.shinc.service.common.MenuService;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -38,7 +38,7 @@ public class MenuServiceImpl implements MenuService {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	private AdminUserHasAuthGroupMapper adminUserHasAuthGroupMapper;
+	private AdminUserService adminUserService;
 	
 	@Autowired
 	private ApplicationContext applicationContext;
@@ -49,8 +49,7 @@ public class MenuServiceImpl implements MenuService {
 		if(null != adminUser.getMenuMap() && adminUser.getMenuMap().size() > 0 ) {
 			return adminUser.getMenuMap();
 		}
-//		List<Authority> authList = adminUserHasAuthGroupMapper.getAuthority(adminUser);
-		List<Authority> authList = null;
+		List<Authority> authList = adminUserService.getAuthList(adminUser);
 		try {
 			Resource resource = applicationContext.getResource("classpath:config/menu.xml");
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

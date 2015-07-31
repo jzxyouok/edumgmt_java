@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <configuration>
-	<property name="LOG_HOME" value="/home/javateam/edulog" />
+	<property name="LOG_HOME" value="/tmp/edulog" />
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
 			by default -->
@@ -14,7 +14,7 @@
 	<appender name="FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<Encoding>UTF-8</Encoding>
-		<file>${LOG_HOME}/zixun.log</file>
+		<file>${LOG_HOME}/edumgmt.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!--日志文件输出的文件名 -->
 			<FileNamePattern>${LOG_HOME}/edu.log.%d{yyyy-MM-dd}.log.gz

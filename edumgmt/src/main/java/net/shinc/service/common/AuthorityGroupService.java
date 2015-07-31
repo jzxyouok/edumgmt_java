@@ -76,6 +76,6 @@ public interface AuthorityGroupService {
 	 * @param AuthorityGroup
 	 * @return
 	 */
-	public List<Authority> getAuthorityList(AuthorityGroup AuthorityGroup);
+	public List<Authority> getAuthorityList(AuthorityGroup authorityGroup);
 	
 }

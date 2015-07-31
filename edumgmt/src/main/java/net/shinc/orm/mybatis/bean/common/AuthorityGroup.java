@@ -7,6 +7,12 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+/**
+ * @ClassName AuthorityGroup 
+ * @Description 权限组bean
+ * @author guoshijie 
+ * @date 2015年7月31日 上午9:58:37
+ */
 public class AuthorityGroup implements Serializable{
 	
 	private static final long serialVersionUID = 697893253677302016L;

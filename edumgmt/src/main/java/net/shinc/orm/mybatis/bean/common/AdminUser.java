@@ -10,6 +10,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * @ClassName AdminUser 
+ * @Description 后台管理员
+ * @author guoshijie 
+ * @date 2015年7月31日 上午10:02:50
+ */
 public class AdminUser implements UserDetails {
     
 	private static final long serialVersionUID = -9166844210456463990L;

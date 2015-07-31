@@ -80,11 +80,11 @@ public class AdminUserControllerTest {
 	@Test
 	public void testAddAdminUser3() {
 		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/adminUser/addAdminUser")
-				.param("company.id", "3").param("realname", "张盼")
+				.param("company.id", "1").param("realname", "张盼")
 				.param("nickname", "steven").param("password", "123456")
 				.param("sex", "0").param("address", "北京朝阳区望京中心")
-				.param("email", "admin_hi@163.com").param("tel", "13611113333")
-				.param("enabled", "1").param("remark", "数学讲师").param("position", "老师")
+				.param("email", "zhangpan@163.com").param("tel", "13611113333")
+				.param("enabled", "1").param("remark", "语文老师").param("position", "老师")
 				.param("headPic", "http://p2.gexing.com/touxiang/20120802/0922/5019d66eef7ed_200x200_3.jpg");
 		try {
 			mockMvc.perform(reqbuild).andDo(MockMvcResultHandlers.print());

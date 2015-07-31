@@ -1,11 +1,18 @@
 package net.shinc.orm.mybatis.bean.common;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+/**
+ * @ClassName Authority 
+ * @Description 权限bean
+ * @author guoshijie 
+ * @date 2015年7月31日 上午9:58:57
+ */
 public class Authority implements Serializable{
 	
 	private static final long serialVersionUID = -3830618257463315425L;
@@ -63,6 +70,11 @@ public class Authority implements Serializable{
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+	
+	@Override
+	public String toString() {
+		return MessageFormat.format("authority:{0}\tremark:{1}", this.authority,this.remark);
 	}
     
 }

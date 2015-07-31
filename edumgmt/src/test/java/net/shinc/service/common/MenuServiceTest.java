@@ -24,7 +24,7 @@ public class MenuServiceTest {
 	
 	@Test
 	public void testGetMenu(){
-		AdminUser adminUser = new AdminUser();
+		AdminUser adminUser = new AdminUser(2);
 		List<Menu> list = menuService.getMenu(adminUser);
 		iterator(list);
 	}

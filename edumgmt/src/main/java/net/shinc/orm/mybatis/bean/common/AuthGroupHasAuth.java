@@ -2,6 +2,12 @@ package net.shinc.orm.mybatis.bean.common;
 
 import java.io.Serializable;
 
+/**
+ * @ClassName AuthGroupHasAuth 
+ * @Description 权限组与权限对应关系bean
+ * @author guoshijie 
+ * @date 2015年7月31日 上午9:59:21
+ */
 public class AuthGroupHasAuth implements Serializable{
     
 	private static final long serialVersionUID = 8113503829521738514L;

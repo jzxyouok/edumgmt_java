@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.shinc.InfoMgmtApplication;
 import net.shinc.orm.mybatis.bean.common.AdminUser;
+import net.shinc.orm.mybatis.bean.common.Authority;
 import net.shinc.orm.mybatis.bean.common.AuthorityGroup;
 
 import org.junit.Test;
@@ -25,7 +26,7 @@ public class AdminUserServiceTest {
 	@Test
 	public void testAddAuthGroupForUser(){
 		AdminUser adminUser = new AdminUser(2);
-		AuthorityGroup authGroup = new AuthorityGroup(2);
+		AuthorityGroup authGroup = new AuthorityGroup(1);
 		Integer num = adminUserService.addAuthGroupForUser(adminUser, authGroup);
 		System.out.println("insert==》"+num);
 	}
@@ -41,6 +42,13 @@ public class AdminUserServiceTest {
 		for (Object object : c) {
 			System.out.println(object);
 		}
+	}
+	
+	@Test
+	public void testGetAuthList(){
+		AdminUser adminUser = new AdminUser(2);
+		List<Authority> list = adminUserService.getAuthList(adminUser);
+		iterator(list);
 	}
 	
 }
