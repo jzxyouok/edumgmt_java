@@ -3,9 +3,9 @@
 <mapper namespace="net.shinc.orm.mybatis.mappers.VideoPastpaperMapper" >
   <resultMap id="BaseResultMap" type="VideoPastpaper" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="sh_video_base_id" property="shVideoBaseId" jdbcType="INTEGER" />
-    <result column="sh_questionbank_id" property="shQuestionbankId" jdbcType="INTEGER" />
-    <result column="sh_questionbank_year_id" property="shQuestionbankYearId" jdbcType="INTEGER" />
+    <result column="sh_video_base_id" property="videoBaseId" jdbcType="INTEGER" />
+    <result column="sh_questionbank_id" property="questionbankId" jdbcType="INTEGER" />
+    <result column="sh_questionbank_year_id" property="questionbankYearId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, sh_video_base_id, sh_questionbank_id, sh_questionbank_year_id
@@ -23,8 +23,8 @@
   <insert id="insert" parameterType="VideoPastpaper" >
     insert into sh_video_pastpaper (id, sh_video_base_id, sh_questionbank_id, 
       sh_questionbank_year_id)
-    values (#{id,jdbcType=INTEGER}, #{shVideoBaseId,jdbcType=INTEGER}, #{shQuestionbankId,jdbcType=INTEGER}, 
-      #{shQuestionbankYearId,jdbcType=INTEGER})
+    values (#{id,jdbcType=INTEGER}, #{videoBaseId,jdbcType=INTEGER}, #{questionbankId,jdbcType=INTEGER}, 
+      #{questionbankYearId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="VideoPastpaper" >
     insert into sh_video_pastpaper
@@ -32,13 +32,13 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="shVideoBaseId != null" >
+      <if test="videoBaseId != null" >
         sh_video_base_id,
       </if>
-      <if test="shQuestionbankId != null" >
+      <if test="questionbankId != null" >
         sh_questionbank_id,
       </if>
-      <if test="shQuestionbankYearId != null" >
+      <if test="questionbankYearId != null" >
         sh_questionbank_year_id,
       </if>
     </trim>
@@ -46,37 +46,37 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="shVideoBaseId != null" >
-        #{shVideoBaseId,jdbcType=INTEGER},
+      <if test="videoBaseId != null" >
+        #{videoBaseId,jdbcType=INTEGER},
       </if>
-      <if test="shQuestionbankId != null" >
-        #{shQuestionbankId,jdbcType=INTEGER},
+      <if test="questionbankId != null" >
+        #{questionbankId,jdbcType=INTEGER},
       </if>
-      <if test="shQuestionbankYearId != null" >
-        #{shQuestionbankYearId,jdbcType=INTEGER},
+      <if test="questionbankYearId != null" >
+        #{questionbankYearId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="VideoPastpaper" >
     update sh_video_pastpaper
     <set >
-      <if test="shVideoBaseId != null" >
-        sh_video_base_id = #{shVideoBaseId,jdbcType=INTEGER},
+      <if test="videoBaseId != null" >
+        sh_video_base_id = #{videoBaseId,jdbcType=INTEGER},
       </if>
-      <if test="shQuestionbankId != null" >
-        sh_questionbank_id = #{shQuestionbankId,jdbcType=INTEGER},
+      <if test="questionbankId != null" >
+        sh_questionbank_id = #{questionbankId,jdbcType=INTEGER},
       </if>
-      <if test="shQuestionbankYearId != null" >
-        sh_questionbank_year_id = #{shQuestionbankYearId,jdbcType=INTEGER},
+      <if test="questionbankYearId != null" >
+        sh_questionbank_year_id = #{questionbankYearId,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="VideoPastpaper" >
     update sh_video_pastpaper
-    set sh_video_base_id = #{shVideoBaseId,jdbcType=INTEGER},
-      sh_questionbank_id = #{shQuestionbankId,jdbcType=INTEGER},
-      sh_questionbank_year_id = #{shQuestionbankYearId,jdbcType=INTEGER}
+    set sh_video_base_id = #{videoBaseId,jdbcType=INTEGER},
+      sh_questionbank_id = #{questionbankId,jdbcType=INTEGER},
+      sh_questionbank_year_id = #{questionbankYearId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
