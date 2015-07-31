@@ -7,10 +7,12 @@ package net.shinc.orm.mybatis.bean;
  * @date 2015年7月31日 下午3:41:54
  */
 public class VideoPastpaper {
-	
+
 	private Integer id;
 
 	private Integer videoBaseId;
+
+	private VideoBase videoBase;
 
 	private Integer questionbankId;
 
@@ -34,6 +36,14 @@ public class VideoPastpaper {
 
 	public Integer getQuestionbankId() {
 		return questionbankId;
+	}
+
+	public VideoBase getVideoBase() {
+		return videoBase;
+	}
+
+	public void setVideoBase(VideoBase videoBase) {
+		this.videoBase = videoBase;
 	}
 
 	public void setQuestionbankId(Integer questionbankId) {

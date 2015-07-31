@@ -2,6 +2,7 @@ package net.shinc.service.edu.video.impl;
 
 import java.util.List;
 
+import net.shinc.orm.mybatis.bean.VideoPastpaper;
 import net.shinc.orm.mybatis.bean.VideoPoint;
 import net.shinc.orm.mybatis.mappers.VideoPointMapper;
 import net.shinc.service.edu.video.VideoPointService;
@@ -61,6 +62,18 @@ public class VideoPointServiceImpl implements VideoPointService {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public List<VideoPastpaper> getVideoPointAndRelevantInfoList(VideoPastpaper videoPastpaper) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<VideoPastpaper> getVideoPointAndRelevantInfoListCount(VideoPastpaper videoPastpaper) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
