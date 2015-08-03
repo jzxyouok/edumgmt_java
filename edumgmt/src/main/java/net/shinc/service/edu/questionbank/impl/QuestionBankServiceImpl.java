@@ -3,7 +3,9 @@ package net.shinc.service.edu.questionbank.impl;
 import java.util.List;
 
 import net.shinc.orm.mybatis.bean.QuestionBank;
+import net.shinc.orm.mybatis.bean.QuestionBankCourseKey;
 import net.shinc.orm.mybatis.mappers.QuestionBankMapper;
+import net.shinc.service.edu.questionbank.QuestionBankCourseService;
 import net.shinc.service.edu.questionbank.QuestionBankService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class QuestionBankServiceImpl implements QuestionBankService {
 
 	@Autowired
 	private QuestionBankMapper questionBankMapper;
+	
+	@Autowired
+	private QuestionBankCourseService questionBankCourseService;
 	
 	@Override
 	public Integer addQuestionBank(QuestionBank questionBank) {
@@ -56,6 +61,14 @@ public class QuestionBankServiceImpl implements QuestionBankService {
 	@Override
 	public List<QuestionBank> getQuestionBankList() {
 		return questionBankMapper.getQuestionBankList();
+	}
+
+	@Override
+	public Integer addQuestionBankCourseKey(QuestionBankCourseKey questionBankCourseKey) {
+		if(null != questionBankCourseKey) {
+			return questionBankCourseService.addQuestionBankCourse(questionBankCourseKey);
+		}
+		return 0;
 	}
 
 }

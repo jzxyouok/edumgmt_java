@@ -8,24 +8,32 @@ package net.shinc.orm.mybatis.bean;
  */
 public class QuestionBankCourseKey {
 	
-	private Integer questionBankId;
+	private QuestionBank questionBank;
+	
+	private Course course;
 
-	private Integer courseId;
-
-	public Integer getCourseId() {
-		return courseId;
+	public QuestionBankCourseKey() {
 	}
 
-	public void setCourseId(Integer courseId) {
-		this.courseId = courseId;
+	public QuestionBankCourseKey(QuestionBank questionBank, Course course) {
+		this.questionBank = questionBank;
+		this.course = course;
 	}
 
-	public Integer getQuestionBankId() {
-		return questionBankId;
+	public QuestionBank getQuestionBank() {
+		return questionBank;
 	}
 
-	public void setQuestionBankId(Integer questionBankId) {
-		this.questionBankId = questionBankId;
+	public void setQuestionBank(QuestionBank questionBank) {
+		this.questionBank = questionBank;
+	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 	
 }
