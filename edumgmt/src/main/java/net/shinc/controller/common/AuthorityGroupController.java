@@ -60,6 +60,8 @@ public class AuthorityGroupController extends AbstractBaseController{
 			if(i > 0) {
 				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
 				iRestMessage.setResult(i);
+			} else {
+				iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("权限组添加失败==>" + ExceptionUtils.getStackTrace(e));

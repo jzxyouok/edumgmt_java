@@ -169,9 +169,10 @@ public class AdminUserControllerTest {
 	}
 	
 	@Test
-	public void testAdminLogin() {
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
+	public void testLogin() {
 		try {
-			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/adminUser/adminLogin").param("nickname", "root").param("pwd", "root");
+			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/login").param("nickname", "admin").param("pwd", "admin");
 			mockMvc.perform(reqbuild).andDo(handler);
 		} catch (Exception e) {
 			e.printStackTrace();

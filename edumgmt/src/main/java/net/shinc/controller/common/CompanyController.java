@@ -102,6 +102,8 @@ public class CompanyController extends AbstractBaseController {
 			logger.debug("add Company ==>" + i);
 			if(i > 0) {
 				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			} else {
+				iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("企业信息列表添加失败==>" + ExceptionUtils.getStackTrace(e));

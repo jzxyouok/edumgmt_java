@@ -58,6 +58,8 @@ public class QuestionBankYearController extends AbstractBaseController {
 			if(num > 0){
 				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
 				iRestMessage.setResult(num);
+			} else {
+				iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("题库与年份对应关系添加失败==>" + ExceptionUtils.getStackTrace(e));
@@ -81,6 +83,8 @@ public class QuestionBankYearController extends AbstractBaseController {
 			if(num > 0){
 				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
 				iRestMessage.setResult(num);
+			} else {
+				iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("题库与年份对应关系批量添加失败==>" + ExceptionUtils.getStackTrace(e));

@@ -201,7 +201,7 @@ public class AdminUserController extends AbstractBaseController {
 	 */
 	@RequestMapping(value = "/updateAdminUser")
 	@ResponseBody
-	public IRestMessage updateAdminUser(@Valid AdminUser adminUser, BindingResult bindingResult) {
+	public IRestMessage updateAdminUser(@Valid AdminUser adminUser, BindingResult bindingResult, Locale locale) {
 		IRestMessage msg = getRestMessage();
 		if(bindingResult.hasErrors()) {
 			msg.setDetail(ShincUtil.getErrorFields(bindingResult));

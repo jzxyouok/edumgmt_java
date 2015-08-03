@@ -86,7 +86,7 @@ public class CourseController extends AbstractBaseController {
 	
 	@RequestMapping(value = "/addCourse")
 	@ResponseBody
-	public IRestMessage addCourse(@Valid Course course, BindingResult bindingResult) {
+	public IRestMessage addCourse(@Valid Course course, BindingResult bindingResult, Locale locale) {
 		IRestMessage iRestMessage = getRestMessage();
 		if(bindingResult.hasErrors()) {
 			iRestMessage.setDetail(ShincUtil.getErrorFields(bindingResult));
@@ -94,9 +94,10 @@ public class CourseController extends AbstractBaseController {
 		}
 		try {
 			int i = courseService.addCourse(course);
-			logger.debug("add Course ==>" + i);
 			if(i > 0) {
 				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			} else {
+				iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("课程列表添加失败==>" + ExceptionUtils.getStackTrace(e));
