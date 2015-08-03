@@ -1,23 +1,27 @@
 package net.shinc.orm.mybatis.mappers;
 
+import java.util.List;
+
+import net.shinc.orm.mybatis.bean.QuestionBank;
 import net.shinc.orm.mybatis.bean.QuestionBankType;
 
 /** 
  * @ClassName QuestionBankTypeMapper 
- * @Description TODO
+ * @Description 题库版本
  * @author guoshijie 
- * @date 2015年7月31日 下午5:00:47  
+ * @date 2015年7月31日 下午5:00:51  
  */
 public interface QuestionBankTypeMapper {
-    int deleteByPrimaryKey(Integer id);
+	
+    int deleteQuestionBankTypeById(Integer id);
 
-    int insert(QuestionBankType record);
+    int addQuestionBankType(QuestionBankType record);
 
-    int insertSelective(QuestionBankType record);
+    QuestionBankType selectQuestionBankTypeById(Integer id);
 
-    QuestionBankType selectByPrimaryKey(Integer id);
+    int updateQuestionBankType(QuestionBankType record);
 
-    int updateByPrimaryKeySelective(QuestionBankType record);
-
-    int updateByPrimaryKey(QuestionBankType record);
+    public int addQuestionBankTypeBatch(List<QuestionBankType> list);
+    
+    public List<QuestionBankType> getQuestionBankTypeByQuestionBank(QuestionBank questionBank);
 }

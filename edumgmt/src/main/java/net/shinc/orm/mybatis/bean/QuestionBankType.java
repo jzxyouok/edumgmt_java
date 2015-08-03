@@ -1,5 +1,11 @@
 package net.shinc.orm.mybatis.bean;
 
+import java.text.MessageFormat;
+
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 /** 
  * @ClassName QuestionBankType 
  * @Description 题库版本
@@ -9,11 +15,21 @@ package net.shinc.orm.mybatis.bean;
 public class QuestionBankType {
     private Integer id;
 
-    private Integer questionBankId;
+    @NotNull(message="{questionBank.not.empty}")
+    private QuestionBank questionBank;
 
+    @NotEmpty(message="{questionBankTypeName.not.empty}")
     private String name;
 
-    public Integer getId() {
+    public QuestionBankType() {
+	}
+    
+	public QuestionBankType(QuestionBank questionBank, String name) {
+		this.questionBank = questionBank;
+		this.name = name;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -29,12 +45,17 @@ public class QuestionBankType {
         this.name = name == null ? null : name.trim();
     }
 
-	public Integer getQuestionBankId() {
-		return questionBankId;
+	public QuestionBank getQuestionBank() {
+		return questionBank;
 	}
 
-	public void setQuestionBankId(Integer questionBankId) {
-		this.questionBankId = questionBankId;
+	public void setQuestionBank(QuestionBank questionBank) {
+		this.questionBank = questionBank;
+	}
+	
+	@Override
+	public String toString() {
+		return MessageFormat.format("questionBank:{0}\tname:{1}", this.questionBank,this.name);
 	}
 
 }

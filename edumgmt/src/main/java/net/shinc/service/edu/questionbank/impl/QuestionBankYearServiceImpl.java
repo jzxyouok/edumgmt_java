@@ -2,6 +2,7 @@ package net.shinc.service.edu.questionbank.impl;
 
 import java.util.List;
 
+import net.shinc.orm.mybatis.bean.QuestionBank;
 import net.shinc.orm.mybatis.bean.QuestionBankYear;
 import net.shinc.orm.mybatis.mappers.QuestionBankYearMapper;
 import net.shinc.service.edu.questionbank.QuestionBankYearService;
@@ -47,13 +48,24 @@ public class QuestionBankYearServiceImpl implements QuestionBankYearService{
 
 	@Override
 	public Integer deleteQuestionBankYearById(Integer questionBankYearId) {
-		return questionBankYearMapper.deleteQuestionBankYearById(questionBankYearId);
+		if(null != questionBankYearId){
+			return questionBankYearMapper.deleteQuestionBankYearById(questionBankYearId);
+		}
+		return 0;
 	}
 
 	@Override
 	public QuestionBankYear getQuestionBankYearById(Integer questionBankYearId) {
 		if(null != questionBankYearId){
 			return questionBankYearMapper.selectQuestionBankYearById(questionBankYearId);
+		}
+		return null;
+	}
+
+	@Override
+	public List<QuestionBankYear> getQuestionBankYearByQuestionBank(QuestionBank questionBank) {
+		if(null != questionBank){
+			return questionBankYearMapper.getQuestionBankYearByQuestionBank(questionBank);
 		}
 		return null;
 	}

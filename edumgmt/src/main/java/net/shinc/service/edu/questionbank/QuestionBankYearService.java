@@ -2,6 +2,7 @@ package net.shinc.service.edu.questionbank;
 
 import java.util.List;
 
+import net.shinc.orm.mybatis.bean.QuestionBank;
 import net.shinc.orm.mybatis.bean.QuestionBankYear;
 
 /** 
@@ -46,4 +47,11 @@ public interface QuestionBankYearService {
 	 * @return
 	 */
 	public QuestionBankYear getQuestionBankYearById(Integer questionBankYearId);
+	
+	/**
+	 * 根据题库查年份
+	 * @param questionBank
+	 * @return
+	 */
+	public List<QuestionBankYear> getQuestionBankYearByQuestionBank(QuestionBank questionBank);
 }

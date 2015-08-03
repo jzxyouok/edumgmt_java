@@ -109,9 +109,9 @@ public class QuestionBankYearControllerTest {
     }
     
     @Test
-    public void testGetQuestionBankYearList() {
+    public void testGetQuestionBankYearByQuestionBank() {
     	try {
-    		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/questionBankYear/getQuestionBankYearList");
+    		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/questionBankYear/getQuestionBankYearByQuestionBank").param("id", "2");
     		mockMvc.perform(reqbuild).andDo(handler);
     	} catch (Exception e) {
     		e.printStackTrace();
