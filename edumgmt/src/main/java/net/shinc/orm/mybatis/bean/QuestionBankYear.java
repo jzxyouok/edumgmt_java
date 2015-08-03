@@ -1,5 +1,7 @@
 package net.shinc.orm.mybatis.bean;
 
+import java.text.MessageFormat;
+
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -49,6 +51,11 @@ public class QuestionBankYear {
 
 	public void setQuestionBank(QuestionBank questionBank) {
 		this.questionBank = questionBank;
+	}
+	
+	@Override
+	public String toString() {
+		return MessageFormat.format("questionBank:{0}\tyear:{1}", this.questionBank,this.year);
 	}
 
 }

@@ -2,6 +2,7 @@ package net.shinc.orm.mybatis.mappers;
 
 import java.util.List;
 
+import net.shinc.orm.mybatis.bean.QuestionBank;
 import net.shinc.orm.mybatis.bean.QuestionBankYear;
 
 /** 
@@ -21,4 +22,6 @@ public interface QuestionBankYearMapper {
     int updateQuestionBankYear(QuestionBankYear record);
 
     public int addQuestionBankYearBatch(List<QuestionBankYear> list);
+    
+    public List<QuestionBankYear> getQuestionBankYearByQuestionBank(QuestionBank questionBank);
 }

@@ -27,6 +27,17 @@
 			id = #{id,jdbcType=INTEGER}
 	</delete>
 	
+	<select id="getQuestionBankYearByQuestionBank" parameterType="QuestionBank" resultMap="BaseResultMap">
+		select
+			<include refid="Base_Column_List" />
+		from 
+			sh_questionbank_year
+		where 1 = 1
+			<if test="null != id">
+				and sh_questionbank_id = #{id}
+			</if>
+	</select>
+	
 	<insert id="addQuestionBankYear" parameterType="QuestionBankYear">
 		insert into sh_questionbank_year
 		<trim prefix="(" suffix=")" suffixOverrides=",">

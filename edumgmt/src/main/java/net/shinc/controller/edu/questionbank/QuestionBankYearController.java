@@ -9,6 +9,7 @@ import net.shinc.common.AbstractBaseController;
 import net.shinc.common.ErrorMessage;
 import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
+import net.shinc.orm.mybatis.bean.QuestionBank;
 import net.shinc.orm.mybatis.bean.QuestionBankYear;
 import net.shinc.service.edu.questionbank.QuestionBankYearService;
 
@@ -110,6 +111,13 @@ public class QuestionBankYearController extends AbstractBaseController {
 		return iRestMessage;
 	}
 	
+	/**
+	 * 更新题库与年份对应关系
+	 * @param questionBankYear
+	 * @param bindingResult
+	 * @param locale
+	 * @return
+	 */
 	@RequestMapping(value = "/updateQuestionBankYear")
 	@ResponseBody
 	public IRestMessage updateQuestionBankYear(QuestionBankYear questionBankYear, BindingResult bindingResult, Locale locale) {
@@ -129,41 +137,47 @@ public class QuestionBankYearController extends AbstractBaseController {
 		return msg;
 	}
 	
-//	@RequestMapping(value = "/getQuestionBankYearById")
-//	@ResponseBody
-//	public IRestMessage getQuestionBankYearById(QuestionBankYear questionBankYear) {
-//		IRestMessage msg = getRestMessage();
-//		try {
-//			if(null != questionBankYear) {
-//				QuestionBankYear question = questionBankYearService.getQuestionBankYearById(questionBankYear.getId());
-//				if(null != question) {
-//					msg.setCode(ErrorMessage.SUCCESS.getCode());
-//					msg.setResult(question);
-//				}
-//			} else {
-//				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
-//			}
-//		} catch (Exception e) {
-//			logger.error("题库与年份对应关系查询查询失败==>" + ExceptionUtils.getStackTrace(e));
-//		}
-//		return msg;
-//	}
+	@RequestMapping(value = "/getQuestionBankYearById")
+	@ResponseBody
+	public IRestMessage getQuestionBankYearById(QuestionBankYear questionBankYear) {
+		IRestMessage msg = getRestMessage();
+		try {
+			if(null != questionBankYear) {
+				QuestionBankYear question = questionBankYearService.getQuestionBankYearById(questionBankYear.getId());
+				if(null != question) {
+					msg.setCode(ErrorMessage.SUCCESS.getCode());
+					msg.setResult(question);
+				}
+			} else {
+				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
+			}
+		} catch (Exception e) {
+			logger.error("题库与年份对应关系查询查询失败==>" + ExceptionUtils.getStackTrace(e));
+		}
+		return msg;
+	}
 	
-//	@RequestMapping(value = "/getQuestionBankYearList")
-//	@ResponseBody
-//	public IRestMessage getQuestionBankYearList() {
-//		IRestMessage msg = getRestMessage();
-//		try {
-//			List<QuestionBankYear> list = questionBankYearService.getQuestionBankYearList();
-//			if(null != list && list.size() > 0) {
-//				msg.setCode(ErrorMessage.SUCCESS.getCode());
-//				msg.setResult(list);
-//			}else {
-//				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
-//			}
-//		} catch (Exception e) {
-//			logger.error("题库与年份对应关系列表查询查询失败==>" + ExceptionUtils.getStackTrace(e));
-//		}
-//		return msg;
-//	}
+	/**
+	 * 根据题库查年份
+	 * @param questionBank
+	 * @return
+	 */
+	@RequestMapping(value = "/getQuestionBankYearByQuestionBank")
+	@ResponseBody
+	public IRestMessage getQuestionBankYearByQuestionBank(QuestionBank questionBank) {
+		IRestMessage msg = getRestMessage();
+		try {
+			List<QuestionBankYear> list = questionBankYearService.getQuestionBankYearByQuestionBank(questionBank);
+			if(null != list && list.size() > 0) {
+				msg.setCode(ErrorMessage.SUCCESS.getCode());
+				msg.setResult(list);
+			} else {
+				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
+			}
+		} catch (Exception e) {
+			logger.error("题库与年份对应关系查询查询失败==>" + ExceptionUtils.getStackTrace(e));
+		}
+		return msg;
+	}
+	
 }
