@@ -21,5 +21,7 @@ public interface CourseMapper {
     int updateCourse(Course record);
     
     public List<Course> getCourseList();
+    
+    public List<Course> selectCourse(Course course);
 
 }

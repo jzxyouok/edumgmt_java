@@ -45,4 +45,11 @@ public interface CourseService {
 	 * @return
 	 */
 	public List<Course> getCourseList();
+	
+	/**
+	 * 有无课程
+	 * @param course
+	 * @return
+	 */
+	public Boolean hasCourse(Course course);
 }
