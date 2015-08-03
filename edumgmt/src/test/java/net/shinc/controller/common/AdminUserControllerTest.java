@@ -1,12 +1,16 @@
 package net.shinc.controller.common;
 
 import net.shinc.InfoMgmtApplication;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,7 +33,7 @@ public class AdminUserControllerTest {
     
     @Before  
     public void init(){  
-    	mockMvc = MockMvcBuilders.webAppContextSetup(wac).build(); 
+    	mockMvc = MockMvcBuilders.webAppContextSetup(wac).apply(springSecurity()).build(); 
     	handler = MockMvcResultHandlers.print();
     } 
     
@@ -94,9 +98,13 @@ public class AdminUserControllerTest {
 	}
 	
 	@Test
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testGetAdminUserList() {
 		try {
-			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/adminUser/getAdminUserList")
+			
+			RequestBuilder reqbuild = MockMvcRequestBuilders
+					.post("/adminUser/getAdminUserList")
+					.with(user("admin").password("admin").authorities(AuthorityUtils.createAuthorityList("adminUserList")))
 					.param("page", "1").param("id", "3");
 			mockMvc.perform(reqbuild).andDo(handler);
 		} catch (Exception e) {

@@ -49,6 +49,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     testCompile("org.springframework.boot:spring-boot-starter-test") 
+    testCompile("org.springframework.security:spring-security-test:4.0.2.RELEASE") 
     
     compile 'org.mybatis:mybatis:3.2.8'
     compile 'org.mybatis:mybatis-spring:1.2.2'
@@ -56,7 +57,6 @@ dependencies {
     compile 'mysql:mysql-connector-java:5.1.35'
     compile 'org.springframework:spring-jdbc:4.1.6.RELEASE'
     compile 'org.hibernate:hibernate-validator:5.2.0.Beta1'
-    compile 'org.springframework.security:spring-security-web:4.0.1.RELEASE'
     compile 'net.spy:spymemcached:2.11.7'
     compile 'org.springframework.session:spring-session:1.0.1.RELEASE'
     compile 'org.apache.httpcomponents:httpclient:4.4.1'
