@@ -9,7 +9,10 @@ import net.shinc.common.AbstractBaseController;
 import net.shinc.common.ErrorMessage;
 import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
+import net.shinc.orm.mybatis.bean.Course;
 import net.shinc.orm.mybatis.bean.QuestionBank;
+import net.shinc.orm.mybatis.bean.QuestionBankCourseKey;
+import net.shinc.service.edu.questionbank.QuestionBankCourseService;
 import net.shinc.service.edu.questionbank.QuestionBankService;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -35,6 +38,9 @@ public class QuestionBankController extends AbstractBaseController {
 	
 	@Autowired
 	private QuestionBankService questionBankService;
+	
+	@Autowired
+	private QuestionBankCourseService questionBankCourseService;
 	
 	/**
 	 * 添加题库
@@ -150,4 +156,49 @@ public class QuestionBankController extends AbstractBaseController {
 		}
 		return msg;
 	}
+	
+	/**
+	 * 给题库添加课程
+	 * @return
+	 */
+	@RequestMapping(value = "/addQuestionBankCourseKey")
+	@ResponseBody
+	public IRestMessage addQuestionBankCourseKey(QuestionBankCourseKey questionBankCourseKey) {
+		IRestMessage msg = getRestMessage();
+		try {
+			Integer num = questionBankService.addQuestionBankCourseKey(questionBankCourseKey);
+			if (num > 0) {
+				msg.setCode(ErrorMessage.SUCCESS.getCode());
+				msg.setResult(num);
+			} else {
+				msg.setCode(ErrorMessage.ADD_FAILED.getCode());
+			}
+		} catch (Exception e) {
+			logger.error("添加失败==>" + ExceptionUtils.getStackTrace(e));
+		}
+		return msg;
+	}
+	
+	/**
+	 * 根据题库查询课程列表
+	 * @return
+	 */
+	@RequestMapping(value = "/getCourseListByQuestionBank")
+	@ResponseBody
+	public IRestMessage getCourseListByQuestionBank(QuestionBank questionBank) {
+		IRestMessage msg = getRestMessage();
+		try {
+			List<Course> list = questionBankCourseService.getCourseListByQuestionBank(questionBank);
+			if (null != list && list.size() > 0) {
+				msg.setCode(ErrorMessage.SUCCESS.getCode());
+				msg.setResult(list);
+			} else {
+				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
+			}
+		} catch (Exception e) {
+			logger.error("查询失败==>" + ExceptionUtils.getStackTrace(e));
+		}
+		return msg;
+	}
+	
 }

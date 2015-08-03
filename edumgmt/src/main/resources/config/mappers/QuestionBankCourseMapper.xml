@@ -2,39 +2,66 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="net.shinc.orm.mybatis.mappers.QuestionBankCourseMapper">
 	<resultMap id="BaseResultMap" type="QuestionBankCourseKey">
-		<id column="sh_questionbank_id" property="questionBankId" jdbcType="INTEGER" />
-		<id column="sh_course_id" property="courseId" jdbcType="INTEGER" />
+		<association property="questionBank" column="sh_questionbank_id" javaType="QuestionBank" select="net.shinc.orm.mybatis.mappers.QuestionBankMapper.selectQuestionBankById"></association>
+		<association property="course" column="sh_course_id" javaType="Course" select="net.shinc.orm.mybatis.mappers.CourseMapper.selectCourseById"></association>
 	</resultMap>
 
 	<delete id="deleteById" parameterType="QuestionBankCourseKey">
-		delete from sh_questionbank_course
-		where sh_questionbank_id = #{questionBankId,jdbcType=INTEGER}
-		and sh_course_id =
-		#{courseId,jdbcType=INTEGER}
+		delete from 
+			sh_questionbank_course
+		where 1 = 1
+			and	sh_questionbank_id = #{questionBank.id,jdbcType=INTEGER}
+			and sh_course_id = #{course.id,jdbcType=INTEGER}
 	</delete>
-
-	<insert id="insert" parameterType="QuestionBankCourseKey">
-		insert into sh_questionbank_course (sh_questionbank_id, sh_course_id)
-		values (#{questionBankId,jdbcType=INTEGER},
-		#{courseId,jdbcType=INTEGER})
-	</insert>
+	
+	<select id="selectQuestionBankCourse" parameterType="QuestionBankCourseKey">
+		select
+			sh_questionbank_id,sh_course_id
+		from 
+			sh_questionbank_course
+		where 1 = 1
+			<if test="null != questionBank">
+				and sh_questionbank_id = #{questionBank.id}
+			</if>
+			<if test="null != course">
+				and sh_course_id = #{course.id}
+			</if>
+	</select>
+	
+	<resultMap id="CourseResultMap" type="Course" >
+	    <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="name" property="name" jdbcType="VARCHAR" />
+	    <result column="short" property="shortName" jdbcType="VARCHAR" />
+  	</resultMap>
+	<select id="getCourseListByQuestionBank" parameterType="QuestionBank" resultMap="CourseResultMap">
+		select
+			a.id, a.name, a.short
+		from
+			sh_course a
+		inner join
+			sh_questionbank_course b
+		on
+			a.id = b.sh_course_id
+		where
+			b.sh_questionbank_id = #{id}
+	</select>
 
 	<insert id="insertSelective" parameterType="QuestionBankCourseKey">
 		insert into sh_questionbank_course
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="questionBankId != null">
+			<if test="questionBank != null">
 				sh_questionbank_id,
 			</if>
-			<if test="courseId != null">
+			<if test="course != null">
 				sh_course_id,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="questionBankId != null">
-				#{questionBankId,jdbcType=INTEGER},
+			<if test="questionBank != null">
+				#{questionBank.id,jdbcType=INTEGER},
 			</if>
-			<if test="courseId != null">
-				#{courseId,jdbcType=INTEGER},
+			<if test="course != null">
+				#{course.id,jdbcType=INTEGER},
 			</if>
 		</trim>
 	</insert>

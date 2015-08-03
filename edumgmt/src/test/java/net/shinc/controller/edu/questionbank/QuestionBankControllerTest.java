@@ -127,4 +127,28 @@ public class QuestionBankControllerTest {
     		e.printStackTrace();
     	}
     }
+    
+    @Test
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
+    public void testAddQuestionBankCourseKey() {
+    	try {
+    		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/questionBank/addQuestionBankCourseKey")
+    				.param("questionBank.id", "1").param("course.id", "1");
+    		mockMvc.perform(reqbuild).andDo(handler);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    @Test
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
+    public void testGetCourseListByQuestionBank() {
+    	try {
+    		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/questionBank/getCourseListByQuestionBank")
+    				.param("id", "1");
+    		mockMvc.perform(reqbuild).andDo(handler);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    }
 }

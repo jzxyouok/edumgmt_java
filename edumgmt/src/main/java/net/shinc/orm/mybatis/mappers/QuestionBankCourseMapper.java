@@ -1,5 +1,9 @@
 package net.shinc.orm.mybatis.mappers;
 
+import java.util.List;
+
+import net.shinc.orm.mybatis.bean.Course;
+import net.shinc.orm.mybatis.bean.QuestionBank;
 import net.shinc.orm.mybatis.bean.QuestionBankCourseKey;
 
 /** 
@@ -11,7 +15,9 @@ import net.shinc.orm.mybatis.bean.QuestionBankCourseKey;
 public interface QuestionBankCourseMapper {
     int deleteById(QuestionBankCourseKey key);
 
-    int insert(QuestionBankCourseKey record);
-
     int insertSelective(QuestionBankCourseKey record);
+    
+    QuestionBankCourseKey selectQuestionBankCourse(QuestionBankCourseKey key);
+    
+    List<Course> getCourseListByQuestionBank(QuestionBank questionBank);
 }

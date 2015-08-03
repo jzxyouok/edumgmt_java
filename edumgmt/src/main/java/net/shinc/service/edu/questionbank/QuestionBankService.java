@@ -3,6 +3,7 @@ package net.shinc.service.edu.questionbank;
 import java.util.List;
 
 import net.shinc.orm.mybatis.bean.QuestionBank;
+import net.shinc.orm.mybatis.bean.QuestionBankCourseKey;
 
 /** 
  * @ClassName QuestionBankService 
@@ -45,4 +46,12 @@ public interface QuestionBankService {
 	 * @return
 	 */
 	public List<QuestionBank> getQuestionBankList();
+	
+	/**
+	 * 给题库添加课程
+	 * @param questionBank
+	 * @param course
+	 * @return
+	 */
+	public Integer addQuestionBankCourseKey(QuestionBankCourseKey questionBankCourseKey);
 }
