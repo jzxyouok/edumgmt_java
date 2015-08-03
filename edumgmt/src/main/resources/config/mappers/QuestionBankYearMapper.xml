@@ -28,8 +28,8 @@
 	</delete>
 	
 	<select id="getQuestionBankYearByQuestionBank" parameterType="QuestionBank" resultMap="BaseResultMap">
-		select
-			<include refid="Base_Column_List" />
+		select distinct
+			sh_questionbank_id, year
 		from 
 			sh_questionbank_year
 		where 1 = 1
