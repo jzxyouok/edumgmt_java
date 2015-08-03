@@ -9,23 +9,27 @@
   <sql id="Base_Column_List" >
     id, name, level
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  
+  <select id="selectAllLecture" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sh_lecture
+    where 1 = 1
+  </select>
+  
+  <select id="selectLectureById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from sh_lecture
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  
+  <delete id="deleteLectureById" parameterType="java.lang.Integer" >
     delete from sh_lecture
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="Lecture" >
-    insert into sh_lecture (id, name, level
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="Lecture" >
+  
+  <insert id="insertLecture" parameterType="Lecture" >
     insert into sh_lecture
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -50,7 +54,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="Lecture" >
+  
+  <update id="updateLectureById" parameterType="Lecture" >
     update sh_lecture
     <set >
       <if test="name != null" >
@@ -60,12 +65,6 @@
         level = #{level,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="Lecture" >
-    update sh_lecture
-    set name = #{name,jdbcType=VARCHAR},
-      level = #{level,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

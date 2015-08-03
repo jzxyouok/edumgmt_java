@@ -1,5 +1,9 @@
 package net.shinc.orm.mybatis.mappers;
 
+import java.util.List;
+
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+
 import net.shinc.orm.mybatis.bean.Lecture;
 
 /** 
@@ -9,15 +13,13 @@ import net.shinc.orm.mybatis.bean.Lecture;
  * @date 2015年7月31日 下午7:52:10  
  */
 public interface LectureMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteLectureById(Integer id);
 
-    int insert(Lecture record);
-
-    int insertSelective(Lecture record);
-
-    Lecture selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(Lecture record);
-
-    int updateByPrimaryKey(Lecture record);
+    Lecture selectLectureById(Integer id);
+    
+    public List<Lecture> selectAllLecture(PageBounds pb);
+    
+    int insertLecture(Lecture record);
+   
+    int updateLectureById(Lecture record);
 }
