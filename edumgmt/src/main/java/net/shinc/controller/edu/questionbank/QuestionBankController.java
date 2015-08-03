@@ -1,4 +1,4 @@
-package net.shinc.controller.questionbank;
+package net.shinc.controller.edu.questionbank;
 
 import java.util.List;
 import java.util.Locale;

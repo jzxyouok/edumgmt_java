@@ -1,4 +1,4 @@
-package net.shinc.controller.questionbank;
+package net.shinc.controller.edu.questionbank;
 
 import net.shinc.InfoMgmtApplication;
 
