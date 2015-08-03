@@ -61,6 +61,8 @@ public class AuthorityController extends AbstractBaseController{
 			if(i > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(i);
+			} else {
+				msg.setCode(ErrorMessage.UPDATE_FAILED.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("权限更新失败==>" + ExceptionUtils.getStackTrace(e));

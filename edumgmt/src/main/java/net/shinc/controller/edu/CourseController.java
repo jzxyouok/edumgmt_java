@@ -1,5 +1,6 @@
 package net.shinc.controller.edu;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.validation.Valid;
@@ -18,16 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.github.miemiedev.mybatis.paginator.domain.Order;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
 /**
  * @ClassName CourseController 
- * @Description TODO
+ * @Description 课程控制层
  * @author guoshijie 
  * @date 2015年8月3日 下午5:00:43
  */
@@ -41,25 +37,23 @@ public class CourseController extends AbstractBaseController {
 	
 	/**
 	 * 获取课程列表
-	 * @param page 当前页码
 	 * @return
 	 */
 	@RequestMapping(value = "/getCourseList")
 	@ResponseBody
-	public IRestMessage getCourseList(@RequestParam(value="page",required = true) int page) {
+	public IRestMessage getCourseList() {
 		IRestMessage msg = getRestMessage();
-//		try {
-//			PageBounds pageBounds = new PageBounds(page, Integer.parseInt(limit), Order.formString("id.asc"));
-//			PageList<Course> CourseList = courseService.getCourseList(pageBounds);
-//			if(null != CourseList && CourseList.size() > 0) {
-//				msg.setCode(ErrorMessage.SUCCESS.getCode());
-//				msg.setResult(CourseList);
-//			} else {
-//				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
-//			}
-//		} catch (Exception e) {
-//			logger.error("课程列表查询失败==>" + ExceptionUtils.getStackTrace(e));
-//		}
+		try {
+			List<Course> list = courseService.getCourseList();
+			if(null != list && list.size() > 0) {
+				msg.setCode(ErrorMessage.SUCCESS.getCode());
+				msg.setResult(list);
+			} else {
+				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
+			}
+		} catch (Exception e) {
+			logger.error("课程列表查询失败==>" + ExceptionUtils.getStackTrace(e));
+		}
 		return msg;
 	}
 	
@@ -69,12 +63,13 @@ public class CourseController extends AbstractBaseController {
 		IRestMessage msg = getRestMessage();
 		try {
 			if(null != course) {
-				
-			}
-			Course admin = courseService.getCourseById(course.getId());
-			if(null != admin) {
-				msg.setCode(ErrorMessage.SUCCESS.getCode());
-				msg.setResult(admin);
+				Course cos = courseService.getCourseById(course.getId());
+				if(null != cos) {
+					msg.setCode(ErrorMessage.SUCCESS.getCode());
+					msg.setResult(cos);
+				} else {
+					msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
+				}
 			} else {
 				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
 			}
@@ -93,14 +88,19 @@ public class CourseController extends AbstractBaseController {
 			return iRestMessage;
 		}
 		try {
-			int i = courseService.addCourse(course);
-			if(i > 0) {
-				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			Boolean hasCourse = courseService.hasCourse(course);
+			if(!hasCourse) {
+				int i = courseService.addCourse(course);
+				if(i > 0) {
+					iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+				} else {
+					iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());
+				}
 			} else {
-				iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());
+				iRestMessage.setCode(ErrorMessage.COURSE_EXIST.getCode());
 			}
 		} catch (Exception e) {
-			logger.error("课程列表添加失败==>" + ExceptionUtils.getStackTrace(e));
+			logger.error("课程添加失败==>" + ExceptionUtils.getStackTrace(e));
 		}
 		return iRestMessage;
 	}
@@ -114,7 +114,12 @@ public class CourseController extends AbstractBaseController {
 				int i = courseService.deleteCourseById(course.getId());
 				if(i > 0) {
 					msg.setCode(ErrorMessage.SUCCESS.getCode());
+					msg.setResult(i);
+				} else {
+					msg.setCode(ErrorMessage.DELETE_FAILED.getCode());
 				}
+			} else {
+				msg.setCode(ErrorMessage.DELETE_FAILED.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("课程删除失败==>" + ExceptionUtils.getStackTrace(e));
@@ -134,6 +139,9 @@ public class CourseController extends AbstractBaseController {
 			int i = courseService.updateCourse(course);
 			if(i > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
+				msg.setResult(i);
+			} else {
+				msg.setCode(ErrorMessage.UPDATE_FAILED.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("课程更新失败==>" + ExceptionUtils.getStackTrace(e));
