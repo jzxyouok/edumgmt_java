@@ -22,4 +22,20 @@ public interface VideoPastpaperMapper {
 	public List<VideoPastpaper> getVideoPastpaperList(VideoPastpaper videoPastpaper);
 
 	public Integer getVideoPastpaperListCount(VideoPastpaper videoPastpaper);
+	
+	/**
+	 * @Title: getVideoPastpaperAndRelevantInfoList
+	 * @Description: 得到真题、模拟题以及其相关信息列表
+	 * @param videoPastpaper
+	 * @return List<VideoPastpaper>
+	 */
+	public List<VideoPastpaper> getVideoPastpaperAndRelevantInfoList(VideoPastpaper videoPastpaper);
+	
+	/**
+	 * @Title: getVideoPastpaperAndRelevantInfoListCount
+	 * @Description: 得到真题、模拟题以及其相关信息列表总条数
+	 * @param videoPastpaper
+	 * @return List<VideoPastpaper>
+	 */
+	public List<VideoPastpaper> getVideoPastpaperAndRelevantInfoListCount(VideoPastpaper videoPastpaper);
 }
