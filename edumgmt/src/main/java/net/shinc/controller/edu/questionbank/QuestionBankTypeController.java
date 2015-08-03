@@ -120,8 +120,12 @@ public class QuestionBankTypeController extends AbstractBaseController {
 	 */
 	@RequestMapping(value = "/updateQuestionBankType")
 	@ResponseBody
-	public IRestMessage updateQuestionBankType(QuestionBankType questionBankType) {
+	public IRestMessage updateQuestionBankType(@Valid QuestionBankType questionBankType, BindingResult bindingResult, Locale locale) {
 		IRestMessage msg = getRestMessage();
+		if(bindingResult.hasErrors()) {
+			msg.setDetail(ShincUtil.getErrorFields(bindingResult));
+			return msg;
+		}
 		try {
 			int i = questionBankTypeService.updateQuestionBankType(questionBankType);
 			if(i > 0) {

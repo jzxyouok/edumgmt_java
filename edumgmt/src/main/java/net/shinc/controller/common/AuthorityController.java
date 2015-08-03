@@ -107,6 +107,8 @@ public class AuthorityController extends AbstractBaseController{
 			if(null != list && list.size() > 0) {
 				msg.setResult(list);
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
+			} else {
+				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("权限查询失败==>" + ExceptionUtils.getStackTrace(e));

@@ -120,7 +120,7 @@ public class QuestionBankYearController extends AbstractBaseController {
 	 */
 	@RequestMapping(value = "/updateQuestionBankYear")
 	@ResponseBody
-	public IRestMessage updateQuestionBankYear(QuestionBankYear questionBankYear, BindingResult bindingResult, Locale locale) {
+	public IRestMessage updateQuestionBankYear(@Valid QuestionBankYear questionBankYear, BindingResult bindingResult, Locale locale) {
 		IRestMessage msg = getRestMessage();
 		if(bindingResult.hasErrors()) {
 			msg.setDetail(ShincUtil.getErrorFields(bindingResult));

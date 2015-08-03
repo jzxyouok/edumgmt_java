@@ -1,5 +1,7 @@
 package net.shinc.orm.mybatis.mappers;
 
+import java.util.List;
+
 import net.shinc.orm.mybatis.bean.Course;
 
 /** 
@@ -9,15 +11,15 @@ import net.shinc.orm.mybatis.bean.Course;
  * @date 2015年7月31日 下午7:50:02  
  */
 public interface CourseMapper {
-    int deleteByPrimaryKey(Integer id);
+	
+    int deleteCourseById(Integer id);
 
-    int insert(Course record);
+    int addCourse(Course record);
 
-    int insertSelective(Course record);
+    Course selectCourseById(Integer id);
 
-    Course selectByPrimaryKey(Integer id);
+    int updateCourse(Course record);
+    
+    public List<Course> getCourseList();
 
-    int updateByPrimaryKeySelective(Course record);
-
-    int updateByPrimaryKey(Course record);
 }

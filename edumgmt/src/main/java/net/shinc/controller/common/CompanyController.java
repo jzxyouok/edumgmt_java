@@ -126,11 +126,14 @@ public class CompanyController extends AbstractBaseController {
 	
 	@RequestMapping(value = "/updateCompany")
 	@ResponseBody
-	public IRestMessage updateCompany(Company company, Locale locale) {
+	public IRestMessage updateCompany(@Valid Company company, BindingResult bindingResult) {
 		IRestMessage msg = getRestMessage();
+		if(bindingResult.hasErrors()) {
+			msg.setDetail(ShincUtil.getErrorFields(bindingResult));
+			return msg;
+		}
 		try {
 			int i = companyService.updateCompany(company);
-			logger.info("udpate --->" + i);
 			if(i > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 			}
