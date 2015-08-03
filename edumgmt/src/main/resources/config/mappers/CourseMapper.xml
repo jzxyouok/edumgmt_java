@@ -6,26 +6,26 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="short" property="short" jdbcType="VARCHAR" />
   </resultMap>
+  
   <sql id="Base_Column_List" >
     id, name, short
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  
+  <select id="selectCourseById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
-    <include refid="Base_Column_List" />
-    from sh_course
-    where id = #{id,jdbcType=INTEGER}
+    	<include refid="Base_Column_List" />
+    from
+    	sh_course
+    where 
+    	id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  
+  <delete id="deleteCourseById" parameterType="java.lang.Integer" >
     delete from sh_course
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="Course" >
-    insert into sh_course (id, name, short
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{short,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="Course" >
+  
+  <insert id="addCourse" parameterType="Course" >
     insert into sh_course
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -50,7 +50,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="Course" >
+  
+  <update id="updateCourse" parameterType="Course" >
     update sh_course
     <set >
       <if test="name != null" >
@@ -62,10 +63,13 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="Course" >
-    update sh_course
-    set name = #{name,jdbcType=VARCHAR},
-      short = #{short,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+  
+  <select id="getCourseList">
+  	select distinct
+  		name, short
+  	from 
+  		sh_course
+  	where 1 = 1
+  </select>
+  
 </mapper>
