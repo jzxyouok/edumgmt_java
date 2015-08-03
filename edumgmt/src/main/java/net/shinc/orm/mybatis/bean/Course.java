@@ -1,6 +1,10 @@
 
 package net.shinc.orm.mybatis.bean;
 
+import java.text.MessageFormat;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 /** 
  * @ClassName Course 
  * @Description 课程
@@ -10,6 +14,7 @@ package net.shinc.orm.mybatis.bean;
 public class Course {
     private Integer id;
 
+    @NotEmpty(message="{courseName.not.empty}")
     private String name;
 
     private String shortName;
@@ -36,5 +41,10 @@ public class Course {
 
 	public void setShortName(String shortName) {
 		this.shortName = shortName;
+	}
+	
+	@Override
+	public String toString() {
+		return MessageFormat.format("name:{0}\tshortName:{1}", this.name,this.shortName);
 	}
 }

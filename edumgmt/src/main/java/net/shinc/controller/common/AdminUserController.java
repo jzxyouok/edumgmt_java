@@ -107,6 +107,8 @@ public class AdminUserController extends AbstractBaseController {
 			if(null != adminUserList && adminUserList.size() > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(adminUserList);
+			} else {
+				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("后台管理用户列表查询失败==>" + ExceptionUtils.getStackTrace(e));
@@ -134,6 +136,8 @@ public class AdminUserController extends AbstractBaseController {
 				} else {
 					msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
 				}
+			} else {
+				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("后台管理用户查询失败==>" + ExceptionUtils.getStackTrace(e));
@@ -210,7 +214,6 @@ public class AdminUserController extends AbstractBaseController {
 //			adminUser.setPassword(passService.encode(password));
 			
 			int i = adminUserService.updateAdminUser(adminUser);
-			logger.info("udpate --->" + i);
 			if(i > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 			}
