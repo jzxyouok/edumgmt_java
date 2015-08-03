@@ -3,35 +3,37 @@
 <mapper namespace="net.shinc.orm.mybatis.mappers.QuestionBankYearMapper">
 	<resultMap id="BaseResultMap" type="QuestionBankYear">
 		<id column="id" property="id" jdbcType="INTEGER" />
-		<result column="sh_questionbank_id" property="questionBankId" jdbcType="INTEGER" />
 		<result column="year" property="year" jdbcType="VARCHAR" />
+		<association property="questionBank" column="sh_questionbank_id" javaType="QuestionBank" select="net.shinc.orm.mybatis.mappers.QuestionBankMapper.selectQuestionBankById"></association>
 	</resultMap>
+	
 	<sql id="Base_Column_List">
 		id, sh_questionbank_id, year
 	</sql>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	
+	<select id="selectQuestionBankYearById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
-		<include refid="Base_Column_List" />
-		from sh_questionbank_year
-		where id = #{id,jdbcType=INTEGER}
+			<include refid="Base_Column_List" />
+		from 
+			sh_questionbank_year
+		where 
+			id = #{id,jdbcType=INTEGER}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from sh_questionbank_year
-		where id = #{id,jdbcType=INTEGER}
+	
+	<delete id="deleteQuestionBankYearById" parameterType="java.lang.Integer">
+		delete from 
+			sh_questionbank_year
+		where 
+			id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="QuestionBankYear">
-		insert into sh_questionbank_year (id, sh_questionbank_id, year
-		)
-		values (#{id,jdbcType=INTEGER}, #{questionBankId,jdbcType=INTEGER}, #{year,jdbcType=VARCHAR}
-		)
-	</insert>
-	<insert id="insertSelective" parameterType="QuestionBankYear">
+	
+	<insert id="addQuestionBankYear" parameterType="QuestionBankYear">
 		insert into sh_questionbank_year
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				id,
 			</if>
-			<if test="questionBankId != null">
+			<if test="questionBank != null">
 				sh_questionbank_id,
 			</if>
 			<if test="year != null">
@@ -42,19 +44,29 @@
 			<if test="id != null">
 				#{id,jdbcType=INTEGER},
 			</if>
-			<if test="questionBankId != null">
-				#{questionBankId,jdbcType=INTEGER},
+			<if test="questionBank != null">
+				#{questionBank.id,jdbcType=INTEGER},
 			</if>
 			<if test="year != null">
 				#{year,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="QuestionBankYear">
+	
+	<insert id="addQuestionBankYearBatch" parameterType="java.util.List">
+		insert into
+			sh_questionbank_year (sh_questionbank_id, year)
+		values
+		<foreach collection="list" item="item" index="index" separator="," >
+			(#{item.questionBank.id,jdbcType=INTEGER}, #{item.year,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+	
+	<update id="updateQuestionBankYear" parameterType="QuestionBankYear">
 		update sh_questionbank_year
 		<set>
-			<if test="questionBankId != null">
-				sh_questionbank_id = #{questionBankId,jdbcType=INTEGER},
+			<if test="questionBank != null">
+				sh_questionbank_id = #{questionBank.id,jdbcType=INTEGER},
 			</if>
 			<if test="year != null">
 				year = #{year,jdbcType=VARCHAR},
@@ -62,10 +74,5 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="QuestionBankYear">
-		update sh_questionbank_year
-		set sh_questionbank_id = #{questionBankId,jdbcType=INTEGER},
-		year = #{year,jdbcType=VARCHAR}
-		where id = #{id,jdbcType=INTEGER}
-	</update>
+	
 </mapper>

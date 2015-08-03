@@ -19,7 +19,14 @@ public class QuestionBank {
     @NotEmpty(message="{type.not.empty}")
     private String type;
 
-    public Integer getId() {
+	public QuestionBank() {
+	}
+
+	public QuestionBank(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getId() {
         return id;
     }
 

@@ -1,5 +1,7 @@
 package net.shinc.service.edu.questionbank;
 
+import java.util.List;
+
 import net.shinc.orm.mybatis.bean.QuestionBankYear;
 
 /** 
@@ -11,30 +13,37 @@ import net.shinc.orm.mybatis.bean.QuestionBankYear;
 public interface QuestionBankYearService {
 
 	/**
-	 * 添加题库
+	 * 添加题库与年份对应关系
 	 * @param questionBankYear
 	 * @return
 	 */
 	public Integer addQuestionBankYear(QuestionBankYear questionBankYear);
 	
 	/**
-	 * 修改题库
+	 * 批量添加题库与年份对应关系
+	 * @param questionBankYear
+	 * @return
+	 */
+	public Integer addQuestionBankYearBatch(List<QuestionBankYear> list);
+	
+	/**
+	 * 修改题库与年份对应关系
 	 * @param questionBankYear
 	 * @return
 	 */
 	public Integer updateQuestionBankYear(QuestionBankYear questionBankYear);
 	
 	/**
-	 * 删除题库
+	 * 删除题库与年份对应关系
 	 * @param questionBankYear
 	 * @return
 	 */
 	public Integer deleteQuestionBankYearById(Integer questionBankYearId);
 	
 	/**
-	 * 根据id查询题库
+	 * 根据id查询题库与年份对应关系
 	 * @param questionBankYear
 	 * @return
 	 */
-	public Integer getQuestionBankYearById(Integer questionBankYearId);
+	public QuestionBankYear getQuestionBankYearById(Integer questionBankYearId);
 }

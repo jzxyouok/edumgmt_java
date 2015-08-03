@@ -1,19 +1,33 @@
 package net.shinc.orm.mybatis.bean;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 /** 
  * @ClassName QuestionBankYear 
- * @Description 真题模拟题与年份关系bean
+ * @Description 真题模拟题与年份关系
  * @author guoshijie 
  * @date 2015年7月31日 下午4:50:32  
  */
 public class QuestionBankYear {
     private Integer id;
 
-    private Integer questionBankId;
+    @NotNull(message="{questionBank.not.empty}")
+    private QuestionBank questionBank;
 
+    @NotEmpty(message="{year.not.empty}")
     private String year;
 
-    public Integer getId() {
+    public QuestionBankYear() {
+	}
+    
+	public QuestionBankYear(QuestionBank questionBank, String year) {
+		this.questionBank = questionBank;
+		this.year = year;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -29,12 +43,12 @@ public class QuestionBankYear {
         this.year = year == null ? null : year.trim();
     }
 
-	public Integer getQuestionBankId() {
-		return questionBankId;
+	public QuestionBank getQuestionBank() {
+		return questionBank;
 	}
 
-	public void setQuestionBankId(Integer questionBankId) {
-		this.questionBankId = questionBankId;
+	public void setQuestionBank(QuestionBank questionBank) {
+		this.questionBank = questionBank;
 	}
 
 }

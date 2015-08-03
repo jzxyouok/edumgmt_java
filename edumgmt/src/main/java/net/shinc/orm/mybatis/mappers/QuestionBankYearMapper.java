@@ -1,5 +1,7 @@
 package net.shinc.orm.mybatis.mappers;
 
+import java.util.List;
+
 import net.shinc.orm.mybatis.bean.QuestionBankYear;
 
 /** 
@@ -9,15 +11,14 @@ import net.shinc.orm.mybatis.bean.QuestionBankYear;
  * @date 2015年7月31日 下午5:00:51  
  */
 public interface QuestionBankYearMapper {
-    int deleteByPrimaryKey(Integer id);
+	
+    int deleteQuestionBankYearById(Integer id);
 
-    int insert(QuestionBankYear record);
+    int addQuestionBankYear(QuestionBankYear record);
 
-    int insertSelective(QuestionBankYear record);
+    QuestionBankYear selectQuestionBankYearById(Integer id);
 
-    QuestionBankYear selectByPrimaryKey(Integer id);
+    int updateQuestionBankYear(QuestionBankYear record);
 
-    int updateByPrimaryKeySelective(QuestionBankYear record);
-
-    int updateByPrimaryKey(QuestionBankYear record);
+    public int addQuestionBankYearBatch(List<QuestionBankYear> list);
 }

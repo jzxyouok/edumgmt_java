@@ -22,7 +22,7 @@ public class AuthorityGroup implements Serializable{
     @NotNull(message="{company.not.empty}")
     private Company company;
 
-    @NotEmpty(message="{authName.not.empty}")
+    @NotEmpty(message="{authGroupName.not.empty}")
     private String name;
 
     private String remark;

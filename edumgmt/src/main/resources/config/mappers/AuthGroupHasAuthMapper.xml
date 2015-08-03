@@ -3,7 +3,7 @@
 <mapper namespace="net.shinc.orm.mybatis.mappers.common.AuthGroupHasAuthMapper" >
   <resultMap id="BaseResultMap" type="AuthGroupHasAuth" >
     <association property="authorityGroup" column="sh_authority_group_id" javaType="AuthorityGroup" select="net.shinc.orm.mybatis.mappers.common.AuthorityGroupMapper.selectByPrimaryKey"></association>
-    <association property="authority" column="sh_authority_id" javaType="Authority" select="net.shinc.orm.mybatis.mappers.AuthorityMapper.common.selectByPrimaryKey"></association>
+    <association property="authority" column="sh_authority_id" javaType="Authority" select="net.shinc.orm.mybatis.mappers.common.AuthorityMapper.selectByPrimaryKey"></association>
   </resultMap>
   
   <delete id="deleteByPrimaryKey" parameterType="AuthGroupHasAuth" >

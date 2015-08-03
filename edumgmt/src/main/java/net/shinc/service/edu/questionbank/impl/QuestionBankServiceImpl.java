@@ -26,7 +26,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
 		if(null != questionBank) {
 			return questionBankMapper.addQuestionBank(questionBank);
 		}
-		return null;
+		return 0;
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
 		if(null != questionBank) {
 			return questionBankMapper.updateQuestionBank(questionBank);
 		}
-		return null;
+		return 0;
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
 		if(null != questionBankId) {
 			return questionBankMapper.deleteQuestionBankById(questionBankId);
 		}
-		return null;
+		return 0;
 	}
 
 	@Override

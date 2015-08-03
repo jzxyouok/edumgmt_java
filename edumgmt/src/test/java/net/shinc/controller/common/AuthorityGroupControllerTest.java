@@ -163,7 +163,7 @@ public class AuthorityGroupControllerTest {
 	@Test
 	public void testGetAuthList() {
 		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/authGroup/getAuthList")
-				.param("id", "2");
+				.param("id", "1");
 		try {
 			mockMvc.perform(reqbuild).andDo(MockMvcResultHandlers.print());
 		} catch (Exception e) {
