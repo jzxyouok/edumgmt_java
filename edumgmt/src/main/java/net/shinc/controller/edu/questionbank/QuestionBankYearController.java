@@ -107,6 +107,8 @@ public class QuestionBankYearController extends AbstractBaseController {
 				if(num > 0){
 					iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
 					iRestMessage.setResult(num);
+				} else {
+					iRestMessage.setCode(ErrorMessage.DELETE_FAILED.getCode());
 				}
 			}
 		} catch (Exception e) {
@@ -134,6 +136,8 @@ public class QuestionBankYearController extends AbstractBaseController {
 			int i = questionBankYearService.updateQuestionBankYear(questionBankYear);
 			if(i > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
+			} else {
+				msg.setCode(ErrorMessage.UPDATE_FAILED.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("题库与年份对应关系更新失败==>" + ExceptionUtils.getStackTrace(e));
@@ -151,6 +155,8 @@ public class QuestionBankYearController extends AbstractBaseController {
 				if(null != question) {
 					msg.setCode(ErrorMessage.SUCCESS.getCode());
 					msg.setResult(question);
+				} else {
+					msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
 				}
 			} else {
 				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
