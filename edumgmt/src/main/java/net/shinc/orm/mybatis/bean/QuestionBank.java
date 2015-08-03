@@ -1,5 +1,9 @@
 package net.shinc.orm.mybatis.bean;
 
+import java.text.MessageFormat;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 /** 
  * @ClassName QuestionBank 
  * @Description 题库
@@ -9,8 +13,10 @@ package net.shinc.orm.mybatis.bean;
 public class QuestionBank {
     private Integer id;
 
+    @NotEmpty(message="{name.not.empty}")
     private String name;
 
+    @NotEmpty(message="{type.not.empty}")
     private String type;
 
     public Integer getId() {
@@ -35,5 +41,10 @@ public class QuestionBank {
 
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
+    }
+    
+    @Override
+    public String toString() {
+    	return MessageFormat.format("name:{0}\ttype:{1}", this.name,this.type);
     }
 }

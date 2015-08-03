@@ -17,7 +17,7 @@
 			AND id=#{id}
 		</if>
 	</select>
-	<select id="getVideoPastpaperListCount" resultMap="java.lang.Integer" parameterType="VideoPastpaper">
+	<select id="getVideoPastpaperListCount" resultType="java.lang.Integer" parameterType="VideoPastpaper">
 		select count(*)
 		from sh_video_pastpaper
 		where 1 = 1

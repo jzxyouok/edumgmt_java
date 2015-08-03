@@ -17,7 +17,7 @@
 			AND id=#{id}
 		</if>
 	</select>
-	<select id="getVideoSelfListCount" resultMap="java.lang.Integer" parameterType="VideoSelf">
+	<select id="getVideoSelfListCount" resultType="java.lang.Integer" parameterType="VideoSelf">
 		select count(*)
 		from sh_video_self
 		where 1 = 1

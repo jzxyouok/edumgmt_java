@@ -1,5 +1,7 @@
 package net.shinc.service.edu.questionbank;
 
+import java.util.List;
+
 import net.shinc.orm.mybatis.bean.QuestionBank;
 
 /** 
@@ -36,5 +38,11 @@ public interface QuestionBankService {
 	 * @param questionBank
 	 * @return
 	 */
-	public Integer getQuestionBankById(Integer questionBankId);
+	public QuestionBank getQuestionBankById(Integer questionBankId);
+	
+	/**
+	 * 查询所有题库列表
+	 * @return
+	 */
+	public List<QuestionBank> getQuestionBankList();
 }

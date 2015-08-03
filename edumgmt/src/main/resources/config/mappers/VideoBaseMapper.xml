@@ -41,7 +41,7 @@
 			AND title like '%${title}%'
 		</if>
 	</select>
-	<select id="getVideoBaseListCount" resultMap="java.lang.Integer" parameterType="VideoBase">
+	<select id="getVideoBaseListCount" resultType="java.lang.Integer" parameterType="VideoBase">
 		select count(*)
 		from sh_video_base
 		where 1 = 1

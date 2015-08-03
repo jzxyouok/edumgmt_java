@@ -1,5 +1,7 @@
 package net.shinc.service.edu.questionbank.impl;
 
+import org.springframework.stereotype.Service;
+
 import net.shinc.orm.mybatis.bean.QuestionBankYear;
 import net.shinc.service.edu.questionbank.QuestionBankYearService;
 
@@ -9,6 +11,7 @@ import net.shinc.service.edu.questionbank.QuestionBankYearService;
  * @author guoshijie 
  * @date 2015年7月31日 下午5:40:26  
  */
+@Service
 public class QuestionBankYearServiceImpl implements QuestionBankYearService{
 
 	@Override

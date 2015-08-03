@@ -126,12 +126,14 @@ public class AdminUserController extends AbstractBaseController {
 	public IRestMessage getAdminUserById(AdminUser adminUser) {
 		IRestMessage msg = getRestMessage();
 		try {
-			AdminUser admin = adminUserService.getAdminUserById(adminUser.getId());
-			if(null != admin) {
-				msg.setCode(ErrorMessage.SUCCESS.getCode());
-				msg.setResult(admin);
-			} else {
-				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
+			if(null != adminUser) {
+				AdminUser admin = adminUserService.getAdminUserById(adminUser.getId());
+				if(null != admin) {
+					msg.setCode(ErrorMessage.SUCCESS.getCode());
+					msg.setResult(admin);
+				} else {
+					msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
+				}
 			}
 		} catch (Exception e) {
 			logger.error("后台管理用户查询失败==>" + ExceptionUtils.getStackTrace(e));

@@ -6,24 +6,37 @@
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="type" property="type" jdbcType="CHAR" />
 	</resultMap>
+	
 	<sql id="Base_Column_List">
 		id, name, type
 	</sql>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	
+	<select id="selectQuestionBankById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
-		<include refid="Base_Column_List" />
-		from sh_questionbank
-		where id = #{id,jdbcType=INTEGER}
+			<include refid="Base_Column_List" />
+		from 
+			sh_questionbank
+		where 
+			id = #{id,jdbcType=INTEGER}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from sh_questionbank
-		where id = #{id,jdbcType=INTEGER}
+	
+	<select id="getQuestionBankList" resultMap="BaseResultMap">
+		select
+			<include refid="Base_Column_List" />
+		from 
+			sh_questionbank
+		where 
+			1 = 1
+	</select>
+	
+	<delete id="deleteQuestionBankById" parameterType="java.lang.Integer">
+		delete from 
+			sh_questionbank
+		where 
+			id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="QuestionBank">
-		insert into sh_questionbank (id, name, type)
-		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=CHAR})
-	</insert>
-	<insert id="insertSelective" parameterType="QuestionBank">
+	
+	<insert id="addQuestionBank" parameterType="QuestionBank">
 		insert into sh_questionbank
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -48,7 +61,8 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="QuestionBank">
+	
+	<update id="updateQuestionBank" parameterType="QuestionBank">
 		update sh_questionbank
 		<set>
 			<if test="name != null">
@@ -60,11 +74,5 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="QuestionBank">
-		update sh_questionbank
-		set name = #{name,jdbcType=VARCHAR},
-		type = #{type,jdbcType=CHAR}
-		where id =
-		#{id,jdbcType=INTEGER}
-	</update>
+	
 </mapper>
