@@ -107,6 +107,8 @@ public class QuestionBankTypeController extends AbstractBaseController {
 				if(num > 0){
 					iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
 					iRestMessage.setResult(num);
+				} else {
+					iRestMessage.setCode(ErrorMessage.DELETE_FAILED.getCode());
 				}
 			}
 		} catch (Exception e) {
@@ -134,6 +136,8 @@ public class QuestionBankTypeController extends AbstractBaseController {
 			int i = questionBankTypeService.updateQuestionBankType(questionBankType);
 			if(i > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
+			} else {
+				msg.setCode(ErrorMessage.UPDATE_FAILED.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("题库版本更新失败==>" + ExceptionUtils.getStackTrace(e));
@@ -151,6 +155,8 @@ public class QuestionBankTypeController extends AbstractBaseController {
 				if(null != questionType) {
 					msg.setCode(ErrorMessage.SUCCESS.getCode());
 					msg.setResult(questionType);
+				} else {
+					msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
 				}
 			} else {
 				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());

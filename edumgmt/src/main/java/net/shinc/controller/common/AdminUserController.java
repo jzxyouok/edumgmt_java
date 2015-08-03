@@ -185,6 +185,8 @@ public class AdminUserController extends AbstractBaseController {
 			if(i > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(i);
+			} else {
+				msg.setCode(ErrorMessage.DELETE_FAILED.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("后台管理用户删除失败==>" + ExceptionUtils.getStackTrace(e));
@@ -216,6 +218,8 @@ public class AdminUserController extends AbstractBaseController {
 			int i = adminUserService.updateAdminUser(adminUser);
 			if(i > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
+			} else {
+				msg.setCode(ErrorMessage.UPDATE_FAILED.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("后台管理用户更新失败==>" + ExceptionUtils.getStackTrace(e));
@@ -249,6 +253,8 @@ public class AdminUserController extends AbstractBaseController {
 					if (m > 0) {
 						msg.setCode(ErrorMessage.SUCCESS.getCode());
 						msg.setResult(m);
+					} else {
+						msg.setCode(ErrorMessage.UPDATE_FAILED.getCode());
 					}
 				}else{
 					msg.setCode(ErrorMessage.NEWPASSWORD_WRONG.getCode());

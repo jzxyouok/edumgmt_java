@@ -119,6 +119,8 @@ public class CompanyController extends AbstractBaseController {
 			int i = companyService.deleteCompany(company);
 			if(i > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
+			} else {
+				msg.setCode(ErrorMessage.DELETE_FAILED.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("企业信息删除失败==>" + ExceptionUtils.getStackTrace(e));
@@ -138,6 +140,8 @@ public class CompanyController extends AbstractBaseController {
 			int i = companyService.updateCompany(company);
 			if(i > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
+			} else {
+				msg.setCode(ErrorMessage.UPDATE_FAILED.getCode());
 			}
 		} catch (Exception e) {
 			logger.error("企业信息更新失败==>" + ExceptionUtils.getStackTrace(e));
