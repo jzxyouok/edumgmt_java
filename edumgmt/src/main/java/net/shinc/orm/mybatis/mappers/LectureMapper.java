@@ -13,7 +13,7 @@ import net.shinc.orm.mybatis.bean.Lecture;
  * @date 2015年7月31日 下午7:52:10  
  */
 public interface LectureMapper {
-    int deleteLectureById(Integer id);
+	int deleteLectureById(Integer id);
 
     Lecture selectLectureById(Integer id);
     

@@ -20,17 +20,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 /** 
- * @ClassName LectureControllerTest 
- * @Description 讲解人功能测试
+ * @ClassName KeywordControllerTest 
+ * @Description 关键字测试
  * @author wangzhiying 
- * @date 2015年8月3日 下午5:38:33  
+ * @date 2015年8月4日 下午12:33:37  
  */
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = InfoMgmtApplication.class)
 @WebAppConfiguration
-public class LectureControllerTest {
-	
+public class KeywordControllerTest {
 	@Autowired  
     private WebApplicationContext wac;  
     private MockMvc mockMvc;
@@ -43,23 +41,12 @@ public class LectureControllerTest {
     } 
     
     @Test
+    @Transactional
     @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
-	public void testSelectAllLecture() {
+	public void testDeleteKeyword() {
 		try {
-			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/lectureManager/selectAllLecture")
-					.param("page", "1");
-			mockMvc.perform(reqbuild).andDo(handler);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-    
-    @Test
-    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
-	public void testSelectLectureById() {
-		try {
-			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/lectureManager/selectLectureById")
-					.param("id", "1");
+			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/keywordManager/deleteKeyword")
+					.param("id", "100");
 			mockMvc.perform(reqbuild).andDo(handler);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -69,11 +56,10 @@ public class LectureControllerTest {
     @Test
     @Transactional
     @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
-    public void testInsertLecture() {
-    	RequestBuilder reqbuild = MockMvcRequestBuilders.post("/lectureManager/insertLecture")
+    public void testInsertKeyword() {
+    	RequestBuilder reqbuild = MockMvcRequestBuilders.post("/keywordManager/insertKeyword")
 				.param("id", "11111")
-				.param("name", "迈迈君")
-				.param("level", "1");
+				.param("name", "迈迈君");
 		try {
 			mockMvc.perform(reqbuild).andDo(MockMvcResultHandlers.print());
 		} catch (Exception e) {
@@ -82,32 +68,26 @@ public class LectureControllerTest {
     }
     
     @Test
-    @Transactional
     @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
-    public void testUpdateLectureById() {
-    	RequestBuilder reqbuild = MockMvcRequestBuilders.post("/lectureManager/updateLecture")
-    			.param("id", "2")
-    			.param("name", "张天才3")
-    			.param("level", "100");
-    	try {
-    		mockMvc.perform(reqbuild).andDo(MockMvcResultHandlers.print());
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    	}
-    }
-    
-    @Test
-    @Transactional
-    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
-	public void testDeleteLectureById() {
+	public void testSelectAllKeyword() {
 		try {
-			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/lectureManager/deleteLecture")
-					.param("id", "111");
+			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/keywordManager/selectAllKeyword");
 			mockMvc.perform(reqbuild).andDo(handler);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
     
+    @Test
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
+	public void testSelectKeyword() {
+		try {
+			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/keywordManager/selectKeyword")
+					.param("name", "关");
+			mockMvc.perform(reqbuild).andDo(handler);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

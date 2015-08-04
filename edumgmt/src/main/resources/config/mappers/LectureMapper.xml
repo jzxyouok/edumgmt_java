@@ -14,7 +14,6 @@
     select 
     <include refid="Base_Column_List" />
     from sh_lecture
-    where 1 = 1
   </select>
   
   <select id="selectLectureById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

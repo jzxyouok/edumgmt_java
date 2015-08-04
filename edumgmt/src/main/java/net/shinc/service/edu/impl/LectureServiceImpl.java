@@ -27,9 +27,9 @@ public class LectureServiceImpl implements LectureService {
 	 * 删除讲解人
 	 */
 	@Override
-	public Integer deleteLectureById(Lecture lecture) {
-		if (null != lecture) {
-			return lectureMapper.deleteLectureById(lecture.getId());
+	public Integer deleteLectureById(Integer id) {
+		if (null != id) {
+			return lectureMapper.deleteLectureById(id);
 		}
 		return 0;
 	}
