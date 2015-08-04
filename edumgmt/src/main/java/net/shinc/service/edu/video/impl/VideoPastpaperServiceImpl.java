@@ -65,8 +65,7 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 
 	@Override
 	public List<VideoPastpaper> getVideoPastpaperAndRelevantInfoList(VideoPastpaper videoPastpaper) {
-		// TODO Auto-generated method stub
-		return null;
+		return videoPastpaperMapper.getVideoPastpaperAndRelevantInfoList(videoPastpaper);
 	}
 
 	@Override
