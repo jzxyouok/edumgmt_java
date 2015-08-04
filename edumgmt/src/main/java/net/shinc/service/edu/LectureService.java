@@ -37,4 +37,41 @@ public interface LectureService {
 	  * 更新讲解人信息
 	  */
 	 public Integer updateLectureById(Lecture lecture);
+	 
+	/**
+	 * 根据讲解人，获取真题模拟题视频总数
+	 * @param lecture
+	 * @return
+	 */
+	public Integer getVideoPastpaperNumByLecture(Lecture lecture);
+	
+	/**
+	 * 根据讲解人，获取自编题视频总数
+	 * @param lecture
+	 * @return
+	 */
+	public Integer getVideoSelfNumByLecture(Lecture lecture);
+	
+	/**
+	 * 根据讲解人，获取知识点视频总数
+	 * @param lecture
+	 * @return
+	 */
+	public Integer getVideoPointNumByLecture(Lecture lecture);
+	
+	/**
+	 * 根据讲解人，获取题目视频总数
+	 * <p>真题模拟题视频总数 + 自编题视频总数</p>
+	 * @param lecture
+	 * @return
+	 */
+	public Integer getVideoQuestionNumByLecture(Lecture lecture);
+	
+	/**
+	 * 根据讲解人，获取视频总数
+	 * <p>真题模拟题视频总数 + 自编题视频总数 + 知识点视频总数</p>
+	 * @param lecture
+	 * @return
+	 */
+	public Integer getVideoNumByLecture(Lecture lecture);
 }
