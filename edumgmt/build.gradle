@@ -19,6 +19,11 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'war'
 
 
+
+bootRepackage {
+	mainClass = "net.shinc.InfoMgmtApplication"
+}
+
 war {
     baseName = 'edumgmt'
 }
