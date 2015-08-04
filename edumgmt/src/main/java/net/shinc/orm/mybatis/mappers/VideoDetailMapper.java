@@ -1,5 +1,7 @@
 package net.shinc.orm.mybatis.mappers;
 
+import java.util.List;
+
 import net.shinc.orm.mybatis.bean.VideoDetail;
 
 /** 
@@ -10,11 +12,15 @@ import net.shinc.orm.mybatis.bean.VideoDetail;
  */
 public interface VideoDetailMapper {
 
-    int insert(VideoDetail record);
+    public void deleteVideoDetailById(Integer id);
 
-    int insertSelective(VideoDetail record);
+	public Integer insertVideoDetail(VideoDetail videoDetail);
 
-    int updateByPrimaryKeySelective(VideoDetail record);
+	public void updateVideoDetail(VideoDetail videoDetail);
 
-    int updateByPrimaryKey(VideoDetail record);
+	public VideoDetail getByVideoDetailById(Integer id);
+
+	public List<VideoDetail> getVideoDetailList(VideoDetail videoDetail);
+
+	public Integer getVideoDetailListCount(VideoDetail videoDetail);
 }
