@@ -1,6 +1,10 @@
 package net.shinc.orm.mybatis.mappers;
 
+import java.util.List;
+
+import net.shinc.orm.mybatis.bean.QuestionBank;
 import net.shinc.orm.mybatis.bean.QuestionBankQuestionTypeKey;
+import net.shinc.orm.mybatis.bean.QuestionType;
 
 /** 
  * @ClassName QuestionBankQuestionTypeMapper 
@@ -14,4 +18,6 @@ public interface QuestionBankQuestionTypeMapper {
     int insert(QuestionBankQuestionTypeKey record);
 
     int insertSelective(QuestionBankQuestionTypeKey record);
+    
+    public List<QuestionType> getQuestionTypeByQuestionBank(QuestionBank questionBank);
 }
