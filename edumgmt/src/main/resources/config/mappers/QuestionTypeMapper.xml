@@ -5,23 +5,30 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
   </resultMap>
+  
   <sql id="Base_Column_List" >
     id, name
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  
+  <select id="selectQuestionTypeById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
-    <include refid="Base_Column_List" />
-    from sh_question_type
-    where id = #{id,jdbcType=INTEGER}
+    	<include refid="Base_Column_List" />
+    from 
+    	sh_question_type
+    where 1 = 1
+    	id = #{id,jdbcType=INTEGER}
   </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from sh_question_type
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  
   <insert id="insert" parameterType="QuestionType" >
     insert into sh_question_type (id, name)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
   </insert>
+  
   <insert id="insertSelective" parameterType="QuestionType" >
     insert into sh_question_type
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -41,6 +48,7 @@
       </if>
     </trim>
   </insert>
+  
   <update id="updateByPrimaryKeySelective" parameterType="QuestionType" >
     update sh_question_type
     <set >
@@ -50,9 +58,11 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
   <update id="updateByPrimaryKey" parameterType="QuestionType" >
     update sh_question_type
     set name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
 </mapper>

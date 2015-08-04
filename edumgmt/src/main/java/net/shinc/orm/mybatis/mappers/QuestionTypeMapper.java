@@ -9,13 +9,14 @@ import net.shinc.orm.mybatis.bean.QuestionType;
  * @date 2015年7月31日 下午7:54:55  
  */
 public interface QuestionTypeMapper {
+	
     int deleteByPrimaryKey(Integer id);
 
     int insert(QuestionType record);
 
     int insertSelective(QuestionType record);
 
-    QuestionType selectByPrimaryKey(Integer id);
+    QuestionType selectQuestionTypeById(Integer id);
 
     int updateByPrimaryKeySelective(QuestionType record);
 

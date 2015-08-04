@@ -151,4 +151,16 @@ public class QuestionBankControllerTest {
     		e.printStackTrace();
     	}
     }
+    
+    @Test
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
+    public void testGetQuestionTypeByQuestionBank() {
+    	try {
+    		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/questionBank/getQuestionTypeByQuestionBank")
+    				.param("id", "1");
+    		mockMvc.perform(reqbuild).andDo(handler);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    }
 }

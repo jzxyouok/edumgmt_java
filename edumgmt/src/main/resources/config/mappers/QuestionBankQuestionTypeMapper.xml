@@ -35,4 +35,21 @@
 			</if>
 		</trim>
 	</insert>
+	
+	<resultMap id="QuestionTypeMap" type="QuestionType" >
+	    <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="name" property="name" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="getQuestionTypeByQuestionBank" parameterType="QuestionBank" resultMap="QuestionTypeMap">
+		select
+			a.id, a.name
+		from 
+			sh_question_type a
+		inner join
+			sh_questionbank_question_type b
+		on
+			a.id = b.sh_question_type_id
+		where
+			b.sh_questionbank_id = #{id}
+	</select>
 </mapper>
