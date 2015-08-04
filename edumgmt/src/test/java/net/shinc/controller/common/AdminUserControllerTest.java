@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -50,6 +51,8 @@ public class AdminUserControllerTest {
     }
     
 	@Test
+	@Transactional
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testAddAdminUser() {
 		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/adminUser/addAdminUser")
 				.param("company.id", "1").param("realname", "管理员")
@@ -66,6 +69,8 @@ public class AdminUserControllerTest {
 	}
 	
 	@Test
+	@Transactional
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testAddAdminUser2() {
 		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/adminUser/addAdminUser")
 				.param("company.id", "3").param("realname", "张盼")
@@ -82,6 +87,8 @@ public class AdminUserControllerTest {
 	}
 	
 	@Test
+	@Transactional
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testAddAdminUser3() {
 		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/adminUser/addAdminUser")
 				.param("company.id", "1").param("realname", "测试1")
@@ -101,7 +108,6 @@ public class AdminUserControllerTest {
 	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testGetAdminUserList() {
 		try {
-			
 			RequestBuilder reqbuild = MockMvcRequestBuilders
 					.post("/adminUser/getAdminUserList")
 					.with(user("admin").password("admin").authorities(AuthorityUtils.createAuthorityList("adminUserList")))
@@ -113,6 +119,7 @@ public class AdminUserControllerTest {
 	}
 	
 	@Test
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testGetAdminUserById() {
 		try {
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/adminUser/getAdminUserById").param("id", "2");
@@ -123,6 +130,7 @@ public class AdminUserControllerTest {
 	}
 	
 	@Test
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testGetAdminUserByNickName() {
 		try {
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/adminUser/getAdminUserByNickName").param("nickname", "admin");
@@ -133,6 +141,7 @@ public class AdminUserControllerTest {
 	}
 	
 	@Test
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testDeleteAdminUser() {
 		try {
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/adminUser/deleteAdminUser").param("id", "4");
@@ -143,6 +152,7 @@ public class AdminUserControllerTest {
 	}
 	
 	@Test
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testUpdateAdminUser() {
 		try {
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/adminUser/updateAdminUser").param("id", "4")
@@ -159,6 +169,7 @@ public class AdminUserControllerTest {
 	}
 	
 	@Test
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testGetMenu(){
 		try {
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/adminUser/getMenu").param("id", "90");
@@ -184,6 +195,8 @@ public class AdminUserControllerTest {
 	 * 修改密码 by王智颖
 	 */
 	@Test
+	@Transactional
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testUpdatePassword() {
 		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/adminUser/updatePassword")
 				.param("id", "90")

@@ -1,4 +1,4 @@
-package net.shinc.controller;
+package net.shinc.controller.edu;
 
 import net.shinc.InfoMgmtApplication;
 
