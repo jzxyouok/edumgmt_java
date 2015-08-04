@@ -26,12 +26,15 @@ public class RestMessage implements IRestMessage {
 	
 	public RestMessage(String code, MessageSource messageSource, Locale locale){
 		
+		this.messageSource = messageSource;
+		this.locale = locale;
+		
 		logger.info("RestMessageCreated");
+		
 		this.code = code;
 		if(messageSource == null) {
 			this.message = code;
 		} else {
-			this.messageSource = messageSource;
 			try {
 				this.message = messageSource.getMessage(PLACEHOLDER_PREFIX + code, null, locale);
 			} catch(Exception e) {
