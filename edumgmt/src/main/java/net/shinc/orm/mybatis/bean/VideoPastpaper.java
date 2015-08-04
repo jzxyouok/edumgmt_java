@@ -39,11 +39,17 @@ public class VideoPastpaper {
 	// 题库版本（北京卷，河北卷）
 	private QuestionBankType questionBankType;
 	
+	// 题库版本（北京卷，河北卷）
+	private QuestionBankYear questionBankYear;
+	
 	// 题型 （单选、多选）
 	private QuestionType questionType;
 	
 	// 题库 （中考真题，高考真题）
 	private QuestionBank questionBank;
+	
+	// 有无视频
+	private String hasVideo;
 
 	public Integer getId() {
 		return id;
@@ -59,6 +65,38 @@ public class VideoPastpaper {
 
 	public void setVideoDetailList(List<VideoDetail> videoDetailList) {
 		this.videoDetailList = videoDetailList;
+	}
+
+	public QuestionBankType getQuestionBankType() {
+		return questionBankType;
+	}
+
+	public void setQuestionBankType(QuestionBankType questionBankType) {
+		this.questionBankType = questionBankType;
+	}
+
+	public QuestionBankYear getQuestionBankYear() {
+		return questionBankYear;
+	}
+
+	public void setQuestionBankYear(QuestionBankYear questionBankYear) {
+		this.questionBankYear = questionBankYear;
+	}
+
+	public String getHasVideo() {
+		return hasVideo;
+	}
+
+	public void setHasVideo(String hasVideo) {
+		this.hasVideo = hasVideo;
+	}
+
+	public QuestionBank getQuestionBank() {
+		return questionBank;
+	}
+
+	public void setQuestionBank(QuestionBank questionBank) {
+		this.questionBank = questionBank;
 	}
 
 	public Integer getVideoBaseId() {

@@ -15,24 +15,31 @@
 		<result column="courseId" property="course.id"/>
 		<result column="courseName" property="course.name"/>
 		<result column="courseShortName" property="course.shortName"/>
-		<result column="year" property="lecture.year"/>
+		<result column="year" property="questionBankYear.year"/>
 		<result column="type" property="questionBank.type"/>
 		<result column="questionbankType" property="questionBank.type"/>
+		<result column="questionbankTypeId" property="questionBankType.id"/>
+		<result column="questionbankTypeName" property="questionBankType.name"/>
 		<result column="questionbankName" property="questionBank.name"/>
+		<result column="questionbankId" property="questionBank.id"/>
 		<result column="questionTypeName" property="questionType.name"/>
+		<result column="lectureName" property="lecture.name"/>
+		<result column="lectureLevel" property="lecture.level"/>
+		<result column="lectureId" property="lecture.id"/>
 		<result column="questionTypeId" property="questionType.id"/>
 		<result column="question_number" property="videoBase.questionNumber"/>
+		<result column="difficulty" property="videoBase.difficulty"/>
 		
 		<collection property="keywordList" ofType="Keyword">
-			<result property="keywordId" column="id" />
-			<result property="keywordName" column="name" />
+			<result column="keywordId" property="id" />
+			<result column="keywordName" property="name" />
 		</collection>
 		<collection property="knowledgetPointList" ofType="KnowledgePoint">
-			<result property="knowledgePointId" column="id" />
-			<result property="knowledgePointName" column="name" />
+			<result column="knowledgePointId" property="id" />
+			<result column="knowledgePointName" property="name" />
 		</collection>
 		<collection property="videoDetailList" ofType="VideoDetail">
-			<result property="url" column="url" />
+			<result column="videoDetailUrl" property="url" />
 		</collection>
 	</resultMap>
 	
@@ -58,39 +65,139 @@
 
 
 
-		select b_tab.question_id,b_tab.title,b_tab.desc,b_tab.courseId,b_tab.courseName,b_tab.courseShortName,
-		c_tab.year,d_tab.type questionbankType,d_tab.name questionbankName ,e_tab.name questionTypeName,e_tab.id questionTypeId,
-		b_tab.question_number,b_tab.knowledgePointName,b_tab.knowledgePointId,b_tab.keywordName,b_tab.keywordId,f_tab.url
-		from sh_video_pastpaper a_tab
-		
-		left join 
-		(
-			select b_tab.id ,b_tab.question_number,d_tab.knowledgePointName,d_tab.knowledgePointId,b_tab.question_id,b_tab.title,b_tab.desc,b_tab.sh_admin_user_id,b_tab.sh_course_id,
-		b_tab.sh_lecture_id,a_tab.id courseId,a_tab.name courseName,a_tab.short courseShortName,c_tab.name lectureName,c_tab.level lectureLevel,
-		e_tab.keywordName,e_tab.keywordId
-		
-		 from sh_video_base b_tab 
-		 left join sh_course a_tab on b_tab.sh_course_id = a_tab.id
-		 left join sh_lecture c_tab on c_tab.id = b_tab.sh_lecture_id
-		 left join (
-						select a_tab.sh_video_base_id,b_tab.name knowledgePointName,b_tab.id knowledgePointId
-		                from sh_video_base_knowledge_point a_tab 
-						left join sh_knowledge_point b_tab on a_tab.sh_knowledge_point_id=b_tab.id
-					 )d_tab on d_tab.sh_video_base_id = b_tab.id
-		 left join (
-						select a_tab.sh_video_base_id,b_tab.name keywordName,b_tab.id keywordId
-		                from sh_video_base_keyword a_tab 
-						left join sh_keyword b_tab on a_tab.sh_keyword_id=b_tab.id
-					 )e_tab on e_tab.sh_video_base_id = b_tab.id
-		) b_tab on a_tab.sh_video_base_id = b_tab.id
-		left join sh_questionbank_year c_tab on a_tab.sh_questionbank_year_id = c_tab.id
-		left join sh_questionbank d_tab on d_tab.id = a_tab.sh_questionbank_id 
-		 
-		left join sh_question_type e_tab on a_tab.sh_question_type_id = e_tab.id
-		left join sh_video_detail f_tab on b_tab.id = f_tab.sh_video_base_id
+		SELECT 
+		    a_tab.id videoPastpaperId,
+		    b_tab.question_id,
+		    b_tab.title,
+		    b_tab.desc,
+		    b_tab.courseId,
+		    b_tab.courseName,
+		    b_tab.courseShortName,
+		    b_tab.question_number,
+		    b_tab.knowledgePointName,
+		    b_tab.knowledgePointId,
+		    b_tab.keywordName,
+		    b_tab.keywordId,
+		    b_tab.videoDetailUrl,
+		    b_tab.lectureId,
+		    b_tab.lectureName,
+		    b_tab.lectureLevel,
+	        b_tab.difficulty,
+			c_tab.year,
+		    d_tab.type questionbankType,
+		    d_tab.name questionbankName,
+		    d_tab.id questionbankId,
+		    e_tab.name questionTypeName,
+		    e_tab.id questionTypeId,
+		    g_tab.id questionbankTypeId,
+		    g_tab.name questionbankTypeName
+		    
+		FROM
+	    sh_video_pastpaper a_tab
+			
+			left join (
+			
+	            SELECT 
+				b_tab.id,
+				b_tab.question_number,
+				b_tab.question_id,
+				b_tab.title,
+				b_tab.desc,
+				b_tab.sh_admin_user_id,
+				b_tab.sh_course_id,
+				b_tab.sh_lecture_id,
+				a_tab.id courseId,
+				a_tab.name courseName,
+				a_tab.short courseShortName,
+				c_tab.name lectureName,
+				c_tab.level lectureLevel,
+				c_tab.id lectureId,
+	            d_tab.knowledgePointName,
+				d_tab.knowledgePointId,
+				e_tab.keywordName,
+				e_tab.keywordId,
+				b_tab.difficulty,
+				f_tab.url videoDetailUrl
+			FROM
+				sh_video_base b_tab
+	             
+				left join sh_course a_tab on b_tab.sh_course_id = a_tab.id
+				left join sh_lecture c_tab on c_tab.id = b_tab.sh_lecture_id
+				left join (
+								select a_tab.sh_video_base_id,b_tab.name knowledgePointName,b_tab.id knowledgePointId
+				                from sh_video_base_knowledge_point a_tab 
+								left join sh_knowledge_point b_tab on a_tab.sh_knowledge_point_id=b_tab.id
+							 )d_tab on d_tab.sh_video_base_id = b_tab.id
+				left join (
+								select a_tab.sh_video_base_id,b_tab.name keywordName,b_tab.id keywordId
+				                from sh_video_base_keyword a_tab 
+								left join sh_keyword b_tab on a_tab.sh_keyword_id=b_tab.id
+							 )e_tab on e_tab.sh_video_base_id = b_tab.id
+				left join sh_video_detail f_tab on b_tab.id = f_tab.sh_video_base_id
+					 
+			) b_tab on a_tab.sh_video_base_id = b_tab.id
+			left join sh_questionbank_year c_tab on a_tab.sh_questionbank_year_id = c_tab.id
+			left join sh_questionbank d_tab on d_tab.id = a_tab.sh_questionbank_id 
+			left join sh_question_type e_tab on a_tab.sh_question_type_id = e_tab.id
+			left join sh_questionbank_type g_tab on a_tab.sh_questionbank_type_id = g_tab.id
+	        
+			where 1=1
+	        and d_tab.type = '0'<!-- 0：真题、模拟题 -->
+	        
+			<!-- and d_tab.id = '2'
+	        and b_tab.courseId='10'
+	        and g_tab.id='1'
+	        and c_tab.year='2014'
+	        and b_tab.difficulty='1'
+	        and b_tab.videoDetailUrl is not null
+	        and b_tab.keywordName like '%关键字1%'
+	        and b_tab.knowledgePointName like '%知识点1%' -->
 
-		where d_tab.type = '0'
-
+			<if test="questionBank != null and questionBank.id != null">
+				and d_tab.id = #{questionBank.id},
+			</if>
+			<if test="course != null and course.id != null">
+				and b_tab.courseId = #{course.id},
+			</if>
+			<if test="questionBankType != null and questionBankType.id != null">
+				and g_tab.id = #{questionBankType.id},
+			</if>
+			<if test="questionBankYear != null and questionBankYear.year != null">
+				and c_tab.year = #{questionBankYear.year},
+			</if>
+			<if test="videoBase != null and videoBase.difficulty != null">
+				and b_tab.difficulty = #{videoBase.difficulty},
+			</if>
+			<if test="hasVideo != null and videoBase == '0'">
+				and b_tab.videoDetailUrl is null,
+			</if>
+			<if test="hasVideo != null and videoBase == '1'">
+				and b_tab.videoDetailUrl is not null,
+			</if>
+			
+			<if test="keywordList != null and keywordList.size() > 0">
+				and b_tab.keywordName in   
+                <foreach  
+                    collection="keywordList"  
+                    item="keyword"  
+                     open="("  
+                    separator=","  
+                    close=")">  
+                    #{keyword.name} 
+                </foreach>  
+            </if>  
+            
+            <if test="knowledgetPointList != null and knowledgetPointList.size() > 0">
+				and b_tab.knowledgePointName in   
+                <foreach  
+                    collection="knowledgetPointList"  
+                    item="knowledgetPoint"  
+                     open="("  
+                    separator=","  
+                    close=")">  
+                    #{knowledgetPoint.name} 
+                </foreach>  
+            </if>
 
 
 	</select>
