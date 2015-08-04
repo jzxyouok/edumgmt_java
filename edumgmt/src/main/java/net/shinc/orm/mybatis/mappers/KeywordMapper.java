@@ -1,5 +1,7 @@
 package net.shinc.orm.mybatis.mappers;
 
+import java.util.List;
+
 import net.shinc.orm.mybatis.bean.Keyword;
 
 /** 
@@ -9,15 +11,15 @@ import net.shinc.orm.mybatis.bean.Keyword;
  * @date 2015年7月31日 下午7:50:32  
  */
 public interface KeywordMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteKeywordById(Integer id);
 
-    int insert(Keyword record);
+    int insertKeyword(Keyword record);
+    
+    public List<Keyword> selectAllKeyword();
 
-    int insertSelective(Keyword record);
+	public List<Keyword> selectKeyword(Keyword keyword);
 
-    Keyword selectByPrimaryKey(Integer id);
+//    int updateByPrimaryKeySelective(Keyword record);
 
-    int updateByPrimaryKeySelective(Keyword record);
-
-    int updateByPrimaryKey(Keyword record);
+//    int updateByPrimaryKey(Keyword record);
 }

@@ -16,7 +16,7 @@ public interface LectureService {
 	/**
 	 * 删除讲解人
 	 */
-	public Integer deleteLectureById(Lecture lecture);
+	public Integer deleteLectureById(Integer id);
 	
 	/**
 	 * 按照ID查询讲解人

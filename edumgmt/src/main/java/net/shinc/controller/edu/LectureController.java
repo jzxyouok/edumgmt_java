@@ -48,10 +48,10 @@ public class LectureController extends AbstractBaseController{
 	 */
 	@RequestMapping(value = "/deleteLecture")
 	@ResponseBody
-	public IRestMessage deleteLectureById(Lecture lecture) {
+	public IRestMessage deleteLectureById(@RequestParam(value="id",required = true) Integer id) {
 		IRestMessage msg = getRestMessage();
 		try {
-			int i = lectureService.deleteLectureById(lecture);
+			int i = lectureService.deleteLectureById(id);
 			if(i > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(i);
@@ -69,10 +69,10 @@ public class LectureController extends AbstractBaseController{
 	 */
 	@RequestMapping(value = "/selectLectureById")
 	@ResponseBody
-	public IRestMessage selectLectureById(Lecture lecture) {
+	public IRestMessage selectLectureById(@RequestParam(value="id",required = true) Integer id) {
 		IRestMessage msg = getRestMessage();
 		try {
-			Lecture lecturer = lectureService.selectLectureById(lecture.getId());
+			Lecture lecturer = lectureService.selectLectureById(id);
 			if(null != lecturer) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(lecturer);

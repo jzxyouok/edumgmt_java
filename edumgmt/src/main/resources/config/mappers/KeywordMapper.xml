@@ -8,21 +8,27 @@
   <sql id="Base_Column_List" >
     id, name
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  
+  <select id="selectAllKeyword" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from sh_keyword
-    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  
+  <select id="selectKeyword" resultMap="BaseResultMap" parameterType="Keyword" >
+    select 
+    <include refid="Base_Column_List" />
+    from sh_keyword
+    where name like '%${name}%'
+  </select>
+  
+  <delete id="deleteKeywordById" parameterType="java.lang.Integer" >
     delete from sh_keyword
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="Keyword" >
-    insert into sh_keyword (id, name)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="Keyword" >
+  
+  
+  <insert id="insertKeyword" parameterType="Keyword" >
     insert into sh_keyword
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -41,6 +47,8 @@
       </if>
     </trim>
   </insert>
+  
+<!-- 修改未用到 -->
   <update id="updateByPrimaryKeySelective" parameterType="Keyword" >
     update sh_keyword
     <set >
@@ -50,6 +58,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+<!-- 修改未用到 --> 
   <update id="updateByPrimaryKey" parameterType="Keyword" >
     update sh_keyword
     set name = #{name,jdbcType=VARCHAR}
