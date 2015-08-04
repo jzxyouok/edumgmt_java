@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -15,6 +16,7 @@ import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
@@ -40,6 +42,7 @@ public class CompanyControllerTest {
     } 
     
     @Test
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testGetCompanyList() {
 		try {
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/company/getCompanyList")
@@ -51,6 +54,7 @@ public class CompanyControllerTest {
 	}
     
     @Test
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testGetCompanyById() {
 		try {
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/company/getCompanyById").param("id", "1");
@@ -61,6 +65,8 @@ public class CompanyControllerTest {
 	}
     
     @Test
+    @Transactional
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void testAddCompany() {
     	RequestBuilder reqbuild = MockMvcRequestBuilders.post("/company/addCompany")
 				.param("companyName", "大宇宙信息创造（中国）有限公司")
@@ -75,6 +81,8 @@ public class CompanyControllerTest {
     }
     
     @Test
+    @Transactional
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void testUpdateCompany() {
     	RequestBuilder reqbuild = MockMvcRequestBuilders.post("/company/updateCompany")
     			.param("id", "3").param("companyName", "大宇宙信息创造（中国）有限公司")
@@ -89,6 +97,8 @@ public class CompanyControllerTest {
     }
     
     @Test
+    @Transactional
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testDeleteCompany() {
 		try {
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/company/deleteCompany").param("id", "2");

@@ -17,6 +17,8 @@ public interface VideoBaseKnowledgePointMapper {
     int deleteVideoBaseKnowledgePoint(VideoBaseKnowledgePointKey key);
 
     int insert(VideoBaseKnowledgePointKey record);
+    
+    int insertBatch(List<VideoBaseKnowledgePointKey> record);
 
     int insertSelective(VideoBaseKnowledgePointKey record);
     

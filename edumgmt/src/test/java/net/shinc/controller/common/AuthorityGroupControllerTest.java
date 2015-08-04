@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -22,6 +23,7 @@ import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.google.gson.Gson;
@@ -43,6 +45,8 @@ public class AuthorityGroupControllerTest {
     } 
     
 	@Test
+	@Transactional
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testAddAuthorityGroup() {
 		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/authGroup/addAuthGroup")
 				.param("company.id", "1").param("name", "advancedAdmin").param("remark", "高级管理员");
@@ -54,6 +58,8 @@ public class AuthorityGroupControllerTest {
 	}
 	
 	@Test
+	@Transactional
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testAddAuthorityGroup2() {
 		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/authGroup/addAuthGroup")
 				.param("company.id", "1").param("name", "normalAdmin").param("remark", "管理员");
@@ -65,6 +71,8 @@ public class AuthorityGroupControllerTest {
 	}
 	
 	@Test
+	@Transactional
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testAddAuthorityGroup3() {
 		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/authGroup/addAuthGroup")
 				.param("company.id", "1").param("name", "temp").param("remark", "普通人");
@@ -76,6 +84,8 @@ public class AuthorityGroupControllerTest {
 	}
 	
 	@Test
+	@Transactional
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testDeleteAuthorityGroup() {
 		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/authGroup/deleteAuthPostion")
 				.param("id", "3");
@@ -87,6 +97,7 @@ public class AuthorityGroupControllerTest {
 	}
 	
 	@Test
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testGetAuthorityGroupList() {
 		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/authGroup/getAuthGroupList")
 				.param("id", "1");
@@ -98,6 +109,7 @@ public class AuthorityGroupControllerTest {
 	}
 	
 	@Test
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testGetAuthorityGroupById() {
 		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/authGroup/getAuthGroupById")
 				.param("id", "2");
@@ -109,6 +121,8 @@ public class AuthorityGroupControllerTest {
 	}
 	
 	@Test
+	@Transactional
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testAddAuthGroupAuth() {
 		try {
 			List<AuthGroupHasAuth> list = new ArrayList<AuthGroupHasAuth>();
@@ -135,6 +149,8 @@ public class AuthorityGroupControllerTest {
 	}
 	
 	@Test
+	@Transactional
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testAddAuthGroupAuth3() {
 		try {
 			List<AuthGroupHasAuth> list = new ArrayList<AuthGroupHasAuth>();
@@ -161,6 +177,7 @@ public class AuthorityGroupControllerTest {
 	}
 	
 	@Test
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testGetAuthList() {
 		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/authGroup/getAuthList")
 				.param("id", "1");

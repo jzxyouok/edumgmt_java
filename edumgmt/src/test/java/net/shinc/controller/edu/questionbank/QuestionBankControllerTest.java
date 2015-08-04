@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
@@ -41,6 +42,8 @@ public class QuestionBankControllerTest {
     } 
     
     @Test
+    @Transactional
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testAddQuestionBank() {
 		try {
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/questionBank/addQuestionBank")
@@ -52,6 +55,8 @@ public class QuestionBankControllerTest {
 	}
     
     @Test
+    @Transactional
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void testAddQuestionBank2() {
     	try {
     		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/questionBank/addQuestionBank")
@@ -63,6 +68,8 @@ public class QuestionBankControllerTest {
     }
     
     @Test
+    @Transactional
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void testAddQuestionBank3() {
     	try {
     		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/questionBank/addQuestionBank")
@@ -74,6 +81,8 @@ public class QuestionBankControllerTest {
     }
     
     @Test
+    @Transactional
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void testAddQuestionBank4() {
     	try {
     		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/questionBank/addQuestionBank")
@@ -85,6 +94,8 @@ public class QuestionBankControllerTest {
     }
     
     @Test
+    @Transactional
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void testUpdateQuestionBank() {
     	try {
     		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/questionBank/updateQuestionBank")
@@ -97,6 +108,8 @@ public class QuestionBankControllerTest {
     }
     
     @Test
+    @Transactional
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void testDeleteQuestionBank() {
     	try {
     		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/questionBank/deleteQuestionBankById")
@@ -108,6 +121,7 @@ public class QuestionBankControllerTest {
     }
     
     @Test
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void testGetQuestionBankById() {
     	try {
     		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/questionBank/getQuestionBankById").param("id", "1");
@@ -129,6 +143,7 @@ public class QuestionBankControllerTest {
     }
     
     @Test
+    @Transactional
     @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void testAddQuestionBankCourseKey() {
     	try {

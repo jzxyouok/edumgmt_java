@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,6 +22,7 @@ import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.google.gson.Gson;
@@ -41,13 +43,15 @@ public class AuthorityControllerTest {
     private MockMvc mockMvc;
     private ResultHandler handler;
     
-    @Before  
+    @Before
     public void init(){  
     	mockMvc = MockMvcBuilders.webAppContextSetup(wac).build(); 
     	handler = MockMvcResultHandlers.print();
     } 
     
     @Test
+    @Transactional
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testAddAuthority() {
 		try {
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/authority/addAuthority")
@@ -60,6 +64,8 @@ public class AuthorityControllerTest {
 	}
     
     @Test
+    @Transactional
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void testUpdateAuthority() {
     	try {
     		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/authority/updateAuthority")
@@ -72,6 +78,8 @@ public class AuthorityControllerTest {
     }
     
     @Test
+    @Transactional
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void testDeleteAuthority() {
     	try {
     		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/authority/deleteAuthority")
@@ -83,6 +91,8 @@ public class AuthorityControllerTest {
     }
     
     @Test
+    @Transactional
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void testAddAuthorityBatch() {
     	try {
     		List<Authority> authList = new ArrayList<Authority>();
@@ -112,6 +122,7 @@ public class AuthorityControllerTest {
     }
     
     @Test
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void testGetAllAuthorityList() {
     	try {
     		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/authority/getAllAuthorityList");

@@ -11,6 +11,14 @@ public class VideoBaseKnowledgePointKey {
 
     private Integer knowledgePointId;
 
+	public VideoBaseKnowledgePointKey() {
+	}
+	
+	public VideoBaseKnowledgePointKey(Integer videoBaseId, Integer knowledgePointId) {
+		this.videoBaseId = videoBaseId;
+		this.knowledgePointId = knowledgePointId;
+	}
+
 	public Integer getVideoBaseId() {
 		return videoBaseId;
 	}
