@@ -34,6 +34,12 @@ public interface VideoBaseKnowledgePointService {
 	public Integer addKnowledgePointForVideoBase(VideoBaseKnowledgePointKey record);
 	
 	/**
+	 * 给视频添加知识点
+	 * @return
+	 */
+	public Integer addKnowledgePointForVideoBaseBatch(List<VideoBaseKnowledgePointKey> record);
+	
+	/**
 	 * 删除视频某知识点
 	 * @return
 	 */

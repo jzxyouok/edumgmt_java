@@ -67,6 +67,29 @@ public class KnowledgePointController extends AbstractBaseController {
 	}
 	
 	/**
+	 * 查询某课程下，根据知识点名称模糊匹配知识点列表
+	 * @param course
+	 * @return
+	 */
+	@RequestMapping(value = "/getKnowledgePointListByName")
+	@ResponseBody
+	public IRestMessage getKnowledgePointListByName(Course course,String name) {
+		IRestMessage msg = getRestMessage();
+		try {
+			List<KnowledgePoint> list = knowledgePointService.getKnowledgePointListByName(course, name);
+			if(null != list && list.size() > 0) {
+				msg.setCode(ErrorMessage.SUCCESS.getCode());
+				msg.setResult(list);
+			} else {
+				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
+			}
+		} catch (Exception e) {
+			logger.error("知识点列表查询失败==>" + ExceptionUtils.getStackTrace(e));
+		}
+		return msg;
+	}
+	
+	/**
 	 * 查询某视频拥有的知识点
 	 * @param course
 	 * @return

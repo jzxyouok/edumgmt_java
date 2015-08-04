@@ -56,6 +56,17 @@ public class VideoBaseKnowledgePointServiceImpl implements VideoBaseKnowledgePoi
 		return 0;
 	}
 
+	/**
+	 * 给视频批量添加知识点
+	 */
+	@Override
+	public Integer addKnowledgePointForVideoBaseBatch(List<VideoBaseKnowledgePointKey> list) {
+		if(null != list && list.size() > 0) {
+			return videoBaseKnowledgePointMapper.insertBatch(list);
+		}
+		return 0;
+	}
+	
 	@Override
 	public Integer deleteKnowledgePointForVideoBase(VideoBaseKnowledgePointKey record) {
 		if(null != record) {
@@ -63,5 +74,6 @@ public class VideoBaseKnowledgePointServiceImpl implements VideoBaseKnowledgePoi
 		}
 		return 0;
 	}
+
 
 }

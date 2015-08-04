@@ -1,5 +1,8 @@
 package net.shinc.service.edu.video;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.shinc.InfoMgmtApplication;
 import net.shinc.orm.mybatis.bean.VideoBaseKnowledgePointKey;
 
@@ -26,11 +29,22 @@ public class VideoBaseKnowledgePointServiceTest {
 	private VideoBaseKnowledgePointService videoBaseKnowledgePointService;
 	
 	@Test
+	@Transactional
 	public void testAddKnowledgePointForVideoBase(){
 		VideoBaseKnowledgePointKey record = new VideoBaseKnowledgePointKey();
 		record.setVideoBaseId(1);
 		record.setKnowledgePointId(6);
 		videoBaseKnowledgePointService.addKnowledgePointForVideoBase(record);
+	}
+	
+	@Test
+	@Transactional
+	public void testAddKnowledgePointForVideoBaseBatch(){
+		List<VideoBaseKnowledgePointKey> list = new ArrayList<VideoBaseKnowledgePointKey>();
+		list.add(new VideoBaseKnowledgePointKey(1,3));
+		list.add(new VideoBaseKnowledgePointKey(1,5));
+		list.add(new VideoBaseKnowledgePointKey(1,6));
+		videoBaseKnowledgePointService.addKnowledgePointForVideoBaseBatch(list);
 	}
 	
 	@Test

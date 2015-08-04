@@ -21,6 +21,15 @@
       )
   </insert>
   
+  <insert id="insertBatch" parameterType="VideoBaseKnowledgePointKey" >
+    insert into 
+    	sh_video_base_knowledge_point (sh_video_base_id, sh_knowledge_point_id)
+    values 
+   	<foreach collection="list" item="item" index="index" separator="," >
+   		(#{item.videoBaseId,jdbcType=INTEGER}, #{item.knowledgePointId,jdbcType=INTEGER})
+	</foreach>
+  </insert>
+  
   <insert id="insertSelective" parameterType="VideoBaseKnowledgePointKey" >
     insert into sh_video_base_knowledge_point
     <trim prefix="(" suffix=")" suffixOverrides="," >

@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,6 +22,7 @@ import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.google.gson.Gson;
@@ -48,6 +50,8 @@ public class QuestionBankTypeControllerTest {
     } 
     
     @Test
+    @Transactional
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testAddQuestionBankType() {
 		try {
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/questionBankType/addQuestionBankType")
@@ -59,6 +63,8 @@ public class QuestionBankTypeControllerTest {
 	}
     
     @Test
+    @Transactional
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void testAddQuestionBankTypeBatch() {
     	try {
     		QuestionBank questionBank = new QuestionBank(1);
@@ -90,6 +96,8 @@ public class QuestionBankTypeControllerTest {
     }
     
     @Test
+    @Transactional
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void testUpdateQuestionBankType() {
     	try {
     		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/questionBankType/updateQuestionBankType").param("id", "3")
@@ -101,6 +109,8 @@ public class QuestionBankTypeControllerTest {
     }
     
     @Test
+    @Transactional
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void testDeleteQuestionBankType() {
     	try {
     		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/questionBankType/deleteQuestionBankTypeById")
@@ -112,6 +122,7 @@ public class QuestionBankTypeControllerTest {
     }
     
     @Test
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void testGetQuestionBankTypeById() {
     	try {
     		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/questionBankType/getQuestionBankTypeById").param("id", "1");
@@ -122,6 +133,7 @@ public class QuestionBankTypeControllerTest {
     }
     
     @Test
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void testGetQuestionBankTypeByQuestionBank() {
     	try {
     		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/questionBankType/getQuestionBankTypeByQuestionBank").param("id", "1");

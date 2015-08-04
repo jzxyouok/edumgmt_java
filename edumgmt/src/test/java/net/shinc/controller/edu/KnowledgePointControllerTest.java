@@ -78,6 +78,17 @@ public class KnowledgePointControllerTest {
 	
 	@Test
 	@WithMockUser(username = "admin", password = "admin", authorities = { "adminUserList" })
+	public void testGetKnowledgePointListByName() {
+		try {
+			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/knowledgePoint/getKnowledgePointListByName").param("id", "1").param("name", "2");
+			mockMvc.perform(reqbuild).andDo(handler);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	@WithMockUser(username = "admin", password = "admin", authorities = { "adminUserList" })
 	public void testGetKnowledgePointListByVideoBase() {
 		try {
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/knowledgePoint/getKnowledgePointListByVideoBase").param("id", "2");
