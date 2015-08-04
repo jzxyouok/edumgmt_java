@@ -2,7 +2,10 @@ package net.shinc.service.edu.video.impl;
 
 import java.util.List;
 
+import net.shinc.orm.mybatis.bean.VideoDetail;
 import net.shinc.orm.mybatis.bean.VideoPastpaper;
+import net.shinc.orm.mybatis.mappers.VideoBaseMapper;
+import net.shinc.orm.mybatis.mappers.VideoDetailMapper;
 import net.shinc.orm.mybatis.mappers.VideoPastpaperMapper;
 import net.shinc.service.edu.video.VideoPastpaperService;
 
@@ -20,6 +23,10 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 
 	@Autowired
 	private VideoPastpaperMapper videoPastpaperMapper;
+	@Autowired
+	private VideoBaseMapper videoBaseMapper;
+	@Autowired
+	private VideoDetailMapper videoDetailMapper;
 	
 	@Override
 	public void deleteVideoPastpaperById(Integer id) {
@@ -29,6 +36,16 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 
 	@Override
 	public Integer insertVideoPastpaper(VideoPastpaper videoPastpaper) {
+		videoBaseMapper.insertVideoBase(videoPastpaper.getVideoBase());
+		Integer videoBaseId = videoPastpaper.getVideoBase().getId();
+		videoPastpaper.setVideoBaseId(videoBaseId);
+		if(videoPastpaper.getVideoDetailList() != null && videoPastpaper.getVideoDetailList().size() > 0){
+			for (VideoDetail vd : (List<VideoDetail>)videoPastpaper.getVideoDetailList() ) {
+				vd.setVideoBaseId(videoBaseId);
+				videoDetailMapper.insertVideoDetail(vd);
+			}
+		}
+		
 		return videoPastpaperMapper.insertVideoPastpaper(videoPastpaper);
 	}
 

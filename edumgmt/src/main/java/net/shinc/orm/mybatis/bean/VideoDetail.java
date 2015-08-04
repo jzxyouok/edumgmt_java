@@ -9,6 +9,11 @@ import java.util.Date;
  * @date 2015年7月31日 下午7:53:09  
  */
 public class VideoDetail  {
+	
+	private Integer videoBaseId;
+	
+	private String type;
+	
     private String url;
 
     private Date updatetime;
@@ -25,7 +30,23 @@ public class VideoDetail  {
         this.url = url == null ? null : url.trim();
     }
 
-    public Date getUpdatetime() {
+    public Integer getVideoBaseId() {
+		return videoBaseId;
+	}
+
+	public void setVideoBaseId(Integer videoBaseId) {
+		this.videoBaseId = videoBaseId;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Date getUpdatetime() {
         return updatetime;
     }
 

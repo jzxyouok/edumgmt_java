@@ -1,4 +1,4 @@
-package net.shinc.controller.common;
+package net.shinc.controller.edu.video;
 
 import java.util.ArrayList;
 import java.util.HashMap;

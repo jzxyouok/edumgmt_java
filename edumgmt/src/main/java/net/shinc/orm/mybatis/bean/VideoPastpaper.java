@@ -2,20 +2,24 @@ package net.shinc.orm.mybatis.bean;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * @ClassName: VideoPastpaper
- * @Description: 真题模拟题具体信息
+ * @Description: 真题、模拟题具体信息
  * @author hushichong
  * @date 2015年7月31日 下午3:41:54
  */
 public class VideoPastpaper {
 
 	private Integer id;
-
+	
 	private Integer videoBaseId;
 
+	@NotEmpty(message="{questionbankId.not.empty}")
 	private Integer questionbankId;
 
+	@NotEmpty(message="{questionbankYearId.not.empty}")
 	private Integer questionbankYearId;
 
 	// 关键字
@@ -39,7 +43,7 @@ public class VideoPastpaper {
 	// 题库版本（北京卷，河北卷）
 	private QuestionBankType questionBankType;
 	
-	// 题库版本（北京卷，河北卷）
+	// 题库年份
 	private QuestionBankYear questionBankYear;
 	
 	// 题型 （单选、多选）

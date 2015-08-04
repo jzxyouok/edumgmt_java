@@ -149,9 +149,7 @@
 	        and g_tab.id='1'
 	        and c_tab.year='2014'
 	        and b_tab.difficulty='1'
-	        and b_tab.videoDetailUrl is not null
-	        and b_tab.keywordName like '%关键字1%'
-	        and b_tab.knowledgePointName like '%知识点1%' -->
+	        and b_tab.videoDetailUrl is not null-->
 
 			<if test="questionBank != null and questionBank.id != null">
 				and d_tab.id = #{questionBank.id},
