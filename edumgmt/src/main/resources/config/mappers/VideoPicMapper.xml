@@ -12,25 +12,35 @@
   <sql id="Base_Column_List" >
     id, sh_video_base_id, title, description, store_info, store_type
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  
+  <select id="selectPicById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from sh_video_pic
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  
+  <select id="selectPicByVideoBaseId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sh_video_pic
+    where sh_video_base_id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deletePicById" parameterType="java.lang.Integer" >
     delete from sh_video_pic
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="VideoPic" >
-    insert into sh_video_pic (id, sh_video_base_id, title, 
-      description, store_info, store_type
-      )
-    values (#{id,jdbcType=INTEGER}, #{videoBaseId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{storeInfo,jdbcType=VARCHAR}, #{storeType,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="VideoPic" >
+  
+  <delete id="deletePicBatch" parameterType="java.lang.Integer" >
+    delete from sh_video_pic
+    where id in
+    	 <foreach collection="list" item="item" index="index"  open="(" separator="," close=")" >
+   			#{item.id,jdbcType=INTEGER}
+		</foreach>
+  </delete>
+  
+  <insert id="insertPic" parameterType="VideoPic" >
     insert into sh_video_pic
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -73,34 +83,13 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="VideoPic" >
-    update sh_video_pic
-    <set >
-      <if test="videoBaseId != null" >
-        sh_video_base_id = #{videoBaseId,jdbcType=INTEGER},
-      </if>
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null" >
-        description = #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="storeInfo != null" >
-        store_info = #{storeInfo,jdbcType=VARCHAR},
-      </if>
-      <if test="storeType != null" >
-        store_type = #{storeType,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="VideoPic" >
-    update sh_video_pic
-    set sh_video_base_id = #{videoBaseId,jdbcType=INTEGER},
-      title = #{title,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
-      store_info = #{storeInfo,jdbcType=VARCHAR},
-      store_type = #{storeType,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+  
+  <insert id="insertPicBatch" parameterType="VideoPic" >
+    insert into sh_video_pic(id, sh_video_base_id, title, description, store_info, store_type)
+    values 
+   	<foreach collection="list" item="item" index="index" separator="," >
+   		(#{item.id,jdbcType=INTEGER}, #{item.videoBaseId,jdbcType=INTEGER},#{item.title,jdbcType=VARCHAR},
+   		 #{item.description,jdbcType=VARCHAR},#{item.storeInfo,jdbcType=VARCHAR},#{item.storeType,jdbcType=VARCHAR})
+	</foreach>
+  </insert>
 </mapper>

@@ -1,5 +1,7 @@
 package net.shinc.orm.mybatis.mappers;
 
+import java.util.List;
+
 import net.shinc.orm.mybatis.bean.VideoPic;
 
 /** 
@@ -9,15 +11,15 @@ import net.shinc.orm.mybatis.bean.VideoPic;
  * @date 2015年7月31日 下午7:54:16  
  */
 public interface VideoPicMapper {
-    int deleteByPrimaryKey(Integer id);
+	public List<VideoPic> selectPicByVideoBaseId(Integer id);
+	
+	VideoPic selectPicById(Integer id);
+	
+	int deletePicById(Integer id);
+	
+	int deletePicBatch(List<VideoPic> record);
 
-    int insert(VideoPic record);
-
-    int insertSelective(VideoPic record);
-
-    VideoPic selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(VideoPic record);
-
-    int updateByPrimaryKey(VideoPic record);
+    int insertPic(VideoPic record);
+    
+    int insertPicBatch(List<VideoPic> record);
 }

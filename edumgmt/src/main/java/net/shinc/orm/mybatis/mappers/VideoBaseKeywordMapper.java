@@ -1,5 +1,7 @@
 package net.shinc.orm.mybatis.mappers;
 
+import java.util.List;
+
 import net.shinc.orm.mybatis.bean.VideoBaseKeywordKey;
 
 /** 
@@ -9,9 +11,9 @@ import net.shinc.orm.mybatis.bean.VideoBaseKeywordKey;
  * @date 2015年7月31日 下午7:55:30  
  */
 public interface VideoBaseKeywordMapper {
-    int deleteByPrimaryKey(VideoBaseKeywordKey key);
+    int deleteVideoKeywordById(VideoBaseKeywordKey key);
 
-    int insert(VideoBaseKeywordKey record);
-
-    int insertSelective(VideoBaseKeywordKey record);
+    int insertVideoKeyword(VideoBaseKeywordKey record);
+    
+    int insertVideoKeywordBatch(List<VideoBaseKeywordKey> record);
 }

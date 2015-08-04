@@ -1,5 +1,7 @@
 package net.shinc.orm.mybatis.bean;
 
+import java.text.MessageFormat;
+
 /** 
  * @ClassName VideoPic 
  * @Description 视频截图
@@ -66,4 +68,28 @@ public class VideoPic {
     public void setStoreType(String storeType) {
         this.storeType = storeType == null ? null : storeType.trim();
     }
+
+	public VideoPic() {
+		super();
+	}
+
+	public VideoPic(Integer id, Integer videoBaseId, String title, String description, String storeInfo, String storeType) {
+		super();
+		this.id = id;
+		this.videoBaseId = videoBaseId;
+		this.title = title;
+		this.description = description;
+		this.storeInfo = storeInfo;
+		this.storeType = storeType;
+	}
+
+	public VideoPic(Integer id) {
+		super();
+		this.id = id;
+	}
+	
+	@Override
+	public String toString() {
+		return MessageFormat.format("id:{0}\ttitle:{1}", this.id,this.title);
+	}
 }

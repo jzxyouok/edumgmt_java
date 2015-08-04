@@ -47,21 +47,4 @@
       </if>
     </trim>
   </insert>
-  
-<!-- 修改未用到 -->
-  <update id="updateByPrimaryKeySelective" parameterType="Keyword" >
-    update sh_keyword
-    <set >
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-<!-- 修改未用到 --> 
-  <update id="updateByPrimaryKey" parameterType="Keyword" >
-    update sh_keyword
-    set name = #{name,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
 </mapper>

@@ -5,16 +5,14 @@
     <id column="sh_video_base_id" property="videoBaseId" jdbcType="INTEGER" />
     <id column="sh_keyword_id" property="keywordId" jdbcType="INTEGER" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="VideoBaseKeywordKey" >
+  
+  <delete id="deleteVideoKeywordById" parameterType="VideoBaseKeywordKey" >
     delete from sh_video_base_keyword
     where sh_video_base_id = #{videoBaseId,jdbcType=INTEGER}
       and sh_keyword_id = #{keywordId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="VideoBaseKeywordKey" >
-    insert into sh_video_base_keyword (sh_video_base_id, sh_keyword_id)
-    values (#{videoBaseId,jdbcType=INTEGER}, #{keywordId,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="VideoBaseKeywordKey" >
+  
+  <insert id="insertVideoKeyword" parameterType="VideoBaseKeywordKey" >
     insert into sh_video_base_keyword
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="videoBaseId != null" >
@@ -32,5 +30,13 @@
         #{keywordId,jdbcType=INTEGER},
       </if>
     </trim>
+  </insert>
+  
+  <insert id="insertVideoKeywordBatch" parameterType="VideoBaseKeywordKey" >
+    insert into sh_video_base_keyword(sh_video_base_id, sh_keyword_id)
+    values 
+   	<foreach collection="list" item="item" index="index" separator="," >
+   		(#{item.videoBaseId,jdbcType=INTEGER}, #{item.keywordId,jdbcType=INTEGER})
+	</foreach>
   </insert>
 </mapper>

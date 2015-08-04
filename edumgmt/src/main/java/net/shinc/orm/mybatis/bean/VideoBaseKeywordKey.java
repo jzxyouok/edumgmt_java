@@ -1,5 +1,7 @@
 package net.shinc.orm.mybatis.bean;
 
+import java.text.MessageFormat;
+
 /** 
  * @ClassName VideoBaseKeywordKey 
  * @Description 视频中的关键字
@@ -27,4 +29,18 @@ public class VideoBaseKeywordKey {
 		this.keywordId = keywordId;
 	}
 
+	public VideoBaseKeywordKey() {
+		super();
+	}
+
+	public VideoBaseKeywordKey(Integer videoBaseId, Integer keywordId) {
+		super();
+		this.videoBaseId = videoBaseId;
+		this.keywordId = keywordId;
+	}
+	
+	@Override
+	public String toString() {
+		return MessageFormat.format("videoBaseId:{0}\tkeywordId:{1}", this.videoBaseId,this.keywordId);
+	}
 }
