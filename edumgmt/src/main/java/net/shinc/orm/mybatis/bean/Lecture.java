@@ -10,9 +10,6 @@ import java.io.Serializable;
  */
 public class Lecture implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1973504308864577176L;
 
 	private Integer id;
@@ -21,7 +18,15 @@ public class Lecture implements Serializable{
 
     private String level;
 
-    public Integer getId() {
+    public Lecture() {
+	}
+    
+	public Lecture(Integer id) {
+		super();
+		this.id = id;
+	}
+
+	public Integer getId() {
         return id;
     }
 

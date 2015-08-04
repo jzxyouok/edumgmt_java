@@ -66,4 +66,57 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="getVideoPastpaperNumByLecture" parameterType="Lecture" resultType="java.lang.Integer">
+		select 
+			count(a.id)
+		from
+			sh_video_pastpaper a
+		inner join
+			sh_video_base b
+		on
+			a.sh_video_base_id = b.id
+		inner join
+			sh_lecture c
+		on
+			b.sh_lecture_id = c.id
+		where
+			c.id = #{id}
+	</select>
+	
+  	<select id="getVideoSelfNumByLecture" parameterType="Lecture" resultType="java.lang.Integer">
+		select 
+			count(a.id)
+		from
+			sh_video_self a
+		inner join
+			sh_video_base b
+		on
+			a.sh_video_base_id = b.id
+		inner join
+			sh_lecture c
+		on
+			b.sh_lecture_id = c.id
+		where
+			c.id = #{id}
+	</select>
+	
+  	<select id="getVideoPointNumByLecture" parameterType="Lecture" resultType="java.lang.Integer">
+		select 
+			count(a.id)
+		from
+			sh_video_point a
+		inner join
+			sh_video_base b
+		on
+			a.sh_video_base_id = b.id
+		inner join
+			sh_lecture c
+		on
+			b.sh_lecture_id = c.id
+		where
+			c.id = #{id}
+	</select>
+	
+	
 </mapper>

@@ -68,4 +68,48 @@ public class LectureServiceImpl implements LectureService {
 	public Integer updateLectureById(Lecture lecture) {
 		return lectureMapper.updateLectureById(lecture);
 	}
+	
+	@Override
+	public Integer getVideoPastpaperNumByLecture(Lecture lecture) {
+		if(null != lecture) {
+			return lectureMapper.getVideoPastpaperNumByLecture(lecture);
+		}
+		return 0;
+	}
+
+	@Override
+	public Integer getVideoSelfNumByLecture(Lecture lecture) {
+		if(null != lecture) {
+			return lectureMapper.getVideoSelfNumByLecture(lecture);
+		}
+		return 0;
+	}
+
+	@Override
+	public Integer getVideoPointNumByLecture(Lecture lecture) {
+		if(null != lecture) {
+			return lectureMapper.getVideoPointNumByLecture(lecture);
+		}
+		return 0;
+	}
+
+	@Override
+	public Integer getVideoQuestionNumByLecture(Lecture lecture) {
+		if(null != lecture) {
+			int a = getVideoPastpaperNumByLecture(lecture);
+			int b = getVideoPointNumByLecture(lecture);
+			return a + b;
+		}
+		return null;
+	}
+
+	@Override
+	public Integer getVideoNumByLecture(Lecture lecture) {
+		if(null != lecture) {
+			int a = getVideoQuestionNumByLecture(lecture);
+			int b = getVideoPointNumByLecture(lecture);
+			return a + b;
+		}
+		return null;
+	}
 }

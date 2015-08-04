@@ -22,4 +22,10 @@ public interface LectureMapper {
     int insertLecture(Lecture record);
    
     int updateLectureById(Lecture record);
+    
+	int getVideoPastpaperNumByLecture(Lecture record);
+
+	int getVideoSelfNumByLecture(Lecture record);
+
+	int getVideoPointNumByLecture(Lecture record);
 }
