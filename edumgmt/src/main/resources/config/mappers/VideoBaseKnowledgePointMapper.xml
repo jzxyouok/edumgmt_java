@@ -5,17 +5,22 @@
     <id column="sh_video_base_id" property="videoBaseId" jdbcType="INTEGER" />
     <id column="sh_knowledge_point_id" property="knowledgePointId" jdbcType="INTEGER" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="VideoBaseKnowledgePointKey" >
-    delete from sh_video_base_knowledge_point
-    where sh_video_base_id = #{videoBaseId,jdbcType=INTEGER}
+  
+  <delete id="deleteVideoBaseKnowledgePoint" parameterType="VideoBaseKnowledgePointKey" >
+    delete from 
+    	sh_video_base_knowledge_point
+    where 1 = 1
+      and sh_video_base_id = #{videoBaseId,jdbcType=INTEGER}
       and sh_knowledge_point_id = #{knowledgePointId,jdbcType=INTEGER}
   </delete>
+  
   <insert id="insert" parameterType="VideoBaseKnowledgePointKey" >
     insert into sh_video_base_knowledge_point (sh_video_base_id, sh_knowledge_point_id
       )
     values (#{videoBaseId,jdbcType=INTEGER}, #{knowledgePointId,jdbcType=INTEGER}
       )
   </insert>
+  
   <insert id="insertSelective" parameterType="VideoBaseKnowledgePointKey" >
     insert into sh_video_base_knowledge_point
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -35,4 +40,33 @@
       </if>
     </trim>
   </insert>
+  
+  <select id="isUsedKnowledgePoint" parameterType="KnowledgePoint" resultType="java.lang.Integer">
+  	select distinct
+  		1
+  	from
+  		sh_video_base_knowledge_point
+  	where
+  		sh_knowledge_point_id = #{id}	
+  </select>
+  
+  <resultMap id="KnowledgePointMap" type="KnowledgePoint" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sh_course_id" property="courseId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <association property="course" column="sh_course_id" javaType="Course" select="net.shinc.orm.mybatis.mappers.CourseMapper.selectCourseById"></association>
+  </resultMap>
+  <select id="getKnowledgePointListByVideo" parameterType="VideoBase" resultMap="KnowledgePointMap">
+  	select
+  		a.id, a.sh_course_id, a.name
+  	from
+  		sh_knowledge_point a
+  	inner join
+  		sh_video_base_knowledge_point b
+  	on
+  		a.id = b.sh_knowledge_point_id
+  	where
+  		b.sh_video_base_id = #{id}
+  </select>
+  
 </mapper>

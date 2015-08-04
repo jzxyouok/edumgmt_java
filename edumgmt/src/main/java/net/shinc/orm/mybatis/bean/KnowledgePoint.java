@@ -7,13 +7,29 @@ package net.shinc.orm.mybatis.bean;
  * @date 2015年7月31日 下午7:51:30  
  */
 public class KnowledgePoint {
+	
     private Integer id;
 
     private Integer courseId;
+    
+    private Course course;
 
     private String name;
+    
+    public KnowledgePoint() {
+	}
+    
+	public KnowledgePoint(Course course, String name) {
+		super();
+		this.course = course;
+		this.name = name;
+	}
+	
+	public KnowledgePoint(Integer id) {
+		this.id = id;
+	}
 
-    public Integer getId() {
+	public Integer getId() {
         return id;
     }
 
@@ -36,4 +52,12 @@ public class KnowledgePoint {
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
     }
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
 }

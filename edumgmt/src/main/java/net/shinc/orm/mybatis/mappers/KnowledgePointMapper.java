@@ -1,5 +1,7 @@
 package net.shinc.orm.mybatis.mappers;
 
+import java.util.List;
+
 import net.shinc.orm.mybatis.bean.KnowledgePoint;
 
 /** 
@@ -9,15 +11,17 @@ import net.shinc.orm.mybatis.bean.KnowledgePoint;
  * @date 2015年7月31日 下午7:51:19  
  */
 public interface KnowledgePointMapper {
-    int deleteByPrimaryKey(Integer id);
+	
+    int deleteKnowledgePointById(Integer id);
 
-    int insert(KnowledgePoint record);
+    int addKnowledgePoint(KnowledgePoint record);
 
-    int insertSelective(KnowledgePoint record);
+    KnowledgePoint selectKnowledgePointById(Integer id);
 
-    KnowledgePoint selectByPrimaryKey(Integer id);
+    int updateKnowledgePoint(KnowledgePoint record);
+    
+    KnowledgePoint hasKnowledgePoint(KnowledgePoint record);
+    
+    List<KnowledgePoint> getKnowledgePointList(KnowledgePoint record);
 
-    int updateByPrimaryKeySelective(KnowledgePoint record);
-
-    int updateByPrimaryKey(KnowledgePoint record);
 }
