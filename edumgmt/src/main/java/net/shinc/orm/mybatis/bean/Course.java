@@ -3,8 +3,6 @@ package net.shinc.orm.mybatis.bean;
 
 import java.text.MessageFormat;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 /** 
  * @ClassName Course 
  * @Description 课程
