@@ -21,7 +21,7 @@ public interface LectureService {
 	/**
 	 * 按照ID查询讲解人
 	 */
-	 public Lecture selectLectureById(Integer id);
+	 public Lecture selectLectureById(Lecture lecture);
 	 
 	/**
 	 * 查询全部讲解人
