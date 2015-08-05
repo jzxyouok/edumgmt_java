@@ -37,6 +37,12 @@ public class VideoPastpaperController extends AbstractBaseController {
 	@Autowired
 	private VideoPastpaperService videoPastpaperService;
 
+	/**
+	 * @Title: getVideoPastpaperAndRelevantInfoList
+	 * @Description: 真题/模拟题视频列表
+	 * @param videoPastpaper
+	 * @return IRestMessage
+	 */
 	@RequestMapping(value = "/getVideoPastpaperAndRelevantInfoList")
 	@ResponseBody
 	public IRestMessage getVideoPastpaperAndRelevantInfoList(@RequestBody VideoPastpaper videoPastpaper) {
@@ -54,25 +60,85 @@ public class VideoPastpaperController extends AbstractBaseController {
 		}
 		return msg;
 	}
-	
-	@RequestMapping(value = "/addVideoPastpaper")
+
+	/**
+	 * @Title: addVideoPastpaperAndRelevantInfo
+	 * @Description: 添加真题/模拟题视频详细信息
+	 * @param videoPastpaper
+	 * @param bindingResult
+	 * @param locale
+	 * @return IRestMessage
+	 */
+	@RequestMapping(value = "/addVideoPastpaperAndRelevantInfo")
 	@ResponseBody
-	public IRestMessage addVideoPastpaper(@RequestBody @Valid VideoPastpaper videoPastpaper, BindingResult bindingResult, Locale locale){
+	public IRestMessage addVideoPastpaperAndRelevantInfo(@RequestBody @Valid VideoPastpaper videoPastpaper, BindingResult bindingResult, Locale locale) {
 		IRestMessage iRestMessage = getRestMessage();
-		if(bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			iRestMessage.setDetail(ShincUtil.getErrorFields(bindingResult));
 			return iRestMessage;
 		}
 		try {
 			Integer num = videoPastpaperService.insertVideoPastpaper(videoPastpaper);
-			if(num > 0){
+			if (num > 0) {
 				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
 				iRestMessage.setResult(num);
 			} else {
 				iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());
 			}
 		} catch (Exception e) {
-			logger.error("真题模拟题添加失败==>" + ExceptionUtils.getStackTrace(e));
+			logger.error("添加真题/模拟题视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
+		}
+		return iRestMessage;
+	}
+
+	/**
+	 * @Title: getVideoPastpaperAndRelevantInfo
+	 * @Description: 获得真题/模拟题视频详细信息
+	 * @param videoPastpaper
+	 * @param bindingResult
+	 * @param locale
+	 * @return IRestMessage
+	 */
+	@RequestMapping(value = "/getVideoPastpaperAndRelevantInfo")
+	@ResponseBody
+	public IRestMessage getVideoPastpaperAndRelevantInfo(VideoPastpaper videoPastpaper) {
+		IRestMessage iRestMessage = getRestMessage();
+		try {
+			
+			List<VideoPastpaper> list = videoPastpaperService.getVideoPastpaperAndRelevantInfoList(videoPastpaper);
+			if (list != null && list.size() > 0) {
+				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+				iRestMessage.setResult(list.get(0));
+			} else {
+				iRestMessage.setCode(ErrorMessage.RESULT_EMPTY.getCode());
+			}
+		} catch (Exception e) {
+			logger.error("获得真题/模拟题视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
+		}
+		return iRestMessage;
+	}
+	
+	/**
+	 * @Title: getVideoPastpaperAndRelevantInfo
+	 * @Description: 更新真题/模拟题视频
+	 * @param videoPastpaper
+	 * @param bindingResult
+	 * @param locale
+	 * @return IRestMessage
+	 */
+	@RequestMapping(value = "/updateVideoPastpaperAndRelevantInfo")
+	@ResponseBody
+	public IRestMessage updateVideoPastpaperAndRelevantInfo(@RequestBody @Valid VideoPastpaper videoPastpaper, BindingResult bindingResult, Locale locale) {
+		IRestMessage iRestMessage = getRestMessage();
+		if (bindingResult.hasErrors()) {
+			iRestMessage.setDetail(ShincUtil.getErrorFields(bindingResult));
+			return iRestMessage;
+		}
+		try {
+			videoPastpaperService.updateVideoPastpaper(videoPastpaper);
+			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+		} catch (Exception e) {
+			logger.error("更新真题/模拟题视频失败==>" + ExceptionUtils.getStackTrace(e));
 		}
 		return iRestMessage;
 	}

@@ -63,8 +63,6 @@
 	
 	<select id="getVideoPastpaperAndRelevantInfoList" resultMap="VideoPastpaperAndRelevantInfoListMap" parameterType="VideoPastpaper">
 
-
-
 		SELECT 
 		    a_tab.id videoPastpaperId,
 		    b_tab.question_id,
@@ -144,33 +142,31 @@
 			where 1=1
 	        and d_tab.type = '0'<!-- 0：真题、模拟题 -->
 	        
-			<!-- and d_tab.id = '2'
-	        and b_tab.courseId='10'
-	        and g_tab.id='1'
-	        and c_tab.year='2014'
-	        and b_tab.difficulty='1'
-	        and b_tab.videoDetailUrl is not null-->
+			<!-- d_tab.id = '2' b_tab.courseId='10' g_tab.id='1' c_tab.year='2014' b_tab.difficulty='1' b_tab.videoDetailUrl is not null-->
 
+			<if test="id != null">
+				and a_tab.id = #{id}
+			</if>
 			<if test="questionBank != null and questionBank.id != null">
-				and d_tab.id = #{questionBank.id},
+				and d_tab.id = #{questionBank.id}
 			</if>
 			<if test="videoBase != null and videoBase.course != null and videoBase.course.id != null">
-				and b_tab.courseId = #{videoBase.course.id},
+				and b_tab.courseId = #{videoBase.course.id}
 			</if>
 			<if test="questionBankType != null and questionBankType.id != null">
-				and g_tab.id = #{questionBankType.id},
+				and g_tab.id = #{questionBankType.id}
 			</if>
 			<if test="questionBankYear != null and questionBankYear.year != null">
-				and c_tab.year = #{questionBankYear.year},
+				and c_tab.year = #{questionBankYear.year}
 			</if>
 			<if test="videoBase != null and videoBase.difficulty != null">
-				and b_tab.difficulty = #{videoBase.difficulty},
+				and b_tab.difficulty = #{videoBase.difficulty}
 			</if>
 			<if test="hasVideo != null and videoBase == '0'">
-				and b_tab.videoDetailUrl is null,
+				and b_tab.videoDetailUrl is null
 			</if>
 			<if test="hasVideo != null and videoBase == '1'">
-				and b_tab.videoDetailUrl is not null,
+				and b_tab.videoDetailUrl is not null
 			</if>
 			
 			<if test="videoBase != null and videoBase.keywordList != null and videoBase.keywordList.size() > 0">
