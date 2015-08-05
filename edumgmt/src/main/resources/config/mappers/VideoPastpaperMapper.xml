@@ -12,9 +12,9 @@
 		<result column="question_id" property="videoBase.questionId" />
 		<result column="title" property="videoBase.title" />
 		<result column="desc" property="videoBase.desc" />
-		<result column="courseId" property="course.id"/>
-		<result column="courseName" property="course.name"/>
-		<result column="courseShortName" property="course.shortName"/>
+		<result column="courseId" property="videoBase.course.id"/>
+		<result column="courseName" property="videoBase.course.name"/>
+		<result column="courseShortName" property="videoBase.course.shortName"/>
 		<result column="year" property="questionBankYear.year"/>
 		<result column="type" property="questionBank.type"/>
 		<result column="questionbankType" property="questionBank.type"/>
@@ -23,22 +23,22 @@
 		<result column="questionbankName" property="questionBank.name"/>
 		<result column="questionbankId" property="questionBank.id"/>
 		<result column="questionTypeName" property="questionType.name"/>
-		<result column="lectureName" property="lecture.name"/>
-		<result column="lectureLevel" property="lecture.level"/>
-		<result column="lectureId" property="lecture.id"/>
+		<result column="lectureName" property="videoBase.lecture.name"/>
+		<result column="lectureLevel" property="videoBase.lecture.level"/>
+		<result column="lectureId" property="videoBase.lecture.id"/>
 		<result column="questionTypeId" property="questionType.id"/>
 		<result column="question_number" property="videoBase.questionNumber"/>
 		<result column="difficulty" property="videoBase.difficulty"/>
 		
-		<collection property="keywordList" ofType="Keyword">
+		<collection property="videoBase.keywordList" ofType="Keyword">
 			<result column="keywordId" property="id" />
 			<result column="keywordName" property="name" />
 		</collection>
-		<collection property="knowledgetPointList" ofType="KnowledgePoint">
+		<collection property="videoBase.knowledgetPointList" ofType="KnowledgePoint">
 			<result column="knowledgePointId" property="id" />
 			<result column="knowledgePointName" property="name" />
 		</collection>
-		<collection property="videoDetailList" ofType="VideoDetail">
+		<collection property="videoBase.videoDetailList" ofType="VideoDetail">
 			<result column="videoDetailUrl" property="url" />
 		</collection>
 	</resultMap>
@@ -154,8 +154,8 @@
 			<if test="questionBank != null and questionBank.id != null">
 				and d_tab.id = #{questionBank.id},
 			</if>
-			<if test="course != null and course.id != null">
-				and b_tab.courseId = #{course.id},
+			<if test="videoBase != null and videoBase.course != null and videoBase.course.id != null">
+				and b_tab.courseId = #{videoBase.course.id},
 			</if>
 			<if test="questionBankType != null and questionBankType.id != null">
 				and g_tab.id = #{questionBankType.id},
@@ -173,10 +173,10 @@
 				and b_tab.videoDetailUrl is not null,
 			</if>
 			
-			<if test="keywordList != null and keywordList.size() > 0">
+			<if test="videoBase != null and videoBase.keywordList != null and videoBase.keywordList.size() > 0">
 				and b_tab.keywordName in   
                 <foreach  
-                    collection="keywordList"  
+                    collection="videoBase.keywordList"  
                     item="keyword"  
                      open="("  
                     separator=","  
@@ -185,10 +185,10 @@
                 </foreach>  
             </if>  
             
-            <if test="knowledgetPointList != null and knowledgetPointList.size() > 0">
+            <if test="videoBase != null and videoBase.knowledgetPointList != null and videoBase.knowledgetPointList.size() > 0">
 				and b_tab.knowledgePointName in   
                 <foreach  
-                    collection="knowledgetPointList"  
+                    collection="videoBase.knowledgetPointList"  
                     item="knowledgetPoint"  
                      open="("  
                     separator=","  
@@ -226,6 +226,14 @@
 			<if test="questionbankYearId != null">
 				sh_questionbank_year_id,
 			</if>
+			<if test="questionTypeId != null">
+				sh_question_type_id,
+			</if>
+			<if test="questionbankTypeId != null">
+				sh_questionbank_type_id,
+			</if>
+			
+			
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -240,6 +248,12 @@
 			<if test="questionbankYearId != null">
 				#{questionbankYearId,jdbcType=INTEGER},
 			</if>
+			<if test="questionTypeId != null">
+				#{questionTypeId,jdbcType=INTEGER},
+			</if>
+			<if test="questionbankTypeId != null">
+				#{questionbankTypeId,jdbcType=INTEGER},
+			</if>
 		</trim>
 	</insert>
 	<update id="updateVideoPastpaper" parameterType="VideoPastpaper">
@@ -253,6 +267,12 @@
 			</if>
 			<if test="questionbankYearId != null">
 				sh_questionbank_year_id = #{questionbankYearId,jdbcType=INTEGER},
+			</if>
+			<if test="questionTypeId != null">
+				sh_question_type_id = #{questionTypeId,jdbcType=INTEGER},
+			</if>
+			<if test="questionbankTypeId != null">
+				sh_questionbank_type_id = #{questionbankTypeId,jdbcType=INTEGER},
 			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}

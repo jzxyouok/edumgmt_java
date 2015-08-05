@@ -57,7 +57,7 @@ public class VideoPastpaperController extends AbstractBaseController {
 	
 	@RequestMapping(value = "/addVideoPastpaper")
 	@ResponseBody
-	public IRestMessage addVideoPastpaper(@Valid VideoPastpaper videoPastpaper, BindingResult bindingResult, Locale locale){
+	public IRestMessage addVideoPastpaper(@RequestBody @Valid VideoPastpaper videoPastpaper, BindingResult bindingResult, Locale locale){
 		IRestMessage iRestMessage = getRestMessage();
 		if(bindingResult.hasErrors()) {
 			iRestMessage.setDetail(ShincUtil.getErrorFields(bindingResult));

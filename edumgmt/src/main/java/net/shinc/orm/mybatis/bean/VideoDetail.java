@@ -2,6 +2,8 @@ package net.shinc.orm.mybatis.bean;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /** 
  * @ClassName VideoDetail 
  * @Description 视频详细信息
@@ -12,8 +14,10 @@ public class VideoDetail  {
 	
 	private Integer videoBaseId;
 	
+	@NotEmpty(message = "{videoDetail.type.not.empty}")
 	private String type;
 	
+	@NotEmpty(message = "{videoDetail.url.not.empty}")
     private String url;
 
     private Date updatetime;

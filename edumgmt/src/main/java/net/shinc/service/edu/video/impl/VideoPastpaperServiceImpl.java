@@ -1,7 +1,9 @@
 package net.shinc.service.edu.video.impl;
 
+import java.util.Date;
 import java.util.List;
 
+import net.shinc.orm.mybatis.bean.VideoBase;
 import net.shinc.orm.mybatis.bean.VideoDetail;
 import net.shinc.orm.mybatis.bean.VideoPastpaper;
 import net.shinc.orm.mybatis.mappers.VideoBaseMapper;
@@ -13,10 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
-  * @ClassName: VideoPastpaperServiceImpl
-  * @Description: 真题、模拟题服务接口实现
-  * @author hushichong
-  * @date 2015年7月31日 下午5:43:01
+ * @ClassName: VideoPastpaperServiceImpl
+ * @Description: 真题、模拟题服务接口实现
+ * @author hushichong
+ * @date 2015年7月31日 下午5:43:01
  */
 @Service
 public class VideoPastpaperServiceImpl implements VideoPastpaperService {
@@ -27,32 +29,35 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 	private VideoBaseMapper videoBaseMapper;
 	@Autowired
 	private VideoDetailMapper videoDetailMapper;
-	
+
 	@Override
 	public void deleteVideoPastpaperById(Integer id) {
 		videoPastpaperMapper.deleteVideoPastpaperById(id);
-		
+
 	}
 
 	@Override
 	public Integer insertVideoPastpaper(VideoPastpaper videoPastpaper) {
-		videoBaseMapper.insertVideoBase(videoPastpaper.getVideoBase());
-		Integer videoBaseId = videoPastpaper.getVideoBase().getId();
-		videoPastpaper.setVideoBaseId(videoBaseId);
-		if(videoPastpaper.getVideoDetailList() != null && videoPastpaper.getVideoDetailList().size() > 0){
-			for (VideoDetail vd : (List<VideoDetail>)videoPastpaper.getVideoDetailList() ) {
-				vd.setVideoBaseId(videoBaseId);
+		VideoBase videoBase = videoPastpaper.getVideoBase();
+		videoBase.setUpdatetime(new Date());
+		videoBaseMapper.insertVideoBase(videoBase);
+		videoPastpaper.setVideoBaseId(videoBase.getId());
+		// 插入视频详情
+		if (videoPastpaper.getVideoBase() != null && videoPastpaper.getVideoBase().getVideoDetailList() != null && videoPastpaper.getVideoBase().getVideoDetailList().size() > 0) {
+			for (VideoDetail vd : (List<VideoDetail>) videoPastpaper.getVideoBase().getVideoDetailList()) {
+				vd.setVideoBaseId(videoBase.getId());
+				vd.setUpdatetime(new Date());
 				videoDetailMapper.insertVideoDetail(vd);
 			}
 		}
-		
+
 		return videoPastpaperMapper.insertVideoPastpaper(videoPastpaper);
 	}
 
 	@Override
 	public void updateVideoPastpaper(VideoPastpaper videoPastpaper) {
 		videoPastpaperMapper.updateVideoPastpaper(videoPastpaper);
-		
+
 	}
 
 	@Override
@@ -73,9 +78,9 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 	@Override
 	public VideoPastpaper getVideoPastpaper(VideoPastpaper videoPastpaper) {
 		List list = getVideoPastpaperList(videoPastpaper);
-		if(list != null && list.size() == 1){
-			return (VideoPastpaper)list.get(0);
-		}else{
+		if (list != null && list.size() == 1) {
+			return (VideoPastpaper) list.get(0);
+		} else {
 			return null;
 		}
 	}
@@ -90,6 +95,5 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 }

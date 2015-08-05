@@ -14,7 +14,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Course {
     private Integer id;
 
-    @NotEmpty(message="{courseName.not.empty}")
     private String name;
 
     private String shortName;

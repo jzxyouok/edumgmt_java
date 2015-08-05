@@ -2,6 +2,8 @@ package net.shinc.orm.mybatis.bean;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /** 
  * @ClassName Lecture 
  * @Description 视频讲解人
@@ -13,7 +15,8 @@ public class Lecture implements Serializable{
 	private static final long serialVersionUID = -1973504308864577176L;
 
 	private Integer id;
-
+	
+	@NotEmpty(message="{lecture.name.not.empty}")
     private String name;
 
     private String level;
