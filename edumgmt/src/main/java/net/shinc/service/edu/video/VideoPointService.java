@@ -7,7 +7,7 @@ import net.shinc.orm.mybatis.bean.VideoPoint;
 
 /**
  * @ClassName: VideoPointService
- * @Description: 知识点服务接口
+ * @Description: 知识点视频服务接口
  * @author hushichong
  * @date 2015年7月31日 下午5:21:13
  */
@@ -35,17 +35,17 @@ public interface VideoPointService {
 
 	/**
 	 * @Title: getVideoPointAndRelevantInfoList
-	 * @Description: 得到知识点以及其相关信息列表
+	 * @Description: 得到知识点视频以及其相关信息列表
 	 * @param videoPastpaper
 	 * @return List<VideoPastpaper>
 	 */
-	public List<VideoPastpaper> getVideoPointAndRelevantInfoList(VideoPastpaper videoPastpaper);
+	public List<VideoPoint> getVideoPointAndRelevantInfoList(VideoPoint videoPoint);
 
 	/**
 	 * @Title: getVideoPointAndRelevantInfoListCount
-	 * @Description: 得到知识点以及其相关信息列表总条数
+	 * @Description: 得到知识点视频以及其相关信息列表总条数
 	 * @param videoPastpaper
 	 * @return List<VideoPastpaper>
 	 */
-	public List<VideoPastpaper> getVideoPointAndRelevantInfoListCount(VideoPastpaper videoPastpaper);
+	public List<VideoPoint> getVideoPointAndRelevantInfoListCount(VideoPoint videoPoint);
 }

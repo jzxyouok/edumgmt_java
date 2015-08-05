@@ -7,7 +7,7 @@
 		<result column="sh_questionbank_id" property="questionbankId" jdbcType="INTEGER" />
 		<result column="sh_questionbank_year_id" property="questionbankYearId" jdbcType="INTEGER" />
 	</resultMap>
-	<!-- // 关键字list // 知识点list // 视频详情list -->
+	
 	<resultMap id="VideoPastpaperAndRelevantInfoListMap" type="VideoPastpaper">
 		<result column="question_id" property="videoBase.questionId" />
 		<result column="title" property="videoBase.title" />
@@ -29,15 +29,17 @@
 		<result column="questionTypeId" property="questionType.id"/>
 		<result column="question_number" property="videoBase.questionNumber"/>
 		<result column="difficulty" property="videoBase.difficulty"/>
-		
+		<!-- 关键字list -->
 		<collection property="videoBase.keywordList" ofType="Keyword">
 			<result column="keywordId" property="id" />
 			<result column="keywordName" property="name" />
 		</collection>
+		<!-- 知识点list -->
 		<collection property="videoBase.knowledgetPointList" ofType="KnowledgePoint">
 			<result column="knowledgePointId" property="id" />
 			<result column="knowledgePointName" property="name" />
 		</collection>
+		<!-- 视频详情list -->
 		<collection property="videoBase.videoDetailList" ofType="VideoDetail">
 			<result column="videoDetailUrl" property="url" />
 		</collection>

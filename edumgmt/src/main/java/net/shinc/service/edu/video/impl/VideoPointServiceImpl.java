@@ -1,9 +1,20 @@
 package net.shinc.service.edu.video.impl;
 
+import java.util.Date;
 import java.util.List;
 
-import net.shinc.orm.mybatis.bean.VideoPastpaper;
+import net.shinc.orm.mybatis.bean.Keyword;
+import net.shinc.orm.mybatis.bean.KnowledgePoint;
+import net.shinc.orm.mybatis.bean.VideoBase;
+import net.shinc.orm.mybatis.bean.VideoBaseKeywordKey;
+import net.shinc.orm.mybatis.bean.VideoBaseKnowledgePointKey;
+import net.shinc.orm.mybatis.bean.VideoDetail;
 import net.shinc.orm.mybatis.bean.VideoPoint;
+import net.shinc.orm.mybatis.bean.VideoPoint;
+import net.shinc.orm.mybatis.mappers.VideoBaseKeywordMapper;
+import net.shinc.orm.mybatis.mappers.VideoBaseKnowledgePointMapper;
+import net.shinc.orm.mybatis.mappers.VideoBaseMapper;
+import net.shinc.orm.mybatis.mappers.VideoDetailMapper;
 import net.shinc.orm.mybatis.mappers.VideoPointMapper;
 import net.shinc.service.edu.video.VideoPointService;
 
@@ -21,21 +32,93 @@ public class VideoPointServiceImpl implements VideoPointService {
 
 	@Autowired
 	private VideoPointMapper videoPointMapper;
-
-	@Override
-	public void deleteVideoPointById(Integer id) {
-		videoPointMapper.deleteVideoPointById(id);
-
-	}
+	@Autowired
+	private VideoBaseMapper videoBaseMapper;
+	@Autowired
+	private VideoDetailMapper videoDetailMapper;
+	@Autowired
+	private VideoBaseKnowledgePointMapper videoBaseKnowledgePointMapper;
+	@Autowired
+	private VideoBaseKeywordMapper videoBaseKeywordMapper;
 
 	@Override
 	public Integer insertVideoPoint(VideoPoint videoPoint) {
+		VideoBase videoBase = videoPoint.getVideoBase();
+		videoBase.setUpdatetime(new Date());
+		videoBaseMapper.insertVideoBase(videoBase);
+		videoPoint.setVideoBaseId(videoBase.getId());
+		// 插入视频详情
+		if (videoPoint.getVideoBase() != null && videoPoint.getVideoBase().getVideoDetailList() != null && videoPoint.getVideoBase().getVideoDetailList().size() > 0) {
+			for (VideoDetail vd : (List<VideoDetail>) videoPoint.getVideoBase().getVideoDetailList()) {
+				vd.setVideoBaseId(videoBase.getId());
+				vd.setUpdatetime(new Date());
+				videoDetailMapper.insertVideoDetail(vd);
+			}
+		}
+
+		// 插入知识点关系
+		if (videoPoint.getVideoBase() != null && videoPoint.getVideoBase().getKnowledgetPointList() != null && videoPoint.getVideoBase().getKnowledgetPointList().size() > 0) {
+			for (KnowledgePoint vd : (List<KnowledgePoint>) videoPoint.getVideoBase().getKnowledgetPointList()) {
+				VideoBaseKnowledgePointKey videoBaseKnowledgePointKey = new VideoBaseKnowledgePointKey();
+				videoBaseKnowledgePointKey.setVideoBaseId(videoBase.getId());
+				videoBaseKnowledgePointKey.setKnowledgePointId(vd.getId());
+				videoBaseKnowledgePointMapper.insert(videoBaseKnowledgePointKey);
+			}
+		}
+
+		// 插入关键字关系
+		if (videoPoint.getVideoBase() != null && videoPoint.getVideoBase().getKeywordList() != null && videoPoint.getVideoBase().getKeywordList().size() > 0) {
+			for (Keyword vd : (List<Keyword>) videoPoint.getVideoBase().getKeywordList()) {
+				VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
+				videoBaseKeywordKey.setVideoBaseId(videoBase.getId());
+				videoBaseKeywordKey.setKeywordId(vd.getId());
+				videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
+			}
+		}
+
 		return videoPointMapper.insertVideoPoint(videoPoint);
 	}
 
 	@Override
 	public void updateVideoPoint(VideoPoint videoPoint) {
+		VideoBase videoBase = videoPoint.getVideoBase();
+		videoBase.setUpdatetime(new Date());
+		
 		videoPointMapper.updateVideoPoint(videoPoint);
+		videoBaseMapper.updateVideoBase(videoBase);
+		
+		// 更新视频详情
+		if (videoPoint.getVideoBase() != null && videoPoint.getVideoBase().getVideoDetailList() != null && videoPoint.getVideoBase().getVideoDetailList().size() > 0) {
+			for (VideoDetail vd : (List<VideoDetail>) videoPoint.getVideoBase().getVideoDetailList()) {
+				vd.setVideoBaseId(videoBase.getId());
+				vd.setUpdatetime(new Date());
+				videoDetailMapper.updateVideoDetail(vd);
+			}
+		}
+
+		// 更新知识点关系
+		if (videoPoint.getVideoBase() != null && videoPoint.getVideoBase().getKnowledgetPointList() != null
+				&& videoPoint.getVideoBase().getKnowledgetPointList().size() > 0) {
+			for (KnowledgePoint vd : (List<KnowledgePoint>) videoPoint.getVideoBase().getKnowledgetPointList()) {
+				VideoBaseKnowledgePointKey videoBaseKnowledgePointKey = new VideoBaseKnowledgePointKey();
+				videoBaseKnowledgePointKey.setVideoBaseId(videoBase.getId());
+				videoBaseKnowledgePointKey.setKnowledgePointId(vd.getId());
+				videoBaseKnowledgePointMapper.deleteVideoBaseKnowledgePoint(videoBaseKnowledgePointKey);
+				videoBaseKnowledgePointMapper.insert(videoBaseKnowledgePointKey);
+			}
+		}
+
+		// 更新关键字关系
+		if (videoPoint.getVideoBase() != null && videoPoint.getVideoBase().getKeywordList() != null
+				&& videoPoint.getVideoBase().getKeywordList().size() > 0) {
+			for (Keyword vd : (List<Keyword>) videoPoint.getVideoBase().getKeywordList()) {
+				VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
+				videoBaseKeywordKey.setVideoBaseId(videoBase.getId());
+				videoBaseKeywordKey.setKeywordId(vd.getId());
+				videoBaseKeywordMapper.deleteVideoKeywordById(videoBaseKeywordKey);
+				videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
+			}
+		}
 
 	}
 
@@ -63,15 +146,20 @@ public class VideoPointServiceImpl implements VideoPointService {
 			return null;
 		}
 	}
-
+	
 	@Override
-	public List<VideoPastpaper> getVideoPointAndRelevantInfoList(VideoPastpaper videoPastpaper) {
-		// TODO Auto-generated method stub
-		return null;
+	public void deleteVideoPointById(Integer id) {
+		videoPointMapper.deleteVideoPointById(id);
+
 	}
 
 	@Override
-	public List<VideoPastpaper> getVideoPointAndRelevantInfoListCount(VideoPastpaper videoPastpaper) {
+	public List<VideoPoint> getVideoPointAndRelevantInfoList(VideoPoint videoPoint) {
+		return videoPointMapper.getVideoPointAndRelevantInfoList(videoPoint);
+	}
+
+	@Override
+	public List<VideoPoint> getVideoPointAndRelevantInfoListCount(VideoPoint videoPoint) {
 		// TODO Auto-generated method stub
 		return null;
 	}

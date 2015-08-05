@@ -39,7 +39,7 @@ public interface VideoSelfService {
 	 * @param videoPastpaper
 	 * @return List<VideoPastpaper>
 	 */
-	public List<VideoPastpaper> getVideoSelfAndRelevantInfoList(VideoPastpaper videoPastpaper);
+	public List<VideoSelf> getVideoSelfAndRelevantInfoList(VideoSelf videoSelf);
 
 	/**
 	 * @Title: getVideoSelfAndRelevantInfoListCount
@@ -47,5 +47,5 @@ public interface VideoSelfService {
 	 * @param videoPastpaper
 	 * @return List<VideoPastpaper>
 	 */
-	public List<VideoPastpaper> getVideoSelfAndRelevantInfoListCount(VideoPastpaper videoPastpaper);
+	public List<VideoSelf> getVideoSelfAndRelevantInfoListCount(VideoSelf videoSelf);
 }
