@@ -59,7 +59,8 @@ public class LectureControllerTest {
 	public void testSelectLectureById() {
 		try {
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/lectureManager/selectLectureById")
-					.param("id", "1");
+					.param("id", "1")
+					.param("name", "mm");
 			mockMvc.perform(reqbuild).andDo(handler);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -108,6 +109,4 @@ public class LectureControllerTest {
 			e.printStackTrace();
 		}
 	}
-    
-
 }

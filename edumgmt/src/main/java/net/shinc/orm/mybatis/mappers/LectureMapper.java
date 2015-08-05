@@ -15,7 +15,7 @@ import net.shinc.orm.mybatis.bean.Lecture;
 public interface LectureMapper {
 	int deleteLectureById(Integer id);
 
-    Lecture selectLectureById(Integer id);
+    Lecture selectLectureById(Lecture record);
     
     public List<Lecture> selectAllLecture(PageBounds pb);
     

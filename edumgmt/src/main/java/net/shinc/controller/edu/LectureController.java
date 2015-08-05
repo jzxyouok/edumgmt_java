@@ -69,10 +69,10 @@ public class LectureController extends AbstractBaseController{
 	 */
 	@RequestMapping(value = "/selectLectureById")
 	@ResponseBody
-	public IRestMessage selectLectureById(@RequestParam(value="id",required = true) Integer id) {
+	public IRestMessage selectLectureById(Lecture lecture) {
 		IRestMessage msg = getRestMessage();
 		try {
-			Lecture lecturer = lectureService.selectLectureById(id);
+			Lecture lecturer = lectureService.selectLectureById(lecture);
 			if(null != lecturer) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(lecturer);

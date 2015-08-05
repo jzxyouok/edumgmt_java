@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 public class VideoPicServiceImpl implements VideoPicService {
 	@Autowired
 	private VideoPicMapper videlPicMapper;
-
+	/**
+	 * 按照VideoBaseId选择截图（可能一个视频对应多张截图）
+	 */
 	@Override
 	public List<VideoPic> selectPicByVideoBaseId(Integer id) {
 		if (null != id) {
@@ -21,7 +23,9 @@ public class VideoPicServiceImpl implements VideoPicService {
 		}
 		return null;
 	}
-	
+	/**
+	 * 按照Id选择截图
+	 */
 	@Override
 	public VideoPic selectPicById(Integer id) {
 		if (null != id) {
@@ -29,7 +33,9 @@ public class VideoPicServiceImpl implements VideoPicService {
 		}
 		return null;
 	}
-
+	/**
+	 * 删除单张截图
+	 */
 	@Override
 	public Integer deletePicById(Integer id) {
 		if (null != id) {
@@ -48,7 +54,9 @@ public class VideoPicServiceImpl implements VideoPicService {
 		}
 		return 0;
 	}
-
+	/**
+	 * 增加单张截图
+	 */
 	@Override
 	public Integer insertPic(VideoPic pic) {
 		if (null != pic) {

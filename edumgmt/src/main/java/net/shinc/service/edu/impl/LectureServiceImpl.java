@@ -23,6 +23,14 @@ public class LectureServiceImpl implements LectureService {
 	@Autowired
 	private LectureMapper lectureMapper;
 	
+	public Lecture dealVideoNum(Lecture lecture){
+		lecture.setVideoPointNum(getVideoPointNumByLecture(lecture));
+		lecture.setVideoQuestionNum(getVideoQuestionNumByLecture(lecture));
+		lecture.setVideoNum(getVideoNumByLecture(lecture));
+		return lecture;
+	}
+	
+	
 	/**
 	 * 删除讲解人
 	 */
@@ -38,8 +46,10 @@ public class LectureServiceImpl implements LectureService {
 	 * 按照ID查询讲解人
 	 */
 	@Override
-	public Lecture selectLectureById(Integer id) {
-		return lectureMapper.selectLectureById(id);
+	public Lecture selectLectureById(Lecture lecture) {
+		Lecture lecture2 = lectureMapper.selectLectureById(lecture);
+		dealVideoNum(lecture2);
+		return lecture2;
 	}
 
 	
@@ -49,8 +59,18 @@ public class LectureServiceImpl implements LectureService {
 	@Override
 	public PageList<Lecture> selectAllLecture(PageBounds pageBounds) {
 		List<Lecture> list = lectureMapper.selectAllLecture(pageBounds);
-		PageList<Lecture> pageList = (PageList<Lecture>)list;
+		PageList<Lecture> pageList = (PageList<Lecture>)dealListVideoNum(list);
 		return pageList;
+	}
+	
+	public List<Lecture> dealListVideoNum(List<Lecture> list){
+		if(null != list) {
+			for (Lecture lecture : list) {
+				dealVideoNum(lecture);
+			}
+			return list;
+		}
+		return null;
 	}
 	
 	/**
