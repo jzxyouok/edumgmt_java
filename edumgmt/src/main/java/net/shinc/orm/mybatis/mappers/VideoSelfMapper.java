@@ -22,4 +22,20 @@ public interface VideoSelfMapper {
 	public List<VideoSelf> getVideoSelfList(VideoSelf videoSelf);
 
 	public Integer getVideoSelfListCount(VideoSelf videoSelf);
+	
+	/**
+	 * @Title: getVideoSelfAndRelevantInfoList
+	 * @Description: 得到自编题以及其相关信息列表
+	 * @param videoSelf
+	 * @return List<VideoSelf>
+	 */
+	public List<VideoSelf> getVideoSelfAndRelevantInfoList(VideoSelf videoSelf);
+	
+	/**
+	 * @Title: getVideoSelfAndRelevantInfoListCount
+	 * @Description: 得到自编题以及其相关信息列表总条数
+	 * @param videoSelf
+	 * @return List<VideoSelf>
+	 */
+	public List<VideoSelf> getVideoSelfAndRelevantInfoListCount(VideoSelf videoSelf);
 }
