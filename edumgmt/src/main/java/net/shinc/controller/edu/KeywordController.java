@@ -109,12 +109,8 @@ public class KeywordController extends AbstractBaseController{
 	 */
 	@RequestMapping(value = "/selectKeyword")
 	@ResponseBody
-	public IRestMessage selectKeyword(@Valid Keyword keyword, BindingResult bindingResult, Locale locale) {
+	public IRestMessage selectKeyword(Keyword keyword) {
 		IRestMessage msg = getRestMessage();
-		if(bindingResult.hasErrors()) {
-			msg.setDetail(ShincUtil.getErrorFields(bindingResult));
-			return msg;
-		}
 		try {
 			List<Keyword> list = keywordService.selectKeyword(keyword);
 			if(null != list) {

@@ -33,7 +33,7 @@ public class KeywordControllerTest {
     private WebApplicationContext wac;  
     private MockMvc mockMvc;
     private ResultHandler handler;
-    
+     
     @Before  
     public void init(){  
     	mockMvc = MockMvcBuilders.webAppContextSetup(wac).build(); 
@@ -83,7 +83,7 @@ public class KeywordControllerTest {
 	public void testSelectKeyword() {
 		try {
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/keywordManager/selectKeyword")
-					.param("name", "关");
+					.param("name", "物理");
 			mockMvc.perform(reqbuild).andDo(handler);
 		} catch (Exception e) {
 			e.printStackTrace();
