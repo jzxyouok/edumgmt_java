@@ -30,6 +30,10 @@ public class MenuController extends AbstractBaseController {
 	private MenuService menuService;
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
+	/**
+	 * 获取当前登录用户的菜单
+	 * @return
+	 */
 	@RequestMapping(value = "/getMenu")
 	@ResponseBody
 	public IRestMessage getMenu() {

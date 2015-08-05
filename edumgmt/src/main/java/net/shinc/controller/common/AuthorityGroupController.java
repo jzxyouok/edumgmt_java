@@ -161,7 +161,7 @@ public class AuthorityGroupController extends AbstractBaseController{
 	
 	/**
 	 * 获取某权限组所有权限
-	 * @param list
+	 * @param authGroup
 	 * @return
 	 */
 	@ResponseBody
@@ -181,6 +181,5 @@ public class AuthorityGroupController extends AbstractBaseController{
 		}
 		return msg;
 	}
-	
 	
 }

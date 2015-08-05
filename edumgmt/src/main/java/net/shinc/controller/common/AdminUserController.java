@@ -57,8 +57,8 @@ public class AdminUserController extends AbstractBaseController {
 	 * 新增后台管理用户
 	 * @param adminUser
 	 * @param bindingResult
-	 * @param request
 	 * @param locale
+	 * @return
 	 */
 	@RequestMapping(value = "/addAdminUser")
 	@ResponseBody
@@ -93,8 +93,9 @@ public class AdminUserController extends AbstractBaseController {
 	}
 	
 	/**
-	 * 查询后台用户列表
-	 * @param page 当前页码
+	 * 查询管理员用户列表
+	 * @param page 当前页
+	 * @param company 公司
 	 * @return
 	 */
 	@RequestMapping(value = "/getAdminUserList")
@@ -117,10 +118,8 @@ public class AdminUserController extends AbstractBaseController {
 	}
 	
 	/**
-	 * 根据id获取后台用户
+	 * 根据id查询管理员
 	 * @param adminUser
-	 * @param bindingResult
-	 * @param locale
 	 * @return
 	 */
 	@RequestMapping(value = "/getAdminUserById")
@@ -148,8 +147,6 @@ public class AdminUserController extends AbstractBaseController {
 	/**
 	 * 根据昵称获取后台用户
 	 * @param adminUser
-	 * @param bindingResult
-	 * @param locale
 	 * @return
 	 */
 	@RequestMapping(value = "/getAdminUserByNickName")
@@ -173,8 +170,6 @@ public class AdminUserController extends AbstractBaseController {
 	/**
 	 * 删除后台用户
 	 * @param adminUser
-	 * @param bindingResult
-	 * @param locale
 	 */
 	@RequestMapping(value = "/deleteAdminUser")
 	@ResponseBody
@@ -195,11 +190,10 @@ public class AdminUserController extends AbstractBaseController {
 	}
 	
 	/**
-	 * 更新后台管理用户信息
+	 * 更新后台管理员
 	 * @param adminUser
 	 * @param bindingResult
 	 * @param locale
-	 * @param request
 	 */
 	@RequestMapping(value = "/updateAdminUser")
 	@ResponseBody

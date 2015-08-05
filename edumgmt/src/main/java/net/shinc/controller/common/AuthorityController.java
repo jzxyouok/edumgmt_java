@@ -34,6 +34,11 @@ public class AuthorityController extends AbstractBaseController{
 	@Autowired
 	private AuthorityService authorityService;
 	
+	/**
+	 * 添加权限
+	 * @param authority
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/addAuthority")
 	public IRestMessage addAuthority(@Valid Authority authority) {
@@ -52,6 +57,11 @@ public class AuthorityController extends AbstractBaseController{
 		return msg;
 	}
 	
+	/**
+	 * 更新权限
+	 * @param authority
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/updateAuthority")
 	public IRestMessage updateAuthority(@Valid Authority authority) {
@@ -88,6 +98,11 @@ public class AuthorityController extends AbstractBaseController{
 		return msg;
 	}
 	
+	/**
+	 * 批量添加权限
+	 * @param authList
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/addAuthorityBatch")
 	public IRestMessage addAuthorityBatch(@RequestBody List<Authority> authList) {
@@ -104,6 +119,10 @@ public class AuthorityController extends AbstractBaseController{
 		return msg;
 	}
 	
+	/**
+	 * 获取全量权限列表
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/getAllAuthorityList")
 	public IRestMessage getAllAuthorityList() {
