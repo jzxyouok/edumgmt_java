@@ -88,7 +88,9 @@ public class LectureServiceImpl implements LectureService {
 	public Integer updateLectureById(Lecture lecture) {
 		return lectureMapper.updateLectureById(lecture);
 	}
-	
+	/**
+	 * 根据讲解人，获取真题模拟题视频总数
+	 */
 	@Override
 	public Integer getVideoPastpaperNumByLecture(Lecture lecture) {
 		if(null != lecture) {
@@ -96,7 +98,9 @@ public class LectureServiceImpl implements LectureService {
 		}
 		return 0;
 	}
-
+	/**
+	 * 根据讲解人，获取自编题视频总数
+	 */
 	@Override
 	public Integer getVideoSelfNumByLecture(Lecture lecture) {
 		if(null != lecture) {
@@ -104,7 +108,9 @@ public class LectureServiceImpl implements LectureService {
 		}
 		return 0;
 	}
-
+	/**
+	 * 根据讲解人，获取知识点视频总数
+	 */
 	@Override
 	public Integer getVideoPointNumByLecture(Lecture lecture) {
 		if(null != lecture) {
@@ -112,7 +118,10 @@ public class LectureServiceImpl implements LectureService {
 		}
 		return 0;
 	}
-
+	/**
+	 * 根据讲解人，获取题目视频总数
+	 * <p>真题模拟题视频总数 + 自编题视频总数</p>
+	 */
 	@Override
 	public Integer getVideoQuestionNumByLecture(Lecture lecture) {
 		if(null != lecture) {
@@ -122,7 +131,10 @@ public class LectureServiceImpl implements LectureService {
 		}
 		return null;
 	}
-
+	/**
+	 * 根据讲解人，获取视频总数
+	 * <p>真题模拟题视频总数 + 自编题视频总数 + 知识点视频总数</p>
+	 */
 	@Override
 	public Integer getVideoNumByLecture(Lecture lecture) {
 		if(null != lecture) {

@@ -43,7 +43,6 @@ public class VideoPicServiceImpl implements VideoPicService {
 		}
 		return 0;
 	}
-	
 	/**
 	 * 批量删除截图
 	 */

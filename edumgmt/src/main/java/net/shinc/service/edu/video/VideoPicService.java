@@ -12,23 +12,25 @@ import net.shinc.orm.mybatis.bean.VideoPic;
  */
 public interface VideoPicService {
 	/**
-	 * 一个视频对应多张截图
-	 * @param id
-	 * @return
+	 * 按照VideoBaseId选择截图（可能一个视频对应多张截图）
 	 */
 	public List<VideoPic> selectPicByVideoBaseId(Integer id);
-	
+	/**
+	 * 按照Id选择截图
+	 */	
 	public VideoPic selectPicById(Integer id);
-	
+	/**
+	 * 删除单张截图
+	 */	
 	public Integer deletePicById(Integer id);
-	
 	/**
 	 * 批量删除截图
 	 */
 	public Integer deletePicBatch(List<VideoPic> list);
-
+	/**
+	 * 增加单张截图
+	 */
 	public Integer insertPic(VideoPic pic);
-	
 	/**
 	 * 批量增加截图
 	 */
