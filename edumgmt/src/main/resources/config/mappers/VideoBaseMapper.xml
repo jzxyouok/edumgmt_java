@@ -5,7 +5,6 @@
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="sh_admin_user_id" property="adminUserId" jdbcType="INTEGER" />
 		<result column="sh_course_id" property="courseId" jdbcType="INTEGER" />
-		<result column="sh_question_type_id" property="questionTypeId" jdbcType="INTEGER" />
 		<result column="sh_lecture_id" property="lectureId" jdbcType="INTEGER" />
 		<result column="question_id" property="questionId" jdbcType="VARCHAR" />
 		<result column="title" property="title" jdbcType="VARCHAR" />
@@ -17,7 +16,7 @@
 	</resultMap>
 	<select id="getByVideoBaseById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
-		id, sh_admin_user_id, sh_course_id, sh_question_type_id,
+		id, sh_admin_user_id, sh_course_id, 
 		sh_lecture_id,
 		question_id,
 		title, desc, difficulty, status,
@@ -27,8 +26,7 @@
 	</select>
 	<select id="getVideoBaseList" resultMap="BaseResultMap" parameterType="VideoBase">
 		select
-		id, sh_admin_user_id, sh_course_id, sh_question_type_id,
-		sh_lecture_id,
+		id, sh_admin_user_id, sh_course_id, 
 		question_id,
 		title, desc, difficulty, status,
 		question_number, updatetime
@@ -69,8 +67,8 @@
 			<if test="courseId != null">
 				sh_course_id,
 			</if>
-			<if test="questionTypeId != null">
-				sh_question_type_id,
+			<if test="profile != null">
+				profile,
 			</if>
 			<if test="lectureId != null">
 				sh_lecture_id,
@@ -82,7 +80,7 @@
 				title,
 			</if>
 			<if test="desc != null">
-				desc,
+				`desc`,
 			</if>
 			<if test="difficulty != null">
 				difficulty,
@@ -107,8 +105,8 @@
 			<if test="courseId != null">
 				#{courseId,jdbcType=INTEGER},
 			</if>
-			<if test="questionTypeId != null">
-				#{questionTypeId,jdbcType=INTEGER},
+			<if test="profile != null">
+				#{profile,jdbcType=VARCHAR},
 			</if>
 			<if test="lectureId != null">
 				#{lectureId,jdbcType=INTEGER},
@@ -132,7 +130,7 @@
 				#{questionNumber,jdbcType=VARCHAR},
 			</if>
 			<if test="updatetime != null">
-				#{updatetime,jdbcType=TIMESTAMP},
+				#{updatetime},
 			</if>
 		</trim>
 	</insert>
@@ -145,9 +143,6 @@
 			<if test="courseId != null">
 				sh_course_id = #{courseId,jdbcType=INTEGER},
 			</if>
-			<if test="questionTypeId != null">
-				sh_question_type_id = #{questionTypeId,jdbcType=INTEGER},
-			</if>
 			<if test="lectureId != null">
 				sh_lecture_id = #{lectureId,jdbcType=INTEGER},
 			</if>
@@ -158,7 +153,7 @@
 				title = #{title,jdbcType=VARCHAR},
 			</if>
 			<if test="desc != null">
-				desc = #{desc,jdbcType=VARCHAR},
+				`desc` = #{desc,jdbcType=VARCHAR},
 			</if>
 			<if test="difficulty != null">
 				difficulty = #{difficulty,jdbcType=VARCHAR},
@@ -166,11 +161,14 @@
 			<if test="status != null">
 				status = #{status,jdbcType=VARCHAR},
 			</if>
+			<if test="profile != null">
+				profile = #{profile,jdbcType=VARCHAR},
+			</if>
 			<if test="questionNumber != null">
 				question_number = #{questionNumber,jdbcType=VARCHAR},
 			</if>
 			<if test="updatetime != null">
-				updatetime = #{updatetime,jdbcType=TIMESTAMP},
+				updatetime = #{updatetime},
 			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
