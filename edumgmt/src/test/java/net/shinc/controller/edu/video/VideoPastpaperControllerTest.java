@@ -1,7 +1,6 @@
 package net.shinc.controller.edu.video;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import net.shinc.InfoMgmtApplication;
@@ -31,7 +30,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.google.gson.Gson;
-
+/**
+  * @ClassName: VideoPastpaperControllerTest
+  * @Description: 真题、模拟题 controller 测试类
+  * @author hushichong
+  * @date 2015年8月5日 上午11:00:21
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = InfoMgmtApplication.class)
 @WebAppConfiguration
@@ -75,11 +79,23 @@ public class VideoPastpaperControllerTest {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@Test
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
+    public void getVideoPastpaperAndRelevantInfo(){
+    	RequestBuilder reqbuild = MockMvcRequestBuilders.post("/videoPastpaper/getVideoPastpaperAndRelevantInfo")
+    			.param("id", "1")
+    			;
+    	try {
+    		mockMvc.perform(reqbuild).andDo(MockMvcResultHandlers.print());
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    }
 	@Test
 	@Transactional
 	@WithMockUser(username = "admin", password = "admin", authorities = { "adminUserList" })
-	public void testaddVideoPastpaper() {
+	public void addVideoPastpaperAndRelevantInfo() {
 		try {
 			VideoPastpaper videoPastpaper = new VideoPastpaper();
 			VideoBase videoBase = new VideoBase();
@@ -111,6 +127,7 @@ public class VideoPastpaperControllerTest {
 			Keyword keyword = new Keyword();
 			keyword.setId(3);
 			list.add(keyword);
+			keyword = new Keyword();
 			keyword.setId(4);
 			list.add(keyword);
 			videoBase.setKeywordList(list);
@@ -138,7 +155,80 @@ public class VideoPastpaperControllerTest {
 			Gson g = new Gson();
 			String str = g.toJson(videoPastpaper);
 			System.out.println(str);
-			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/videoPastpaper/addVideoPastpaper").header("Content-Type", MediaType.APPLICATION_JSON.toString()).content(str);// 设置请求体
+			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/videoPastpaper/addVideoPastpaperAndRelevantInfo").header("Content-Type", MediaType.APPLICATION_JSON.toString()).content(str);// 设置请求体
+			mockMvc.perform(reqbuild).andDo(MockMvcResultHandlers.print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	@Transactional
+	@WithMockUser(username = "admin", password = "admin", authorities = { "adminUserList" })
+	public void updateVideoPastpaperAndRelevantInfo() {
+		try {
+			VideoPastpaper videoPastpaper = new VideoPastpaper();
+			VideoBase videoBase = new VideoBase();
+
+			videoPastpaper.setId(1);
+			videoBase.setId(1);
+			
+			// 视频详情
+			List list = new ArrayList();
+			VideoDetail VideoDetail = new VideoDetail();
+			VideoDetail.setUrl("urla");
+			VideoDetail.setType("1");
+			list.add(VideoDetail);
+			videoBase.setVideoDetailList(list);
+			VideoDetail = new VideoDetail();
+			VideoDetail.setUrl("urlb");
+			VideoDetail.setType("2");
+			list.add(VideoDetail);
+			videoBase.setVideoDetailList(list);
+			
+			// 知识点
+			list = new ArrayList();
+			KnowledgePoint knowledgePoint = new KnowledgePoint();
+			knowledgePoint.setId(1);
+			list.add(knowledgePoint);
+			knowledgePoint.setId(3);
+			list.add(knowledgePoint);
+			videoBase.setKeywordList(list);
+			
+			// 关键字
+			list = new ArrayList();
+			Keyword keyword = new Keyword();
+			keyword.setId(3);
+			list.add(keyword);
+			keyword = new Keyword();
+			keyword.setId(4);
+			list.add(keyword);
+			videoBase.setKeywordList(list);
+
+			Course course = new Course();
+			course.setId(1);
+			videoBase.setCourse(course);
+
+			videoBase.setAdminUserId(2);
+			videoBase.setDifficulty("1");
+			videoBase.setCourseId(2);
+			videoBase.setLectureId(2);
+			videoBase.setTitle("title");
+			videoBase.setDesc("desc");
+			videoBase.setProfile("profile");
+			videoBase.setQuestionId("12313354");
+			videoBase.setQuestionNumber("66");
+
+			videoPastpaper.setVideoBase(videoBase);
+			videoPastpaper.setQuestionbankId(1);
+			videoPastpaper.setQuestionbankYearId(1);
+			videoPastpaper.setQuestionTypeId(1);
+			videoPastpaper.setQuestionbankTypeId(1);
+
+			Gson g = new Gson();
+			String str = g.toJson(videoPastpaper);
+			System.out.println(str);
+			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/videoPastpaper/updateVideoPastpaperAndRelevantInfo").header("Content-Type", MediaType.APPLICATION_JSON.toString()).content(str);// 设置请求体
 			mockMvc.perform(reqbuild).andDo(MockMvcResultHandlers.print());
 		} catch (Exception e) {
 			e.printStackTrace();
