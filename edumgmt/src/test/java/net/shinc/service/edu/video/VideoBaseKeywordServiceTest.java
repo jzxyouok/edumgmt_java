@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = InfoMgmtApplication.class)
 @WebAppConfiguration
-public class VideoBaseKeywordControllerTest {
+public class VideoBaseKeywordServiceTest {
 	@Autowired
 	private VideoBaseKeywordService videoBaseKeywordService;
 	
