@@ -62,7 +62,13 @@
 		<menu>
 			<level>2</level>
 			<parent>infoManage</parent>
-			<value>knowledgeTagManage</value>		<!--   二级菜单  知识点标签管理 -->
+			<value>keywordTagManage</value>		    <!--   二级菜单  关键字标签管理 -->
+			<url>none</url>
+		</menu>
+		<menu>
+			<level>2</level>
+			<parent>infoManage</parent>
+			<value>knowledgeTagManage</value>		<!--   二级菜单  知识点管理 -->
 			<url>none</url>
 		</menu>
 		<menu>
