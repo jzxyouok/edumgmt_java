@@ -63,8 +63,15 @@
 		    
 		    
 		FROM
-	    sh_video_pastpaper a_tab
-			
+		(SELECT 
+			a_tab.id,
+			a_tab.sh_video_base_id,
+			a_tab.type,
+			a_tab.sh_question_type_id
+		FROM
+			sh_video_self a_tab
+		LIMIT 0 , 20)a_tab
+	    
 			left join (
 			
 	            SELECT 

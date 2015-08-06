@@ -83,7 +83,7 @@ public class VideoPointControllerTest {
     @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void getVideoPointAndRelevantInfo(){
     	RequestBuilder reqbuild = MockMvcRequestBuilders.post("/videoPoint/getVideoPointAndRelevantInfo")
-    			.param("id", "1")
+    			.param("id", "2")
     			;
     	try {
     		mockMvc.perform(reqbuild).andDo(MockMvcResultHandlers.print());
