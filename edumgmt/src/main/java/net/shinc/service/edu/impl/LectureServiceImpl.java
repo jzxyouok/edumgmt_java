@@ -2,8 +2,8 @@ package net.shinc.service.edu.impl;
 
 import java.util.List;
 
-import net.shinc.orm.mybatis.bean.Lecture;
-import net.shinc.orm.mybatis.mappers.LectureMapper;
+import net.shinc.orm.mybatis.bean.edu.Lecture;
+import net.shinc.orm.mybatis.mappers.edu.LectureMapper;
 import net.shinc.service.edu.LectureService;
 
 import org.springframework.beans.factory.annotation.Autowired;

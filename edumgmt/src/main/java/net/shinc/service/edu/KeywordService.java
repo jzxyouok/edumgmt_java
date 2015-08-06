@@ -2,7 +2,7 @@ package net.shinc.service.edu;
 
 import java.util.List;
 
-import net.shinc.orm.mybatis.bean.Keyword;
+import net.shinc.orm.mybatis.bean.edu.Keyword;
 
 /** 
  * @ClassName KeywordService 

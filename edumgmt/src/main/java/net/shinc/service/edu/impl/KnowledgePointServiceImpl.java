@@ -2,9 +2,9 @@ package net.shinc.service.edu.impl;
 
 import java.util.List;
 
-import net.shinc.orm.mybatis.bean.Course;
-import net.shinc.orm.mybatis.bean.KnowledgePoint;
-import net.shinc.orm.mybatis.mappers.KnowledgePointMapper;
+import net.shinc.orm.mybatis.bean.edu.Course;
+import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
+import net.shinc.orm.mybatis.mappers.edu.KnowledgePointMapper;
 import net.shinc.service.edu.KnowledgePointService;
 import net.shinc.service.edu.video.VideoBaseKnowledgePointService;
 

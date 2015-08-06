@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.shinc.InfoMgmtApplication;
-import net.shinc.orm.mybatis.bean.Course;
-import net.shinc.orm.mybatis.bean.Keyword;
-import net.shinc.orm.mybatis.bean.KnowledgePoint;
-import net.shinc.orm.mybatis.bean.VideoBase;
-import net.shinc.orm.mybatis.bean.VideoDetail;
-import net.shinc.orm.mybatis.bean.VideoPastpaper;
+import net.shinc.orm.mybatis.bean.edu.Course;
+import net.shinc.orm.mybatis.bean.edu.Keyword;
+import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
+import net.shinc.orm.mybatis.bean.edu.VideoBase;
+import net.shinc.orm.mybatis.bean.edu.VideoDetail;
+import net.shinc.orm.mybatis.bean.edu.VideoPastpaper;
 
 import org.junit.Before;
 import org.junit.Test;

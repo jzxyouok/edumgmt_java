@@ -2,10 +2,10 @@ package net.shinc.service.edu.video.impl;
 
 import java.util.List;
 
-import net.shinc.orm.mybatis.bean.KnowledgePoint;
-import net.shinc.orm.mybatis.bean.VideoBase;
-import net.shinc.orm.mybatis.bean.VideoBaseKnowledgePointKey;
-import net.shinc.orm.mybatis.mappers.VideoBaseKnowledgePointMapper;
+import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
+import net.shinc.orm.mybatis.bean.edu.VideoBase;
+import net.shinc.orm.mybatis.bean.edu.VideoBaseKnowledgePointKey;
+import net.shinc.orm.mybatis.mappers.edu.VideoBaseKnowledgePointMapper;
 import net.shinc.service.edu.video.VideoBaseKnowledgePointService;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,8 +2,8 @@ package net.shinc.service.edu.video.impl;
 
 import java.util.List;
 
-import net.shinc.orm.mybatis.bean.VideoBase;
-import net.shinc.orm.mybatis.mappers.VideoBaseMapper;
+import net.shinc.orm.mybatis.bean.edu.VideoBase;
+import net.shinc.orm.mybatis.mappers.edu.VideoBaseMapper;
 import net.shinc.service.edu.video.VideoBaseService;
 
 import org.springframework.beans.factory.annotation.Autowired;

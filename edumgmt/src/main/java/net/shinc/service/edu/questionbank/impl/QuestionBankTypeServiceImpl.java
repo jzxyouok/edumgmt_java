@@ -2,9 +2,9 @@ package net.shinc.service.edu.questionbank.impl;
 
 import java.util.List;
 
-import net.shinc.orm.mybatis.bean.QuestionBank;
-import net.shinc.orm.mybatis.bean.QuestionBankType;
-import net.shinc.orm.mybatis.mappers.QuestionBankTypeMapper;
+import net.shinc.orm.mybatis.bean.edu.QuestionBank;
+import net.shinc.orm.mybatis.bean.edu.QuestionBankType;
+import net.shinc.orm.mybatis.mappers.edu.QuestionBankTypeMapper;
 import net.shinc.service.edu.questionbank.QuestionBankTypeService;
 
 import org.springframework.beans.factory.annotation.Autowired;

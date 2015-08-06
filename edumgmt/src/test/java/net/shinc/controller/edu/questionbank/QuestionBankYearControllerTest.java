@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.shinc.InfoMgmtApplication;
-import net.shinc.orm.mybatis.bean.QuestionBank;
-import net.shinc.orm.mybatis.bean.QuestionBankYear;
+import net.shinc.orm.mybatis.bean.edu.QuestionBank;
+import net.shinc.orm.mybatis.bean.edu.QuestionBankYear;
 
 import org.junit.Before;
 import org.junit.Test;

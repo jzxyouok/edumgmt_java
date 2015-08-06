@@ -9,9 +9,9 @@ import net.shinc.common.AbstractBaseController;
 import net.shinc.common.ErrorMessage;
 import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
-import net.shinc.orm.mybatis.bean.Course;
-import net.shinc.orm.mybatis.bean.KnowledgePoint;
-import net.shinc.orm.mybatis.bean.VideoBase;
+import net.shinc.orm.mybatis.bean.edu.Course;
+import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
+import net.shinc.orm.mybatis.bean.edu.VideoBase;
 import net.shinc.service.edu.KnowledgePointService;
 import net.shinc.service.edu.video.VideoBaseKnowledgePointService;
 

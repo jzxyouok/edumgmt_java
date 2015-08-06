@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.shinc.InfoMgmtApplication;
-import net.shinc.orm.mybatis.bean.VideoBaseKeywordKey;
+import net.shinc.orm.mybatis.bean.edu.VideoBaseKeywordKey;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

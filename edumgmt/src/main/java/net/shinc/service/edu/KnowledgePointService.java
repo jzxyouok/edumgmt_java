@@ -2,8 +2,8 @@ package net.shinc.service.edu;
 
 import java.util.List;
 
-import net.shinc.orm.mybatis.bean.Course;
-import net.shinc.orm.mybatis.bean.KnowledgePoint;
+import net.shinc.orm.mybatis.bean.edu.Course;
+import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
 
 /**
  * @ClassName KnowledgePointService 

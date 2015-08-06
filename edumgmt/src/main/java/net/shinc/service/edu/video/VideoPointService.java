@@ -2,8 +2,8 @@ package net.shinc.service.edu.video;
 
 import java.util.List;
 
-import net.shinc.orm.mybatis.bean.VideoPastpaper;
-import net.shinc.orm.mybatis.bean.VideoPoint;
+import net.shinc.orm.mybatis.bean.edu.VideoPastpaper;
+import net.shinc.orm.mybatis.bean.edu.VideoPoint;
 
 /**
  * @ClassName: VideoPointService

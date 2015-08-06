@@ -2,7 +2,7 @@ package net.shinc.service.edu.video;
 
 import java.util.List;
 
-import net.shinc.orm.mybatis.bean.VideoDetail;
+import net.shinc.orm.mybatis.bean.edu.VideoDetail;
 
 /**
   * @ClassName: VideoDetailService

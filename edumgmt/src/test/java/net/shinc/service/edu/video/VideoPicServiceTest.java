@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.shinc.InfoMgmtApplication;
-import net.shinc.orm.mybatis.bean.VideoPic;
+import net.shinc.orm.mybatis.bean.edu.VideoPic;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

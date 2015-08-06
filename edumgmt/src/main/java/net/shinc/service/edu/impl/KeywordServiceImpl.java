@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import net.shinc.orm.mybatis.bean.Keyword;
-import net.shinc.orm.mybatis.mappers.KeywordMapper;
+import net.shinc.orm.mybatis.bean.edu.Keyword;
+import net.shinc.orm.mybatis.mappers.edu.KeywordMapper;
 import net.shinc.service.edu.KeywordService;
 
 /** 

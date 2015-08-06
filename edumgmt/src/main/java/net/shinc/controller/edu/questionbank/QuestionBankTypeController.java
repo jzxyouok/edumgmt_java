@@ -9,8 +9,8 @@ import net.shinc.common.AbstractBaseController;
 import net.shinc.common.ErrorMessage;
 import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
-import net.shinc.orm.mybatis.bean.QuestionBank;
-import net.shinc.orm.mybatis.bean.QuestionBankType;
+import net.shinc.orm.mybatis.bean.edu.QuestionBank;
+import net.shinc.orm.mybatis.bean.edu.QuestionBankType;
 import net.shinc.service.edu.questionbank.QuestionBankTypeService;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;

@@ -9,7 +9,7 @@ import net.shinc.common.AbstractBaseController;
 import net.shinc.common.ErrorMessage;
 import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
-import net.shinc.orm.mybatis.bean.Keyword;
+import net.shinc.orm.mybatis.bean.edu.Keyword;
 import net.shinc.service.edu.KeywordService;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;

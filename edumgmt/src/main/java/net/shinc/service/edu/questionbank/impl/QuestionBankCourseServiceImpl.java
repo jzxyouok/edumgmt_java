@@ -2,10 +2,10 @@ package net.shinc.service.edu.questionbank.impl;
 
 import java.util.List;
 
-import net.shinc.orm.mybatis.bean.Course;
-import net.shinc.orm.mybatis.bean.QuestionBank;
-import net.shinc.orm.mybatis.bean.QuestionBankCourseKey;
-import net.shinc.orm.mybatis.mappers.QuestionBankCourseMapper;
+import net.shinc.orm.mybatis.bean.edu.Course;
+import net.shinc.orm.mybatis.bean.edu.QuestionBank;
+import net.shinc.orm.mybatis.bean.edu.QuestionBankCourseKey;
+import net.shinc.orm.mybatis.mappers.edu.QuestionBankCourseMapper;
 import net.shinc.service.edu.questionbank.QuestionBankCourseService;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,8 +2,8 @@ package net.shinc.service.edu.questionbank;
 
 import java.util.List;
 
-import net.shinc.orm.mybatis.bean.QuestionBank;
-import net.shinc.orm.mybatis.bean.QuestionBankType;
+import net.shinc.orm.mybatis.bean.edu.QuestionBank;
+import net.shinc.orm.mybatis.bean.edu.QuestionBankType;
 
 /**
  * @ClassName QuestionBankTypeService 

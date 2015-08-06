@@ -3,7 +3,7 @@ package net.shinc.service.edu;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
-import net.shinc.orm.mybatis.bean.Lecture;
+import net.shinc.orm.mybatis.bean.edu.Lecture;
 
 /** 
  * @ClassName LectureService 

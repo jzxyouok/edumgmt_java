@@ -1,7 +1,7 @@
 package net.shinc.service.edu.video;
 
 import net.shinc.InfoMgmtApplication;
-import net.shinc.orm.mybatis.bean.Lecture;
+import net.shinc.orm.mybatis.bean.edu.Lecture;
 import net.shinc.service.edu.LectureService;
 
 import org.junit.Test;

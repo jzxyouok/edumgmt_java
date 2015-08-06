@@ -2,8 +2,8 @@ package net.shinc.service.edu.impl;
 
 import java.util.List;
 
-import net.shinc.orm.mybatis.bean.QuestionType;
-import net.shinc.orm.mybatis.mappers.QuestionTypeMapper;
+import net.shinc.orm.mybatis.bean.edu.QuestionType;
+import net.shinc.orm.mybatis.mappers.edu.QuestionTypeMapper;
 import net.shinc.service.edu.QuestionTypeService;
 
 import org.springframework.beans.factory.annotation.Autowired;

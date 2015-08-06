@@ -9,7 +9,7 @@ import net.shinc.common.AbstractBaseController;
 import net.shinc.common.ErrorMessage;
 import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
-import net.shinc.orm.mybatis.bean.VideoPastpaper;
+import net.shinc.orm.mybatis.bean.edu.VideoPastpaper;
 import net.shinc.service.edu.video.VideoPastpaperService;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;

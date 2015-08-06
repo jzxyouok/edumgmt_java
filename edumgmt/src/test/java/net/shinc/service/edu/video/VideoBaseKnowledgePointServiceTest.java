@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.shinc.InfoMgmtApplication;
-import net.shinc.orm.mybatis.bean.VideoBaseKnowledgePointKey;
+import net.shinc.orm.mybatis.bean.edu.VideoBaseKnowledgePointKey;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
