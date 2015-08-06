@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="net.shinc.orm.mybatis.mappers.VideoBaseMapper">
+<mapper namespace="net.shinc.orm.mybatis.mappers.edu.VideoBaseMapper">
 	<resultMap id="BaseResultMap" type="VideoBase">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="sh_admin_user_id" property="adminUserId" jdbcType="INTEGER" />

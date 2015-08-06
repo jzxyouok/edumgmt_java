@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="net.shinc.orm.mybatis.mappers.VideoBaseKnowledgePointMapper" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.edu.VideoBaseKnowledgePointMapper" >
   <resultMap id="BaseResultMap" type="VideoBaseKnowledgePointKey" >
     <id column="sh_video_base_id" property="videoBaseId" jdbcType="INTEGER" />
     <id column="sh_knowledge_point_id" property="knowledgePointId" jdbcType="INTEGER" />
@@ -63,7 +63,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="sh_course_id" property="courseId" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <association property="course" column="sh_course_id" javaType="Course" select="net.shinc.orm.mybatis.mappers.CourseMapper.selectCourseById"></association>
+    <association property="course" column="sh_course_id" javaType="Course" select="net.shinc.orm.mybatis.mappers.edu.CourseMapper.selectCourseById"></association>
   </resultMap>
   <select id="getKnowledgePointListByVideo" parameterType="VideoBase" resultMap="KnowledgePointMap">
   	select

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="net.shinc.orm.mybatis.mappers.QuestionBankQuestionTypeMapper">
+<mapper namespace="net.shinc.orm.mybatis.mappers.edu.QuestionBankQuestionTypeMapper">
 	<resultMap id="BaseResultMap" type="QuestionBankQuestionTypeKey">
 		<id column="sh_questionbank_id" property="questionBankId" jdbcType="INTEGER" />
 		<id column="sh_question_type_id" property="questionTypeId" jdbcType="INTEGER" />

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="net.shinc.orm.mybatis.mappers.QuestionBankYearMapper">
+<mapper namespace="net.shinc.orm.mybatis.mappers.edu.QuestionBankYearMapper">
 	<resultMap id="BaseResultMap" type="QuestionBankYear">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="year" property="year" jdbcType="VARCHAR" />
-		<association property="questionBank" column="sh_questionbank_id" javaType="QuestionBank" select="net.shinc.orm.mybatis.mappers.QuestionBankMapper.selectQuestionBankById"></association>
+		<association property="questionBank" column="sh_questionbank_id" javaType="QuestionBank" select="net.shinc.orm.mybatis.mappers.edu.QuestionBankMapper.selectQuestionBankById"></association>
 	</resultMap>
 	
 	<sql id="Base_Column_List">

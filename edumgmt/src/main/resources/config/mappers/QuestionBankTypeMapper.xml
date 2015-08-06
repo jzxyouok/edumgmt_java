@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="net.shinc.orm.mybatis.mappers.QuestionBankTypeMapper">
+<mapper namespace="net.shinc.orm.mybatis.mappers.edu.QuestionBankTypeMapper">
 	<resultMap id="BaseResultMap" type="QuestionBankType">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
-		<association property="questionBank" column="sh_questionbank_id" javaType="QuestionBank" select="net.shinc.orm.mybatis.mappers.QuestionBankMapper.selectQuestionBankById"></association>
+		<association property="questionBank" column="sh_questionbank_id" javaType="QuestionBank" select="net.shinc.orm.mybatis.mappers.edu.QuestionBankMapper.selectQuestionBankById"></association>
 	</resultMap>
 	
 	<sql id="Base_Column_List">
