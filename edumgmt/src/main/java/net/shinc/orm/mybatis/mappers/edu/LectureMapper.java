@@ -16,8 +16,17 @@ public interface LectureMapper {
 	int deleteLectureById(Integer id);
 
     Lecture selectLectureById(Lecture record);
-    
+    /**
+     * 分页选出所有讲解人
+     * @param pb
+     * @return
+     */
     public List<Lecture> selectAllLecture(PageBounds pb);
+    /**
+     * 不分页选出所有讲解人
+     * @return
+     */
+    public List<Lecture> selectAllLecture();
     
     int insertLecture(Lecture record);
    

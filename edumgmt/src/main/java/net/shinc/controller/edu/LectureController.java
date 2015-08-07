@@ -1,5 +1,6 @@
 package net.shinc.controller.edu;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.validation.Valid;
@@ -46,6 +47,11 @@ public class LectureController extends AbstractBaseController{
 	/**
 	 * 删除讲解人
 	 */
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/deleteLecture")
 	@ResponseBody
 	public IRestMessage deleteLectureById(@RequestParam(value="id",required = true) Integer id) {
@@ -86,19 +92,67 @@ public class LectureController extends AbstractBaseController{
 	}
 	
 	/**
-	 * 查询全部讲解人
-	 * @param page 当前页码
+	 	* <p>
+	 	* 		<b>信息管理-->讲解人管理</b><br/>
+	 	* 		查询讲解人列表
+	 	* </p>
+	 	*
+	 	* <p>
+	 	* 		<ul>
+	 	* 			<li>id</li>
+	 	* 			<li>name 不能为空</li>
+	 	* 			<li>level 资格</li>
+	 	* 			<li>videoPointNum 知识点视频总数</li>
+	 	* 			<li>videoQuestionNum 题目视频总数</li>
+	 	* 			<li>videoNum 视频总数</li>
+	 	* 			<li>page 当前页码</li>
+	 	* 		</ul>
+	 	* </p>
+	 	*
+	 	* <p>
+	 	* 		测试返回内容：
+	 	* 		<ul>
+	 	* 			<li>{
+	 	* 		 		"code": "SUCCESS",
+	 	* 		 		"message": "交易成功",
+	 	* 		 		"detail": null,
+	 	* 		 		"result": [{
+	 	* 		 			"id": 1,
+ 	 	* 		 			"name": "mm",
+ 	 	* 		 			"level": "1",
+ 	 	* 		 			"videoPointNum": 0,
+ 	 	* 		 			"videoQuestionNum": 3,
+ 	 	* 		 			"videoNum": 3
+ 	 	* 		 		}, {
+ 	 	* 		 			"id": 2,
+ 	 	* 		 			"name": "张天才",
+ 	 	* 		 			"level": "100",
+ 	 	* 		 			"videoPointNum": 0,
+ 	 	* 		 			"videoQuestionNum": 0,
+ 	 	* 		 			"videoNum": 0
+ 	 	* 		 		}],
+ 	 	* 		 		"userInfo": null
+ 	 	* 			</li>
+ 	 	* 		</ul>
+	 	* </p>
+	 	*
+	 	* <p>
+	 	* 		报错信息：
+	 	* 		<ul>
+	 	* 			<li>RESULT_EMPTY 暂无数据</li>
+	 	*		</ul>
+	 	* </p>
 	 */
 	@RequestMapping(value = "/selectAllLecture")
 	@ResponseBody
-	public IRestMessage selectAllLecture(@RequestParam(value="page",required = true) int page) {
+	public IRestMessage selectAllLecture() {
 		IRestMessage msg = getRestMessage();
 		try {
-			PageBounds pageBounds = new PageBounds(page, Integer.parseInt(limit), Order.formString("id.asc"));
-			PageList<Lecture> lectureList = lectureService.selectAllLecture(pageBounds);
-			if(null != lectureList && lectureList.size() > 0) {
+//			PageBounds pageBounds = new PageBounds(page, Integer.parseInt(limit), Order.formString("id.asc"));
+			List<Lecture> list = lectureService.selectAllLecture();
+			if(null != list && list.size() > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
-				msg.setResult(lectureList);
+				msg.setResult(list);
 			} else {
 				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
 			}

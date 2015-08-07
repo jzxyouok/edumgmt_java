@@ -1,8 +1,6 @@
 package net.shinc.controller.edu;
 
 import java.util.List;
-import java.util.Locale;
-
 import javax.validation.Valid;
 
 import net.shinc.common.AbstractBaseController;

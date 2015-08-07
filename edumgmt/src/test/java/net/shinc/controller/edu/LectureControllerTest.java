@@ -46,8 +46,8 @@ public class LectureControllerTest {
     @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
 	public void testSelectAllLecture() {
 		try {
-			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/lectureManager/selectAllLecture")
-					.param("page", "1");
+			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/lectureManager/selectAllLecture");
+//					.param("page", "2");
 			mockMvc.perform(reqbuild).andDo(handler);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,5 +1,7 @@
 package net.shinc.service.edu;
 
+import java.util.List;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
@@ -24,9 +26,14 @@ public interface LectureService {
 	 public Lecture selectLectureById(Lecture lecture);
 	 
 	/**
-	 * 查询全部讲解人
+	 * 分页查询全部讲解人
 	 */
 	 public PageList<Lecture> selectAllLecture(PageBounds pageBounds);
+	 
+	 /**
+		 * 不分页查询全部讲解人
+		 */
+	 public List<Lecture> selectAllLecture();
 	 
 	 /**
 	  * 新增讲解人

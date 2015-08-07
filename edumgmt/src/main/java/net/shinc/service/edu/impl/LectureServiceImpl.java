@@ -54,7 +54,7 @@ public class LectureServiceImpl implements LectureService {
 
 	
 	/**
-	 * 查询全部讲解人
+	 * 分页查询全部讲解人
 	 */
 	@Override
 	public PageList<Lecture> selectAllLecture(PageBounds pageBounds) {
@@ -72,7 +72,15 @@ public class LectureServiceImpl implements LectureService {
 		}
 		return null;
 	}
-	
+	/**
+	 * 不分页查询所有讲解人
+	 */
+	@Override
+	public List<Lecture> selectAllLecture() {
+		List<Lecture> list = lectureMapper.selectAllLecture();
+		dealListVideoNum(list);
+		return list;
+	}
 	/**
 	  * 新增讲解人
 	  */
