@@ -47,6 +47,8 @@ public class MenuController extends AbstractBaseController {
 			} catch (Exception e) {
 				logger.error("获取失败==>" + ExceptionUtils.getStackTrace(e));
 			}
+		} else {
+			msg.setCode(ErrorMessage.NEED_LOGIN.getCode());
 		}
 		return msg;
 	}

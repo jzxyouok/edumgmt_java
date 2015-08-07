@@ -13,19 +13,19 @@
 			<level>2</level>
 			<parent>videoManage</parent>
 			<value>simulateIssuesManage</value>       <!--    二级菜单  真题/模拟题库管理 --> 
-			<url>node</url>
+			<url>/video/pastpaperList</url>
 		</menu>
 		<menu>
 			<level>2</level>
 			<parent>videoManage</parent>
 			<value>selfIssuesManage</value>           <!--    二级菜单  自编/改编题库管理 --> 
-			<url>node</url>
+			<url>/video/selfVideoList</url>
 		</menu>
 		<menu>
 			<level>2</level>
 			<parent>videoManage</parent>
 			<value>simulateStructureManage</value>    <!--    二级菜单  真题/模拟题库结构 --> 
-			<url>node</url>
+			<url>/video/topicStructure</url>
 		</menu>
 		<!--  题目视频管理 end  -->
 		
@@ -41,13 +41,13 @@
 			<level>2</level>
 			<parent>knowledgeManage</parent>
 			<value>knowledgeVideoManage</value>     <!--    二级菜单  知识点视频管理 -->
-			<url>none</url>
+			<url>/knowledge/knowledgeVideo</url>
 		</menu>
 		<menu>
 			<level>2</level>
 			<parent>knowledgeManage</parent>
 			<value>knowledgeStructureManage</value>  <!--   二级菜单  知识点结构管理 -->
-			<url>none</url>
+			<url>/knowledge/knowledgeStructure</url>
 		</menu>
 		<!--  知识点管理 end  -->
 		
@@ -63,19 +63,19 @@
 			<level>2</level>
 			<parent>infoManage</parent>
 			<value>keywordTagManage</value>		    <!--   二级菜单  关键字标签管理 -->
-			<url>none</url>
+			<url>/info/keywordTag</url>
 		</menu>
 		<menu>
 			<level>2</level>
 			<parent>infoManage</parent>
 			<value>knowledgeTagManage</value>		<!--   二级菜单  知识点管理 -->
-			<url>none</url>
+			<url>/knowledge/knowledgeList</url>
 		</menu>
 		<menu>
 			<level>2</level>
 			<parent>infoManage</parent>
 			<value>lectureManage</value>		    <!--   二级菜单  讲解人管理 -->
-			<url>none</url>
+			<url>/info/lectureList</url>
 		</menu>
 		<!--  信息管理 end  -->
 		
@@ -91,7 +91,7 @@
 			<level>2</level>
 			<parent>adminUserManage</parent>
 			<value>adminUserList</value>            <!--   二级菜单  教师管理 -->
-			<url>/user/list/</url>
+			<url>/user/list</url>
 		</menu>
 		<!--  教师管理 end   -->
 		
