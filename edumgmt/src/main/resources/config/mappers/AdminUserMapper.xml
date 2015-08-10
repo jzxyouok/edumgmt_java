@@ -16,7 +16,17 @@
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="position" property="position" jdbcType="VARCHAR" />
 		<result column="head_pic" property="headPic" jdbcType="VARCHAR" />
-		<association property="company" column="sh_company_id" javaType="Company" select="selectCompanyById"></association>
+		<association property="company" column="a_sh_company_id" javaType="Company" select="selectCompanyById"></association>
+		<association property="authGroup" javaType="AuthorityGroup">  
+	        <result column="c_id" property="id"/>  
+	        <result column="c_name" property="name"/>  
+	        <result column="c_remark" property="remark"/>  
+    	</association>
+    	<collection property="authList" ofType="Authority">
+    		<result column="e_id" property="id" />
+			<result column="e_authority" property="authority" />
+			<result column="e_remark" property="remark" />
+    	</collection> 
 	</resultMap>
 
 	<sql id="Base_Column_List">
@@ -260,13 +270,33 @@
 	
 	<select id="getAdminUserList" resultMap="BaseResultMap"	parameterType="Company">
 		select
-			id, sh_company_id, realname, nickname, password, sex, address, email, tel, DATE_FORMAT(create_time , '%Y-%m-%d %H:%i') create_time, DATE_FORMAT(update_time , '%Y-%m-%d %H:%i') update_time, enabled, remark, position, head_pic
+			a.id, a.sh_company_id a_sh_company_id, a.realname, a.nickname, a.password, a.sex, a.address, a.email, a.tel, DATE_FORMAT(a.create_time , '%Y-%m-%d %H:%i') create_time, DATE_FORMAT(a.update_time , '%Y-%m-%d %H:%i') update_time, a.enabled, a.remark, a.position, a.head_pic,
+			c.id c_id,c.name c_name, c.remark c_remark,
+			e.id e_id,e.sh_company_id e_sh_company_id,e.authority e_authority,e.remark e_remark
 		from 
-			sh_admin_user
+			sh_admin_user a
+		inner join
+			sh_admin_user_has_sh_authority_group b
+		on
+			a.id = b.sh_admin_user_id
+		inner join
+			sh_authority_group c
+		on
+			b.sh_authority_group_id = c.id
+		inner join
+			sh_authority_group_has_sh_authority d
+		on
+			c.id = d.sh_authority_group_id 
+		inner join
+			sh_authority e
+		on
+			d.sh_authority_id = e.id
 		where 1 = 1
-		<if test="id != null">
-			AND sh_company_id=#{id}
-		</if>
+			and a.sh_company_id = c.sh_company_id
+			and c.sh_company_id = e.sh_company_id
+			<if test="id != null">
+				and a.sh_company_id=#{id}
+			</if>
 	</select>
 	
 	<select id="getAdminUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer">

@@ -91,7 +91,7 @@
 			<level>2</level>
 			<parent>adminUserManage</parent>
 			<value>adminUserList</value>            <!--   二级菜单  教师管理 -->
-			<url>/user/teacherList</url>
+			<url>/user/userList</url>
 		</menu>
 		<!--  教师管理 end   -->
 		

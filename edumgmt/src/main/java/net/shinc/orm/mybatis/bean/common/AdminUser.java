@@ -58,6 +58,8 @@ public class AdminUser implements UserDetails {
     
     private Collection<GrantedAuthority> authorities;
     
+    private List<Authority> authList;
+    
     private AuthorityGroup authGroup;
     
     private List<Menu> menuMap;
@@ -253,6 +255,14 @@ public class AdminUser implements UserDetails {
 
 	public void setAuthGroup(AuthorityGroup authGroup) {
 		this.authGroup = authGroup;
+	}
+
+	public List<Authority> getAuthList() {
+		return authList;
+	}
+
+	public void setAuthList(List<Authority> authList) {
+		this.authList = authList;
 	}
 
 }
