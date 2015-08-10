@@ -75,7 +75,7 @@
 			<level>2</level>
 			<parent>infoManage</parent>
 			<value>lectureManage</value>		    <!--   二级菜单  讲解人管理 -->
-			<url>/info/lectureList</url>
+			<url>/lectureManage/lectureList</url>
 		</menu>
 		<!--  信息管理 end  -->
 		
