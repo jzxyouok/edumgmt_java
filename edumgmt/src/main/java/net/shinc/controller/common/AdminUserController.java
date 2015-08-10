@@ -1,5 +1,6 @@
 package net.shinc.controller.common;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.validation.Valid;
@@ -25,10 +26,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.github.miemiedev.mybatis.paginator.domain.Order;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
 /**
  * @ClassName AdminUserController 
@@ -94,17 +91,15 @@ public class AdminUserController extends AbstractBaseController {
 	
 	/**
 	 * 查询管理员用户列表
-	 * @param page 当前页
 	 * @param company 公司
 	 * @return
 	 */
 	@RequestMapping(value = "/getAdminUserList")
 	@ResponseBody
-	public IRestMessage getAdminUserList(@RequestParam(value="page",required = false,defaultValue="1") int page, Company company) {
+	public IRestMessage getAdminUserList(Company company) {
 		IRestMessage msg = getRestMessage();
 		try {
-			PageBounds pageBounds = new PageBounds(page, Integer.parseInt(limit) , Order.formString("id.asc"));
-			PageList<AdminUser> adminUserList = adminUserService.getAdminUserList(pageBounds,company);
+			List<AdminUser> adminUserList = adminUserService.getAdminUserList(company);
 			if(null != adminUserList && adminUserList.size() > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(adminUserList);

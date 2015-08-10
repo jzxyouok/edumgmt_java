@@ -50,13 +50,15 @@ public class AdminUser implements UserDetails {
     private String remark;
 
     private String position;
-
+    
     private String headPic;
     
     @NotNull(message="{company.not.empty}")
     private Company company;
     
     private Collection<GrantedAuthority> authorities;
+    
+    private AuthorityGroup authGroup;
     
     private List<Menu> menuMap;
     
@@ -243,6 +245,14 @@ public class AdminUser implements UserDetails {
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	public AuthorityGroup getAuthGroup() {
+		return authGroup;
+	}
+
+	public void setAuthGroup(AuthorityGroup authGroup) {
+		this.authGroup = authGroup;
 	}
 
 }

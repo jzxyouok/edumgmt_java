@@ -111,7 +111,20 @@ public class AdminUserControllerTest {
 			RequestBuilder reqbuild = MockMvcRequestBuilders
 					.post("/adminUser/getAdminUserList")
 					.with(user("admin").password("admin").authorities(AuthorityUtils.createAuthorityList("adminUserList")))
-					.param("page", "1").param("id", "3");
+					.param("page", "1").param("id", "1");
+			mockMvc.perform(reqbuild).andDo(handler);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	@WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
+	public void testGetAdminUserListNoPage() {
+		try {
+			RequestBuilder reqbuild = MockMvcRequestBuilders
+					.post("/adminUser/getAdminUserList")
+					.param("id", "1");
 			mockMvc.perform(reqbuild).andDo(handler);
 		} catch (Exception e) {
 			e.printStackTrace();

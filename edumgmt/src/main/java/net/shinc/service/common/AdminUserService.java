@@ -22,10 +22,16 @@ import com.github.miemiedev.mybatis.paginator.domain.PageList;
 public interface AdminUserService {
 
 	/**
-	 * 获取后台管理用户列表
+	 * 获取后台管理用户列表(分页)
 	 * @return
 	 */
 	public PageList<AdminUser> getAdminUserList(PageBounds pageBounds,Company company);
+	
+	/**
+	 * 获取后台管理用户列表(不分页)
+	 * @return
+	 */
+	public List<AdminUser> getAdminUserList(Company company);
 	
 	/**
 	 * 获取后台管理用户列表总条数

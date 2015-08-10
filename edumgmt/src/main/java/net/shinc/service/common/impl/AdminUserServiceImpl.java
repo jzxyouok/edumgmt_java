@@ -74,6 +74,15 @@ public class AdminUserServiceImpl implements AdminUserService {
 		}
 		return null;
 	}
+	
+	@Override
+	public List<AdminUser> getAdminUserList(Company company) {
+		if (null != company) {
+			List<AdminUser> list = adminUserMapper.getAdminUserList(company);
+			return list;
+		}
+		return null;
+	}
 
 	@Override
 	public Integer getAdminUserListCount() {

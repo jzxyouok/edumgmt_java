@@ -63,7 +63,7 @@
 			<level>2</level>
 			<parent>infoManage</parent>
 			<value>keywordTagManage</value>		    <!--   二级菜单  关键字标签管理 -->
-			<url>/info/keywordTag</url>
+			<url>/keyword/keywordTag</url>
 		</menu>
 		<menu>
 			<level>2</level>
@@ -75,7 +75,7 @@
 			<level>2</level>
 			<parent>infoManage</parent>
 			<value>lectureManage</value>		    <!--   二级菜单  讲解人管理 -->
-			<url>/info/lectureList</url>
+			<url>/lecture/lectureList</url>
 		</menu>
 		<!--  信息管理 end  -->
 		
@@ -91,7 +91,7 @@
 			<level>2</level>
 			<parent>adminUserManage</parent>
 			<value>adminUserList</value>            <!--   二级菜单  教师管理 -->
-			<url>/user/list</url>
+			<url>/user/teacherList</url>
 		</menu>
 		<!--  教师管理 end   -->
 		

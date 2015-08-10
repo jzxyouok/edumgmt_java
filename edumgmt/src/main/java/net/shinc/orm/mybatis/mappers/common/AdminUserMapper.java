@@ -16,6 +16,8 @@ public interface AdminUserMapper {
 
     public List<AdminUser> getAdminUserList(Company company,  PageBounds pb);
     
+    public List<AdminUser> getAdminUserList(Company company);
+    
     public int getAdminUserListCount();
     
     public AdminUser selectByPrimaryKey(Integer id);
