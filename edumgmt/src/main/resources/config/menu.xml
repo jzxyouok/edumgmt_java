@@ -13,13 +13,13 @@
 			<level>2</level>
 			<parent>videoManage</parent>
 			<value>simulateIssuesManage</value>       <!--    二级菜单  真题/模拟题库管理 --> 
-			<url>/video/pastpaperList</url>
+			<url>/pastpaper/pastpaperList</url>
 		</menu>
 		<menu>
 			<level>2</level>
 			<parent>videoManage</parent>
 			<value>selfIssuesManage</value>           <!--    二级菜单  自编/改编题库管理 --> 
-			<url>/video/selfVideoList</url>
+			<url>/selfVideo/selfVideoList</url>
 		</menu>
 		<menu>
 			<level>2</level>
