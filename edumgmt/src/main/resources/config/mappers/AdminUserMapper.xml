@@ -47,14 +47,17 @@
 			<include refid="Base_Column_List" />
 		from 
 			sh_admin_user
-		where 
-			id = #{id,jdbcType=INTEGER}
+		where 1 = 1
+			and id = #{id,jdbcType=INTEGER}
+			and enabled = '1'
 	</select>
 	
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from
-		sh_admin_user
-		where id = #{id,jdbcType=INTEGER}
+		update 
+			sh_admin_user
+		set
+			enabled = '0'	
+		where id = #{id,jdbcType=INTEGER}	
 	</delete>
 	
 	<insert id="insert" parameterType="AdminUser">
@@ -264,8 +267,9 @@
 	 		id, sh_company_id, realname, nickname, password, sex, address, email, tel, DATE_FORMAT(create_time , '%Y-%m-%d %H:%i') create_time, DATE_FORMAT(update_time , '%Y-%m-%d %H:%i') update_time, enabled, remark, position, head_pic
 	 	from 
 	 		sh_admin_user a
-	 	where 
-	 		a.nickname = #{nickname}
+	 	where 1 = 1 
+	 		and a.nickname = #{nickname}
+	 		and a.enabled = '1'
 	</select>
 	
 	<select id="getAdminUserList" resultMap="BaseResultMap"	parameterType="Company">
@@ -292,6 +296,7 @@
 		on
 			d.sh_authority_id = e.id
 		where 1 = 1
+			and a.enabled = '1'
 			and a.sh_company_id = c.sh_company_id
 			and c.sh_company_id = e.sh_company_id
 			<if test="id != null">
@@ -305,6 +310,7 @@
 		from 
 			sh_admin_user
 		where 1 = 1
-			AND id=#{id}
+			and id=#{id}
+			and enabled = '1'
 	</select>
 </mapper>

@@ -90,12 +90,15 @@ public class AdminUserServiceImpl implements AdminUserService {
 	}
 
 	@Override
+	@Transactional
 	public Integer addAdminUser(AdminUser adminUser) {
 		if (null != adminUser) {
 			try {
 				adminUser.setCreateTime(ShincUtil.formatDate(new Date(), pattern));
 				adminUser.setUpdateTime(ShincUtil.formatDate(new Date(), pattern));
-				return adminUserMapper.insert(adminUser);
+				int i = adminUserMapper.insert(adminUser);
+				addAuthGroupForUser(adminUser, adminUser.getAuthGroup());
+				return i;
 			} catch (Exception e) {
 				logger.error(ExceptionUtils.getStackTrace(e));
 			}
@@ -114,10 +117,16 @@ public class AdminUserServiceImpl implements AdminUserService {
 	}
 
 	@Override
+	@Transactional
 	public Integer updateAdminUser(AdminUser adminUser) {
 		if (null != adminUser) {
 			adminUser.setUpdateTime(ShincUtil.formatDate(new Date(), pattern));
-			return adminUserMapper.updateByPrimaryKeySelective(adminUser);
+			Integer i = adminUserMapper.updateByPrimaryKeySelective(adminUser);
+			if(null != adminUser.getAuthGroup()) {
+				authGroupService.deleteAdminUserHasAuthGroup(adminUser.getId());
+				addAuthGroupForUser(adminUser, adminUser.getAuthGroup());
+			}
+			return i;
 		}
 		return 0;
 	}
