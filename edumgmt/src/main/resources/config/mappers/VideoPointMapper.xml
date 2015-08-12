@@ -7,6 +7,7 @@
 	</resultMap>
 	
 	<resultMap id="VideoPointAndRelevantInfoListMap" type="VideoPoint">
+		<result column="videoPointId" property="id" />
 		<result column="question_id" property="videoBase.questionId" />
 		<result column="title" property="videoBase.title" />
 		<result column="desc" property="videoBase.desc" />
@@ -37,7 +38,7 @@
 	<select id="getVideoPointAndRelevantInfoList" resultMap="VideoPointAndRelevantInfoListMap" parameterType="VideoPoint">
 
 		SELECT 
-		    a_tab.id videoPastpaperId,
+		    a_tab.id videoPointId,
 		    b_tab.question_id,
 		    b_tab.title,
 		    b_tab.desc,

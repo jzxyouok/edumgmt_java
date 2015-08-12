@@ -9,6 +9,7 @@
 	</resultMap>
 	
 	<resultMap id="VideoSelfAndRelevantInfoListMap" type="VideoSelf">
+		<result column="videoSelfId" property="id" />
 		<result column="question_id" property="videoBase.questionId" />
 		<result column="title" property="videoBase.title" />
 		<result column="desc" property="videoBase.desc" />
@@ -41,7 +42,7 @@
 	<select id="getVideoSelfAndRelevantInfoList" resultMap="VideoSelfAndRelevantInfoListMap" parameterType="VideoSelf">
 
 		SELECT 
-		    a_tab.id videoPastpaperId,
+		    a_tab.id videoSelfId,
 		    b_tab.question_id,
 		    b_tab.title,
 		    b_tab.desc,

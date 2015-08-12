@@ -64,12 +64,12 @@ public class VideoPastpaperControllerTest {
 		keyword = new Keyword();
 		keyword.setName("222");
 		list.add(keyword);
-		videoBase.setKeywordList(list);
+		//videoBase.setKeywordList(list);
 		videoPastpaper.setVideoBase(videoBase);
-		videoPastpaper.setVideoBaseId(2);
+		//videoPastpaper.setVideoBaseId(2);
 		Gson g = new Gson();
 		String str = g.toJson(videoPastpaper);
-		System.out.println(str);
+		System.out.println("-------------------"+str);
 		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/videoPastpaper/getVideoPastpaperAndRelevantInfoList").header("Content-Type", MediaType.APPLICATION_JSON.toString())
 				.content(str);// 设置请求体
 
@@ -150,7 +150,7 @@ public class VideoPastpaperControllerTest {
 
 			Gson g = new Gson();
 			String str = g.toJson(videoPastpaper);
-			System.out.println(str);
+			System.out.println("-------------------"+str);
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/videoPastpaper/addVideoPastpaperAndRelevantInfo").header("Content-Type", MediaType.APPLICATION_JSON.toString()).content(str);// 设置请求体
 			mockMvc.perform(reqbuild).andDo(MockMvcResultHandlers.print());
 		} catch (Exception e) {
@@ -219,7 +219,7 @@ public class VideoPastpaperControllerTest {
 
 			Gson g = new Gson();
 			String str = g.toJson(videoPastpaper);
-			System.out.println(str);
+			System.out.println("-------------------"+str);
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/videoPastpaper/updateVideoPastpaperAndRelevantInfo").header("Content-Type", MediaType.APPLICATION_JSON.toString()).content(str);// 设置请求体
 			mockMvc.perform(reqbuild).andDo(MockMvcResultHandlers.print());
 		} catch (Exception e) {
