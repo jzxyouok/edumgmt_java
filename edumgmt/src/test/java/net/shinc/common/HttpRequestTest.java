@@ -25,7 +25,8 @@ public class HttpRequestTest {
 //		System.getProperties().setProperty("http.proxyHost", "10.22.40.32");
 //		System.getProperties().setProperty("http.proxyPort", "8080");
 		// 判断代理是否设置成功
-		System.out.println("result==》"+sendPost("http://localhost:8080/edumgmt/login", "username=admin&password=admin"));
+//		System.out.println("result==》"+sendPost("http://localhost:8080/edumgmt/login", "username=admin&password=admin"));
+		System.out.println("result==》"+sendPost("http://xhpfm.mobile.zhongguowangshi.com:8091/v200/user/comment", "id=211135&content=啊好不错&userID=0&udid=0&clientApp=104&clientBundleID=net.xinhuamm.mainclient&clientType=2&clientVer=2.0.2&clientMarket=337&clientOS=4.4.4&clientModel=HM NOTE 1LTE&clientNet=wifi&clientToken=1b1c92d10ac72c611ab9b5de96febb13&clientId=1b1c92d10ac72c611ab9b5de96febb13&clientLable=866401023331302&clientDev=0&clientPrison=0&clientWidth=720&clientHeight=1280&clientLongitude=116.482487&clientLatitude=39.997927&clientDate=1439284413585&province=北京市&address=北京市 朝阳区 阜通西大街 靠近保利院线电影(卜蜂莲花望京宝星店)"));
 	}
 
 	public static String sendPost(String url, String param) {
@@ -40,6 +41,9 @@ public class HttpRequestTest {
 			conn.setRequestProperty("accept", "*/*");
 			conn.setRequestProperty("connection", "Keep-Alive");
 			conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+//			conn.setRequestProperty("Host", "xhpfm.mobile.zhongguowangshi.com:8091");
+//			conn.setRequestProperty("Accept-Encoding", "gzip");
+//			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 			// 发送POST请求必须设置如下两行
 			conn.setDoOutput(true);
 			conn.setDoInput(true);
