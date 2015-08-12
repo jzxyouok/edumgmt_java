@@ -82,7 +82,9 @@ public class MenuServiceImpl implements MenuService {
 					}
 				}
 			}
-			return iteratorMap(map);
+			List<Menu> list = iteratorMap(map);
+			adminUser.setMenuMap(list);
+			return list;
 		} catch (Exception e) {
 			logger.error("目录文件读取失败==>" + ExceptionUtils.getStackTrace(e));
 		} 

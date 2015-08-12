@@ -100,6 +100,9 @@ public interface AuthorityGroupService {
 	 */
 	public List<Authority> getAuthorityList(AuthorityGroup authorityGroup);
 	
-	
-	
+	/**
+	 * 给某权限组设置权限列表，去除一级权限
+	 * @param list
+	 */
+	public void setAuthList(AuthorityGroup authGroup);
 }
