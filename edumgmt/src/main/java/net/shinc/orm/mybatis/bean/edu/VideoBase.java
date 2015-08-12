@@ -20,7 +20,6 @@ public class VideoBase {
 
 	private Integer id;
 
-	@NotNull(message = "{videoBase.adminUserId.not.empty}")
 	private Integer adminUserId;
 
 	@NotNull(message = "{videoBase.courseId.not.empty}")
@@ -65,8 +64,6 @@ public class VideoBase {
 	private List<KnowledgePoint> knowledgetPointList;
 
 	// 视频详情
-	@NotNull
-	@Valid
 	private List<VideoDetail> videoDetailList;
 
 	public Integer getId() {

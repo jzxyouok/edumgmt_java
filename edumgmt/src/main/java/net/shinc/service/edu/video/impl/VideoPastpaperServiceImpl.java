@@ -3,6 +3,7 @@ package net.shinc.service.edu.video.impl;
 import java.util.Date;
 import java.util.List;
 
+import net.shinc.orm.mybatis.bean.common.AdminUser;
 import net.shinc.orm.mybatis.bean.edu.Keyword;
 import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
 import net.shinc.orm.mybatis.bean.edu.VideoBase;
@@ -50,6 +51,7 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 	@Override
 	public Integer insertVideoPastpaper(VideoPastpaper videoPastpaper) {
 		VideoBase videoBase = videoPastpaper.getVideoBase();
+		videoBase.setAdminUserId(AdminUser.getCurrentUser().getId());
 		videoBase.setUpdatetime(new Date());
 		videoBaseMapper.insertVideoBase(videoBase);
 		videoPastpaper.setVideoBaseId(videoBase.getId());
