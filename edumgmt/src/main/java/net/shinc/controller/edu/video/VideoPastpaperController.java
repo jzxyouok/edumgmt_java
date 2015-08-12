@@ -63,7 +63,19 @@ public class VideoPastpaperController extends AbstractBaseController {
 
 	/**
 	 * @Title: addVideoPastpaperAndRelevantInfo
-	 * @Description: 添加真题/模拟题视频详细信息
+	 * @Description: 添加真题/模拟题视频详细信息 入参: { "questionbankId=题库id": 1,
+	 *               "questionbankYearId=年份id": 139, "questionTypeId=题型id": 1,
+	 *               "questionbankTypeId=题库版本id": 165, "videoBase=基础信息": {
+	 *               "adminUserId=添加人id": 2, "courseId=课程id": 2,
+	 *               "lectureId=讲解人id": 2, "questionId=题目id字符串": "12313354",
+	 *               "title=标题": "title", "desc=描述": "desc", "profile=简介":
+	 *               "profile", "difficulty=难度系数": "1", "questionNumber=题号":
+	 *               "66", "keywordList=插入关键字关系表": [ { "id=关键字id": 3 }, {
+	 *               "id=关键字id": 4 } ], "knowledgetPointList=插入知识点关系表": [ {
+	 *               "id=知识点id": 3 }, { "id=知识点id": 3 }
+	 *               ],"videoDetailList=插入视频详情表": [ { "type=视频格式": "1",
+	 *               "url=视频地址": "urla" }, { "type=视频格式": "2", "url=视频地址":
+	 *               "urlb" } ] } }
 	 * @param videoPastpaper
 	 * @param bindingResult
 	 * @param locale
@@ -104,7 +116,7 @@ public class VideoPastpaperController extends AbstractBaseController {
 	public IRestMessage getVideoPastpaperAndRelevantInfo(VideoPastpaper videoPastpaper) {
 		IRestMessage iRestMessage = getRestMessage();
 		try {
-			
+
 			List<VideoPastpaper> list = videoPastpaperService.getVideoPastpaperAndRelevantInfoList(videoPastpaper);
 			if (list != null && list.size() > 0) {
 				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
@@ -117,10 +129,23 @@ public class VideoPastpaperController extends AbstractBaseController {
 		}
 		return iRestMessage;
 	}
+
+	/**
 	
+	 */
 	/**
 	 * @Title: getVideoPastpaperAndRelevantInfo
-	 * @Description: 更新真题/模拟题视频
+	 * @Description: 更新真题/模拟题视频 入参：{ "id=真题/模拟题id": 1, "questionbankId": 1,
+	 *               "questionbankYearId": 139, "questionTypeId": 1,
+	 *               "questionbankTypeId": 165, "videoBase": { "id=基础id": 15,
+	 *               "adminUserId": 2, "courseId": 2, "lectureId": 2,
+	 *               "questionId": "12313354", "title": "title", "desc": "desc",
+	 *               "profile": "profile", "difficulty": "1", "questionNumber":
+	 *               "66", "keywordList": [ { "id": 3 },"knowledgetPointList": [
+	 *               { "id": 3 }, { "id": 3 } ] { "id": 4 } ],
+	 *               "videoDetailList": [ { "type": "1", "url": "urla" }, {
+	 *               "type": "2", "url": "urlb" } ] } } 同添加相比新增 id=真题/模拟题id
+	 *               id=基础id
 	 * @param videoPastpaper
 	 * @param bindingResult
 	 * @param locale

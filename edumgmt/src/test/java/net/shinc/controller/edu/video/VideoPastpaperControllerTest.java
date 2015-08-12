@@ -120,7 +120,7 @@ public class VideoPastpaperControllerTest {
 			list.add(knowledgePoint);
 			knowledgePoint.setId(3);
 			list.add(knowledgePoint);
-			videoBase.setKeywordList(list);
+			videoBase.setKnowledgetPointList(list);
 			
 			// 关键字
 			list = new ArrayList();
@@ -131,10 +131,6 @@ public class VideoPastpaperControllerTest {
 			keyword.setId(4);
 			list.add(keyword);
 			videoBase.setKeywordList(list);
-
-			Course course = new Course();
-			course.setId(1);
-			videoBase.setCourse(course);
 
 			videoBase.setAdminUserId(2);
 			videoBase.setDifficulty("1");
@@ -148,9 +144,9 @@ public class VideoPastpaperControllerTest {
 
 			videoPastpaper.setVideoBase(videoBase);
 			videoPastpaper.setQuestionbankId(1);
-			videoPastpaper.setQuestionbankYearId(1);
+			videoPastpaper.setQuestionbankYearId(139);
 			videoPastpaper.setQuestionTypeId(1);
-			videoPastpaper.setQuestionbankTypeId(1);
+			videoPastpaper.setQuestionbankTypeId(165);
 
 			Gson g = new Gson();
 			String str = g.toJson(videoPastpaper);
@@ -171,7 +167,7 @@ public class VideoPastpaperControllerTest {
 			VideoBase videoBase = new VideoBase();
 
 			videoPastpaper.setId(1);
-			videoBase.setId(1);
+			videoBase.setId(15);
 			
 			// 视频详情
 			List list = new ArrayList();
@@ -205,10 +201,6 @@ public class VideoPastpaperControllerTest {
 			list.add(keyword);
 			videoBase.setKeywordList(list);
 
-			Course course = new Course();
-			course.setId(1);
-			videoBase.setCourse(course);
-
 			videoBase.setAdminUserId(2);
 			videoBase.setDifficulty("1");
 			videoBase.setCourseId(2);
@@ -221,9 +213,9 @@ public class VideoPastpaperControllerTest {
 
 			videoPastpaper.setVideoBase(videoBase);
 			videoPastpaper.setQuestionbankId(1);
-			videoPastpaper.setQuestionbankYearId(1);
+			videoPastpaper.setQuestionbankYearId(139);
 			videoPastpaper.setQuestionTypeId(1);
-			videoPastpaper.setQuestionbankTypeId(1);
+			videoPastpaper.setQuestionbankTypeId(165);
 
 			Gson g = new Gson();
 			String str = g.toJson(videoPastpaper);
