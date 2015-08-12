@@ -36,6 +36,12 @@ public interface LectureService {
 	 public List<Lecture> selectAllLecture();
 	 
 	 /**
+	  * 处理讲解人视频信息
+	  * @param list
+	  * @return
+	  */
+	 public List<Lecture> dealListVideoNum(List<Lecture> list);
+	 /**
 	  * 新增讲解人
 	  */
 	 public Integer insertLecture(Lecture lecture);

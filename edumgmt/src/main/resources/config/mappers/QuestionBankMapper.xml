@@ -20,13 +20,59 @@
 			id = #{id,jdbcType=INTEGER}
 	</select>
 	
-	<select id="getQuestionBankList" resultMap="BaseResultMap">
-		select
-			<include refid="Base_Column_List" />
-		from 
-			sh_questionbank
-		where 
-			1 = 1
+	
+	<resultMap id="QuestionBankResultMap" type="QuestionBank">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="CHAR" />
+		
+		<collection property="courseList" ofType="Course">
+			<id property="id" column="courseid" />
+			<result property="name" column="coursename" />
+			<result property="shortName" column="courseshort" />
+		</collection>
+		<collection property="questionBankTypeList" ofType="QuestionBankType">
+			<id property="id" column="versionid" />
+			<result property="name" column="versionname" />
+		</collection>
+		<collection property="questionBankYearList" ofType="QuestionBankYear">
+			<id property="id" column="yearid" />
+			<result property="year" column="yearname" />
+		</collection>
+		<collection property="questionTypeList" ofType="QuestionType">
+			<id property="id" column="typeid" />
+			<result property="name" column="typename" />
+		</collection>
+	</resultMap>
+	
+	<select id="getQuestionBankList" resultMap="QuestionBankResultMap">
+		SELECT 
+	    q.id,
+	    q.name,
+	    q.type,
+	    c.id courseid,
+	    c.name coursename,
+	    c.short courseshort,
+	    t.id typeid,
+	    t.name typename,
+	    y.id yearid,
+	    y.year yearname,
+	    bt.id versionid,
+	    bt.name versionname
+	FROM
+	    sh_questionbank q
+	        LEFT JOIN
+	    sh_questionbank_course qc ON qc.sh_questionbank_id = q.id
+	        LEFT JOIN
+	    sh_course c ON qc.sh_course_id = c.id
+	        LEFT JOIN
+	    sh_questionbank_question_type qt ON qt.sh_questionbank_id = q.id
+	        LEFT JOIN
+	    sh_question_type t ON qt.sh_question_type_id = t.id
+	        LEFT JOIN
+	    sh_questionbank_year y ON y.sh_questionbank_id = q.id
+	        LEFT JOIN
+	    sh_questionbank_type bt ON bt.sh_questionbank_id = q.id
 	</select>
 	
 	<delete id="deleteQuestionBankById" parameterType="java.lang.Integer">

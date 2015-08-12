@@ -150,6 +150,25 @@ public class LectureController extends AbstractBaseController{
 		try {
 //			PageBounds pageBounds = new PageBounds(page, Integer.parseInt(limit), Order.formString("id.asc"));
 			List<Lecture> list = lectureService.selectAllLecture();
+			list = lectureService.dealListVideoNum(list);
+			if(null != list && list.size() > 0) {
+				msg.setCode(ErrorMessage.SUCCESS.getCode());
+				msg.setResult(list);
+			} else {
+				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
+			}
+		} catch (Exception e) {
+			logger.error("讲解人列表查询失败==>" + ExceptionUtils.getStackTrace(e));
+		}
+		return msg;
+	}
+	
+	@RequestMapping(value = "/selectLectureForSelect")
+	@ResponseBody
+	public IRestMessage selectLectureForSelect() {
+		IRestMessage msg = getRestMessage();
+		try {
+			List<Lecture> list = lectureService.selectAllLecture();
 			if(null != list && list.size() > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(list);

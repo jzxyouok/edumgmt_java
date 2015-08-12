@@ -1,6 +1,7 @@
 package net.shinc.orm.mybatis.bean.edu;
 
 import java.text.MessageFormat;
+import java.util.List;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -19,6 +20,13 @@ public class QuestionBank {
     @NotEmpty(message="{type.not.empty}")
     private String type;
 
+    private List<Course> courseList;
+    
+    private List<QuestionBankType> questionBankTypeList;
+    
+    private List<QuestionBankYear> questionBankYearList;
+    
+    private List<QuestionType> questionTypeList;
 	public QuestionBank() {
 	}
 
@@ -49,8 +57,40 @@ public class QuestionBank {
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
     }
-    
-    @Override
+
+	public List<Course> getCourseList() {
+		return courseList;
+	}
+
+	public void setCourseList(List<Course> courseList) {
+		this.courseList = courseList;
+	}
+
+	public List<QuestionBankType> getQuestionBankTypeList() {
+		return questionBankTypeList;
+	}
+
+	public void setQuestionBankTypeList(List<QuestionBankType> questionBankTypeList) {
+		this.questionBankTypeList = questionBankTypeList;
+	}
+
+	public List<QuestionBankYear> getQuestionBankYearList() {
+		return questionBankYearList;
+	}
+
+	public void setQuestionBankYearList(List<QuestionBankYear> questionBankYearList) {
+		this.questionBankYearList = questionBankYearList;
+	}
+
+	public List<QuestionType> getQuestionTypeList() {
+		return questionTypeList;
+	}
+
+	public void setQuestionTypeList(List<QuestionType> questionTypeList) {
+		this.questionTypeList = questionTypeList;
+	}
+
+	@Override
     public String toString() {
     	return MessageFormat.format("name:{0}\ttype:{1}", this.name,this.type);
     }

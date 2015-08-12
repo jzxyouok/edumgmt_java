@@ -59,8 +59,7 @@ public class LectureServiceImpl implements LectureService {
 	@Override
 	public PageList<Lecture> selectAllLecture(PageBounds pageBounds) {
 		List<Lecture> list = lectureMapper.selectAllLecture(pageBounds);
-		PageList<Lecture> pageList = (PageList<Lecture>)dealListVideoNum(list);
-		return pageList;
+		return (PageList<Lecture>)list;
 	}
 	
 	public List<Lecture> dealListVideoNum(List<Lecture> list){
@@ -78,7 +77,6 @@ public class LectureServiceImpl implements LectureService {
 	@Override
 	public List<Lecture> selectAllLecture() {
 		List<Lecture> list = lectureMapper.selectAllLecture();
-		dealListVideoNum(list);
 		return list;
 	}
 	/**
