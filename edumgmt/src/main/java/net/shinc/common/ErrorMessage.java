@@ -23,7 +23,9 @@ public enum ErrorMessage {
 	KNOWLEDGE_USED("KNOWLEDGE_USED"),
 	
 	USER_NONE("USER_NONE"),
-	USER_UNABLE("USER_UNABLE");
+	USER_UNABLE("USER_UNABLE"),
+	
+	ERROR_PARAM_ERROR("ERROR_PARAM_ERROR");
 	
 	private String code;
 	ErrorMessage(String code) {
