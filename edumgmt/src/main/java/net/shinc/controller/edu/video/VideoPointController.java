@@ -39,7 +39,16 @@ public class VideoPointController extends AbstractBaseController {
 
 	/**
 	 * @Title: getVideoPointAndRelevantInfoList
-	 * @Description: 知识点视频视频列表
+	 * @Description: 知识点视频视频列表 列表信息：{ "code": "SUCCESS", "message": "交易成功",
+	 *               "detail": null, "result": [{ "id=": 4,
+	 *               "videoBase": {
+	 *               "questionId=id字符串": "12313354", "title": "title", "desc": "desc",
+	 *               "difficulty=难度系数": "1",
+	 *               "questionNumber=题号": "66",
+	 *               "course": { "id": 2, "name": "数学", "shortName": "数" },
+	 *               "lecture": { "id": 2, "name": "张天才", "level": "100" },
+	 *               "keywordList": [{ "id": 3, "name": "化学" }, { "id": 4,
+	 *               "name": "英语" }], "knowledgetPointList": [], "userInfo": null }
 	 * @param videoPoint
 	 * @return IRestMessage
 	 */
@@ -63,7 +72,12 @@ public class VideoPointController extends AbstractBaseController {
 
 	/**
 	 * @Title: addVideoPointAndRelevantInfo
-	 * @Description: 添加知识点视频视频详细信息
+	 * @Description: 添加知识点视频视频详细信息 入参：{ "videoBase": { "adminUserId=管理员id": 2,
+	 *               "courseId=课程id": 2, "lectureId=讲解人id": 2,
+	 *               "questionId=题号字符串": "12313354", "title=标题": "title",
+	 *               "desc=描述": "desc", "profile=简介": "profile",
+	 *               "difficulty=难度系数": "1", "questionNumber=题号": "66",,
+	 *               "keywordList=关键字列表": [{ "id": 3 }, { "id": 4 }] } }
 	 * @param videoPoint
 	 * @param bindingResult
 	 * @param locale
@@ -104,7 +118,7 @@ public class VideoPointController extends AbstractBaseController {
 	public IRestMessage getVideoPointAndRelevantInfo(VideoPoint videoPoint) {
 		IRestMessage iRestMessage = getRestMessage();
 		try {
-			
+
 			List<VideoPoint> list = videoPointService.getVideoPointAndRelevantInfoList(videoPoint);
 			if (list != null && list.size() > 0) {
 				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
@@ -117,10 +131,16 @@ public class VideoPointController extends AbstractBaseController {
 		}
 		return iRestMessage;
 	}
-	
+
 	/**
 	 * @Title: getVideoPointAndRelevantInfo
-	 * @Description: 更新知识点视频视频
+	 * @Description: 更新知识点视频视频 入参：{ "id": 4, "videoBaseId": 20, "videoBase": {
+	 *               "id": 20, "adminUserId": 2, "courseId": 2, "lectureId": 2,
+	 *               "questionId": "12313354", "title": "title", "desc": "desc",
+	 *               "profile": "profile", "difficulty": "1", "questionNumber":
+	 *               "66", "keywordList": [{ "id": 3 }, { "id": 4 }],
+	 *               "videoDetailList": [{ "type": "1", "url": "urla" }, {
+	 *               "type": "2", "url": "urlb" }] } }
 	 * @param videoPoint
 	 * @param bindingResult
 	 * @param locale

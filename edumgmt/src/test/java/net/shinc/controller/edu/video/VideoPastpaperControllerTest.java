@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.shinc.InfoMgmtApplication;
-import net.shinc.orm.mybatis.bean.edu.Course;
 import net.shinc.orm.mybatis.bean.edu.Keyword;
 import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
 import net.shinc.orm.mybatis.bean.edu.VideoBase;
@@ -84,7 +83,7 @@ public class VideoPastpaperControllerTest {
     @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
     public void getVideoPastpaperAndRelevantInfo(){
     	RequestBuilder reqbuild = MockMvcRequestBuilders.post("/videoPastpaper/getVideoPastpaperAndRelevantInfo")
-    			.param("id", "1")
+    			.param("id", "10")
     			;
     	try {
     		mockMvc.perform(reqbuild).andDo(MockMvcResultHandlers.print());

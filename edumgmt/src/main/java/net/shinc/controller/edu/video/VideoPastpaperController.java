@@ -39,28 +39,18 @@ public class VideoPastpaperController extends AbstractBaseController {
 
 	/**
 	 * @Title: getVideoPastpaperAndRelevantInfoList
-	 * @Description: 真题/模拟题视频列表 { "code": "SUCCESS", "message": "交易成功",
-	 *               "detail": null, "result": [{ "id": 10,
-	 * 
-	 *               "videoBase": {
-	 * 
-	 *               "questionId=题目id字符串": "12313354", "title": "title", "desc": "desc",
-	 * 
-	 *               "difficulty": "1",
-	 * 
-	 *               "questionNumber=题号": "66",
-	 * 
+	 * @Description: 真题/模拟题视频列表 列表信息：{ "code": "SUCCESS", "message": "交易成功",
+	 *               "detail": null, "result": [{ "id": 10, "videoBase": {
+	 *               "questionId=题目id字符串": "12313354", "title": "title", "desc":
+	 *               "desc", "difficulty": "1", "questionNumber=题号": "66",
 	 *               "course": { "id": 2, "name": "数学", "shortName": "数" },
 	 *               "lecture=讲解人": { "id": 2, "name": "张天才", "level": "100" },
 	 *               "keywordList": [{ "id": 3, "name": "化学" }, { "id": 4,
 	 *               "name": "英语" }], "knowledgetPointList": [] },
-	 *               "questionBankType": { "id": 165,
-	 * 
-	 *               "name": "河北卷" }, "questionBankYear": {
-	 * 
-	 *               "year": "2011" }, "questionType": { "id": 1, "name": "单选题"
-	 *               }, "questionBank": { "id": 1, "name": "中考真题", "type": "0"
-	 *               }, "hasVideo=是否有视频": null }] }
+	 *               "questionBankType": { "id": 165, "name": "河北卷" },
+	 *               "questionBankYear": { "year": "2011" }, "questionType": {
+	 *               "id": 1, "name": "单选题" }, "questionBank": { "id": 1,
+	 *               "name": "中考真题", "type": "0" }, "hasVideo=是否有视频": null }] }
 	 * @param videoPastpaper
 	 * @return IRestMessage
 	 */
@@ -126,7 +116,29 @@ public class VideoPastpaperController extends AbstractBaseController {
 
 	/**
 	 * @Title: getVideoPastpaperAndRelevantInfo
-	 * @Description: 获得真题/模拟题视频详细信息
+	 * @Description: 获得真题/模拟题视频详细信息 信息：{ "code": "SUCCESS", "message": "交易成功",
+	 *               "detail": null, "result": [{ "id": 10,
+	 * 
+	 *               "videoBase": {
+	 * 
+	 *               "questionId=题目id字符串": "12313354", "title": "title", "desc":
+	 *               "desc",
+	 * 
+	 *               "difficulty": "1",
+	 * 
+	 *               "questionNumber=题号": "66",
+	 * 
+	 *               "course": { "id": 2, "name": "数学", "shortName": "数" },
+	 *               "lecture=讲解人": { "id": 2, "name": "张天才", "level": "100" },
+	 *               "keywordList": [{ "id": 3, "name": "化学" }, { "id": 4,
+	 *               "name": "英语" }], "knowledgetPointList": [] },
+	 *               "questionBankType": { "id": 165,
+	 * 
+	 *               "name": "河北卷" }, "questionBankYear": {
+	 * 
+	 *               "year": "2011" }, "questionType": { "id": 1, "name": "单选题"
+	 *               }, "questionBank": { "id": 1, "name": "中考真题", "type": "0"
+	 *               }, "hasVideo=是否有视频": null }] }
 	 * @param videoPastpaper
 	 * @param bindingResult
 	 * @param locale

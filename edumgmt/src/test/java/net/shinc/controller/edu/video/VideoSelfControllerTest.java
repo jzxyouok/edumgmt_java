@@ -151,7 +151,7 @@ public class VideoSelfControllerTest {
 
 			Gson g = new Gson();
 			String str = g.toJson(videoSelf);
-			System.out.println(str);
+			System.out.println("入参----------------"+str);
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/videoSelf/addVideoSelfAndRelevantInfo").header("Content-Type", MediaType.APPLICATION_JSON.toString()).content(str);// 设置请求体
 			mockMvc.perform(reqbuild).andDo(MockMvcResultHandlers.print());
 		} catch (Exception e) {
@@ -167,8 +167,8 @@ public class VideoSelfControllerTest {
 			VideoSelf videoSelf = new VideoSelf();
 			VideoBase videoBase = new VideoBase();
 
-			videoSelf.setId(1);
-			videoBase.setId(1);
+			videoSelf.setId(3);
+			videoBase.setId(22);
 			
 			// 视频详情
 			List list = new ArrayList();
@@ -221,7 +221,7 @@ public class VideoSelfControllerTest {
 
 			Gson g = new Gson();
 			String str = g.toJson(videoSelf);
-			System.out.println(str);
+			System.out.println("入参----------------"+str);
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/videoSelf/updateVideoSelfAndRelevantInfo").header("Content-Type", MediaType.APPLICATION_JSON.toString()).content(str);// 设置请求体
 			mockMvc.perform(reqbuild).andDo(MockMvcResultHandlers.print());
 		} catch (Exception e) {

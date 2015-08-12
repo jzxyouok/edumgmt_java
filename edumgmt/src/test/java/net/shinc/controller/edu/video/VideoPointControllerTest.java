@@ -68,7 +68,7 @@ public class VideoPointControllerTest {
 //		videoPoint.setVideoBase(videoBase);
 //		videoPoint.setVideoBaseId(2);
 		String str = new Gson().toJson(videoPoint);
-		System.out.println(str);
+		System.out.println("入参：------------"+str);
 		RequestBuilder reqbuild = MockMvcRequestBuilders.post("/videoPoint/getVideoPointAndRelevantInfoList").header("Content-Type", MediaType.APPLICATION_JSON.toString())
 				.content(str);// 设置请求体
 
@@ -131,10 +131,6 @@ public class VideoPointControllerTest {
 			list.add(keyword);
 			videoBase.setKeywordList(list);
 
-			Course course = new Course();
-			course.setId(1);
-			videoBase.setCourse(course);
-
 			videoBase.setAdminUserId(2);
 			videoBase.setDifficulty("1");
 			videoBase.setCourseId(2);
@@ -149,7 +145,7 @@ public class VideoPointControllerTest {
 
 			Gson g = new Gson();
 			String str = g.toJson(videoPoint);
-			System.out.println(str);
+			System.out.println("入参：------------"+str);
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/videoPoint/addVideoPointAndRelevantInfo").header("Content-Type", MediaType.APPLICATION_JSON.toString()).content(str);// 设置请求体
 			mockMvc.perform(reqbuild).andDo(MockMvcResultHandlers.print());
 		} catch (Exception e) {
@@ -164,10 +160,10 @@ public class VideoPointControllerTest {
 		try {
 			VideoPoint videoPoint = new VideoPoint();
 			VideoBase videoBase = new VideoBase();
-			videoPoint.setId(2);
-			videoPoint.setVideoBaseId(8);
+			videoPoint.setId(4);
+			videoPoint.setVideoBaseId(20);
 			
-			videoBase.setId(1);
+			videoBase.setId(20);
 			
 			// 视频详情
 			List list = new ArrayList();
@@ -201,11 +197,7 @@ public class VideoPointControllerTest {
 			list.add(keyword);
 			videoBase.setKeywordList(list);
 
-			Course course = new Course();
-			course.setId(1);
-			videoBase.setCourse(course);
-
-			videoBase.setAdminUserId(2);
+		    videoBase.setAdminUserId(2);
 			videoBase.setDifficulty("1");
 			videoBase.setCourseId(2);
 			videoBase.setLectureId(2);
@@ -219,7 +211,7 @@ public class VideoPointControllerTest {
 
 			Gson g = new Gson();
 			String str = g.toJson(videoPoint);
-			System.out.println(str);
+			System.out.println("入参：------------"+str);
 			RequestBuilder reqbuild = MockMvcRequestBuilders.post("/videoPoint/updateVideoPointAndRelevantInfo").header("Content-Type", MediaType.APPLICATION_JSON.toString()).content(str);// 设置请求体
 			mockMvc.perform(reqbuild).andDo(MockMvcResultHandlers.print());
 		} catch (Exception e) {
