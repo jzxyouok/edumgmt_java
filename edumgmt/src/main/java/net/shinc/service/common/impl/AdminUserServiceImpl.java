@@ -135,8 +135,11 @@ public class AdminUserServiceImpl implements AdminUserService {
 	public AdminUser getAdminUserById(Integer adminId) {
 		if (null != adminId) {
 			AdminUser admin = adminUserMapper.getAdminUserById(adminId);
-			if (null != admin) {
-				admin.setMenuMap(menuService.getMenu(admin));
+			List<AuthorityGroup> list = getAuthGroup(admin);
+			if(null != list && list.size() == 1) {
+				AuthorityGroup group = list.get(0);
+				authGroupService.setAuthList(group);
+				admin.setAuthGroup(group);
 			}
 			return admin;
 		}

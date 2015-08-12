@@ -2,6 +2,7 @@ package net.shinc.orm.mybatis.bean.common;
 
 import java.io.Serializable;
 import java.text.MessageFormat;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -26,6 +27,8 @@ public class AuthorityGroup implements Serializable{
     private String name;
 
     private String remark;
+    
+    private List<Authority> authList;
 
     public AuthorityGroup() {
 	}
@@ -69,6 +72,14 @@ public class AuthorityGroup implements Serializable{
 	@Override
 	public String toString() {
 		return MessageFormat.format("id:{0}\tname:{1}\tremark:{2}", this.id,this.name,this.remark);
+	}
+
+	public List<Authority> getAuthList() {
+		return authList;
+	}
+
+	public void setAuthList(List<Authority> authList) {
+		this.authList = authList;
 	}
     
 }
