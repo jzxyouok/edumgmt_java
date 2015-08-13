@@ -54,17 +54,17 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public List<Course> getCourseList() {
-		return courseMapper.getCourseList();
-	}
-	
-	@Override
 	public Boolean hasCourse (Course course) {
 		List<Course> list = courseMapper.selectCourse(course);
 		if(null != list && list.size() > 0){
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<Course> selectCourse(Course course) {
+		return courseMapper.selectCourse(course);
 	}
 
 }

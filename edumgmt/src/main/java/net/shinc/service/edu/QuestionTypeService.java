@@ -20,6 +20,6 @@ public interface QuestionTypeService {
 	
 	public QuestionType getQuestionTypeById(Integer id);
 	
-	public List<QuestionType> getAllQuestionType();
+	public List<QuestionType> getQuestionTypeList(QuestionType questionType);
 
 }

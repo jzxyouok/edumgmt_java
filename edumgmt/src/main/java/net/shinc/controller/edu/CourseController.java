@@ -44,7 +44,7 @@ public class CourseController extends AbstractBaseController {
 	public IRestMessage getCourseList() {
 		IRestMessage msg = getRestMessage();
 		try {
-			List<Course> list = courseService.getCourseList();
+			List<Course> list = courseService.selectCourse(new Course());
 			if(null != list && list.size() > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(list);

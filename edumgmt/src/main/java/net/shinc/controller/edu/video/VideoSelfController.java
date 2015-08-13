@@ -85,7 +85,7 @@ public class VideoSelfController extends AbstractBaseController {
 	 */
 	@RequestMapping(value = "/addVideoSelfAndRelevantInfo")
 	@ResponseBody
-	public IRestMessage addVideoSelfAndRelevantInfo(@RequestBody @Valid VideoSelf videoSelf, BindingResult bindingResult, Locale locale) {
+	public IRestMessage addVideoSelfAndRelevantInfo(@Valid VideoSelf videoSelf, BindingResult bindingResult, Locale locale) {
 		IRestMessage iRestMessage = getRestMessage();
 		if (bindingResult.hasErrors()) {
 			iRestMessage.setDetail(ShincUtil.getErrorFields(bindingResult));

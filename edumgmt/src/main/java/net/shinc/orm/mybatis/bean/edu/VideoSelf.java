@@ -14,6 +14,8 @@ public class VideoSelf {
 	private Integer id;
 
 	private Integer videoBaseId;
+	
+	private String resourse;
 
 	private String type;
 
@@ -40,6 +42,14 @@ public class VideoSelf {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getResourse() {
+		return resourse;
+	}
+
+	public void setResourse(String resourse) {
+		this.resourse = resourse;
 	}
 
 	public QuestionType getQuestionType() {

@@ -44,7 +44,6 @@ public class VideoBase {
 
 	private String status;
 
-	@NotEmpty(message = "{videoBase.questionNumber.not.empty}")
 	private String questionNumber;
 
 	private Date updatetime;

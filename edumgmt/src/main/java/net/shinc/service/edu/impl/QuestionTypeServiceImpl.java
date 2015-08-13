@@ -41,16 +41,12 @@ public class QuestionTypeServiceImpl implements QuestionTypeService {
 
 	@Override
 	public QuestionType getQuestionTypeById(Integer id) {
-		if(null != id) {
-			return questionTypeMapper.selectQuestionTypeById(id);
-		}
-		return null;
+		return questionTypeMapper.getQuestionTypeById(id);
 	}
 
 	@Override
-	public List<QuestionType> getAllQuestionType() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<QuestionType> getQuestionTypeList(QuestionType questionType) {
+		return questionTypeMapper.getQuestionTypeList(questionType);
 	}
 
 }
