@@ -151,10 +151,10 @@ public class QuestionBankTypeController extends AbstractBaseController {
 		IRestMessage msg = getRestMessage();
 		try {
 			if(null != questionBankType) {
-				QuestionBankType questionType = questionBankTypeService.getQuestionBankTypeById(questionBankType.getId());
-				if(null != questionType) {
+				QuestionBankType questionBankTypeObj = questionBankTypeService.getQuestionBankTypeById(questionBankType.getId());
+				if(null != questionBankTypeObj) {
 					msg.setCode(ErrorMessage.SUCCESS.getCode());
-					msg.setResult(questionType);
+					msg.setResult(questionBankTypeObj);
 				} else {
 					msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
 				}

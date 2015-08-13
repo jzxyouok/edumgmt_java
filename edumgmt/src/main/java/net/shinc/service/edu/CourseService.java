@@ -12,44 +12,19 @@ import net.shinc.orm.mybatis.bean.edu.Course;
  */
 public interface CourseService {
 
-	/**
-	 * 添加课程
-	 * @param Course
-	 * @return
-	 */
 	public Integer addCourse(Course course);
 	
-	/**
-	 * 修改课程
-	 * @param Course
-	 * @return
-	 */
 	public Integer updateCourse(Course course);
 	
-	/**
-	 * 删除课程
-	 * @param Course
-	 * @return
-	 */
 	public Integer deleteCourseById(Integer id);
 	
-	/**
-	 * 根据id查询课程
-	 * @param Course
-	 * @return
-	 */
 	public Course getCourseById(Integer id);
-	
-	/**
-	 * 查询所有课程列表
-	 * @return
-	 */
-	public List<Course> getCourseList();
-	
 	/**
 	 * 有无课程
 	 * @param course
 	 * @return
 	 */
 	public Boolean hasCourse(Course course);
+	
+	public List<Course> selectCourse(Course course);
 }

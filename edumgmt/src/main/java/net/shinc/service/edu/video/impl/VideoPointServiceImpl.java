@@ -3,6 +3,7 @@ package net.shinc.service.edu.video.impl;
 import java.util.Date;
 import java.util.List;
 
+import net.shinc.orm.mybatis.bean.common.AdminUser;
 import net.shinc.orm.mybatis.bean.edu.Keyword;
 import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
 import net.shinc.orm.mybatis.bean.edu.VideoBase;
@@ -43,6 +44,7 @@ public class VideoPointServiceImpl implements VideoPointService {
 	@Override
 	public Integer insertVideoPoint(VideoPoint videoPoint) {
 		VideoBase videoBase = videoPoint.getVideoBase();
+		videoBase.setAdminUserId(AdminUser.getCurrentUser().getId());
 		videoBase.setUpdatetime(new Date());
 		videoBaseMapper.insertVideoBase(videoBase);
 		videoPoint.setVideoBaseId(videoBase.getId());

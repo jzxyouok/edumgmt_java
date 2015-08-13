@@ -1,6 +1,9 @@
 package net.shinc.orm.mybatis.mappers.edu;
 
+import java.util.List;
+
 import net.shinc.orm.mybatis.bean.edu.QuestionType;
+
 
 /** 
  * @ClassName QuestionTypeMapper 
@@ -10,15 +13,17 @@ import net.shinc.orm.mybatis.bean.edu.QuestionType;
  */
 public interface QuestionTypeMapper {
 	
-    int deleteByPrimaryKey(Integer id);
+	public void deleteQuestionTypeById(Integer id);
 
-    int insert(QuestionType record);
+	public Integer insertQuestionType(QuestionType questionType);
 
-    int insertSelective(QuestionType record);
+	public void updateQuestionType(QuestionType questionType);
 
-    QuestionType selectQuestionTypeById(Integer id);
+	public QuestionType getQuestionTypeById(Integer id);
 
-    int updateByPrimaryKeySelective(QuestionType record);
+	public List<QuestionType> getQuestionTypeList(QuestionType questionType);
 
-    int updateByPrimaryKey(QuestionType record);
+	public Integer getQuestionTypeListCount(QuestionType questionType);
+	
+
 }

@@ -12,15 +12,13 @@ import net.shinc.orm.mybatis.bean.edu.Course;
  */
 public interface CourseMapper {
 	
-    int deleteCourseById(Integer id);
+    Integer deleteCourseById(Integer id);
 
-    int addCourse(Course record);
+    Integer addCourse(Course record);
 
     Course selectCourseById(Integer id);
 
-    int updateCourse(Course record);
-    
-    public List<Course> getCourseList();
+    Integer updateCourse(Course record);
     
     public List<Course> selectCourse(Course course);
 
