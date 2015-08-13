@@ -2,6 +2,7 @@ package net.shinc.service.edu.video.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import net.shinc.orm.mybatis.bean.common.AdminUser;
 import net.shinc.orm.mybatis.bean.edu.Keyword;
@@ -155,7 +156,7 @@ public class VideoPointServiceImpl implements VideoPointService {
 	}
 
 	@Override
-	public List<VideoPoint> getVideoPointAndRelevantInfoList(VideoPoint videoPoint) {
+	public List<Map> getVideoPointAndRelevantInfoList(VideoPoint videoPoint) {
 		return videoPointMapper.getVideoPointAndRelevantInfoList(videoPoint);
 	}
 

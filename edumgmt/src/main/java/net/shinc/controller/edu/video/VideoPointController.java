@@ -2,6 +2,7 @@ package net.shinc.controller.edu.video;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -57,7 +58,7 @@ public class VideoPointController extends AbstractBaseController {
 	public IRestMessage getVideoPointAndRelevantInfoList(@RequestBody VideoPoint videoPoint) {
 		IRestMessage msg = getRestMessage();
 		try {
-			List<VideoPoint> list = videoPointService.getVideoPointAndRelevantInfoList(videoPoint);
+			List<Map> list = videoPointService.getVideoPointAndRelevantInfoList(videoPoint);
 			if (null != list && list.size() > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(list);
@@ -85,7 +86,7 @@ public class VideoPointController extends AbstractBaseController {
 	 */
 	@RequestMapping(value = "/addVideoPointAndRelevantInfo")
 	@ResponseBody
-	public IRestMessage addVideoPointAndRelevantInfo(@RequestBody @Valid VideoPoint videoPoint, BindingResult bindingResult, Locale locale) {
+	public IRestMessage addVideoPointAndRelevantInfo(@Valid VideoPoint videoPoint, BindingResult bindingResult, Locale locale) {
 		IRestMessage iRestMessage = getRestMessage();
 		if (bindingResult.hasErrors()) {
 			iRestMessage.setDetail(ShincUtil.getErrorFields(bindingResult));
@@ -119,7 +120,7 @@ public class VideoPointController extends AbstractBaseController {
 		IRestMessage iRestMessage = getRestMessage();
 		try {
 
-			List<VideoPoint> list = videoPointService.getVideoPointAndRelevantInfoList(videoPoint);
+			List<Map> list = videoPointService.getVideoPointAndRelevantInfoList(videoPoint);
 			if (list != null && list.size() > 0) {
 				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
 				iRestMessage.setResult(list.get(0));

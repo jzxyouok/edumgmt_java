@@ -1,6 +1,7 @@
 package net.shinc.orm.mybatis.mappers.edu;
 
 import java.util.List;
+import java.util.Map;
 
 import net.shinc.orm.mybatis.bean.edu.VideoSelf;
 /**
@@ -29,7 +30,7 @@ public interface VideoSelfMapper {
 	 * @param videoSelf
 	 * @return List<VideoSelf>
 	 */
-	public List<VideoSelf> getVideoSelfAndRelevantInfoList(VideoSelf videoSelf);
+	public List<Map> getVideoSelfAndRelevantInfoList(VideoSelf videoSelf);
 	
 	/**
 	 * @Title: getVideoSelfAndRelevantInfoListCount
