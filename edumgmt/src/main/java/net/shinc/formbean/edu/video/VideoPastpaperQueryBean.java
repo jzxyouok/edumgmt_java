@@ -15,7 +15,7 @@ public class VideoPastpaperQueryBean implements QueryBean {
 	private String questionBankId;
 	private String courseId;
 	private String questionBankTypeId;
-	private String questionbankYearId;
+	private String questionBankYearId;
 	private String questionTypeId;
 	private String difficulty;
 	private String lectureId;
@@ -23,6 +23,12 @@ public class VideoPastpaperQueryBean implements QueryBean {
 	private String questionDesc;
 	private List<String> keywordList;
 	private List<String> knowledgePointList;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getQuestionBankId() {
 		return questionBankId;
 	}
@@ -41,11 +47,11 @@ public class VideoPastpaperQueryBean implements QueryBean {
 	public void setQuestionBankTypeId(String questionBankTypeId) {
 		this.questionBankTypeId = questionBankTypeId;
 	}
-	public String getQuestionbankYearId() {
-		return questionbankYearId;
+	public String getQuestionBankYearId() {
+		return questionBankYearId;
 	}
-	public void setQuestionbankYearId(String questionbankYearId) {
-		this.questionbankYearId = questionbankYearId;
+	public void setQuestionBankYearId(String questionBankYearId) {
+		this.questionBankYearId = questionBankYearId;
 	}
 	public String getQuestionTypeId() {
 		return questionTypeId;
@@ -77,12 +83,6 @@ public class VideoPastpaperQueryBean implements QueryBean {
 	public void setQuestionDesc(String questionDesc) {
 		this.questionDesc = questionDesc;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public List<String> getKeywordList() {
 		return keywordList;
 	}
@@ -96,6 +96,6 @@ public class VideoPastpaperQueryBean implements QueryBean {
 		this.knowledgePointList = knowledgePointList;
 	}
 	
-	
-
 }
+
+
