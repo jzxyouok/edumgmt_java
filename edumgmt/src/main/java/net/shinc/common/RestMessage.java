@@ -23,6 +23,7 @@ public class RestMessage implements IRestMessage {
 	private MessageSource messageSource;
 	private Locale locale;
 	private Map<String,Object> userInfo;
+	public Object pageInfo;
 	
 	public RestMessage(String code, MessageSource messageSource, Locale locale){
 		
@@ -86,6 +87,18 @@ public class RestMessage implements IRestMessage {
 		if(map != null) {
 			this.userInfo.putAll(map);
 		}
+	}
+
+	@Override
+	public void setPageInfo(Object o) {
+		this.pageInfo = o;
+		
+	}
+
+	@Override
+	public Object getPageInfo() {
+		
+		return this.pageInfo;
 	}
 
 

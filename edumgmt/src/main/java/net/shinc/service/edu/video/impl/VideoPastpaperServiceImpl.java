@@ -2,8 +2,10 @@ package net.shinc.service.edu.video.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import net.shinc.orm.mybatis.bean.common.AdminUser;
+import net.shinc.orm.mybatis.bean.common.QueryBean;
 import net.shinc.orm.mybatis.bean.edu.Keyword;
 import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
 import net.shinc.orm.mybatis.bean.edu.VideoBase;
@@ -18,6 +20,7 @@ import net.shinc.orm.mybatis.mappers.edu.VideoDetailMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoPastpaperMapper;
 import net.shinc.service.edu.video.VideoPastpaperService;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -159,8 +162,8 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 	}
 
 	@Override
-	public List<VideoPastpaper> getVideoPastpaperAndRelevantInfoList(VideoPastpaper videoPastpaper) {
-		return videoPastpaperMapper.getVideoPastpaperAndRelevantInfoList(videoPastpaper);
+	public List<Map> getVideoPastpaperAndRelevantInfoList(QueryBean queryBean,RowBounds rowBounds) {
+		return videoPastpaperMapper.getVideoPastpaperAndRelevantInfoList(queryBean, rowBounds);
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package net.shinc.controller.edu.video;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -9,6 +10,7 @@ import net.shinc.common.AbstractBaseController;
 import net.shinc.common.ErrorMessage;
 import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
+import net.shinc.formbean.edu.video.VideoPastpaperQueryBean;
 import net.shinc.orm.mybatis.bean.edu.VideoPastpaper;
 import net.shinc.service.edu.video.VideoPastpaperService;
 
@@ -16,11 +18,16 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
 /**
  * @ClassName: VideoPastpaperController
@@ -33,6 +40,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class VideoPastpaperController extends AbstractBaseController {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
+	
+	@Value("${page.count}")
+	private String limit;
 
 	@Autowired
 	private VideoPastpaperService videoPastpaperService;
@@ -56,13 +66,25 @@ public class VideoPastpaperController extends AbstractBaseController {
 	 */
 	@RequestMapping(value = "/getVideoPastpaperAndRelevantInfoList")
 	@ResponseBody
-	public IRestMessage getVideoPastpaperAndRelevantInfoList(@RequestBody VideoPastpaper videoPastpaper) {
+	public IRestMessage getVideoPastpaperAndRelevantInfoList(VideoPastpaperQueryBean videoPastpaper,
+			@RequestParam("page") Integer page,
+			@RequestParam("pageSize") Integer pageSize) {
 		IRestMessage msg = getRestMessage();
 		try {
-			List<VideoPastpaper> list = videoPastpaperService.getVideoPastpaperAndRelevantInfoList(videoPastpaper);
+			
+			if(page == null || page < 1) {
+				page = 1;
+			}
+			if(pageSize == null || pageSize < 1) {
+				pageSize = Integer.parseInt(limit);
+			}
+			PageBounds pb = new PageBounds(page,pageSize);
+			List<Map> list = videoPastpaperService.getVideoPastpaperAndRelevantInfoList(videoPastpaper,pb);
+			
 			if (null != list && list.size() > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(list);
+				msg.setPageInfo(((PageList)list).getPaginator());
 			} else {
 				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
 			}
@@ -151,18 +173,18 @@ public class VideoPastpaperController extends AbstractBaseController {
 	@ResponseBody
 	public IRestMessage getVideoPastpaperAndRelevantInfo(VideoPastpaper videoPastpaper) {
 		IRestMessage iRestMessage = getRestMessage();
-		try {
-
-			List<VideoPastpaper> list = videoPastpaperService.getVideoPastpaperAndRelevantInfoList(videoPastpaper);
-			if (list != null && list.size() > 0) {
-				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
-				iRestMessage.setResult(list.get(0));
-			} else {
-				iRestMessage.setCode(ErrorMessage.RESULT_EMPTY.getCode());
-			}
-		} catch (Exception e) {
-			logger.error("获得真题/模拟题视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
-		}
+//		try {
+//
+//			List<VideoPastpaper> list = videoPastpaperService.getVideoPastpaperAndRelevantInfoList(videoPastpaper);
+//			if (list != null && list.size() > 0) {
+//				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+//				iRestMessage.setResult(list.get(0));
+//			} else {
+//				iRestMessage.setCode(ErrorMessage.RESULT_EMPTY.getCode());
+//			}
+//		} catch (Exception e) {
+//			logger.error("获得真题/模拟题视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
+//		}
 		return iRestMessage;
 	}
 

@@ -1,8 +1,12 @@
 package net.shinc.orm.mybatis.mappers.edu;
 
 import java.util.List;
+import java.util.Map;
 
+import net.shinc.orm.mybatis.bean.common.QueryBean;
 import net.shinc.orm.mybatis.bean.edu.VideoPastpaper;
+
+import org.apache.ibatis.session.RowBounds;
 /**
   * @ClassName: VideoPastpaperMapper
   * @Description: 真题、模拟题DAO接口
@@ -23,13 +27,14 @@ public interface VideoPastpaperMapper {
 
 	public Integer getVideoPastpaperListCount(VideoPastpaper videoPastpaper);
 	
+	
 	/**
-	 * @Title: getVideoPastpaperAndRelevantInfoList
-	 * @Description: 得到真题、模拟题以及其相关信息列表
+	 * 分页得到真题模拟题列表信息
 	 * @param videoPastpaper
-	 * @return List<VideoPastpaper>
+	 * @param rowBounds
+	 * @return 
 	 */
-	public List<VideoPastpaper> getVideoPastpaperAndRelevantInfoList(VideoPastpaper videoPastpaper);
+	public List<Map> getVideoPastpaperAndRelevantInfoList(QueryBean queryBean,RowBounds rowBounds);
 	
 	/**
 	 * @Title: getVideoPastpaperAndRelevantInfoListCount
