@@ -1,6 +1,7 @@
 package net.shinc.orm.mybatis.mappers.edu;
 
 import java.util.List;
+import java.util.Map;
 
 import net.shinc.orm.mybatis.bean.edu.VideoPoint;
 /**
@@ -29,7 +30,7 @@ public interface VideoPointMapper {
 	 * @param videoPoint
 	 * @return List<VideoPoint>
 	 */
-	public List<VideoPoint> getVideoPointAndRelevantInfoList(VideoPoint videoPoint);
+	public List<Map> getVideoPointAndRelevantInfoList(VideoPoint videoPoint);
 	
 	/**
 	 * @Title: getVideoPointAndRelevantInfoListCount

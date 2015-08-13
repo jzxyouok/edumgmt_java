@@ -2,6 +2,7 @@ package net.shinc.controller.edu.video;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -57,7 +58,7 @@ public class VideoSelfController extends AbstractBaseController {
 	public IRestMessage getVideoSelfAndRelevantInfoList(@RequestBody VideoSelf videoSelf) {
 		IRestMessage msg = getRestMessage();
 		try {
-			List<VideoSelf> list = videoSelfService.getVideoSelfAndRelevantInfoList(videoSelf);
+			List<Map> list = videoSelfService.getVideoSelfAndRelevantInfoList(videoSelf);
 			if (null != list && list.size() > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(list);
@@ -119,7 +120,7 @@ public class VideoSelfController extends AbstractBaseController {
 		IRestMessage iRestMessage = getRestMessage();
 		try {
 
-			List<VideoSelf> list = videoSelfService.getVideoSelfAndRelevantInfoList(videoSelf);
+			List<Map> list = videoSelfService.getVideoSelfAndRelevantInfoList(videoSelf);
 			if (list != null && list.size() > 0) {
 				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
 				iRestMessage.setResult(list.get(0));

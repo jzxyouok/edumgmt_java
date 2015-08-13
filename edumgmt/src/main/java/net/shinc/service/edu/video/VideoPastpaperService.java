@@ -44,6 +44,9 @@ public interface VideoPastpaperService {
 	 */
 	public List<Map> getVideoPastpaperAndRelevantInfoList(QueryBean queryBean,RowBounds rowBounds);
 	
+	
+	//public List<Map> getVideoPastpaperAndRelevantById(QueryBean queryBean,RowBounds rowBounds);
+	
 	/**
 	 * @Title: getVideoPastpaperAndRelevantInfoListCount
 	 * @Description: 得到真题、模拟题以及其相关信息列表总条数

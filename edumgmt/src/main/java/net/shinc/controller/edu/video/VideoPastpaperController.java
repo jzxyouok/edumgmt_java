@@ -49,7 +49,8 @@ public class VideoPastpaperController extends AbstractBaseController {
 
 	/**
 	 * @Title: getVideoPastpaperAndRelevantInfoList
-	 * @Description: 真题/模拟题视频列表 列表信息：{ "code": "SUCCESS", "message": "交易成功",
+	 * @Description: 真题/模拟题视频列表 
+	 * 列表信息：{ "code": "SUCCESS", "message": "交易成功",
 	 *               "detail": null, "result": [{ "id": 10, "videoBase": {
 	 *               "questionId=题目id字符串": "12313354", "title": "title", "desc":
 	 *               "desc", "difficulty": "1", "questionNumber=题号": "66",

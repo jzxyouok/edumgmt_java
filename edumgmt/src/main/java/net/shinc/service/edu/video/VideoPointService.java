@@ -1,8 +1,8 @@
 package net.shinc.service.edu.video;
 
 import java.util.List;
+import java.util.Map;
 
-import net.shinc.orm.mybatis.bean.edu.VideoPastpaper;
 import net.shinc.orm.mybatis.bean.edu.VideoPoint;
 
 /**
@@ -39,7 +39,7 @@ public interface VideoPointService {
 	 * @param videoPastpaper
 	 * @return List<VideoPastpaper>
 	 */
-	public List<VideoPoint> getVideoPointAndRelevantInfoList(VideoPoint videoPoint);
+	public List<Map> getVideoPointAndRelevantInfoList(VideoPoint videoPoint);
 
 	/**
 	 * @Title: getVideoPointAndRelevantInfoListCount

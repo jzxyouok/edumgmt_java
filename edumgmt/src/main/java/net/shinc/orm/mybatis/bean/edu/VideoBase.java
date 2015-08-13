@@ -3,7 +3,6 @@ package net.shinc.orm.mybatis.bean.edu;
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import net.shinc.orm.mybatis.bean.common.AdminUser;
@@ -33,7 +32,6 @@ public class VideoBase {
 	@NotEmpty(message = "{videoBase.title.not.empty}")
 	private String title;
 
-	@NotEmpty(message = "{videoBase.desc.not.empty}")
 	private String desc;
 
 	@NotEmpty(message = "{videoBase.profile.not.empty}")
