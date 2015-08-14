@@ -10,6 +10,7 @@ import net.shinc.common.AbstractBaseController;
 import net.shinc.common.ErrorMessage;
 import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
+import net.shinc.formbean.edu.video.VideoSelfQueryBean;
 import net.shinc.orm.mybatis.bean.edu.VideoSelf;
 import net.shinc.service.edu.video.VideoSelfService;
 
@@ -17,11 +18,16 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
 /**
  * @ClassName: VideoSelfController
@@ -38,6 +44,9 @@ public class VideoSelfController extends AbstractBaseController {
 	@Autowired
 	private VideoSelfService videoSelfService;
 
+	@Value("${page.count}")
+	private String limit;
+	
 	/**
 	 * @Title: getVideoSelfAndRelevantInfoList
 	 * @Description: 自编题视频列表 列表内容：{ "code": "SUCCESS", "message": "交易成功",
@@ -55,13 +64,23 @@ public class VideoSelfController extends AbstractBaseController {
 	 */
 	@RequestMapping(value = "/getVideoSelfAndRelevantInfoList")
 	@ResponseBody
-	public IRestMessage getVideoSelfAndRelevantInfoList(@RequestBody VideoSelf videoSelf) {
+	public IRestMessage getVideoSelfAndRelevantInfoList(VideoSelfQueryBean videoSelfQueryBean,
+			@RequestParam("page") Integer page,
+			@RequestParam("pageSize") Integer pageSize) {
 		IRestMessage msg = getRestMessage();
+		if(page == null || page < 1) {
+			page = 1;
+		}
+		if(pageSize == null || pageSize < 1) {
+			pageSize = Integer.parseInt(limit);
+		}
+		PageBounds pageBounds = new PageBounds(page,pageSize);
 		try {
-			List<Map> list = videoSelfService.getVideoSelfAndRelevantInfoList(videoSelf);
+			List<Map> list = videoSelfService.getVideoSelfAndRelevantInfoList(videoSelfQueryBean,pageBounds);
 			if (null != list && list.size() > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(list);
+				msg.setPageInfo(((PageList)list).getPaginator());
 			} else {
 				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
 			}
@@ -106,32 +125,32 @@ public class VideoSelfController extends AbstractBaseController {
 		return iRestMessage;
 	}
 
-	/**
-	 * @Title: getVideoSelfAndRelevantInfo
-	 * @Description: 获得自编题视频详细信息
-	 * @param videoSelf
-	 * @param bindingResult
-	 * @param locale
-	 * @return IRestMessage
-	 */
-	@RequestMapping(value = "/getVideoSelfAndRelevantInfo")
-	@ResponseBody
-	public IRestMessage getVideoSelfAndRelevantInfo(VideoSelf videoSelf) {
-		IRestMessage iRestMessage = getRestMessage();
-		try {
-
-			List<Map> list = videoSelfService.getVideoSelfAndRelevantInfoList(videoSelf);
-			if (list != null && list.size() > 0) {
-				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
-				iRestMessage.setResult(list.get(0));
-			} else {
-				iRestMessage.setCode(ErrorMessage.RESULT_EMPTY.getCode());
-			}
-		} catch (Exception e) {
-			logger.error("获得自编题视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
-		}
-		return iRestMessage;
-	}
+//	/**
+//	 * @Title: getVideoSelfAndRelevantInfo
+//	 * @Description: 获得自编题视频详细信息
+//	 * @param videoSelf
+//	 * @param bindingResult
+//	 * @param locale
+//	 * @return IRestMessage
+//	 */
+//	@RequestMapping(value = "/getVideoSelfAndRelevantInfo")
+//	@ResponseBody
+//	public IRestMessage getVideoSelfAndRelevantInfo(VideoSelf videoSelf) {
+//		IRestMessage iRestMessage = getRestMessage();
+//		try {
+//
+//			List<Map> list = videoSelfService.getVideoSelfAndRelevantInfoList(videoSelf);
+//			if (list != null && list.size() > 0) {
+//				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+//				iRestMessage.setResult(list.get(0));
+//			} else {
+//				iRestMessage.setCode(ErrorMessage.RESULT_EMPTY.getCode());
+//			}
+//		} catch (Exception e) {
+//			logger.error("获得自编题视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
+//		}
+//		return iRestMessage;
+//	}
 
 	/**
 	 * @Title: getVideoSelfAndRelevantInfo

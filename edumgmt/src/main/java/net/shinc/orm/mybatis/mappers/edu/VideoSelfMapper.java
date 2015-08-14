@@ -3,6 +3,9 @@ package net.shinc.orm.mybatis.mappers.edu;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
+
+import net.shinc.orm.mybatis.bean.common.QueryBean;
 import net.shinc.orm.mybatis.bean.edu.VideoSelf;
 /**
   * @ClassName: VideoSelfMapper
@@ -30,7 +33,7 @@ public interface VideoSelfMapper {
 	 * @param videoSelf
 	 * @return List<VideoSelf>
 	 */
-	public List<Map> getVideoSelfAndRelevantInfoList(VideoSelf videoSelf);
+	public List<Map> getVideoSelfAndRelevantInfoList(QueryBean queryBean,RowBounds rowBounds);
 	
 	/**
 	 * @Title: getVideoSelfAndRelevantInfoListCount

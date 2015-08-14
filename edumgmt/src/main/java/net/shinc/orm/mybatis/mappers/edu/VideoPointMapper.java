@@ -3,7 +3,10 @@ package net.shinc.orm.mybatis.mappers.edu;
 import java.util.List;
 import java.util.Map;
 
+import net.shinc.orm.mybatis.bean.common.QueryBean;
 import net.shinc.orm.mybatis.bean.edu.VideoPoint;
+
+import org.apache.ibatis.session.RowBounds;
 /**
   * @ClassName: VideoPointMapper
   * @Description: 知识点视频DAO接口
@@ -30,7 +33,7 @@ public interface VideoPointMapper {
 	 * @param videoPoint
 	 * @return List<VideoPoint>
 	 */
-	public List<Map> getVideoPointAndRelevantInfoList(VideoPoint videoPoint);
+	public List<Map> getVideoPointAndRelevantInfoList(QueryBean queryBean,RowBounds rowBounds);
 	
 	/**
 	 * @Title: getVideoPointAndRelevantInfoListCount

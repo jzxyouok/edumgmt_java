@@ -3,7 +3,10 @@ package net.shinc.service.edu.video;
 import java.util.List;
 import java.util.Map;
 
+import net.shinc.orm.mybatis.bean.common.QueryBean;
 import net.shinc.orm.mybatis.bean.edu.VideoSelf;
+
+import org.apache.ibatis.session.RowBounds;
 
 /**
  * @ClassName: VideoSelfService
@@ -39,7 +42,7 @@ public interface VideoSelfService {
 	 * @param videoPastpaper
 	 * @return List<VideoPastpaper>
 	 */
-	public List<Map> getVideoSelfAndRelevantInfoList(VideoSelf videoSelf);
+	public List<Map> getVideoSelfAndRelevantInfoList(QueryBean queryBean,RowBounds rowBounds);
 
 	/**
 	 * @Title: getVideoSelfAndRelevantInfoListCount

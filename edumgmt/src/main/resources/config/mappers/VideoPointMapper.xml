@@ -6,38 +6,10 @@
 		<result column="sh_video_base_id" property="videoBaseId" jdbcType="INTEGER" />
 	</resultMap>
 
-	<resultMap id="VideoPointAndRelevantInfoListMap" type="VideoPoint">
-		<result column="videoPointId" property="id" />
-		<result column="question_id" property="videoBase.questionId" />
-		<result column="title" property="videoBase.title" />
-		<result column="desc" property="videoBase.desc" />
-		<result column="courseId" property="videoBase.course.id" />
-		<result column="courseName" property="videoBase.course.name" />
-		<result column="courseShortName" property="videoBase.course.shortName" />
-		<result column="lectureName" property="videoBase.lecture.name" />
-		<result column="lectureLevel" property="videoBase.lecture.level" />
-		<result column="lectureId" property="videoBase.lecture.id" />
-		<result column="question_number" property="videoBase.questionNumber" />
-		<result column="difficulty" property="videoBase.difficulty" />
-		<!-- 关键字list -->
-		<collection property="videoBase.keywordList" ofType="Keyword">
-			<result column="keywordId" property="id" />
-			<result column="keywordName" property="name" />
-		</collection>
-		<!-- 知识点list -->
-		<collection property="videoBase.knowledgetPointList" ofType="KnowledgePoint">
-			<result column="knowledgePointId" property="id" />
-			<result column="knowledgePointName" property="name" />
-		</collection>
-		<!-- 视频详情list -->
-		<collection property="videoBase.videoDetailList" ofType="VideoDetail">
-			<result column="videoDetailUrl" property="url" />
-		</collection>
-	</resultMap>
-
-	<select id="getVideoPointAndRelevantInfoList" resultMap="VideoPointAndRelevantInfoListMap" parameterType="VideoPoint">
+	<select id="getVideoPointAndRelevantInfoList" resultType="java.util.HashMap" >
 
 		SELECT
+		base.question_id,
 		base.id,
 		base.title,
 		base.desc,
@@ -77,21 +49,11 @@
 		<if test="id != null">
 			and base.id = #{id}
 		</if>
-		<if test="questionBankId != null and questionBankId != ''">
-			and past.sh_questionbank_id = #{questionBankId}
-		</if>
+	
 		<if test="courseId != null and courseId != ''">
 			and base.sh_course_id = #{courseId}
 		</if>
-		<if test="questionBankTypeId != null and questionBankTypeId != ''">
-			and past.sh_questionbank_type_id = #{questionBankTypeId}
-		</if>
-		<if test="questionbankYearId != null and questionbankYearId != ''">
-			and past.sh_questionbank_year_id = #{questionbankYearId}
-		</if>
-		<if test="questionTypeId != null and questionTypeId != ''">
-			and past.sh_question_type_id = #{questionTypeId}
-		</if>
+		
 		<if test="lectureId != null and lectureId != ''">
 			and base.sh_lecture_id = #{lectureId}
 		</if>
