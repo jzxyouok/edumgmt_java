@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.shinc.orm.mybatis.bean.common.AdminUser;
+import net.shinc.orm.mybatis.bean.common.QueryBean;
 import net.shinc.orm.mybatis.bean.edu.Keyword;
 import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
 import net.shinc.orm.mybatis.bean.edu.VideoBase;
@@ -19,6 +20,7 @@ import net.shinc.orm.mybatis.mappers.edu.VideoDetailMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoPointMapper;
 import net.shinc.service.edu.video.VideoPointService;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -156,8 +158,8 @@ public class VideoPointServiceImpl implements VideoPointService {
 	}
 
 	@Override
-	public List<Map> getVideoPointAndRelevantInfoList(VideoPoint videoPoint) {
-		return videoPointMapper.getVideoPointAndRelevantInfoList(videoPoint);
+	public List<Map> getVideoPointAndRelevantInfoList(QueryBean queryBean,RowBounds rowBounds) {
+		return videoPointMapper.getVideoPointAndRelevantInfoList(queryBean,rowBounds);
 	}
 
 	@Override

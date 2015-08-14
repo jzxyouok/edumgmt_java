@@ -67,6 +67,7 @@
 	<select id="getVideoPastpaperAndRelevantInfoList" resultType="java.util.HashMap" >
 
 			SELECT 
+				base.question_id,
 				base.id,
 			    base.title,
 			    base.desc,
