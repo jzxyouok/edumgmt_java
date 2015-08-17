@@ -18,6 +18,8 @@ public interface KeywordMapper {
     public List<Keyword> selectAllKeyword();
 
 	public List<Keyword> selectKeyword(Keyword keyword);
+	
+	public Keyword selectKeywordByName(Keyword keyword);
 
 //    int updateByPrimaryKeySelective(Keyword record);
 

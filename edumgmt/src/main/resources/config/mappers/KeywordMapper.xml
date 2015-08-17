@@ -13,6 +13,7 @@
     select 
     <include refid="Base_Column_List" />
     from sh_keyword
+    order by id asc
   </select>
   
   <select id="selectKeyword" resultMap="BaseResultMap" parameterType="Keyword" >
@@ -20,6 +21,13 @@
     <include refid="Base_Column_List" />
     from sh_keyword
     where name like '%${name}%'
+  </select>
+  
+  <select id="selectKeywordByName" resultMap="BaseResultMap" parameterType="Keyword" >
+    select 
+    <include refid="Base_Column_List" />
+    from sh_keyword
+    where name = #{name}
   </select>
   
   <delete id="deleteKeywordById" parameterType="java.lang.Integer" >

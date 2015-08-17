@@ -27,5 +27,12 @@ public interface KeywordService {
 	 * 模糊查询关键字
 	 */	
 	public List<Keyword> selectKeyword(Keyword keyword);
+	
+	/**
+	 * 判断是否已存在该关键字
+	 * @param name 关键字内容
+	 * @return
+	 */
+	public Boolean hasKeyword(String name);
 
 }
