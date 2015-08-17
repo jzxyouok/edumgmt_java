@@ -12,13 +12,13 @@ import net.shinc.orm.mybatis.bean.edu.VideoDetail;
  */
 public interface VideoDetailService {
 
-	public void deleteVideoDetailById(Integer id);
+	public void deleteVideoDetailById(VideoDetail vd);
 
 	public Integer insertVideoDetail(VideoDetail videoDetail);
 
 	public void updateVideoDetail(VideoDetail videoDetail);
 
-	public VideoDetail getByVideoDetailById(Integer id);
+	public VideoDetail getByVideoDetailById(VideoDetail vd);
 
 	public List<VideoDetail> getVideoDetailList(VideoDetail videoDetail);
 

@@ -12,13 +12,22 @@ import net.shinc.orm.mybatis.bean.edu.VideoDetail;
  */
 public interface VideoDetailMapper {
 
-    public void deleteVideoDetailById(Integer id);
+    /**
+     * 根据videoBaseId和type删除
+     * @param videoDetail
+     */
+    public void deleteVideoDetailById(VideoDetail videoDetail);
 
 	public Integer insertVideoDetail(VideoDetail videoDetail);
 
 	public void updateVideoDetail(VideoDetail videoDetail);
 
-	public VideoDetail getByVideoDetailById(Integer id);
+	/**
+	 * 根据videoBaseId和type查询
+	 * @param videoDetail
+	 * @return
+	 */
+	public VideoDetail getByVideoDetailById(VideoDetail videoDetail);
 
 	public List<VideoDetail> getVideoDetailList(VideoDetail videoDetail);
 

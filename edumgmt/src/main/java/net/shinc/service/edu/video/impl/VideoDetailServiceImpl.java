@@ -22,8 +22,8 @@ public class VideoDetailServiceImpl implements VideoDetailService {
 	private VideoDetailMapper videoDetailMapper;
 	
 	@Override
-	public void deleteVideoDetailById(Integer id) {
-		videoDetailMapper.deleteVideoDetailById(id);
+	public void deleteVideoDetailById(VideoDetail vd) {
+		videoDetailMapper.deleteVideoDetailById(vd);
 		
 	}
 
@@ -39,8 +39,8 @@ public class VideoDetailServiceImpl implements VideoDetailService {
 	}
 
 	@Override
-	public VideoDetail getByVideoDetailById(Integer id) {
-		return videoDetailMapper.getByVideoDetailById(id);
+	public VideoDetail getByVideoDetailById(VideoDetail vd) {
+		return videoDetailMapper.getByVideoDetailById(vd);
 	}
 
 	@Override
