@@ -1,5 +1,7 @@
 package net.shinc.orm.mybatis.bean.edu;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /** 
  * @ClassName Keyword 
  * @Description 关键字
@@ -9,9 +11,17 @@ package net.shinc.orm.mybatis.bean.edu;
 public class Keyword {
     private Integer id;
 
+    @NotEmpty(message="{keyword.name.not.empty}")
     private String name;
 
-    public Integer getId() {
+    public Keyword() {
+	}
+    
+	public Keyword(String name) {
+		this.name = name;
+	}
+
+	public Integer getId() {
         return id;
     }
 

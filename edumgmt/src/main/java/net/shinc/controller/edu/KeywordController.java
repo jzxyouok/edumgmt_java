@@ -1,6 +1,7 @@
 package net.shinc.controller.edu;
 
 import java.util.List;
+
 import javax.validation.Valid;
 
 import net.shinc.common.AbstractBaseController;
@@ -44,7 +45,7 @@ public class KeywordController extends AbstractBaseController{
 		try {
 			int i = keywordService.deleteKeywordById(id);
 			if(i > 0) {
-				msg.setCode(ErrorMessage.SUCCESS.getCode());
+				msg.setCode(ErrorMessage.DELETE_SUCCESS.getCode());
 				msg.setResult(i);
 			}else {
 				msg.setCode(ErrorMessage.DELETE_FAILED.getCode());
@@ -67,13 +68,19 @@ public class KeywordController extends AbstractBaseController{
 			return msg;
 		}
 		try {
-			int i = keywordService.insertKeyword(keyword);
-			logger.debug("insert Keyword ==>" + i);
-			if(i > 0) {
-				msg.setCode(ErrorMessage.SUCCESS.getCode());
-				msg.setResult(i);
-			}else {
-				msg.setCode(ErrorMessage.ADD_FAILED.getCode());
+			Boolean hasKeyword = keywordService.hasKeyword(keyword.getName());
+			if(hasKeyword) {
+				msg.setCode(ErrorMessage.KEYWORD_EXIST.getCode());
+				return msg;
+			} else {
+				int i = keywordService.insertKeyword(keyword);
+				logger.debug("insert Keyword ==>" + i);
+				if(i > 0) {
+					msg.setCode(ErrorMessage.ADD_SUCCESS.getCode());
+					msg.setResult(i);
+				}else {
+					msg.setCode(ErrorMessage.ADD_FAILED.getCode());
+				}
 			}
 		} catch (Exception e) {
 			logger.error("关键字信息列表添加失败==>" + ExceptionUtils.getStackTrace(e));
