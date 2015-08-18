@@ -1,6 +1,7 @@
 package net.shinc.service.edu.video.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,11 +53,13 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 	}
 
 	@Override
-	public Integer insertVideoPastpaper(VideoPastpaper videoPastpaper) {
+	public Map insertVideoPastpaper(VideoPastpaper videoPastpaper) {
+		Map map = new HashMap();
 		VideoBase videoBase = videoPastpaper.getVideoBase();
 		videoBase.setAdminUserId(AdminUser.getCurrentUser().getId());
 		videoBase.setUpdatetime(new Date());
 		videoBaseMapper.insertVideoBase(videoBase);
+		map.put("videoBaseId", videoBase.getId());
 		videoPastpaper.setVideoBaseId(videoBase.getId());
 		// 插入视频详情
 		if (videoPastpaper.getVideoBase() != null && videoPastpaper.getVideoBase().getVideoDetailList() != null && videoPastpaper.getVideoBase().getVideoDetailList().size() > 0) {
@@ -88,15 +91,16 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 				videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
 			}
 		}
-
-		return videoPastpaperMapper.insertVideoPastpaper(videoPastpaper);
+		videoPastpaperMapper.insertVideoPastpaper(videoPastpaper);
+		return map;
 	}
 
 	@Override
-	public void updateVideoPastpaper(VideoPastpaper videoPastpaper) {
+	public Map updateVideoPastpaper(VideoPastpaper videoPastpaper) {
+		Map map = new HashMap();
 		VideoBase videoBase = videoPastpaper.getVideoBase();
 		videoBase.setUpdatetime(new Date());
-		
+		map.put("videoBaseId", videoBase.getId());
 		videoPastpaperMapper.updateVideoPastpaper(videoPastpaper);
 		videoBaseMapper.updateVideoBase(videoBase);
 		
@@ -133,7 +137,7 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 			}
 		}
 		
-
+		return map;
 	}
 
 	@Override
@@ -164,12 +168,6 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 	@Override
 	public List<Map> getVideoPastpaperAndRelevantInfoList(QueryBean queryBean,RowBounds rowBounds) {
 		return videoPastpaperMapper.getVideoPastpaperAndRelevantInfoList(queryBean, rowBounds);
-	}
-
-	@Override
-	public List<VideoPastpaper> getVideoPastpaperAndRelevantInfoListCount(VideoPastpaper videoPastpaper) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

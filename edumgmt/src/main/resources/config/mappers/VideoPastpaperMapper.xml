@@ -28,6 +28,7 @@
 	
 	<select id="getVideoPastpaperAndRelevantInfoList" resultType="java.util.HashMap" >
 
+			
 			SELECT 
 				past.id videoPastpaperId,
 				base.question_id,
@@ -81,77 +82,6 @@
 			    
 			    
 			WHERE 1=1  
-			<!-- SELECT 
-			    past.videoPastpaperId,
-			    base.question_id,
-			    base.id,
-			    base.title,
-			    base.desc,
-			    base.difficulty,
-			    base.status,
-			    base.question_number,
-			    base.profile,
-			    base.updatetime,
-			    past.bankid,
-			    past.bankname,
-			    course.id courseId,
-			    course.name courseName,
-			    past.btid,
-			    past.btname,
-			    past.yearid,
-			    past.year,
-			    past.typeId,
-			    past.typeName,
-			    lecture.id lectureId,
-			    lecture.name lectureName,
-			    lecture.level lectureLevel,
-			    GROUP_CONCAT(baseKw.keywordName) keyword,
-			    GROUP_CONCAT(baseKp.knowledgePointName) knowledge
-			FROM
-			    sh_video_base base
-			        LEFT JOIN
-			    sh_course course ON course.id = base.sh_course_id
-			        LEFT JOIN
-			    sh_lecture lecture ON lecture.id = base.sh_lecture_id
-			        INNER JOIN
-			    (SELECT 
-			        past.sh_video_base_id,
-			            past.id videoPastpaperId,
-			            bank.id bankid,
-			            bank.name bankname,
-			            bt.id btid,
-			            bt.name btname,
-			            year.id yearid,
-			            year.year year,
-			            qtype.id typeId,
-			            qtype.name typeName
-			    FROM
-			        sh_video_pastpaper past
-			    LEFT JOIN sh_questionbank bank ON bank.id = past.sh_questionbank_id
-			    LEFT JOIN sh_questionbank_type bt ON bt.id = past.sh_questionbank_type_id
-			    LEFT JOIN sh_questionbank_year year ON year.id = past.sh_questionbank_year_id
-			    LEFT JOIN sh_question_type qtype ON qtype.id = past.sh_question_type_id) past ON past.sh_video_base_id = base.id
-			        
-			       
-			        LEFT JOIN
-			    (SELECT 
-			        baseKp.sh_video_base_id,
-			            kp.name knowledgePointName,
-			            kp.id knowledgePointId
-			    FROM
-			        sh_video_base_knowledge_point baseKp
-			    LEFT JOIN sh_knowledge_point kp ON baseKp.sh_knowledge_point_id = kp.id) baseKp ON baseKp.sh_video_base_id = base.id
-			        
-			        
-			        LEFT JOIN
-			    (SELECT 
-			        baseKw.sh_video_base_id,
-			            kw.name keywordName,
-			            kw.id keywordId
-			    FROM
-			        sh_video_base_keyword baseKw
-			    LEFT JOIN sh_keyword kw ON baseKw.sh_keyword_id = kw.id) baseKw ON baseKw.sh_video_base_id = base.id
-			WHERE 1 = 1 -->
 				<if test="id != null">
 					and base.id = #{id}
 				</if>
@@ -278,94 +208,75 @@
 	</update>
 </mapper>
 
-
 <!-- SELECT 
-		    a_tab.id videoPastpaperId,
-		    b_tab.question_id,
-		    b_tab.title,
-		    b_tab.desc,
-		    b_tab.courseId,
-		    b_tab.courseName,
-		    b_tab.courseShortName,
-		    b_tab.question_number,
-		    b_tab.knowledgePointName,
-		    b_tab.knowledgePointId,
-		    b_tab.keywordName,
-		    b_tab.keywordId,
-		    b_tab.videoDetailUrl,
-		    b_tab.lectureId,
-		    b_tab.lectureName,
-		    b_tab.lectureLevel,
-	        b_tab.difficulty,
-			c_tab.year,
-		    d_tab.type questionbankType,
-		    d_tab.name questionbankName,
-		    d_tab.id questionbankId,
-		    e_tab.name questionTypeName,
-		    e_tab.id questionTypeId,
-		    g_tab.id questionbankTypeId,
-		    g_tab.name questionbankTypeName
-		    
-		FROM
-	    (SELECT 
-				a_tab.id,
-				a_tab.sh_video_base_id,
-				a_tab.sh_questionbank_id,
-				a_tab.sh_questionbank_year_id,
-				a_tab.sh_question_type_id,
-				a_tab.sh_questionbank_type_id
+			    past.videoPastpaperId,
+			    base.question_id,
+			    base.id,
+			    base.title,
+			    base.desc,
+			    base.difficulty,
+			    base.status,
+			    base.question_number,
+			    base.profile,
+			    base.updatetime,
+			    past.bankid,
+			    past.bankname,
+			    course.id courseId,
+			    course.name courseName,
+			    past.btid,
+			    past.btname,
+			    past.yearid,
+			    past.year,
+			    past.typeId,
+			    past.typeName,
+			    lecture.id lectureId,
+			    lecture.name lectureName,
+			    lecture.level lectureLevel,
+			    GROUP_CONCAT(baseKw.keywordName) keyword,
+			    GROUP_CONCAT(baseKp.knowledgePointName) knowledge
 			FROM
-				sh_video_pastpaper a_tab
-			LIMIT 0 , 20)a_tab
-			
-			left join (
-			
-	            SELECT 
-				b_tab.id,
-				b_tab.question_number,
-				b_tab.question_id,
-				b_tab.title,
-				b_tab.desc,
-				b_tab.sh_admin_user_id,
-				b_tab.sh_course_id,
-				b_tab.sh_lecture_id,
-				a_tab.id courseId,
-				a_tab.name courseName,
-				a_tab.short courseShortName,
-				c_tab.name lectureName,
-				c_tab.level lectureLevel,
-				c_tab.id lectureId,
-	            d_tab.knowledgePointName,
-				d_tab.knowledgePointId,
-				e_tab.keywordName,
-				e_tab.keywordId,
-				b_tab.difficulty,
-				f_tab.url videoDetailUrl
-			FROM
-				sh_video_base b_tab
-	             
-				left join sh_course a_tab on b_tab.sh_course_id = a_tab.id
-				left join sh_lecture c_tab on c_tab.id = b_tab.sh_lecture_id
-				left join (
-								select a_tab.sh_video_base_id,b_tab.name knowledgePointName,b_tab.id knowledgePointId
-				                from sh_video_base_knowledge_point a_tab 
-								left join sh_knowledge_point b_tab on a_tab.sh_knowledge_point_id=b_tab.id
-							 )d_tab on d_tab.sh_video_base_id = b_tab.id
-				left join (
-								select a_tab.sh_video_base_id,b_tab.name keywordName,b_tab.id keywordId
-				                from sh_video_base_keyword a_tab 
-								left join sh_keyword b_tab on a_tab.sh_keyword_id=b_tab.id
-							 )e_tab on e_tab.sh_video_base_id = b_tab.id
-				left join sh_video_detail f_tab on b_tab.id = f_tab.sh_video_base_id
-					 
-			) b_tab on a_tab.sh_video_base_id = b_tab.id
-			left join sh_questionbank_year c_tab on a_tab.sh_questionbank_year_id = c_tab.id
-			left join sh_questionbank d_tab on d_tab.id = a_tab.sh_questionbank_id 
-			left join sh_question_type e_tab on a_tab.sh_question_type_id = e_tab.id
-			left join sh_questionbank_type g_tab on a_tab.sh_questionbank_type_id = g_tab.id
-	        
-			where 1=1
-	        and d_tab.type = '0' -->
-	        <!-- 0：真题、模拟题 -->
-	        
-			<!-- d_tab.id = '2' b_tab.courseId='10' g_tab.id='1' c_tab.year='2014' b_tab.difficulty='1' b_tab.videoDetailUrl is not null-->
+			    sh_video_base base
+			        LEFT JOIN
+			    sh_course course ON course.id = base.sh_course_id
+			        LEFT JOIN
+			    sh_lecture lecture ON lecture.id = base.sh_lecture_id
+			        INNER JOIN
+			    (SELECT 
+			        past.sh_video_base_id,
+			            past.id videoPastpaperId,
+			            bank.id bankid,
+			            bank.name bankname,
+			            bt.id btid,
+			            bt.name btname,
+			            year.id yearid,
+			            year.year year,
+			            qtype.id typeId,
+			            qtype.name typeName
+			    FROM
+			        sh_video_pastpaper past
+			    LEFT JOIN sh_questionbank bank ON bank.id = past.sh_questionbank_id
+			    LEFT JOIN sh_questionbank_type bt ON bt.id = past.sh_questionbank_type_id
+			    LEFT JOIN sh_questionbank_year year ON year.id = past.sh_questionbank_year_id
+			    LEFT JOIN sh_question_type qtype ON qtype.id = past.sh_question_type_id) past ON past.sh_video_base_id = base.id
+			        
+			       
+			        LEFT JOIN
+			    (SELECT 
+			        baseKp.sh_video_base_id,
+			            kp.name knowledgePointName,
+			            kp.id knowledgePointId
+			    FROM
+			        sh_video_base_knowledge_point baseKp
+			    LEFT JOIN sh_knowledge_point kp ON baseKp.sh_knowledge_point_id = kp.id) baseKp ON baseKp.sh_video_base_id = base.id
+			        
+			        
+			        LEFT JOIN
+			    (SELECT 
+			        baseKw.sh_video_base_id,
+			            kw.name keywordName,
+			            kw.id keywordId
+			    FROM
+			        sh_video_base_keyword baseKw
+			    LEFT JOIN sh_keyword kw ON baseKw.sh_keyword_id = kw.id) baseKw ON baseKw.sh_video_base_id = base.id
+			WHERE 1 = 1  -->
+

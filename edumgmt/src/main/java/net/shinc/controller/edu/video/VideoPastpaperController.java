@@ -127,15 +127,12 @@ public class VideoPastpaperController extends AbstractBaseController {
 			return iRestMessage;
 		}
 		try {
-			Integer num = videoPastpaperService.insertVideoPastpaper(videoPastpaper);
-			if (num > 0) {
-				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
-				iRestMessage.setResult(num);
-			} else {
-				iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());
-			}
+			videoPastpaperService.insertVideoPastpaper(videoPastpaper);
+			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			
 		} catch (Exception e) {
 			logger.error("添加真题/模拟题视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
+			iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());
 		}
 		return iRestMessage;
 	}

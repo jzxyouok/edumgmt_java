@@ -113,14 +113,11 @@ public class VideoSelfController extends AbstractBaseController {
 			return iRestMessage;
 		}
 		try {
-			Integer num = videoSelfService.insertVideoSelf(videoSelf);
-			if (num > 0) {
-				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
-				iRestMessage.setResult(num);
-			} else {
-				iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());
-			}
+			videoSelfService.insertVideoSelf(videoSelf);
+			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+				
 		} catch (Exception e) {
+			iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());
 			logger.error("添加自编题视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
 		}
 		return iRestMessage;
