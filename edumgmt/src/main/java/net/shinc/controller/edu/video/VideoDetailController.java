@@ -58,6 +58,7 @@ public class VideoDetailController extends AbstractBaseController {
 				vd.setVideoBaseId(Integer.parseInt(videoBaseId));
 				vd.setStoreInfo(name);
 				vd.setUrl(url);
+				vd.setStoreType("1");
 				
 				String type;
 				int index = name.lastIndexOf(".");
@@ -99,6 +100,17 @@ public class VideoDetailController extends AbstractBaseController {
 				
 				vp.setStoreInfo(name);
 				vp.setVideoBaseId(Integer.parseInt(videoBaseId));
+				vp.setStoreType("1");
+				
+				int index = name.lastIndexOf(".");
+				String title;
+				if(index != -1) {
+					title = name.substring(0, index);
+				} else {
+					title = "unknown";
+				}
+				vp.setTitle(title);
+				
 				vps.insertPic(vp);
 				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
 			} catch(Exception e) {

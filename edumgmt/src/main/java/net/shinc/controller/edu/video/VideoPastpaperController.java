@@ -129,7 +129,8 @@ public class VideoPastpaperController extends AbstractBaseController {
 		try {
 			videoPastpaperService.insertVideoPastpaper(videoPastpaper);
 			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
-			
+			iRestMessage.setResult(videoPastpaper.getVideoBaseId());
+			logger.info("videoBaseId:"+videoPastpaper.getVideoBaseId());
 		} catch (Exception e) {
 			logger.error("添加真题/模拟题视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
 			iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());

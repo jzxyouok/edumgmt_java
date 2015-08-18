@@ -60,6 +60,7 @@ public class QiniuController extends AbstractBaseController {
 		msg.setCode(ErrorMessage.SUCCESS.getCode());
 		map.put("domain", domain);
 		map.put("upToken", token);
+		map.put("videoBaseId", videoBaseId);
 		msg.setResult(map);
 		
 		return msg;
