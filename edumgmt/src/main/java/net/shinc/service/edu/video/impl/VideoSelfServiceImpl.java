@@ -21,6 +21,7 @@ import net.shinc.orm.mybatis.mappers.edu.VideoDetailMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoSelfMapper;
 import net.shinc.service.edu.video.VideoSelfService;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,7 @@ public class VideoSelfServiceImpl implements VideoSelfService {
 		VideoBase videoBase = videoSelf.getVideoBase();
 		videoBase.setAdminUserId(AdminUser.getCurrentUser().getId());
 		videoBase.setUpdatetime(new Date());
+		videoBase.setProfile(StringUtils.trim(videoBase.getProfile()));
 		videoBaseMapper.insertVideoBase(videoBase);
 		map.put("videoBaseId", videoBase.getId());
 		videoSelf.setVideoBaseId(videoBase.getId());
@@ -91,7 +93,7 @@ public class VideoSelfServiceImpl implements VideoSelfService {
 		Map map = new HashMap();
 		VideoBase videoBase = videoSelf.getVideoBase();
 		videoBase.setUpdatetime(new Date());
-		
+		videoBase.setProfile(StringUtils.trim(videoBase.getProfile()));
 		videoSelfMapper.updateVideoSelf(videoSelf);
 		videoBaseMapper.updateVideoBase(videoBase);
 		map.put("videoBaseId", videoBase.getId());

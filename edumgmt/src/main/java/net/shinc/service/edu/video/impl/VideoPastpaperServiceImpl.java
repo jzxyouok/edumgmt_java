@@ -21,6 +21,7 @@ import net.shinc.orm.mybatis.mappers.edu.VideoDetailMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoPastpaperMapper;
 import net.shinc.service.edu.video.VideoPastpaperService;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,6 +59,7 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 		VideoBase videoBase = videoPastpaper.getVideoBase();
 		videoBase.setAdminUserId(AdminUser.getCurrentUser().getId());
 		videoBase.setUpdatetime(new Date());
+		videoBase.setProfile(StringUtils.trim(videoBase.getProfile()));
 		videoBaseMapper.insertVideoBase(videoBase);
 		map.put("videoBaseId", videoBase.getId());
 		videoPastpaper.setVideoBaseId(videoBase.getId());
@@ -102,6 +104,7 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 		videoBase.setUpdatetime(new Date());
 		map.put("videoBaseId", videoBase.getId());
 		videoPastpaperMapper.updateVideoPastpaper(videoPastpaper);
+		videoBase.setProfile(StringUtils.trim(videoBase.getProfile()));
 		videoBaseMapper.updateVideoBase(videoBase);
 		
 		// 更新视频详情

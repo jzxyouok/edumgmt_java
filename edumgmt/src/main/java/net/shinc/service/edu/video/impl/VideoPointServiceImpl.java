@@ -21,6 +21,7 @@ import net.shinc.orm.mybatis.mappers.edu.VideoDetailMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoPointMapper;
 import net.shinc.service.edu.video.VideoPointService;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,7 @@ public class VideoPointServiceImpl implements VideoPointService {
 	public Map insertVideoPoint(VideoPoint videoPoint) {
 		Map map = new HashMap();
 		VideoBase videoBase = videoPoint.getVideoBase();
+		videoBase.setProfile(StringUtils.trim(videoBase.getProfile()));
 		videoBase.setAdminUserId(AdminUser.getCurrentUser().getId());
 		videoBase.setUpdatetime(new Date());
 		videoBaseMapper.insertVideoBase(videoBase);
@@ -94,6 +96,7 @@ public class VideoPointServiceImpl implements VideoPointService {
 		//考虑到目前仅2个字段无需更新，后续如果字段增多，考虑加上此更新方法
 		//videoPointMapper.updateVideoPoint(videoPoint);
 		map.put("videoBaseId", videoBase.getId());
+		videoBase.setProfile(StringUtils.trim(videoBase.getProfile()));
 		videoBaseMapper.updateVideoBase(videoBase);
 		
 		// 更新视频详情
