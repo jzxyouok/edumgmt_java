@@ -87,8 +87,8 @@ public class VideoPointServiceImpl implements VideoPointService {
 	public void updateVideoPoint(VideoPoint videoPoint) {
 		VideoBase videoBase = videoPoint.getVideoBase();
 		videoBase.setUpdatetime(new Date());
-		
-		videoPointMapper.updateVideoPoint(videoPoint);
+		//考虑到目前仅2个字段无需更新，后续如果字段增多，考虑加上此更新方法
+		//videoPointMapper.updateVideoPoint(videoPoint);
 		videoBaseMapper.updateVideoBase(videoBase);
 		
 		// 更新视频详情

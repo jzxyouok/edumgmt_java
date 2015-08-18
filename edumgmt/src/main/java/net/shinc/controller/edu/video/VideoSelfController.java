@@ -77,10 +77,11 @@ public class VideoSelfController extends AbstractBaseController {
 		PageBounds pageBounds = new PageBounds(page,pageSize);
 		try {
 			List<Map> list = videoSelfService.getVideoSelfAndRelevantInfoList(videoSelfQueryBean,pageBounds);
-			if (null != list && list.size() > 0) {
+			if (null != list && list.size() > 0 && list.get(0) != null) {
+				Map sfd = list.get(0);
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(list);
-				msg.setPageInfo(((PageList)list).getPaginator());
+				msg.setPageInfo(((PageList)list).getPaginator());// 返回分页信息
 			} else {
 				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
 			}
@@ -125,49 +126,36 @@ public class VideoSelfController extends AbstractBaseController {
 		return iRestMessage;
 	}
 
-//	/**
-//	 * @Title: getVideoSelfAndRelevantInfo
-//	 * @Description: 获得自编题视频详细信息
-//	 * @param videoSelf
-//	 * @param bindingResult
-//	 * @param locale
-//	 * @return IRestMessage
-//	 */
-//	@RequestMapping(value = "/getVideoSelfAndRelevantInfo")
-//	@ResponseBody
-//	public IRestMessage getVideoSelfAndRelevantInfo(VideoSelf videoSelf) {
-//		IRestMessage iRestMessage = getRestMessage();
-//		try {
-//
-//			List<Map> list = videoSelfService.getVideoSelfAndRelevantInfoList(videoSelf);
-//			if (list != null && list.size() > 0) {
-//				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
-//				iRestMessage.setResult(list.get(0));
-//			} else {
-//				iRestMessage.setCode(ErrorMessage.RESULT_EMPTY.getCode());
-//			}
-//		} catch (Exception e) {
-//			logger.error("获得自编题视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
-//		}
-//		return iRestMessage;
-//	}
-
 	/**
 	 * @Title: getVideoSelfAndRelevantInfo
-	 * @Description: 更新自编题视频 入参： { "id": 3, "questionTypeId": 1, "videoBase": {
-	 *               "id": 22, "adminUserId": 2, "courseId": 2, "lectureId": 2,
-	 *               "questionId": "12313354", "title": "title", "desc": "desc",
-	 *               "profile": "profile", "difficulty": "1", "questionNumber":
-	 *               "66", "course": { "id": 1 }, "keywordList": [{ "id": 3 }, {
-	 *               "id": 4 }] } }
+	 * @Description: 获得自编题视频详细信息
 	 * @param videoSelf
 	 * @param bindingResult
 	 * @param locale
 	 * @return IRestMessage
 	 */
+	@RequestMapping(value = "/getVideoSelfAndRelevantInfo")
+	@ResponseBody
+	public IRestMessage getVideoSelfAndRelevantInfo(VideoSelfQueryBean videoSelfQueryBean) {
+		IRestMessage iRestMessage = getRestMessage();
+		try {
+
+			List<Map> list = videoSelfService.getVideoSelfAndRelevantInfoList(videoSelfQueryBean,new PageBounds());
+			if (list != null && list.size() > 0 && list.get(0) != null) {
+				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+				iRestMessage.setResult(list.get(0));
+			} else {
+				iRestMessage.setCode(ErrorMessage.RESULT_EMPTY.getCode());
+			}
+		} catch (Exception e) {
+			logger.error("获得自编题视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
+		}
+		return iRestMessage;
+	}
+
 	@RequestMapping(value = "/updateVideoSelfAndRelevantInfo")
 	@ResponseBody
-	public IRestMessage updateVideoSelfAndRelevantInfo(@RequestBody @Valid VideoSelf videoSelf, BindingResult bindingResult, Locale locale) {
+	public IRestMessage updateVideoSelfAndRelevantInfo(@Valid VideoSelf videoSelf, BindingResult bindingResult, Locale locale) {
 		IRestMessage iRestMessage = getRestMessage();
 		if (bindingResult.hasErrors()) {
 			iRestMessage.setDetail(ShincUtil.getErrorFields(bindingResult));

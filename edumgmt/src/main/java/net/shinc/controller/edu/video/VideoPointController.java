@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
 /**
  * @ClassName: VideoPointController
@@ -76,9 +77,10 @@ public class VideoPointController extends AbstractBaseController {
 		PageBounds pageBounds = new PageBounds(page,pageSize);
 		try {
 			List<Map> list = videoPointService.getVideoPointAndRelevantInfoList(videoPointQueryBean,pageBounds);
-			if (null != list && list.size() > 0) {
+			if (null != list && list.size() > 0 && list.get(0) != null) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(list);
+				msg.setPageInfo(((PageList)list).getPaginator());
 			} else {
 				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
 			}
@@ -123,32 +125,32 @@ public class VideoPointController extends AbstractBaseController {
 		return iRestMessage;
 	}
 
-//	/**
-//	 * @Title: getVideoPointAndRelevantInfo
-//	 * @Description: 获得知识点视频视频详细信息
-//	 * @param videoPoint
-//	 * @param bindingResult
-//	 * @param locale
-//	 * @return IRestMessage
-//	 */
-//	@RequestMapping(value = "/getVideoPointAndRelevantInfo")
-//	@ResponseBody
-//	public IRestMessage getVideoPointAndRelevantInfo(VideoPoint videoPoint) {
-//		IRestMessage iRestMessage = getRestMessage();
-//		try {
-//
-//			List<Map> list = videoPointService.getVideoPointAndRelevantInfoList(videoPoint);
-//			if (list != null && list.size() > 0) {
-//				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
-//				iRestMessage.setResult(list.get(0));
-//			} else {
-//				iRestMessage.setCode(ErrorMessage.RESULT_EMPTY.getCode());
-//			}
-//		} catch (Exception e) {
-//			logger.error("获得知识点视频视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
-//		}
-//		return iRestMessage;
-//	}
+	/**
+	 * @Title: getVideoPointAndRelevantInfo
+	 * @Description: 获得知识点视频视频详细信息
+	 * @param videoPoint
+	 * @param bindingResult
+	 * @param locale
+	 * @return IRestMessage
+	 */
+	@RequestMapping(value = "/getVideoPointAndRelevantInfo")
+	@ResponseBody
+	public IRestMessage getVideoPointAndRelevantInfo(VideoPointQueryBean videoPointQueryBean) {
+		IRestMessage iRestMessage = getRestMessage();
+		try {
+
+			List<Map> list = videoPointService.getVideoPointAndRelevantInfoList(videoPointQueryBean, new PageBounds());
+			if (list != null && list.size() > 0 && list.get(0) != null) {
+				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+				iRestMessage.setResult(list.get(0));
+			} else {
+				iRestMessage.setCode(ErrorMessage.RESULT_EMPTY.getCode());
+			}
+		} catch (Exception e) {
+			logger.error("获得知识点视频视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
+		}
+		return iRestMessage;
+	}
 
 	/**
 	 * @Title: getVideoPointAndRelevantInfo
@@ -166,7 +168,7 @@ public class VideoPointController extends AbstractBaseController {
 	 */
 	@RequestMapping(value = "/updateVideoPointAndRelevantInfo")
 	@ResponseBody
-	public IRestMessage updateVideoPointAndRelevantInfo(@RequestBody @Valid VideoPoint videoPoint, BindingResult bindingResult, Locale locale) {
+	public IRestMessage updateVideoPointAndRelevantInfo(@Valid VideoPoint videoPoint, BindingResult bindingResult, Locale locale) {
 		IRestMessage iRestMessage = getRestMessage();
 		if (bindingResult.hasErrors()) {
 			iRestMessage.setDetail(ShincUtil.getErrorFields(bindingResult));
