@@ -72,6 +72,7 @@ public class LoginLogoutController extends AbstractBaseController {
 		msg.setCode(ErrorMessage.SUCCESS.getCode());
 		return msg;
 	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/testLogin")
 	public Map testLogin() {
