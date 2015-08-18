@@ -28,7 +28,7 @@
 	
 	<select id="getVideoPastpaperAndRelevantInfoList" resultType="java.util.HashMap" >
 
-			<!-- SELECT 
+			SELECT 
 				past.id videoPastpaperId,
 				base.question_id,
 				base.id,
@@ -80,8 +80,8 @@
 			    left join sh_knowledge_point kp on kp.id = pt.sh_knowledge_point_id
 			    
 			    
-			WHERE 1=1  -->
-			SELECT 
+			WHERE 1=1  
+			<!-- SELECT 
 			    past.videoPastpaperId,
 			    base.question_id,
 			    base.id,
@@ -131,6 +131,8 @@
 			    LEFT JOIN sh_questionbank_type bt ON bt.id = past.sh_questionbank_type_id
 			    LEFT JOIN sh_questionbank_year year ON year.id = past.sh_questionbank_year_id
 			    LEFT JOIN sh_question_type qtype ON qtype.id = past.sh_question_type_id) past ON past.sh_video_base_id = base.id
+			        
+			       
 			        LEFT JOIN
 			    (SELECT 
 			        baseKp.sh_video_base_id,
@@ -139,6 +141,8 @@
 			    FROM
 			        sh_video_base_knowledge_point baseKp
 			    LEFT JOIN sh_knowledge_point kp ON baseKp.sh_knowledge_point_id = kp.id) baseKp ON baseKp.sh_video_base_id = base.id
+			        
+			        
 			        LEFT JOIN
 			    (SELECT 
 			        baseKw.sh_video_base_id,
@@ -147,8 +151,7 @@
 			    FROM
 			        sh_video_base_keyword baseKw
 			    LEFT JOIN sh_keyword kw ON baseKw.sh_keyword_id = kw.id) baseKw ON baseKw.sh_video_base_id = base.id
-			WHERE
-			    1 = 1
+			WHERE 1 = 1 -->
 				<if test="id != null">
 					and base.id = #{id}
 				</if>
