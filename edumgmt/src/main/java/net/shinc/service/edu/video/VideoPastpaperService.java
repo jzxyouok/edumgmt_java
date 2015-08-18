@@ -18,9 +18,21 @@ public interface VideoPastpaperService {
 
 	public void deleteVideoPastpaperById(Integer id);
 
-	public Integer insertVideoPastpaper(VideoPastpaper videoPastpaper);
+	/**
+	 * @Title: insertVideoPastpaper
+	 * @Description: 返回Map key = videoBaseId value = 基础信息id
+	 * @param videoPastpaper
+	 * @return Map
+	 */
+	public Map insertVideoPastpaper(VideoPastpaper videoPastpaper);
 
-	public void updateVideoPastpaper(VideoPastpaper videoPastpaper);
+	/**
+	 * @Title: updateVideoPastpaper
+	 * @Description: 返回Map key = videoBaseId value = 基础信息id
+	 * @param videoPastpaper
+	 * @return Map
+	 */
+	public Map updateVideoPastpaper(VideoPastpaper videoPastpaper);
 
 	public VideoPastpaper getByVideoPastpaperById(Integer id);
 
@@ -36,23 +48,11 @@ public interface VideoPastpaperService {
 	 */
 	public VideoPastpaper getVideoPastpaper(VideoPastpaper videoPastpaper);
 
-	
 	/**
 	 * @param videoPastpaper
 	 * @param rowBounds
 	 * @return 分页得到真题模拟题列表信息
 	 */
-	public List<Map> getVideoPastpaperAndRelevantInfoList(QueryBean queryBean,RowBounds rowBounds);
-	
-	
-	//public List<Map> getVideoPastpaperAndRelevantById(QueryBean queryBean,RowBounds rowBounds);
-	
-	/**
-	 * @Title: getVideoPastpaperAndRelevantInfoListCount
-	 * @Description: 得到真题、模拟题以及其相关信息列表总条数
-	 * @param videoPastpaper
-	 * @return List<VideoPastpaper>
-	 */
-	public List<VideoPastpaper> getVideoPastpaperAndRelevantInfoListCount(VideoPastpaper videoPastpaper);
+	public List<Map> getVideoPastpaperAndRelevantInfoList(QueryBean queryBean, RowBounds rowBounds);
 
 }

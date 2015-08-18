@@ -18,9 +18,21 @@ public interface VideoPointService {
 
 	public void deleteVideoPointById(Integer id);
 
-	public Integer insertVideoPoint(VideoPoint videoPoint);
+	/**
+	 * @Title: insertVideoPoint
+	 * @Description: 返回Map key = videoBaseId value = 基础信息id
+	 * @param videoPoint
+	 * @return Map
+	 */
+	public Map insertVideoPoint(VideoPoint videoPoint);
 
-	public void updateVideoPoint(VideoPoint videoPoint);
+	/**
+	 * @Title: updateVideoPoint
+	 * @Description: 返回Map key = videoBaseId value = 基础信息id
+	 * @param videoPoint
+	 * @return Map
+	 */
+	public Map updateVideoPoint(VideoPoint videoPoint);
 
 	public VideoPoint getByVideoPointById(Integer id);
 
@@ -42,7 +54,7 @@ public interface VideoPointService {
 	 * @param videoPastpaper
 	 * @return List<VideoPastpaper>
 	 */
-	public List<Map> getVideoPointAndRelevantInfoList(QueryBean queryBean,RowBounds rowBounds);
+	public List<Map> getVideoPointAndRelevantInfoList(QueryBean queryBean, RowBounds rowBounds);
 
 	/**
 	 * @Title: getVideoPointAndRelevantInfoListCount

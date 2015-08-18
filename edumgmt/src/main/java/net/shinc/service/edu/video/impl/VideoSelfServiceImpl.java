@@ -1,6 +1,7 @@
 package net.shinc.service.edu.video.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,11 +46,13 @@ public class VideoSelfServiceImpl implements VideoSelfService {
 	private VideoBaseKeywordMapper videoBaseKeywordMapper;
 
 	@Override
-	public Integer insertVideoSelf(VideoSelf videoSelf) {
+	public Map insertVideoSelf(VideoSelf videoSelf) {
+		Map map = new HashMap();
 		VideoBase videoBase = videoSelf.getVideoBase();
 		videoBase.setAdminUserId(AdminUser.getCurrentUser().getId());
 		videoBase.setUpdatetime(new Date());
 		videoBaseMapper.insertVideoBase(videoBase);
+		map.put("videoBaseId", videoBase.getId());
 		videoSelf.setVideoBaseId(videoBase.getId());
 		// 插入视频详情
 		if (videoSelf.getVideoBase() != null && videoSelf.getVideoBase().getVideoDetailList() != null && videoSelf.getVideoBase().getVideoDetailList().size() > 0) {
@@ -79,18 +82,19 @@ public class VideoSelfServiceImpl implements VideoSelfService {
 				videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
 			}
 		}
-
-		return videoSelfMapper.insertVideoSelf(videoSelf);
+		videoSelfMapper.insertVideoSelf(videoSelf);
+		return map;
 	}
 
 	@Override
-	public void updateVideoSelf(VideoSelf videoSelf) {
+	public Map updateVideoSelf(VideoSelf videoSelf) {
+		Map map = new HashMap();
 		VideoBase videoBase = videoSelf.getVideoBase();
 		videoBase.setUpdatetime(new Date());
 		
 		videoSelfMapper.updateVideoSelf(videoSelf);
 		videoBaseMapper.updateVideoBase(videoBase);
-		
+		map.put("videoBaseId", videoBase.getId());
 		// 更新视频详情
 		if (videoSelf.getVideoBase() != null && videoSelf.getVideoBase().getVideoDetailList() != null && videoSelf.getVideoBase().getVideoDetailList().size() > 0) {
 			for (VideoDetail vd : (List<VideoDetail>) videoSelf.getVideoBase().getVideoDetailList()) {
@@ -123,7 +127,7 @@ public class VideoSelfServiceImpl implements VideoSelfService {
 				videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
 			}
 		}
-
+		return map;
 	}
 
 	@Override

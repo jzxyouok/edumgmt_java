@@ -18,9 +18,21 @@ public interface VideoSelfService {
 
 	public void deleteVideoSelfById(Integer id);
 
-	public Integer insertVideoSelf(VideoSelf videoSelf);
+	/**
+	 * @Title: insertVideoSelf
+	 * @Description: 返回Map key = videoBaseId value = 基础信息id
+	 * @param videoSelf
+	 * @return Map
+	 */
+	public Map insertVideoSelf(VideoSelf videoSelf);
 
-	public void updateVideoSelf(VideoSelf videoSelf);
+	/**
+	 * @Title: updateVideoSelf
+	 * @Description: 返回Map key = videoBaseId value = 基础信息id
+	 * @param videoSelf
+	 * @return Map
+	 */
+	public Map updateVideoSelf(VideoSelf videoSelf);
 
 	public VideoSelf getByVideoSelfById(Integer id);
 
@@ -42,7 +54,7 @@ public interface VideoSelfService {
 	 * @param videoPastpaper
 	 * @return List<VideoPastpaper>
 	 */
-	public List<Map> getVideoSelfAndRelevantInfoList(QueryBean queryBean,RowBounds rowBounds);
+	public List<Map> getVideoSelfAndRelevantInfoList(QueryBean queryBean, RowBounds rowBounds);
 
 	/**
 	 * @Title: getVideoSelfAndRelevantInfoListCount

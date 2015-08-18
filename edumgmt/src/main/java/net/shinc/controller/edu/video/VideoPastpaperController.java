@@ -82,7 +82,7 @@ public class VideoPastpaperController extends AbstractBaseController {
 			PageBounds pb = new PageBounds(page,pageSize);
 			List<Map> list = videoPastpaperService.getVideoPastpaperAndRelevantInfoList(videoPastpaper,pb);
 			
-			if (null != list && list.size() > 0) {
+			if (null != list && list.size() > 0 && list.get(0) != null) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
 				msg.setResult(list);
 				msg.setPageInfo(((PageList)list).getPaginator());
@@ -127,97 +127,44 @@ public class VideoPastpaperController extends AbstractBaseController {
 			return iRestMessage;
 		}
 		try {
-			Integer num = videoPastpaperService.insertVideoPastpaper(videoPastpaper);
-			if (num > 0) {
-				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
-				iRestMessage.setResult(num);
-			} else {
-				iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());
-			}
+			videoPastpaperService.insertVideoPastpaper(videoPastpaper);
+			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			
 		} catch (Exception e) {
 			logger.error("添加真题/模拟题视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
+			iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());
 		}
 		return iRestMessage;
 	}
 
-	/**
-	 * @Title: getVideoPastpaperAndRelevantInfo
-	 * @Description: 获得真题/模拟题视频详细信息 信息：{ "code": "SUCCESS", "message": "交易成功",
-	 *               "detail": null, "result": [{ "id": 10,
-	 * 
-	 *               "videoBase": {
-	 * 
-	 *               "questionId=题目id字符串": "12313354", "title": "title", "desc":
-	 *               "desc",
-	 * 
-	 *               "difficulty": "1",
-	 * 
-	 *               "questionNumber=题号": "66",
-	 * 
-	 *               "course": { "id": 2, "name": "数学", "shortName": "数" },
-	 *               "lecture=讲解人": { "id": 2, "name": "张天才", "level": "100" },
-	 *               "keywordList": [{ "id": 3, "name": "化学" }, { "id": 4,
-	 *               "name": "英语" }], "knowledgetPointList": [] },
-	 *               "questionBankType": { "id": 165,
-	 * 
-	 *               "name": "河北卷" }, "questionBankYear": {
-	 * 
-	 *               "year": "2011" }, "questionType": { "id": 1, "name": "单选题"
-	 *               }, "questionBank": { "id": 1, "name": "中考真题", "type": "0"
-	 *               }, "hasVideo=是否有视频": null }] }
-	 * @param videoPastpaper
-	 * @param bindingResult
-	 * @param locale
-	 * @return IRestMessage
-	 */
+
 	@RequestMapping(value = "/getVideoPastpaperAndRelevantInfo")
 	@ResponseBody
-	public IRestMessage getVideoPastpaperAndRelevantInfo(VideoPastpaper videoPastpaper) {
+	public IRestMessage getVideoPastpaperAndRelevantInfo(VideoPastpaperQueryBean videoPastpaperQuery) {
 		IRestMessage iRestMessage = getRestMessage();
-//		try {
-//
-//			List<VideoPastpaper> list = videoPastpaperService.getVideoPastpaperAndRelevantInfoList(videoPastpaper);
-//			if (list != null && list.size() > 0) {
-//				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
-//				iRestMessage.setResult(list.get(0));
-//			} else {
-//				iRestMessage.setCode(ErrorMessage.RESULT_EMPTY.getCode());
-//			}
-//		} catch (Exception e) {
-//			logger.error("获得真题/模拟题视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
-//		}
+		try {
+
+			List<Map> list = videoPastpaperService.getVideoPastpaperAndRelevantInfoList(videoPastpaperQuery,new PageBounds());
+			if (list != null && list.size() > 0 && list.get(0) != null) {
+				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+				iRestMessage.setResult(list.get(0));
+			} else {
+				iRestMessage.setCode(ErrorMessage.RESULT_EMPTY.getCode());
+			}
+		} catch (Exception e) {
+			logger.error("获得真题/模拟题视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
+		}
 		return iRestMessage;
 	}
 
-	/**
-	
-	 */
-	/**
-	 * @Title: getVideoPastpaperAndRelevantInfo
-	 * @Description: 更新真题/模拟题视频 入参：{ "id=真题/模拟题id": 1, "questionbankId": 1,
-	 *               "questionbankYearId": 139, "questionTypeId": 1,
-	 *               "questionbankTypeId": 165, "videoBase": { "id=基础id": 15,
-	 *               "adminUserId": 2, "courseId": 2, "lectureId": 2,
-	 *               "questionId": "12313354", "title": "title", "desc": "desc",
-	 *               "profile": "profile", "difficulty": "1", "questionNumber":
-	 *               "66", "keywordList": [ { "id": 3 },"knowledgetPointList": [
-	 *               { "id": 3 }, { "id": 3 } ] { "id": 4 } ],
-	 *               "videoDetailList": [ { "type": "1", "url": "urla" }, {
-	 *               "type": "2", "url": "urlb" } ] } } 同添加相比新增 id=真题/模拟题id
-	 *               id=基础id
-	 * @param videoPastpaper
-	 * @param bindingResult
-	 * @param locale
-	 * @return IRestMessage
-	 */
 	@RequestMapping(value = "/updateVideoPastpaperAndRelevantInfo")
 	@ResponseBody
-	public IRestMessage updateVideoPastpaperAndRelevantInfo(@RequestBody @Valid VideoPastpaper videoPastpaper, BindingResult bindingResult, Locale locale) {
+	public IRestMessage updateVideoPastpaperAndRelevantInfo(@Valid VideoPastpaper videoPastpaper, BindingResult bindingResult, Locale locale) {
 		IRestMessage iRestMessage = getRestMessage();
 		if (bindingResult.hasErrors()) {
 			iRestMessage.setDetail(ShincUtil.getErrorFields(bindingResult));
 			return iRestMessage;
-		}
+		}	
 		try {
 			videoPastpaperService.updateVideoPastpaper(videoPastpaper);
 			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());

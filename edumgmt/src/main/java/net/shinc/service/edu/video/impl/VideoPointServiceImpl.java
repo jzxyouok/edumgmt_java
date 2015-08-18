@@ -1,6 +1,7 @@
 package net.shinc.service.edu.video.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,11 +46,13 @@ public class VideoPointServiceImpl implements VideoPointService {
 	private VideoBaseKeywordMapper videoBaseKeywordMapper;
 
 	@Override
-	public Integer insertVideoPoint(VideoPoint videoPoint) {
+	public Map insertVideoPoint(VideoPoint videoPoint) {
+		Map map = new HashMap();
 		VideoBase videoBase = videoPoint.getVideoBase();
 		videoBase.setAdminUserId(AdminUser.getCurrentUser().getId());
 		videoBase.setUpdatetime(new Date());
 		videoBaseMapper.insertVideoBase(videoBase);
+		map.put("videoBaseId", videoBase.getId());
 		videoPoint.setVideoBaseId(videoBase.getId());
 		// 插入视频详情
 		if (videoPoint.getVideoBase() != null && videoPoint.getVideoBase().getVideoDetailList() != null && videoPoint.getVideoBase().getVideoDetailList().size() > 0) {
@@ -79,16 +82,18 @@ public class VideoPointServiceImpl implements VideoPointService {
 				videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
 			}
 		}
-
-		return videoPointMapper.insertVideoPoint(videoPoint);
+		videoPointMapper.insertVideoPoint(videoPoint);
+		return map;
 	}
 
 	@Override
-	public void updateVideoPoint(VideoPoint videoPoint) {
+	public Map updateVideoPoint(VideoPoint videoPoint) {
+		Map map = new HashMap();
 		VideoBase videoBase = videoPoint.getVideoBase();
 		videoBase.setUpdatetime(new Date());
-		
-		videoPointMapper.updateVideoPoint(videoPoint);
+		//考虑到目前仅2个字段无需更新，后续如果字段增多，考虑加上此更新方法
+		//videoPointMapper.updateVideoPoint(videoPoint);
+		map.put("videoBaseId", videoBase.getId());
 		videoBaseMapper.updateVideoBase(videoBase);
 		
 		// 更新视频详情
@@ -123,7 +128,7 @@ public class VideoPointServiceImpl implements VideoPointService {
 				videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
 			}
 		}
-
+		return map;
 	}
 
 	@Override
