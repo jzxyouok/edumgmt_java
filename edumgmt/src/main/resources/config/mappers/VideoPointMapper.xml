@@ -9,6 +9,7 @@
 	<select id="getVideoPointAndRelevantInfoList" resultType="java.util.HashMap" >
 
 		SELECT
+		videoPointTab.id videoPointId,
 		base.question_id,
 		base.id,
 		base.title,
