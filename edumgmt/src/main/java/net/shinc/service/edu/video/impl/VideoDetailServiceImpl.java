@@ -1,5 +1,6 @@
 package net.shinc.service.edu.video.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import net.shinc.orm.mybatis.bean.edu.VideoDetail;
@@ -29,6 +30,7 @@ public class VideoDetailServiceImpl implements VideoDetailService {
 
 	@Override
 	public Integer insertVideoDetail(VideoDetail videoDetail) {
+		videoDetail.setUpdatetime(new Date());
 		return videoDetailMapper.insertVideoDetail(videoDetail);
 	}
 

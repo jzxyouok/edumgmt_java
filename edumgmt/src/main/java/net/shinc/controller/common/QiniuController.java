@@ -46,8 +46,8 @@ public class QiniuController extends AbstractBaseController {
 	 */
 	@RequestMapping(value = "/getUploadToken")
 	@ResponseBody
-	public IRestMessage getUploadToken(@RequestParam(value="videoBaseId",required = true) String videoBaseId,
-			@RequestParam(value="originFileName",required = false) String originFileName) {
+	public IRestMessage getUploadToken(@RequestParam(value = "videoBaseId", required = true) String videoBaseId,
+			@RequestParam(value = "originFileName", required = false) String originFileName) {
 		IRestMessage msg = getRestMessage();
 		long now = System.currentTimeMillis();
 		StringMap policy = new StringMap();

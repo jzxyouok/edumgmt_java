@@ -1,7 +1,5 @@
 package net.shinc.controller.edu.video;
 
-import java.util.Date;
-
 import net.shinc.common.AbstractBaseController;
 import net.shinc.common.ErrorMessage;
 import net.shinc.common.IRestMessage;
@@ -50,10 +48,8 @@ public class VideoDetailController extends AbstractBaseController {
 	 */
 	@RequestMapping(value = "/addVideoDetail")
 	@ResponseBody
-	public IRestMessage addVideoDetail(@RequestParam("videoBaseId") String videoBaseId,
-			@RequestParam("name") String name) {
+	public IRestMessage addVideoDetail(@RequestParam("videoBaseId") String videoBaseId, @RequestParam("name") String name, @RequestParam("sourceLink") String url) {
 		IRestMessage iRestMessage = getRestMessage();
-		
 		if(StringUtils.isEmpty(videoBaseId) || StringUtils.isEmpty(name)) {
 			iRestMessage.setCode(ErrorMessage.ERROR_PARAM_ERROR.getCode());
 		} else {
@@ -61,7 +57,8 @@ public class VideoDetailController extends AbstractBaseController {
 				VideoDetail vd = new VideoDetail();
 				vd.setVideoBaseId(Integer.parseInt(videoBaseId));
 				vd.setStoreInfo(name);
-				vd.setUpdatetime(new Date());
+				vd.setUrl(url);
+				
 				String type;
 				int index = name.lastIndexOf(".");
 				if(index != -1) {
@@ -85,17 +82,15 @@ public class VideoDetailController extends AbstractBaseController {
 	}
 	
 	/**
-	 * 七牛上传成功后，更新视频信息
+	 * 七牛上传成功后，更新截图信息
 	 * @param videoBaseId
 	 * @param name
 	 * @return
 	 */
 	@RequestMapping(value = "/addVideoPic")
 	@ResponseBody
-	public IRestMessage addVideoPic(@RequestParam("videoBaseId") String videoBaseId,
-			@RequestParam("name") String name) {
+	public IRestMessage addVideoPic(@RequestParam("videoBaseId") String videoBaseId, @RequestParam("name") String name) {
 		IRestMessage iRestMessage = getRestMessage();
-		
 		if(StringUtils.isEmpty(videoBaseId) || StringUtils.isEmpty(name)) {
 			iRestMessage.setCode(ErrorMessage.ERROR_PARAM_ERROR.getCode());
 		} else {
