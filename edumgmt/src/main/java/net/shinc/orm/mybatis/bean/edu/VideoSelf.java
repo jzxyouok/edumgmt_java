@@ -36,8 +36,18 @@ public class VideoSelf {
 	// 有无视频
 	private String hasVideo;
 
+	private String kewordIds;
+	
 	public Integer getId() {
 		return id;
+	}
+
+	public String getKewordIds() {
+		return kewordIds;
+	}
+
+	public void setKewordIds(String kewordIds) {
+		this.kewordIds = kewordIds;
 	}
 
 	public void setId(Integer id) {

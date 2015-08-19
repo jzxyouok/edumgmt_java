@@ -46,6 +46,8 @@ public class VideoPastpaper {
 
 	// 有无视频
 	private String hasVideo;
+	
+	private String kewordIds;
 
 	public Integer getId() {
 		return id;
@@ -53,6 +55,14 @@ public class VideoPastpaper {
 
 	public Integer getQuestionTypeId() {
 		return questionTypeId;
+	}
+
+	public String getKewordIds() {
+		return kewordIds;
+	}
+
+	public void setKewordIds(String kewordIds) {
+		this.kewordIds = kewordIds;
 	}
 
 	public void setQuestionTypeId(Integer questionTypeId) {

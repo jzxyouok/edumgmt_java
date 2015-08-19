@@ -76,13 +76,11 @@ public class VideoSelfServiceImpl implements VideoSelfService {
 		}
 
 		// 插入关键字关系
-		if (videoSelf.getVideoBase() != null && videoSelf.getVideoBase().getKeywordList() != null && videoSelf.getVideoBase().getKeywordList().size() > 0) {
-			for (Keyword vd : (List<Keyword>) videoSelf.getVideoBase().getKeywordList()) {
-				VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
-				videoBaseKeywordKey.setVideoBaseId(videoBase.getId());
-				videoBaseKeywordKey.setKeywordId(vd.getId());
-				videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
-			}
+		for (String keywordId : StringUtils.split(videoSelf.getKewordIds(), ",")) {
+			VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
+			videoBaseKeywordKey.setVideoBaseId(videoBase.getId());
+			videoBaseKeywordKey.setKeywordId(Integer.valueOf(keywordId));
+			videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
 		}
 		videoSelfMapper.insertVideoSelf(videoSelf);
 		return map;
@@ -119,16 +117,18 @@ public class VideoSelfServiceImpl implements VideoSelfService {
 		}
 
 		// 更新关键字关系
-		if (videoSelf.getVideoBase() != null && videoSelf.getVideoBase().getKeywordList() != null
-				&& videoSelf.getVideoBase().getKeywordList().size() > 0) {
-			for (Keyword vd : (List<Keyword>) videoSelf.getVideoBase().getKeywordList()) {
-				VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
-				videoBaseKeywordKey.setVideoBaseId(videoBase.getId());
-				videoBaseKeywordKey.setKeywordId(vd.getId());
-				videoBaseKeywordMapper.deleteVideoKeywordById(videoBaseKeywordKey);
+		if(StringUtils.isNotEmpty(videoSelf.getKewordIds())){
+			VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
+			videoBaseKeywordKey.setVideoBaseId(videoBase.getId());	
+			videoBaseKeywordMapper.deleteVideoKeywordById(videoBaseKeywordKey);
+			
+			for (String keywordId : StringUtils.split(videoSelf.getKewordIds(), ",")) {
+				videoBaseKeywordKey = new VideoBaseKeywordKey();
+				videoBaseKeywordKey.setVideoBaseId(videoBase.getId());	
+				videoBaseKeywordKey.setKeywordId(Integer.valueOf(keywordId));
 				videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
 			}
-		}
+		}	
 		return map;
 	}
 

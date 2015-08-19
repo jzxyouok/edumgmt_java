@@ -54,7 +54,9 @@
 			    lecture.name lectureName,
 			    lecture.level lectureLevel,
 			    group_concat(sk.name) keyword,
-			    group_concat(kp.name) knowledge
+			    cast(group_concat(sk.id) AS CHAR)  keywordId,
+			    group_concat(kp.name) knowledge,
+			    cast(group_concat(kp.id) AS CHAR)  knowledgeId
 			    
 			   
 			    
@@ -117,7 +119,7 @@
 					<foreach item="item" index="index" collection="keywordList"
 				      open="(" separator="," close=")">
 				        ${item}
-				  </foreach>
+				  	</foreach>
 				</if>
 				<if test="knowledgePointList != null">
 					and and pt.sh_knowledge_point_id  in 

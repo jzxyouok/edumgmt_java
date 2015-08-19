@@ -84,14 +84,11 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 		}
 
 		// 插入关键字关系
-		if (videoPastpaper.getVideoBase() != null && videoPastpaper.getVideoBase().getKeywordList() != null
-				&& videoPastpaper.getVideoBase().getKeywordList().size() > 0) {
-			for (Keyword vd : (List<Keyword>) videoPastpaper.getVideoBase().getKeywordList()) {
-				VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
-				videoBaseKeywordKey.setVideoBaseId(videoBase.getId());
-				videoBaseKeywordKey.setKeywordId(vd.getId());
-				videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
-			}
+		for (String keywordId : StringUtils.split(videoPastpaper.getKewordIds(), ",")) {
+			VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
+			videoBaseKeywordKey.setVideoBaseId(videoBase.getId());
+			videoBaseKeywordKey.setKeywordId(Integer.valueOf(keywordId));
+			videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
 		}
 		videoPastpaperMapper.insertVideoPastpaper(videoPastpaper);
 		return map;
@@ -129,16 +126,18 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 		}
 
 		// 更新关键字关系
-		if (videoPastpaper.getVideoBase() != null && videoPastpaper.getVideoBase().getKeywordList() != null
-				&& videoPastpaper.getVideoBase().getKeywordList().size() > 0) {
-			for (Keyword vd : (List<Keyword>) videoPastpaper.getVideoBase().getKeywordList()) {
-				VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
-				videoBaseKeywordKey.setVideoBaseId(videoBase.getId());
-				videoBaseKeywordKey.setKeywordId(vd.getId());
-				videoBaseKeywordMapper.deleteVideoKeywordById(videoBaseKeywordKey);
+		if(StringUtils.isNotEmpty(videoPastpaper.getKewordIds())){
+			VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
+			videoBaseKeywordKey.setVideoBaseId(videoBase.getId());	
+			videoBaseKeywordMapper.deleteVideoKeywordById(videoBaseKeywordKey);
+			
+			for (String keywordId : StringUtils.split(videoPastpaper.getKewordIds(), ",")) {
+				videoBaseKeywordKey = new VideoBaseKeywordKey();
+				videoBaseKeywordKey.setVideoBaseId(videoBase.getId());	
+				videoBaseKeywordKey.setKeywordId(Integer.valueOf(keywordId));
 				videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
 			}
-		}
+		}	
 		
 		return map;
 	}

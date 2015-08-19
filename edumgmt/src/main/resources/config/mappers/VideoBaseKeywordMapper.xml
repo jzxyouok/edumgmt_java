@@ -9,7 +9,7 @@
   <delete id="deleteVideoKeywordById" parameterType="VideoBaseKeywordKey" >
     delete from sh_video_base_keyword
     where sh_video_base_id = #{videoBaseId,jdbcType=INTEGER}
-      and sh_keyword_id = #{keywordId,jdbcType=INTEGER}
+      <!-- and sh_keyword_id = #{keywordId,jdbcType=INTEGER} -->
   </delete>
   
   <insert id="insertVideoKeyword" parameterType="VideoBaseKeywordKey" >
