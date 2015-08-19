@@ -21,6 +21,7 @@ import net.shinc.orm.mybatis.mappers.edu.VideoDetailMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoPointMapper;
 import net.shinc.service.edu.video.VideoPointService;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,7 @@ public class VideoPointServiceImpl implements VideoPointService {
 	public Map insertVideoPoint(VideoPoint videoPoint) {
 		Map map = new HashMap();
 		VideoBase videoBase = videoPoint.getVideoBase();
+		videoBase.setProfile(StringUtils.trim(videoBase.getProfile()));
 		videoBase.setAdminUserId(AdminUser.getCurrentUser().getId());
 		videoBase.setUpdatetime(new Date());
 		videoBaseMapper.insertVideoBase(videoBase);
@@ -74,13 +76,11 @@ public class VideoPointServiceImpl implements VideoPointService {
 		}
 
 		// 插入关键字关系
-		if (videoPoint.getVideoBase() != null && videoPoint.getVideoBase().getKeywordList() != null && videoPoint.getVideoBase().getKeywordList().size() > 0) {
-			for (Keyword vd : (List<Keyword>) videoPoint.getVideoBase().getKeywordList()) {
-				VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
-				videoBaseKeywordKey.setVideoBaseId(videoBase.getId());
-				videoBaseKeywordKey.setKeywordId(vd.getId());
-				videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
-			}
+		for (String keywordId : StringUtils.split(videoPoint.getKewordIds(), ",")) {
+			VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
+			videoBaseKeywordKey.setVideoBaseId(videoBase.getId());
+			videoBaseKeywordKey.setKeywordId(Integer.valueOf(keywordId));
+			videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
 		}
 		videoPointMapper.insertVideoPoint(videoPoint);
 		return map;
@@ -94,6 +94,7 @@ public class VideoPointServiceImpl implements VideoPointService {
 		//考虑到目前仅2个字段无需更新，后续如果字段增多，考虑加上此更新方法
 		//videoPointMapper.updateVideoPoint(videoPoint);
 		map.put("videoBaseId", videoBase.getId());
+		videoBase.setProfile(StringUtils.trim(videoBase.getProfile()));
 		videoBaseMapper.updateVideoBase(videoBase);
 		
 		// 更新视频详情
@@ -116,15 +117,16 @@ public class VideoPointServiceImpl implements VideoPointService {
 				videoBaseKnowledgePointMapper.insert(videoBaseKnowledgePointKey);
 			}
 		}
-
 		// 更新关键字关系
-		if (videoPoint.getVideoBase() != null && videoPoint.getVideoBase().getKeywordList() != null
-				&& videoPoint.getVideoBase().getKeywordList().size() > 0) {
-			for (Keyword vd : (List<Keyword>) videoPoint.getVideoBase().getKeywordList()) {
-				VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
-				videoBaseKeywordKey.setVideoBaseId(videoBase.getId());
-				videoBaseKeywordKey.setKeywordId(vd.getId());
-				videoBaseKeywordMapper.deleteVideoKeywordById(videoBaseKeywordKey);
+		if(StringUtils.isNotEmpty(videoPoint.getKewordIds())){
+			VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
+			videoBaseKeywordKey.setVideoBaseId(videoBase.getId());	
+			videoBaseKeywordMapper.deleteVideoKeywordById(videoBaseKeywordKey);
+			
+			for (String keywordId : StringUtils.split(videoPoint.getKewordIds(), ",")) {
+				videoBaseKeywordKey = new VideoBaseKeywordKey();
+				videoBaseKeywordKey.setVideoBaseId(videoBase.getId());	
+				videoBaseKeywordKey.setKeywordId(Integer.valueOf(keywordId));
 				videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
 			}
 		}

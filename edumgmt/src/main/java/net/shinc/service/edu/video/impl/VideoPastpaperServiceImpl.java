@@ -21,6 +21,7 @@ import net.shinc.orm.mybatis.mappers.edu.VideoDetailMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoPastpaperMapper;
 import net.shinc.service.edu.video.VideoPastpaperService;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,6 +59,7 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 		VideoBase videoBase = videoPastpaper.getVideoBase();
 		videoBase.setAdminUserId(AdminUser.getCurrentUser().getId());
 		videoBase.setUpdatetime(new Date());
+		videoBase.setProfile(StringUtils.trim(videoBase.getProfile()));
 		videoBaseMapper.insertVideoBase(videoBase);
 		map.put("videoBaseId", videoBase.getId());
 		videoPastpaper.setVideoBaseId(videoBase.getId());
@@ -82,14 +84,11 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 		}
 
 		// 插入关键字关系
-		if (videoPastpaper.getVideoBase() != null && videoPastpaper.getVideoBase().getKeywordList() != null
-				&& videoPastpaper.getVideoBase().getKeywordList().size() > 0) {
-			for (Keyword vd : (List<Keyword>) videoPastpaper.getVideoBase().getKeywordList()) {
-				VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
-				videoBaseKeywordKey.setVideoBaseId(videoBase.getId());
-				videoBaseKeywordKey.setKeywordId(vd.getId());
-				videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
-			}
+		for (String keywordId : StringUtils.split(videoPastpaper.getKewordIds(), ",")) {
+			VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
+			videoBaseKeywordKey.setVideoBaseId(videoBase.getId());
+			videoBaseKeywordKey.setKeywordId(Integer.valueOf(keywordId));
+			videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
 		}
 		videoPastpaperMapper.insertVideoPastpaper(videoPastpaper);
 		return map;
@@ -102,6 +101,7 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 		videoBase.setUpdatetime(new Date());
 		map.put("videoBaseId", videoBase.getId());
 		videoPastpaperMapper.updateVideoPastpaper(videoPastpaper);
+		videoBase.setProfile(StringUtils.trim(videoBase.getProfile()));
 		videoBaseMapper.updateVideoBase(videoBase);
 		
 		// 更新视频详情
@@ -126,16 +126,18 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 		}
 
 		// 更新关键字关系
-		if (videoPastpaper.getVideoBase() != null && videoPastpaper.getVideoBase().getKeywordList() != null
-				&& videoPastpaper.getVideoBase().getKeywordList().size() > 0) {
-			for (Keyword vd : (List<Keyword>) videoPastpaper.getVideoBase().getKeywordList()) {
-				VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
-				videoBaseKeywordKey.setVideoBaseId(videoBase.getId());
-				videoBaseKeywordKey.setKeywordId(vd.getId());
-				videoBaseKeywordMapper.deleteVideoKeywordById(videoBaseKeywordKey);
+		if(StringUtils.isNotEmpty(videoPastpaper.getKewordIds())){
+			VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
+			videoBaseKeywordKey.setVideoBaseId(videoBase.getId());	
+			videoBaseKeywordMapper.deleteVideoKeywordById(videoBaseKeywordKey);
+			
+			for (String keywordId : StringUtils.split(videoPastpaper.getKewordIds(), ",")) {
+				videoBaseKeywordKey = new VideoBaseKeywordKey();
+				videoBaseKeywordKey.setVideoBaseId(videoBase.getId());	
+				videoBaseKeywordKey.setKeywordId(Integer.valueOf(keywordId));
 				videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
 			}
-		}
+		}	
 		
 		return map;
 	}

@@ -27,7 +27,9 @@
 		lecture.name lectureName,
 		lecture.level lectureLevel,
 		group_concat(sk.name) keyword,
-		group_concat(kp.name) knowledge
+	    cast(group_concat(sk.id) AS CHAR)  keywordId,
+	    group_concat(kp.name) knowledge,
+	    cast(group_concat(kp.id) AS CHAR)  knowledgeId
 
 		FROM
 		sh_video_base base
@@ -67,13 +69,21 @@
 		<if test="hasVideo == '1'">
 			and exists (select 1 from sh_video_detail detail where detail.sh_video_base_id = base.id)
 		</if>
-		<if test="keywordList != null">
-			and kw.sh_keyword_id in (${keywordList})
+		<if test="keywordList != null ">
+			and kw.sh_keyword_id in 
+			<foreach item="item" index="index" collection="keywordList"
+		      open="(" separator="," close=")">
+		        ${item}
+		  	</foreach>
 		</if>
 		<if test="knowledgePointList != null">
-			and and pt.sh_knowledge_point_id in (${knowledgePointList})
+			and and pt.sh_knowledge_point_id  in 
+			<foreach item="item" index="index" collection="knowledgePointList"
+		      open="(" separator="," close=")">
+		        ${item}
+		  	</foreach>
 		</if>
-
+		group by id
 	</select>
 
 	<select id="getVideoPointList" resultMap="BaseResultMap" parameterType="VideoPoint">
