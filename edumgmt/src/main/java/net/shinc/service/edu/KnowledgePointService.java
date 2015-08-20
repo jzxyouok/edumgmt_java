@@ -14,32 +14,18 @@ import net.shinc.orm.mybatis.bean.edu.TreeNode;
  */
 public interface KnowledgePointService {
 
-	/**
-	 * 添加知识点
-	 * @param KnowledgePoint
-	 * @return
-	 */
 	public Integer addKnowledgePoint(KnowledgePoint knowledgePoint);
-	
 	/**
-	 * 修改知识点
-	 * @param KnowledgePoint
-	 * @return
+	* @Title: addKnowledgePointBaseVideo
+	* @Description: 插入知识点和视频关系
+	* @param ids
+	* @param videoBaseId  void
 	 */
+	
 	public Integer updateKnowledgePoint(KnowledgePoint knowledgePoint);
 	
-	/**
-	 * 删除知识点
-	 * @param KnowledgePoint
-	 * @return
-	 */
 	public Integer deleteKnowledgePointById(Integer id);
 	
-	/**
-	 * 根据id查询知识点
-	 * @param KnowledgePoint
-	 * @return
-	 */
 	public KnowledgePoint getKnowledgePointById(Integer id);
 	
 	/**

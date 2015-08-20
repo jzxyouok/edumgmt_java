@@ -53,10 +53,10 @@
 			    lecture.id lectureId,
 			    lecture.name lectureName,
 			    lecture.level lectureLevel,
-			    group_concat(sk.name) keyword,
-			    cast(group_concat(sk.id) AS CHAR)  keywordId,
-			    group_concat(kp.name) knowledge,
-			    cast(group_concat(kp.id) AS CHAR)  knowledgeId
+			    group_concat(distinct sk.name) keyword,
+			    cast(group_concat(distinct sk.id) AS CHAR)  keywordId,
+			    group_concat(distinct kp.name) knowledge,
+			    cast(group_concat(distinct kp.id) AS CHAR)  knowledgeId
 			    
 			   
 			    
@@ -234,8 +234,8 @@
 			    lecture.id lectureId,
 			    lecture.name lectureName,
 			    lecture.level lectureLevel,
-			    GROUP_CONCAT(baseKw.keywordName) keyword,
-			    GROUP_CONCAT(baseKp.knowledgePointName) knowledge
+			    GROUP_CONCAT(distinct baseKw.keywordName) keyword,
+			    GROUP_CONCAT(distinct baseKp.knowledgePointName) knowledge
 			FROM
 			    sh_video_base base
 			        LEFT JOIN
