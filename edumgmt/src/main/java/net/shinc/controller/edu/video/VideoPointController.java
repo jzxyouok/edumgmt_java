@@ -174,6 +174,7 @@ public class VideoPointController extends AbstractBaseController {
 		try {
 			videoPointService.updateVideoPoint(videoPoint);
 			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			iRestMessage.setResult(videoPoint.getVideoBase().getId());
 		} catch (Exception e) {
 			logger.error("更新知识点视频视频失败==>" + ExceptionUtils.getStackTrace(e));
 		}
