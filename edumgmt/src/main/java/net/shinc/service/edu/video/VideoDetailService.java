@@ -31,5 +31,12 @@ public interface VideoDetailService {
 	 * @return VideoDetail
 	 */
 	public VideoDetail getVideoDetail(VideoDetail videoDetail);
+	
+	/**
+	 * 根据videoBaseId查询视频列表
+	 * @param videoBaseId
+	 * @return
+	 */
+	public List<VideoDetail> getVideoDetailListByVideoBaseId(Integer videoBaseId);
 
 }

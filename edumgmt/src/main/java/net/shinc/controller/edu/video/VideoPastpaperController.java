@@ -1,5 +1,6 @@
 package net.shinc.controller.edu.video;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -11,8 +12,13 @@ import net.shinc.common.ErrorMessage;
 import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
 import net.shinc.formbean.edu.video.VideoPastpaperQueryBean;
+import net.shinc.orm.mybatis.bean.edu.VideoDetail;
 import net.shinc.orm.mybatis.bean.edu.VideoPastpaper;
+import net.shinc.orm.mybatis.bean.edu.VideoPic;
+import net.shinc.service.common.QNService;
+import net.shinc.service.edu.video.VideoDetailService;
 import net.shinc.service.edu.video.VideoPastpaperService;
+import net.shinc.service.edu.video.VideoPicService;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
@@ -27,6 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
+import com.qiniu.util.StringMap;
 
 /**
  * @ClassName: VideoPastpaperController
@@ -45,6 +52,21 @@ public class VideoPastpaperController extends AbstractBaseController {
 
 	@Autowired
 	private VideoPastpaperService videoPastpaperService;
+	
+	@Autowired
+	private VideoDetailService videoDetailService;
+	
+	@Autowired
+	private VideoPicService videoPicService;
+	
+	@Autowired
+	private QNService qnservice;
+	
+	@Value("${qiniu.eduonline.domain}")
+	private String domain;
+	
+	@Value("${qiniu.eduonline.bucketName}")
+	private String bucketName;
 
 	/**
 	 * @Title: getVideoPastpaperAndRelevantInfoList
@@ -168,9 +190,50 @@ public class VideoPastpaperController extends AbstractBaseController {
 		try {
 			videoPastpaperService.updateVideoPastpaper(videoPastpaper);
 			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			
+			//result放入视频和截图信息
+			Map<String,Object> resultMap = new HashMap<String,Object>();
+			Integer videoBaseId = videoPastpaper.getVideoBase().getId();
+			List<VideoDetail> list = videoDetailService.getVideoDetailListByVideoBaseId(videoBaseId);
+			List<VideoPic> pic = videoPicService.selectPicByVideoBaseId(videoBaseId);
+			resultMap.put("video", list);
+			resultMap.put("pic", pic);
+			resultMap.put("videoBaseId", videoBaseId);
+			iRestMessage.setResult(resultMap);
+			
 		} catch (Exception e) {
 			logger.error("更新真题/模拟题视频失败==>" + ExceptionUtils.getStackTrace(e));
 		}
 		return iRestMessage;
+	}
+	
+	/**
+	 * 获取文件上传token,和已经有的视频及截图信息
+	 * @return
+	 */
+	@RequestMapping(value = "/getVideoAndPicAndUploadToken")
+	@ResponseBody
+	public IRestMessage getVideoAndPicAndUploadToken(@RequestParam(value = "videoBaseId", required = true) String videoBaseId,
+			@RequestParam(value = "originFileName", required = false) String originFileName) {
+		IRestMessage msg = getRestMessage();
+		long now = System.currentTimeMillis();
+		StringMap policy = new StringMap();
+		policy.put("returnBody", "{\"key\": $(key), \"hash\": $(etag), \"videoBaseId\":$(x:videoBaseId)}");
+		String token = qnservice.getUploadToken(bucketName, null, 3600, policy, true);
+		
+		Integer vbid = Integer.parseInt(videoBaseId);
+		List<VideoDetail> list = videoDetailService.getVideoDetailListByVideoBaseId(vbid);
+		List<VideoPic> pic = videoPicService.selectPicByVideoBaseId(vbid);
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		msg.setCode(ErrorMessage.SUCCESS.getCode());
+		map.put("domain", domain);
+		map.put("upToken", token);
+		map.put("videoBaseId", videoBaseId);
+		map.put("videoList", list);
+		map.put("picList", pic);
+		msg.setResult(map);
+		
+		return msg;
 	}
 }

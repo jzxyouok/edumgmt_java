@@ -33,6 +33,16 @@
 		where type = #{type,jdbcType=VARCHAR}
 		and sh_video_base_id = #{videoBaseId,jdbcType=INTEGER}
 	</select>
+	
+	<select id="getVideoDetailListByVideoBaseId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+			type, sh_video_base_id, url, updatetime, store_info, store_type
+		from 
+			sh_video_detail
+		where 1 = 1
+			and sh_video_base_id = #{videoBaseId,jdbcType=INTEGER}
+	</select>
+	
 	<delete id="deleteVideoDetailById" parameterType="VideoDetail">
 		delete from sh_video_detail
 		where type = #{type,jdbcType=VARCHAR}
