@@ -1,5 +1,10 @@
 package net.shinc.orm.mybatis.bean.edu;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /** 
  * @ClassName KnowledgePoint 
  * @Description 知识点
@@ -16,6 +21,8 @@ public class KnowledgePoint {
 
     private String name;
     
+    private Integer parentId;
+    
     public KnowledgePoint() {
 	}
     
@@ -27,6 +34,16 @@ public class KnowledgePoint {
 	
 	public KnowledgePoint(Integer id) {
 		this.id = id;
+	}
+
+
+
+	public Integer getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 
 	public Integer getId() {

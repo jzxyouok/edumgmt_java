@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.shinc.orm.mybatis.bean.edu.Course;
 import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
+import net.shinc.orm.mybatis.bean.edu.TreeNode;
 
 /**
  * @ClassName KnowledgePointService 
@@ -72,4 +73,15 @@ public interface KnowledgePointService {
 	 * @return
 	 */
 	public Boolean isUsedKnowledgePoint(KnowledgePoint knowledgePoint);
+	
+	/**
+	 * 递归知识点树结构列表
+	 * @Title: getKnowledgePointListTree
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param parentId
+	 * @return List<KnowledgePoint>
+	 */
+	List<TreeNode<KnowledgePoint>> getKnowledgePointListTree();
+	
+	
 }
