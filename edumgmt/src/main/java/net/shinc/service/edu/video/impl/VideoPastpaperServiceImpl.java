@@ -7,8 +7,6 @@ import java.util.Map;
 
 import net.shinc.orm.mybatis.bean.common.AdminUser;
 import net.shinc.orm.mybatis.bean.common.QueryBean;
-import net.shinc.orm.mybatis.bean.edu.Keyword;
-import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
 import net.shinc.orm.mybatis.bean.edu.VideoBase;
 import net.shinc.orm.mybatis.bean.edu.VideoBaseKeywordKey;
 import net.shinc.orm.mybatis.bean.edu.VideoBaseKnowledgePointKey;
@@ -60,6 +58,7 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 		videoBase.setAdminUserId(AdminUser.getCurrentUser().getId());
 		videoBase.setUpdatetime(new Date());
 		videoBase.setProfile(StringUtils.trim(videoBase.getProfile()));
+		videoBase.setQuestionId(String.valueOf(System.currentTimeMillis()));
 		videoBaseMapper.insertVideoBase(videoBase);
 		map.put("videoBaseId", videoBase.getId());
 		videoPastpaper.setVideoBaseId(videoBase.getId());

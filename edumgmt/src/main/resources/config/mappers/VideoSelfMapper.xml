@@ -93,6 +93,7 @@
 		  	</foreach>
 		</if>
 		group by id
+		order by base.updatetime desc
 
 	</select>
 	<select id="getVideoSelfList" resultMap="BaseResultMap" parameterType="VideoSelf">
