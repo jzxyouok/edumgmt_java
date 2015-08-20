@@ -65,5 +65,13 @@ public class VideoDetailServiceImpl implements VideoDetailService {
 		}
 	}
 
+	@Override
+	public List<VideoDetail> getVideoDetailListByVideoBaseId(Integer videoBaseId) {
+		if(null != videoBaseId) {
+			List<VideoDetail> list = videoDetailMapper.getVideoDetailListByVideoBaseId(videoBaseId);
+			return list;
+		}
+		return null;
+	}
 
 }
