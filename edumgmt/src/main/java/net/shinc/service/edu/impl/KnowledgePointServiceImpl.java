@@ -9,17 +9,18 @@ import java.util.Map;
 import net.shinc.orm.mybatis.bean.edu.Course;
 import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
 import net.shinc.orm.mybatis.bean.edu.TreeNode;
+import net.shinc.orm.mybatis.bean.edu.VideoBaseKnowledgePointKey;
 import net.shinc.orm.mybatis.mappers.edu.KnowledgePointMapper;
+import net.shinc.orm.mybatis.mappers.edu.VideoBaseKnowledgePointMapper;
 import net.shinc.service.edu.KnowledgePointService;
 import net.shinc.service.edu.video.VideoBaseKnowledgePointService;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.google.gson.Gson;
 
 /**
  * @ClassName KnowledgePointServiceImpl 
@@ -32,6 +33,9 @@ public class KnowledgePointServiceImpl implements KnowledgePointService {
 
 	@Autowired
 	private KnowledgePointMapper knowledgePointMapper;
+	@Autowired
+	private VideoBaseKnowledgePointMapper videoBaseKnowledgePointMapper;
+	
 	
 	@Autowired
 	private VideoBaseKnowledgePointService videoBaseKnowledgePointService;

@@ -38,12 +38,22 @@ public class VideoSelf {
 
 	private String kewordIds;
 	
+	private String knowledgePointIds;
+	
 	public Integer getId() {
 		return id;
 	}
 
 	public String getKewordIds() {
 		return kewordIds;
+	}
+
+	public String getKnowledgePointIds() {
+		return knowledgePointIds;
+	}
+
+	public void setKnowledgePointIds(String knowledgePointIds) {
+		this.knowledgePointIds = knowledgePointIds;
 	}
 
 	public void setKewordIds(String kewordIds) {
