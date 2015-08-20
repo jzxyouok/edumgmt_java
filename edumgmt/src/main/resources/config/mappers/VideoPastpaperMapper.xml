@@ -122,7 +122,7 @@
 				  	</foreach>
 				</if>
 				<if test="knowledgePointList != null">
-					and and pt.sh_knowledge_point_id  in 
+					and pt.sh_knowledge_point_id  in 
 					<foreach item="item" index="index" collection="knowledgePointList"
 				      open="(" separator="," close=")">
 				        ${item}

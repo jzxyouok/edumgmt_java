@@ -1,98 +1,120 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="net.shinc.orm.mybatis.mappers.edu.KnowledgePointMapper" >
-  <resultMap id="BaseResultMap" type="KnowledgePoint" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="sh_course_id" property="courseId" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <association property="course" column="sh_course_id" javaType="Course" select="net.shinc.orm.mybatis.mappers.edu.CourseMapper.selectCourseById"></association>
-  </resultMap>
-  
-  <sql id="Base_Column_List" >
-    id, sh_course_id, name
-  </sql>
-  
-  <select id="selectKnowledgePointById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    	<include refid="Base_Column_List" />
-    from 
-    	sh_knowledge_point
-    where 
-    	id = #{id,jdbcType=INTEGER}
-  </select>
-  
-  <select id="getKnowledgePointList" resultMap="BaseResultMap" parameterType="KnowledgePoint" >
-  	select 
-    	<include refid="Base_Column_List" />
-    from 
-    	sh_knowledge_point
-    where 1 = 1
-    	<if test="null != course">
-  			and sh_course_id = #{course.id,jdbcType=INTEGER}
-  		</if>
-  		<if test="null != name" >
-        	and name like #{name}
-        </if>
-  </select>
-  
-  <delete id="deleteKnowledgePointById" parameterType="java.lang.Integer" >
-    delete from 
-    	sh_knowledge_point
-    where 
-    	id = #{id,jdbcType=INTEGER}
-  </delete>
-  
-  <insert id="addKnowledgePoint" parameterType="KnowledgePoint" >
-    insert into sh_knowledge_point
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="course != null" >
-        sh_course_id,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="course != null" >
-        #{course.id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  
-  <update id="updateKnowledgePoint" parameterType="KnowledgePoint" >
-    update sh_knowledge_point
-    <set >
-      <if test="course != null" >
-        sh_course_id = #{course.id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  
-  <select id="hasKnowledgePoint" parameterType="KnowledgePoint" resultMap="BaseResultMap">
-  	select
-  		<include refid="Base_Column_List" />
-  	from 
-  		sh_knowledge_point
-  	where 1 = 1
-  		<if test="null != course">
-  			and sh_course_id = #{course.id,jdbcType=INTEGER}
-  		</if>
-  		<if test="name != null" >
-        	and name = #{name,jdbcType=VARCHAR}
-      </if>
-  </select>
-  
+<mapper namespace="net.shinc.orm.mybatis.mappers.edu.KnowledgePointMapper">
+	<resultMap id="BaseResultMap" type="KnowledgePoint">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="sh_course_id" property="courseId" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId"/>
+		<association property="course" column="sh_course_id" javaType="Course" select="net.shinc.orm.mybatis.mappers.edu.CourseMapper.selectCourseById"></association>
+	</resultMap>
+	
+	<resultMap id="knowledgePointResultMap" type="KnowledgePoint">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="sh_course_id" property="courseId" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId"/>
+	</resultMap>
+	<resultMap id="knowledgePointTreeResultMap" type="TreeNode">
+			<id column="id" property="id" jdbcType="INTEGER" />
+			<result column="parent_id" property="parent" />
+			<association property="item" javaType="KnowledgePoint">  
+		        <result column="id" property="id"/>  
+		        <result column="name" property="name"/>  
+	    	</association>
+	</resultMap>
+
+	<select id="selectKnowledgePointById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		id, sh_course_id, name,parent_id
+		from
+		sh_knowledge_point
+		where
+		id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="getKnowledgePointList" resultMap="knowledgePointResultMap" parameterType="KnowledgePoint">
+		select
+		id, sh_course_id, name,parent_id
+		from
+		sh_knowledge_point
+		where 1 = 1
+		<if test="null != course">
+			and sh_course_id = #{course.id,jdbcType=INTEGER}
+		</if>
+		<if test="null != name">
+			and name like #{name}
+		</if>
+		<if test="null != parentId">
+			and parent_id = #{parentId}
+		</if>
+	</select>
+	<select id="getKnowledgePointListTree" resultMap="knowledgePointTreeResultMap">
+		select
+		id, sh_course_id, name,parent_id
+		from
+		sh_knowledge_point
+	
+	</select>
+	
+	<delete id="deleteKnowledgePointById" parameterType="java.lang.Integer">
+		delete from
+		sh_knowledge_point
+		where
+		id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<insert id="addKnowledgePoint" parameterType="KnowledgePoint">
+		insert into sh_knowledge_point
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="course != null">
+				sh_course_id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="course != null">
+				#{course.id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateKnowledgePoint" parameterType="KnowledgePoint">
+		update sh_knowledge_point
+		<set>
+			<if test="course != null">
+				sh_course_id = #{course.id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="hasKnowledgePoint" parameterType="KnowledgePoint" resultMap="BaseResultMap">
+		select
+		id, sh_course_id, name
+		from
+		
+		where 1 = 1
+		<if test="null != course">
+			and sh_course_id = #{course.id,jdbcType=INTEGER}
+		</if>
+		<if test="name != null">
+			and name = #{name,jdbcType=VARCHAR}
+		</if>
+	</select>
+
 </mapper>

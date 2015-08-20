@@ -1,7 +1,10 @@
 package net.shinc.controller.edu;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -11,6 +14,7 @@ import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
 import net.shinc.orm.mybatis.bean.edu.Course;
 import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
+import net.shinc.orm.mybatis.bean.edu.TreeNode;
 import net.shinc.orm.mybatis.bean.edu.VideoBase;
 import net.shinc.service.edu.KnowledgePointService;
 import net.shinc.service.edu.video.VideoBaseKnowledgePointService;
@@ -24,6 +28,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 /**
  * @ClassName KnowledgePointController 
@@ -87,6 +93,60 @@ public class KnowledgePointController extends AbstractBaseController {
 			logger.error("知识点列表查询失败==>" + ExceptionUtils.getStackTrace(e));
 		}
 		return msg;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/getKnowledgePointTreeList")
+	public IRestMessage getKnowledgePointTreeList() {
+		IRestMessage msg = getRestMessage();
+		try {
+			List list = knowledgePointService.getKnowledgePointListTree();
+	
+			Map map = new HashMap();
+			for(Iterator<TreeNode<KnowledgePoint>> it = list.iterator(); it.hasNext();){
+				map.putAll(dealTreeNode(it.next()));
+			}
+		
+			msg.setResult(map);
+			msg.setCode(ErrorMessage.SUCCESS.getCode());
+		} catch(Exception e) {
+			logger.error(ExceptionUtils.getStackTrace(e));
+		}
+		return msg ;
+	}
+	// 转换成aec数结构所需json结构
+	public Map dealTreeNode(TreeNode<KnowledgePoint> node) {
+		Map map = new HashMap();
+		if(node.isLeaf()) {
+			Map tmp = new HashMap();
+			tmp.put("name", node.getItem().getName());
+			tmp.put("type", "item");
+			tmp.put("id", node.getItem().getId());
+			
+			map.put(node.getItem().getId(), tmp);// 以id为key 节点对象为value
+			return map;
+		} else {
+			Map tmp = new HashMap();
+			tmp.put("name", node.getItem().getName());
+			tmp.put("type", "folder");
+			tmp.put("id", node.getItem().getId());
+			
+			Map childrenMap = new HashMap();
+			
+			Map childMap = new HashMap();
+			
+			List<TreeNode<KnowledgePoint>> childList = node.getChild();
+			for(Iterator<TreeNode<KnowledgePoint>> it = childList.iterator(); it.hasNext();) {
+				TreeNode<KnowledgePoint> tmpNode = it.next();
+				childMap.putAll(dealTreeNode(tmpNode));
+			}
+			childrenMap.put("children", childMap);
+			tmp.put("additionalParameters", childrenMap);
+			map.put(node.getItem().getId(), tmp);// 以id为key 节点对象为value
+			return map;
+		}
+		
 	}
 	
 	/**
