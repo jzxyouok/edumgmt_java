@@ -207,33 +207,4 @@ public class VideoPastpaperController extends AbstractBaseController {
 		return iRestMessage;
 	}
 	
-	/**
-	 * 获取文件上传token,和已经有的视频及截图信息
-	 * @return
-	 */
-	@RequestMapping(value = "/getVideoAndPicAndUploadToken")
-	@ResponseBody
-	public IRestMessage getVideoAndPicAndUploadToken(@RequestParam(value = "videoBaseId", required = true) String videoBaseId,
-			@RequestParam(value = "originFileName", required = false) String originFileName) {
-		IRestMessage msg = getRestMessage();
-		long now = System.currentTimeMillis();
-		StringMap policy = new StringMap();
-		policy.put("returnBody", "{\"key\": $(key), \"hash\": $(etag), \"videoBaseId\":$(x:videoBaseId)}");
-		String token = qnservice.getUploadToken(bucketName, null, 3600, policy, true);
-		
-		Integer vbid = Integer.parseInt(videoBaseId);
-		List<VideoDetail> list = videoDetailService.getVideoDetailListByVideoBaseId(vbid);
-		List<VideoPic> pic = videoPicService.selectPicByVideoBaseId(vbid);
-		
-		Map<String,Object> map = new HashMap<String,Object>();
-		msg.setCode(ErrorMessage.SUCCESS.getCode());
-		map.put("domain", domain);
-		map.put("upToken", token);
-		map.put("videoBaseId", videoBaseId);
-		map.put("videoList", list);
-		map.put("picList", pic);
-		msg.setResult(map);
-		
-		return msg;
-	}
 }
