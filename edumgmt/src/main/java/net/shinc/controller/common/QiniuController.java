@@ -8,6 +8,7 @@ import net.shinc.common.ErrorMessage;
 import net.shinc.common.IRestMessage;
 import net.shinc.service.common.QNService;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +20,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qiniu.util.StringMap;
 
-
 /**
- * 
  * 七牛存储
  * @author zhangtaichao 2015年8月17日
- *
  */
 @Controller
 @RequestMapping(value="/qiniu")
 public class QiniuController extends AbstractBaseController {
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private QNService qnservice;
 	
@@ -38,7 +38,6 @@ public class QiniuController extends AbstractBaseController {
 	
 	@Value("${qiniu.eduonline.bucketName}")
 	private String bucketName;
-	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	/**
 	 * 获取文件上传token
@@ -65,4 +64,39 @@ public class QiniuController extends AbstractBaseController {
 		
 		return msg;
 	}
+	
+	/**
+	 * 获取文件下载url
+	 * @return
+	 */
+	@RequestMapping(value = "/getDownloadUrl")
+	@ResponseBody
+	public IRestMessage getDownloadUrl(String baseUrl, String expires) {
+		IRestMessage msg = getRestMessage();
+		try {
+			long time = Long.parseLong(expires);
+			String url = qnservice.getDownloadUrl(baseUrl, time);
+			logger.info(url);
+			msg.setCode(ErrorMessage.SUCCESS.getCode());
+			msg.setResult(url);
+		} catch (Exception e) {
+			logger.error(ExceptionUtils.getStackTrace(e));
+		}
+		return msg;
+	}
+	
+	/**
+	 * 获取空间名列表
+	 * @return
+	 */
+	@RequestMapping(value = "/getBuckets")
+	@ResponseBody
+	public IRestMessage getBuckets() {
+		IRestMessage msg = getRestMessage();
+		String[] buckets = qnservice.getBuckets();
+		msg.setCode(ErrorMessage.SUCCESS.getCode());
+		msg.setResult(buckets);
+		return msg;
+	}
+	
 }

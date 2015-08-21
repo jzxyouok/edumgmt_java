@@ -59,6 +59,9 @@ public class VideoDetailController extends AbstractBaseController {
 	
 	@Value("${qiniu.eduonline.bucketName}")
 	private String bucketName;
+	
+	@Value("${qiniu.eduonline.deadline}")
+	private String expires;
 
 	/**
 	 * 七牛上传成功后，更新视频信息
@@ -92,6 +95,7 @@ public class VideoDetailController extends AbstractBaseController {
 				VideoDetail current = vs.getByVideoDetailById(vd);
 				if(current != null) {
 					vs.deleteVideoDetailById(vd);
+					qnservice.deleteFile(bucketName, current.getStoreInfo());
 				}
 				vs.insertVideoDetail(vd);
 				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
@@ -131,9 +135,10 @@ public class VideoDetailController extends AbstractBaseController {
 				}
 				vp.setTitle(title);
 				
-				List<VideoPic> selectPicByVideoBaseId = vps.selectPicByVideoBaseId(Integer.parseInt(videoBaseId));
+				List<VideoPic> selectPicByVideoBaseId = vps.selectPicByVideoBaseId(Integer.parseInt(videoBaseId), domain, Long.parseLong(expires));
 				if(null != selectPicByVideoBaseId && selectPicByVideoBaseId.size() > 0) {
 					vps.deletePicBatch(selectPicByVideoBaseId);
+					qnservice.deleteFileBatch(bucketName, vps.dealVideoPicStoreInfo(selectPicByVideoBaseId));
 				}
 				
 				vps.insertPic(vp);
@@ -162,7 +167,7 @@ public class VideoDetailController extends AbstractBaseController {
 		
 		Integer vbid = Integer.parseInt(videoBaseId);
 		List<VideoDetail> list = videoDetailService.getVideoDetailListByVideoBaseId(vbid);
-		List<VideoPic> pic = videoPicService.selectPicByVideoBaseId(vbid);
+		List<VideoPic> pic = videoPicService.selectPicByVideoBaseId(vbid, domain, Long.parseLong(expires));
 		
 		Map<String,Object> map = new HashMap<String,Object>();
 		msg.setCode(ErrorMessage.SUCCESS.getCode());

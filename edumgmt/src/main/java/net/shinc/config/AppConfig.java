@@ -5,6 +5,9 @@ import net.shinc.common.ErrorMessage;
 import net.shinc.common.IRestMessage;
 import net.shinc.common.RestMessage;
 
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -35,4 +38,13 @@ public class AppConfig {
 		LoggingAspect la = new LoggingAspect();
 		return la;
     }
+	
+	@Bean
+	public CloseableHttpClient httpClient() {
+		PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
+		// Increase max total connection to 200
+		cm.setMaxTotal(200);
+		CloseableHttpClient httpClient = HttpClients.custom().setConnectionManager(cm).build();
+		return httpClient;
+	}
 }

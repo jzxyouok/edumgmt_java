@@ -66,6 +66,9 @@ public class VideoPastpaperController extends AbstractBaseController {
 	
 	@Value("${qiniu.eduonline.bucketName}")
 	private String bucketName;
+	
+	@Value("${qiniu.eduonline.deadline}")
+	private String expires;
 
 	/**
 	 * @Title: getVideoPastpaperAndRelevantInfoList
@@ -194,7 +197,7 @@ public class VideoPastpaperController extends AbstractBaseController {
 			Map<String,Object> resultMap = new HashMap<String,Object>();
 			Integer videoBaseId = videoPastpaper.getVideoBase().getId();
 			List<VideoDetail> list = videoDetailService.getVideoDetailListByVideoBaseId(videoBaseId);
-			List<VideoPic> pic = videoPicService.selectPicByVideoBaseId(videoBaseId);
+			List<VideoPic> pic = videoPicService.selectPicByVideoBaseId(videoBaseId, domain, Long.parseLong(expires));
 			resultMap.put("video", list);
 			resultMap.put("pic", pic);
 			resultMap.put("videoBaseId", videoBaseId);

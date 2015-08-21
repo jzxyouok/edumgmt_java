@@ -20,6 +20,10 @@ public class VideoPic {
     private String storeInfo;
 
     private String storeType;
+    
+    private String remoteUrl;
+    
+    private String downloadUrl;
 
     public Integer getId() {
         return id;
@@ -91,5 +95,21 @@ public class VideoPic {
 	@Override
 	public String toString() {
 		return MessageFormat.format("id:{0}\ttitle:{1}", this.id,this.title);
+	}
+
+	public String getRemoteUrl() {
+		return remoteUrl;
+	}
+
+	public void setRemoteUrl(String remoteUrl) {
+		this.remoteUrl = remoteUrl;
+	}
+
+	public String getDownloadUrl() {
+		return downloadUrl;
+	}
+
+	public void setDownloadUrl(String downloadUrl) {
+		this.downloadUrl = downloadUrl;
 	}
 }

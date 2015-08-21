@@ -1,15 +1,19 @@
 package net.shinc.service.common;
 
+import java.util.List;
+
+import com.qiniu.storage.model.FileInfo;
 import com.qiniu.util.StringMap;
 
 /**
- * 七牛存储服务
- * @author zhangtaichao 2015年8月14日
- *
+ * @ClassName QNService 
+ * @Description 七牛存储服务
+ * @author guoshijie
+ * @date 2015年8月21日 下午3:23:10
  */
 public interface QNService {
 	
-	/**
+   /**
 	* 生成上传token
 	*
 	* @param bucket  空间名
@@ -21,5 +25,43 @@ public interface QNService {
 	* @return 生成的上传token
 	*/
 	public String getUploadToken(String bucket, String key, long expires, StringMap policy, boolean strict);
+	
+	/**
+	 * 生成下载Url
+	 * baseUrl 待签名文件url，如 http://img.domain.com/u/3.jpg 、 http://img.domain.com/u/3.jpg?imageView2/1/w/120
+	 * expires 有效时长，单位秒。默认3600s
+	 * @return
+	 */
+	public String getDownloadUrl(String baseUrl, long expires);
+	
+	/**
+	 * 获取空间名列表
+	 * @return
+	 */
+	public String[] getBuckets();
+	
+	/**
+	 * 列举空间下的所有资源
+	 * @param bucket    空间名
+	 * @param prefix    文件名前缀
+	 * @param limit     每次迭代的长度限制，最大1000，推荐值 100
+	 * @param delimiter 指定目录分隔符，列出所有公共前缀（模拟列出目录效果）。缺省值为空字符串
+	 * @return FileInfo[]
+	 */
+	public FileInfo[] getFiles(String bucket,String prefix,Integer limit,String delimiter);
+	
+	/**
+	 * 删除文件
+	 * @param bucket 空间名称
+	 * @param key	 文件名称
+	 */
+	public void deleteFile(String bucket, String key);
+	
+	/**
+	 * 批量删除文件
+	 * @param bucket	空间名称
+	 * @param keyList	远程文件名list
+	 */
+	public void deleteFileBatch(String bucket, List<String> keyList);
 
 }
