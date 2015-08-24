@@ -61,6 +61,16 @@ public class QNServiceImpl implements InitializingBean,QNService{
 	}
 	
 	@Override
+	public String appendQrUrl(String baseName) {
+		if(!StringUtils.isEmpty(baseName)) {
+			String addr = domain + baseName + "?download/" + baseName;
+			String addr2 = getDownloadUrl(addr, Long.parseLong(expires));
+			return addr2;
+		}
+		return null;
+	}
+	
+	@Override
 	public String[] getBuckets() {
 		try {
 			String[] buckets = getBucketManager().buckets();
@@ -122,13 +132,6 @@ public class QNServiceImpl implements InitializingBean,QNService{
 		    	logger.error(ExceptionUtils.getStackTrace(e1));
 		    }
 		}
-	}
-	
-	@Override
-	public String appendQrUrl(String baseName) {
-		String addr = domain + baseName + "?download/" + baseName;
-		String addr2 = getDownloadUrl(addr, Long.parseLong(expires));
-		return addr2;
 	}
 	
 	@Override
