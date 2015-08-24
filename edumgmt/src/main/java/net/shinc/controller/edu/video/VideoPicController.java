@@ -106,8 +106,11 @@ public class VideoPicController extends AbstractBaseController {
 					qnservice.deleteFileBatch(bucketName, vps.dealVideoPicStoreInfo(selectPicByVideoBaseId));
 				}
 				
-				vps.insertPic(vp);
-				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+				Integer num = vps.insertPic(vp);
+				if(null != num && num > 0) {
+					iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+					iRestMessage.setResult(num);
+				}
 			} catch(Exception e) {
 				logger.error(ExceptionUtils.getStackTrace(e));
 			}
