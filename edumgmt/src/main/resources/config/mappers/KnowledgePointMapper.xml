@@ -49,12 +49,16 @@
 			and parent_id = #{parentId}
 		</if>
 	</select>
-	<select id="getKnowledgePointListTree" resultMap="knowledgePointTreeResultMap">
+	<select id="getKnowledgePointListTree" parameterType="java.lang.Integer" resultMap="knowledgePointTreeResultMap">
 		select
 		id, sh_course_id, name,parent_id
 		from
-		sh_knowledge_point
-	
+		category
+		where 1=1
+		and sh_course_id = 2
+		<!-- <if test="null != courseId">
+			and sh_course_id = #{courseId}
+		</if> -->
 	</select>
 	
 	<delete id="deleteKnowledgePointById" parameterType="java.lang.Integer">
@@ -99,6 +103,9 @@
 			<if test="name != null">
 				name = #{name,jdbcType=VARCHAR},
 			</if>
+			<if test="courseId != null">
+				sh_course_id = #{courseId},
+			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
@@ -107,7 +114,7 @@
 		select
 		id, sh_course_id, name
 		from
-		
+		sh_knowledge_point
 		where 1 = 1
 		<if test="null != course">
 			and sh_course_id = #{course.id,jdbcType=INTEGER}
@@ -115,6 +122,15 @@
 		<if test="name != null">
 			and name = #{name,jdbcType=VARCHAR}
 		</if>
+	</select>
+	
+	<select id="selectCatPointByPId" resultMap="knowledgePointResultMap" parameterType="java.lang.Integer">
+		select
+		id, sh_course_id, name,parent_id
+		from
+		sh_knowledge_point
+		where
+		parent_id = #{pid}
 	</select>
 
 </mapper>

@@ -9,13 +9,11 @@ import java.util.Map;
 import net.shinc.orm.mybatis.bean.edu.Course;
 import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
 import net.shinc.orm.mybatis.bean.edu.TreeNode;
-import net.shinc.orm.mybatis.bean.edu.VideoBaseKnowledgePointKey;
 import net.shinc.orm.mybatis.mappers.edu.KnowledgePointMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoBaseKnowledgePointMapper;
 import net.shinc.service.edu.KnowledgePointService;
 import net.shinc.service.edu.video.VideoBaseKnowledgePointService;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -148,5 +146,37 @@ public class KnowledgePointServiceImpl implements KnowledgePointService {
 			logger.error(ExceptionUtils.getStackTrace(e));
 			return null;
 		}
+	}
+
+
+	@Override
+	public List<KnowledgePoint> selectCatPointByPId(Integer pid) {
+		List<KnowledgePoint> collections = knowledgePointMapper.selectCatPointByPId(pid);
+		for (KnowledgePoint a : collections) {
+			
+			a.setName(null);
+			a.setCourseId(8);
+			knowledgePointMapper.updateKnowledgePoint(a);
+			
+			List listtemo = knowledgePointMapper.selectCatPointByPId(a.getId());
+			if(listtemo.size()>0){// you
+				a.setChildren(listtemo);
+				for (KnowledgePoint ac : (List<KnowledgePoint>)listtemo) {
+					
+					ac.setName(null);
+					ac.setCourseId(8);
+					knowledgePointMapper.updateKnowledgePoint(ac);
+					
+					List listtemoooo = knowledgePointMapper.selectCatPointByPId(ac.getId());
+					if (listtemoooo.size()>0) {// 还有子节点(递归调用)
+						ac.setChildren(this.selectCatPointByPId(ac.getId()));
+					} 
+				}
+			}
+			
+			
+		}
+		
+		return collections;
 	}
 }

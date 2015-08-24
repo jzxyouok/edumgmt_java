@@ -23,6 +23,8 @@ public class KnowledgePoint {
     
     private Integer parentId;
     
+    private List children;
+    
     public KnowledgePoint() {
 	}
     
@@ -44,6 +46,14 @@ public class KnowledgePoint {
 
 	public void setParentId(Integer parentId) {
 		this.parentId = parentId;
+	}
+
+	public List getChildren() {
+		return children;
+	}
+
+	public void setChildren(List children) {
+		this.children = children;
 	}
 
 	public Integer getId() {

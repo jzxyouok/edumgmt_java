@@ -70,4 +70,7 @@ public interface KnowledgePointService {
 	List<TreeNode<KnowledgePoint>> getKnowledgePointListTree();
 	
 	
+	List<KnowledgePoint> selectCatPointByPId(Integer pid);
+	
+	
 }

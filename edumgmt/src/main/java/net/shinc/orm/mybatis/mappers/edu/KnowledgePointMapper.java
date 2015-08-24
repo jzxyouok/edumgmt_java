@@ -32,5 +32,7 @@ public interface KnowledgePointMapper {
 	 */
     public List<TreeNode<KnowledgePoint>> getKnowledgePointListTree();
     
+    List<KnowledgePoint> selectCatPointByPId(Integer pid);
+    
 
 }
