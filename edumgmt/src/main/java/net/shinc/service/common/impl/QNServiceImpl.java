@@ -64,8 +64,8 @@ public class QNServiceImpl implements InitializingBean,QNService{
 	public String appendQrUrl(String baseName) {
 		if(!StringUtils.isEmpty(baseName)) {
 			String addr = domain + baseName + "?download/" + baseName;
-			String addr2 = getDownloadUrl(addr, Long.parseLong(expires));
-			return addr2;
+//			String addr2 = getDownloadUrl(addr, Long.parseLong(expires));
+			return addr;
 		}
 		return null;
 	}
@@ -101,7 +101,9 @@ public class QNServiceImpl implements InitializingBean,QNService{
 	@Override
 	public void deleteFile(String bucket, String key) {
 		try {
-			getBucketManager().delete(bucket, key);
+			if (!StringUtils.isEmpty(key) && !StringUtils.isEmpty(bucket)) {
+				getBucketManager().delete(bucket, key);
+			}
 		} catch (QiniuException e) {
 			logger.error(ExceptionUtils.getStackTrace(e));
 		}

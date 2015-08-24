@@ -107,51 +107,6 @@ public class VideoDetailController extends AbstractBaseController {
 	}
 	
 	/**
-	 * 七牛上传成功后，更新截图信息
-	 * @param videoBaseId
-	 * @param name
-	 * @return
-	 */
-	@RequestMapping(value = "/addVideoPic")
-	@ResponseBody
-	public IRestMessage addVideoPic(@RequestParam("videoBaseId") String videoBaseId, @RequestParam("name") String name) {
-		IRestMessage iRestMessage = getRestMessage();
-		if(StringUtils.isEmpty(videoBaseId) || StringUtils.isEmpty(name)) {
-			iRestMessage.setCode(ErrorMessage.ERROR_PARAM_ERROR.getCode());
-		} else {
-			try {
-				VideoPic vp = new VideoPic();
-				
-				vp.setStoreInfo(name);
-				vp.setVideoBaseId(Integer.parseInt(videoBaseId));
-				vp.setStoreType("1");
-				
-				int index = name.lastIndexOf(".");
-				String title;
-				if(index != -1) {
-					title = name.substring(0, index);
-				} else {
-					title = "unknown";
-				}
-				vp.setTitle(title);
-				
-				List<VideoPic> selectPicByVideoBaseId = vps.selectPicByVideoBaseId(Integer.parseInt(videoBaseId), domain, Long.parseLong(expires));
-				if(null != selectPicByVideoBaseId && selectPicByVideoBaseId.size() > 0) {
-					vps.deletePicBatch(selectPicByVideoBaseId);
-					qnservice.deleteFileBatch(bucketName, vps.dealVideoPicStoreInfo(selectPicByVideoBaseId));
-				}
-				
-				vps.insertPic(vp);
-				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
-			} catch(Exception e) {
-				logger.error(ExceptionUtils.getStackTrace(e));
-			}
-		}
-		return iRestMessage;
-	}
-	
-	
-	/**
 	 * 获取文件上传token,和已经有的视频及截图信息
 	 * @return
 	 */
@@ -180,5 +135,4 @@ public class VideoDetailController extends AbstractBaseController {
 		
 		return msg;
 	}
-	
 }
