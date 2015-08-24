@@ -63,5 +63,12 @@ public interface QNService {
 	 * @param keyList	远程文件名list
 	 */
 	public void deleteFileBatch(String bucket, List<String> keyList);
+	
+	/**
+	 * 拼接二维码图片地址
+	 * @param baseName
+	 * @return
+	 */
+	public String appendQrUrl(String baseName);
 
 }

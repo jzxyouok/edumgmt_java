@@ -19,6 +19,7 @@
 		base.question_number,
 		base.profile,
 		base.updatetime,
+		base.qrcode,
 
 		course.id courseId,
 		course.name courseName,

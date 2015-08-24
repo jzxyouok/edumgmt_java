@@ -41,9 +41,11 @@ public class QNServiceTest {
 	@Test
 	public void testGetDownloadUrl() {
 		long expires = 3600l;
-		String baseUrl = "http://7xkw28.com1.z0.glb.clouddn.com/o_19t7q67h5lk31q6556s4dr9hb.mp4";
+		String baseUrl = "http://7xkw28.com1.z0.glb.clouddn.com/o_19tffaqo08s91on719icjfr1dikb.mp4";
 		String baseUrl2 = "http://7xkw28.com1.z0.glb.clouddn.com/o_19t7sirf67addv1c1ajeli3qb.jpg";
-		String str = qnService.getDownloadUrl(baseUrl2, expires);
+		String baseUrl3 = "http://7xkw28.com1.z0.glb.clouddn.com/qr_7499a8de7efd7ea805ba734af62d4851.png";
+		String baseUrl4 = "http://7xkw22.com1.z0.glb.clouddn.com/5783ee8f19d77d2b3f2ec1b123251af9.png?download/5783ee8f19d77d2b3f2ec1b123251af9.png";
+		String str = qnService.getDownloadUrl(baseUrl4, expires);
 		System.out.println(str);
 	}
 }

@@ -17,6 +17,7 @@ import net.shinc.orm.mybatis.mappers.edu.VideoBaseKnowledgePointMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoBaseMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoDetailMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoPointMapper;
+import net.shinc.service.edu.video.VideoBaseService;
 import net.shinc.service.edu.video.VideoPointService;
 
 import org.apache.commons.lang3.StringUtils;
@@ -43,6 +44,8 @@ public class VideoPointServiceImpl implements VideoPointService {
 	private VideoBaseKnowledgePointMapper videoBaseKnowledgePointMapper;
 	@Autowired
 	private VideoBaseKeywordMapper videoBaseKeywordMapper;
+	@Autowired
+	private VideoBaseService videoBaseService;
 
 	@Override
 	public Map insertVideoPoint(VideoPoint videoPoint) {
@@ -171,7 +174,9 @@ public class VideoPointServiceImpl implements VideoPointService {
 
 	@Override
 	public List<Map> getVideoPointAndRelevantInfoList(QueryBean queryBean,RowBounds rowBounds) {
-		return videoPointMapper.getVideoPointAndRelevantInfoList(queryBean,rowBounds);
+		List<Map> list = videoPointMapper.getVideoPointAndRelevantInfoList(queryBean,rowBounds);
+		List<Map> list2 = videoBaseService.appendQrUrl(list);
+		return list2;
 	}
 
 	@Override

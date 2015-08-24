@@ -17,6 +17,7 @@ import net.shinc.orm.mybatis.mappers.edu.VideoBaseKnowledgePointMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoBaseMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoDetailMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoPastpaperMapper;
+import net.shinc.service.edu.video.VideoBaseService;
 import net.shinc.service.edu.video.VideoPastpaperService;
 
 import org.apache.commons.lang3.StringUtils;
@@ -43,6 +44,8 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 	private VideoBaseKnowledgePointMapper videoBaseKnowledgePointMapper;
 	@Autowired
 	private VideoBaseKeywordMapper videoBaseKeywordMapper;
+	@Autowired
+	private VideoBaseService videoBaseService;
 	
 
 	@Override
@@ -173,7 +176,8 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 
 	@Override
 	public List<Map> getVideoPastpaperAndRelevantInfoList(QueryBean queryBean,RowBounds rowBounds) {
-		return videoPastpaperMapper.getVideoPastpaperAndRelevantInfoList(queryBean, rowBounds);
+		List<Map> list = videoPastpaperMapper.getVideoPastpaperAndRelevantInfoList(queryBean, rowBounds);
+		return videoBaseService.appendQrUrl(list);
 	}
 
 }

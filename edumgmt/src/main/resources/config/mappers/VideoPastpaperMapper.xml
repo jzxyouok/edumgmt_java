@@ -40,6 +40,7 @@
 			    base.question_number,
 			    base.profile,
 			    base.updatetime,
+			    base.qrcode,
 			    bank.id bankid,
 			    bank.name bankname,
 			    course.id courseId,

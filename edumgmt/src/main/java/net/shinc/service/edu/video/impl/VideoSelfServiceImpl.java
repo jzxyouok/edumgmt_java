@@ -17,6 +17,7 @@ import net.shinc.orm.mybatis.mappers.edu.VideoBaseKnowledgePointMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoBaseMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoDetailMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoSelfMapper;
+import net.shinc.service.edu.video.VideoBaseService;
 import net.shinc.service.edu.video.VideoSelfService;
 
 import org.apache.commons.lang3.StringUtils;
@@ -43,6 +44,8 @@ public class VideoSelfServiceImpl implements VideoSelfService {
 	private VideoBaseKnowledgePointMapper videoBaseKnowledgePointMapper;
 	@Autowired
 	private VideoBaseKeywordMapper videoBaseKeywordMapper;
+	@Autowired
+	private VideoBaseService videoBaseService;
 
 	@Override
 	public Map insertVideoSelf(VideoSelf videoSelf) {
@@ -170,7 +173,9 @@ public class VideoSelfServiceImpl implements VideoSelfService {
 
 	@Override
 	public List<Map> getVideoSelfAndRelevantInfoList(QueryBean queryBean,RowBounds rowBounds) {
-		return videoSelfMapper.getVideoSelfAndRelevantInfoList(queryBean,rowBounds);
+		List<Map> list = videoSelfMapper.getVideoSelfAndRelevantInfoList(queryBean,rowBounds);
+		List<Map> list2 = videoBaseService.appendQrUrl(list);
+		return list2;
 	}
 
 	@Override

@@ -32,10 +32,16 @@ public class QNServiceImpl implements InitializingBean,QNService{
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Value("${qiniu.accessKey}")
-	private String accessKey = "AeXxr_RO2G7G273HkoE8hJ4w2cgGfDHGBmqtcRY7";
+	private String accessKey = "h591Hrv-oh3BornRVEQqlDE7IJQYFgM-dkA44tKM";
 	
 	@Value("${qiniu.secretKey}")
-	private String secretKey = "5idJ2SRiXonQ2ZUnVG12eKEDn7aeTxg5dWSRpuAG";
+	private String secretKey = "XFwQNCCycfAf6fv_Ox-teKB8Tf2Bk21Xr5cqYXEm";
+	
+	@Value("${qiniu.eduonline.domain}")
+	private String domain;
+	
+	@Value("${qiniu.eduonline.deadline}")
+	private String expires;
 	
 	public Auth auth;
 	
@@ -47,7 +53,7 @@ public class QNServiceImpl implements InitializingBean,QNService{
 	}
 	
 	public String getDownloadUrl(String baseUrl, long expires) {
-		if(!StringUtils.isEmpty(baseUrl)){
+		if(!StringUtils.isEmpty(baseUrl)) {
 			String urlSigned = auth.privateDownloadUrl(baseUrl, expires);
 			return urlSigned;
 		}
@@ -116,6 +122,13 @@ public class QNServiceImpl implements InitializingBean,QNService{
 		    	logger.error(ExceptionUtils.getStackTrace(e1));
 		    }
 		}
+	}
+	
+	@Override
+	public String appendQrUrl(String baseName) {
+		String addr = domain + baseName + "?download/" + baseName;
+		String addr2 = getDownloadUrl(addr, Long.parseLong(expires));
+		return addr2;
 	}
 	
 	@Override
