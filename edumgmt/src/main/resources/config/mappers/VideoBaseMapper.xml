@@ -19,7 +19,7 @@
 		id, sh_admin_user_id, sh_course_id, 
 		sh_lecture_id,
 		question_id,
-		title, desc, difficulty, status,
+		title, `desc`, difficulty, status,
 		question_number, updatetime
 		from sh_video_base
 		where id = #{id,jdbcType=INTEGER}
@@ -28,12 +28,15 @@
 		select
 		id, sh_admin_user_id, sh_course_id, 
 		question_id,
-		title, desc, difficulty, status,
+		title, `desc`, difficulty, status,
 		question_number, updatetime
 		from sh_video_base
 		where 1 = 1
 		<if test="id != null">
 			AND id=#{id}
+		</if>
+		<if test="lectureId != null">
+			AND sh_lecture_id=#{lectureId}
 		</if>
 		<if test="title != null and title != '' ">
 			AND title like '%${title}%'
