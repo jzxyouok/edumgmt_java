@@ -53,12 +53,9 @@
 		select
 		id, sh_course_id, name,parent_id
 		from
-		category
-		where 1=1
-		and sh_course_id = 2
-		<!-- <if test="null != courseId">
-			and sh_course_id = #{courseId}
-		</if> -->
+		sh_knowledge_point
+		where sh_course_id = #{courseId}
+		
 	</select>
 	
 	<delete id="deleteKnowledgePointById" parameterType="java.lang.Integer">

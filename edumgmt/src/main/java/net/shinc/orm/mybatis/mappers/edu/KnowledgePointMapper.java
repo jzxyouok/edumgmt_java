@@ -30,7 +30,7 @@ public interface KnowledgePointMapper {
 	 * @Description: 知识点树结构列表
 	 * @return List<TreeNode<KnowledgePoint>>
 	 */
-    public List<TreeNode<KnowledgePoint>> getKnowledgePointListTree();
+    public List<TreeNode<KnowledgePoint>> getKnowledgePointListTree(Integer courseId);
     
     List<KnowledgePoint> selectCatPointByPId(Integer pid);
     

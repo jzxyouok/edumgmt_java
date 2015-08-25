@@ -29,8 +29,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-
 /**
  * @ClassName KnowledgePointController 
  * @Description 知识点控制层接口
@@ -98,10 +96,10 @@ public class KnowledgePointController extends AbstractBaseController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getKnowledgePointTreeList")
-	public IRestMessage getKnowledgePointTreeList() {
+	public IRestMessage getKnowledgePointTreeList(Integer courseId) {
 		IRestMessage msg = getRestMessage();
 		try {
-			List list = knowledgePointService.getKnowledgePointListTree();
+			List list = knowledgePointService.getKnowledgePointListTree(courseId);
 	
 			Map map = new HashMap();
 			for(Iterator<TreeNode<KnowledgePoint>> it = list.iterator(); it.hasNext();){
