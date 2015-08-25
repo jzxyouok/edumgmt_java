@@ -1,6 +1,8 @@
 package net.shinc.service.common.impl;
 
 import java.util.List;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import net.shinc.service.common.QNService;
 
@@ -66,6 +68,20 @@ public class QNServiceImpl implements InitializingBean,QNService{
 			String addr = domain + baseName + "?download/" + baseName;
 //			String addr2 = getDownloadUrl(addr, Long.parseLong(expires));
 			return addr;
+		}
+		return null;
+	}
+	
+	@Override
+	public String generateQrDownUrl(String link){
+		try {
+			URL url = new URL(link);
+			String path = url.getPath();
+			String key = path.substring(1);
+			String downloadUrl = link + "?download/" + key;
+			return downloadUrl;
+		} catch (Exception e) {
+			logger.error(ExceptionUtils.getStackTrace(e));
 		}
 		return null;
 	}

@@ -74,7 +74,7 @@ public class VideoBaseServiceImpl implements VideoBaseService {
 		if(!CollectionUtils.isEmpty(list)) {
 			for (Map map : list) {
 				String qrcode = (String) map.get("qrcode");
-				map.put("qrcode", qnService.appendQrUrl(qrcode));
+				map.put("qrcode", qnService.generateQrDownUrl(qrcode));
 			}
 		}
 		return list;

@@ -47,7 +47,6 @@ public class LoggingAspect {
 	}
 
 	/**
-	 * 
 	 * @Title：doBeforeInServiceLayer
 	 * @Description: 方法调用前触发 记录开始时间
 	 * @author shaojian.yu
@@ -60,7 +59,6 @@ public class LoggingAspect {
 	}
 
 	/**
-	 * 
 	 * @Title：doAfterInServiceLayer
 	 * @Description: 方法调用后触发 记录结束时间
 	 * @author shaojian.yu
@@ -74,7 +72,6 @@ public class LoggingAspect {
 	}
 
 	/**
-	 * 
 	 * @Title：doAround
 	 * @Description: 环绕触发
 	 * @author shaojian.yu
@@ -105,7 +102,6 @@ public class LoggingAspect {
 	}
 
 	/**
-	 * 
 	 * @Title：printOptLog
 	 * @Description: 输出日志
 	 * @author shaojian.yu

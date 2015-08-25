@@ -70,5 +70,11 @@ public interface QNService {
 	 * @return
 	 */
 	public String appendQrUrl(String baseName);
-
+	
+	/**
+	 * 生成二维码图片下载地址
+	 * @param link
+	 * @return
+	 */
+	public String generateQrDownUrl(String link);
 }
