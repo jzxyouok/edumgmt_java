@@ -67,7 +67,7 @@ public interface KnowledgePointService {
 	 * @param parentId
 	 * @return List<KnowledgePoint>
 	 */
-	List<TreeNode<KnowledgePoint>> getKnowledgePointListTree();
+	List<TreeNode<KnowledgePoint>> getKnowledgePointListTree(Integer courseId);
 	
 	
 	List<KnowledgePoint> selectCatPointByPId(Integer pid);

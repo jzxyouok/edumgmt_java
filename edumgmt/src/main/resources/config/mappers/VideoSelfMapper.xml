@@ -148,6 +148,9 @@
 			<if test="questionTypeId != null">
 				sh_question_type_id,
 			</if>
+			<if test="resource != null">
+				resource,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -162,6 +165,9 @@
 			<if test="questionTypeId != null">
 				#{questionTypeId,jdbcType=INTEGER},
 			</if>
+			<if test="resource != null">
+				#{resource},
+			</if>
 		</trim>
 	</insert>
 	<update id="updateVideoSelf" parameterType="VideoSelf">
@@ -175,6 +181,9 @@
 			</if>
 			<if test="questionTypeId != null">
 				sh_question_type_id = #{questionTypeId,jdbcType=INTEGER},
+			</if>
+			<if test="resource != null">
+				resource = #{resource},
 			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}

@@ -110,10 +110,10 @@ public class KnowledgePointServiceImpl implements KnowledgePointService {
 		return false;
 	}
 	@Override
-	public List<TreeNode<KnowledgePoint>> getKnowledgePointListTree() {
+	public List<TreeNode<KnowledgePoint>> getKnowledgePointListTree(Integer courseId) {
 		try {
 			
-			List<TreeNode<KnowledgePoint>> list = knowledgePointMapper.getKnowledgePointListTree();
+			List<TreeNode<KnowledgePoint>> list = knowledgePointMapper.getKnowledgePointListTree(courseId);
 			
 			List<TreeNode<KnowledgePoint>> root = new ArrayList<TreeNode<KnowledgePoint>>();
 			Map<Integer,TreeNode<KnowledgePoint>> map = new HashMap();
