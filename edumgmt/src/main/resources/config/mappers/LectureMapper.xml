@@ -6,19 +6,20 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="level" property="level" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    id, name, level
-  </sql>
   
   <select id="selectAllLecture" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
-    <include refid="Base_Column_List" />
+    id, name, CASE level
+	WHEN 1 THEN '特级'
+	WHEN 2 THEN '高级'
+	WHEN 3 THEN '中级'
+	ELSE '其他' END level
     from sh_lecture
   </select>
   
   <select id="selectLectureById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
-    <include refid="Base_Column_List" />
+    id, name, level
     from sh_lecture
     where id = #{id,jdbcType=INTEGER}
   </select>
