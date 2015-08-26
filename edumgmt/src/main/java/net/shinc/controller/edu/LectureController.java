@@ -57,7 +57,7 @@ public class LectureController extends AbstractBaseController{
 			List list = videoBaseService.getVideoBaseList(videoBase);
 			if(list != null && list.size() >0 ){
 				msg.setCode(ErrorMessage.DELETE_FAILED.getCode());
-				msg.setMessage("该讲解人已发布视频，不能被删除");
+				msg.setMessage("该讲解人已被占用，不能被删除");
 				return msg;
 			}
 			int i = lectureService.deleteLectureById(id);
