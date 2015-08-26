@@ -40,6 +40,9 @@ INSERT INTO `sh_authority_group_has_sh_authority` (`sh_authority_group_id`,`sh_a
 INSERT INTO `sh_authority_group_has_sh_authority` (`sh_authority_group_id`,`sh_authority_id`) VALUES (1,12);
 INSERT INTO `sh_authority_group_has_sh_authority` (`sh_authority_group_id`,`sh_authority_id`) VALUES (1,13);
 
-INSERT INTO `sh_admin_user` (`id`,`sh_company_id`,`realname`,`nickname`,`password`,`sex`,`address`,`email`,`tel`,`create_time`,`update_time`,`enabled`,`remark`,`position`,`head_pic`) VALUES (1,1,'管理员','admin','admin','0','北京朝阳区望京中心','admin_hi@163.com','13611113333','2015-07-31 11:00:17','2015-08-12 17:28:01','1','数学讲师','老师','http://p2.gexing.com/touxiang/20120802/0922/5019d66eef7ed_200x200_3.jpg');
+INSERT INTO `sh_admin_user` (`id`,`sh_company_id`,`realname`,`nickname`,`password`,`sex`,`address`,`email`,`tel`,`create_time`,`update_time`,`enabled`,`remark`,`position`,`head_pic`) VALUES (1,1,'管理员','admin','$2a$10$yKqARHL7UI3Si1C3ou0SK.w9pgcFOWhJRD6IuoUTZ3UnJDHDSR4fy','0','北京朝阳区望京中心','admin_hi@163.com','13611113333','2015-07-31 11:00:00','2015-08-26 18:20:23','1','数学讲师','老师','http://p2.gexing.com/touxiang/20120802/0922/5019d66eef7ed_200x200_3.jpg');
+INSERT INTO `sh_admin_user` (`id`,`sh_company_id`,`realname`,`nickname`,`password`,`sex`,`address`,`email`,`tel`,`create_time`,`update_time`,`enabled`,`remark`,`position`,`head_pic`) VALUES (2,1,NULL,'root','$2a$10$Qsid/FR/9xuFGehZOzYtbeMfv8bqyIe5Pd7uSadHR2nhaAWXwz752',NULL,NULL,NULL,NULL,'2015-08-26 17:56:00','2015-08-26 18:10:19','1',NULL,NULL,NULL);
 
 INSERT INTO `sh_admin_user_has_sh_authority_group` (`sh_admin_user_id`,`sh_authority_group_id`) VALUES (1,1);
+INSERT INTO `sh_admin_user_has_sh_authority_group` (`sh_admin_user_id`,`sh_authority_group_id`) VALUES (2,1);
+
