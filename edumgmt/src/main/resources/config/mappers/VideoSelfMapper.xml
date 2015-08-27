@@ -76,7 +76,7 @@
 			and base.sh_lecture_id = #{lectureId}
 		</if>
 		<if test="questionDesc != null and questionDesc != ''">
-			and base.title like '%${questionDesc}%'
+			and base.profile like '%${questionDesc}%'
 		</if>
 		<if test="difficulty != null and difficulty != ''">
 			and base.difficulty = #{difficulty}
