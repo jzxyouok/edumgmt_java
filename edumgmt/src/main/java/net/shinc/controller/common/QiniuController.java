@@ -50,7 +50,8 @@ public class QiniuController extends AbstractBaseController {
 		IRestMessage msg = getRestMessage();
 		long now = System.currentTimeMillis();
 		StringMap policy = new StringMap();
-		policy.put("returnBody", "{\"key\": $(key), \"hash\": $(etag), \"videoBaseId\":$(x:videoBaseId)}");
+//		policy.put("returnBody", "{\"key\": $(key), \"hash\": $(etag), \"videoBaseId\":$(x:videoBaseId)}");
+		policy.put("returnBody", "{\"key\": $(key), \"hash\": $(etag), \"videoBaseId\":$(x:videoBaseId), \"avinfo\": $(avinfo)}");
 //		String key = videoBaseId + "_" + now + "_" + originFileName; 
 //		String token = qnservice.getUploadToken(bucketName, key, 3600, null, true);
 		String token = qnservice.getUploadToken(bucketName, null, 3600, policy, true);
