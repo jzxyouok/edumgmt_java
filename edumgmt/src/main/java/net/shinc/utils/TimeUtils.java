@@ -3,9 +3,10 @@ package net.shinc.utils;
 import java.util.Arrays;
 
 /**
- * 时间计算工具类
- *
- * @author frankiegao123
+ * @ClassName TimeUtils 
+ * @Description 时间计算工具类
+ * @author guoshijie 
+ * @date 2015年8月27日 下午10:24:17
  */
 public class TimeUtils {
 
