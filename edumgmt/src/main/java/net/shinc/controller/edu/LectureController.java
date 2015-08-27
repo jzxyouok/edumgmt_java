@@ -200,7 +200,7 @@ public class LectureController extends AbstractBaseController{
 			int i = lectureService.insertLecture(lecture);
 			logger.debug("insert Lecture ==>" + i);
 			if(i > 0) {
-				msg.setCode(ErrorMessage.SUCCESS.getCode());
+				msg.setCode(ErrorMessage.ADD_SUCCESS.getCode());
 				msg.setResult(i);
 			}else {
 				msg.setCode(ErrorMessage.ADD_FAILED.getCode());
@@ -224,9 +224,9 @@ public class LectureController extends AbstractBaseController{
 		}
 		try {
 			int i = lectureService.updateLectureById(lecture);
-			logger.info("udpate --->" + i);
+			logger.debug("udpate --->" + i);
 			if(i > 0) {
-				msg.setCode(ErrorMessage.SUCCESS.getCode());
+				msg.setCode(ErrorMessage.UPDATE_SUCCESS.getCode());
 				msg.setResult(i);
 			}else {
 				msg.setCode(ErrorMessage.UPDATE_FAILED.getCode());
