@@ -2,12 +2,15 @@ package net.shinc.service.edu.impl;
 
 import java.util.List;
 
+import net.shinc.orm.mybatis.bean.edu.Keyword;
+import net.shinc.orm.mybatis.bean.edu.VideoBaseKeywordKey;
+import net.shinc.orm.mybatis.mappers.edu.KeywordMapper;
+import net.shinc.orm.mybatis.mappers.edu.VideoBaseKeywordMapper;
+import net.shinc.service.edu.KeywordService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import net.shinc.orm.mybatis.bean.edu.Keyword;
-import net.shinc.orm.mybatis.mappers.edu.KeywordMapper;
-import net.shinc.service.edu.KeywordService;
+import org.springframework.util.CollectionUtils;
 
 /** 
  * @ClassName KeywordServiceImpl 
@@ -17,8 +20,12 @@ import net.shinc.service.edu.KeywordService;
  */
 @Service
 public class KeywordServiceImpl implements KeywordService {
+	
 	@Autowired
 	private KeywordMapper keywordMapper;
+	
+	@Autowired
+	private VideoBaseKeywordMapper videoBaseKeywordMapper;
 	
 	/**
 	 * 删除关键字
@@ -62,6 +69,20 @@ public class KeywordServiceImpl implements KeywordService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Boolean isUsed(Integer id) {
+		if(null != id && id > 0) {
+			List<VideoBaseKeywordKey> list = videoBaseKeywordMapper.selectVideoBaseKeywordByKwId(id);
+			if(CollectionUtils.isEmpty(list)) {
+				return false; 
+			} else {
+				return true;
+			}
+		} else {
+			return false;
+		}
 	}
 
 }

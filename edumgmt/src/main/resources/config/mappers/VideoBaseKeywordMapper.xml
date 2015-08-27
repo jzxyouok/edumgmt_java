@@ -39,4 +39,13 @@
    		(#{item.videoBaseId,jdbcType=INTEGER}, #{item.keywordId,jdbcType=INTEGER})
 	</foreach>
   </insert>
+  
+  <select id="selectVideoBaseKeywordByKwId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+  		sh_video_base_id, sh_keyword_id
+  	from
+  		sh_video_base_keyword
+  	where
+  		sh_keyword_id = #{id} 	
+  </select>
 </mapper>

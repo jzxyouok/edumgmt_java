@@ -16,4 +16,6 @@ public interface VideoBaseKeywordMapper {
     int insertVideoKeyword(VideoBaseKeywordKey record);
     
     int insertVideoKeywordBatch(List<VideoBaseKeywordKey> record);
+    
+    List<VideoBaseKeywordKey> selectVideoBaseKeywordByKwId(Integer id);
 }
