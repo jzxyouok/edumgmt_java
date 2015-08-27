@@ -12,6 +12,7 @@ import net.shinc.orm.mybatis.bean.edu.VideoPic;
 import net.shinc.service.common.QNService;
 import net.shinc.service.edu.video.VideoDetailService;
 import net.shinc.service.edu.video.VideoPicService;
+import net.shinc.utils.TimeUtils;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
@@ -71,7 +72,8 @@ public class VideoDetailController extends AbstractBaseController {
 	 */
 	@RequestMapping(value = "/addVideoDetail")
 	@ResponseBody
-	public IRestMessage addVideoDetail(@RequestParam("videoBaseId") String videoBaseId, @RequestParam("name") String name, @RequestParam("sourceLink") String url) {
+	public IRestMessage addVideoDetail(@RequestParam("videoBaseId") String videoBaseId, @RequestParam("name") String name, @RequestParam("sourceLink") String url,
+			@RequestParam("duration") String duration) {
 		IRestMessage iRestMessage = getRestMessage();
 		if(StringUtils.isEmpty(videoBaseId) || StringUtils.isEmpty(name)) {
 			iRestMessage.setCode(ErrorMessage.ERROR_PARAM_ERROR.getCode());
@@ -82,6 +84,12 @@ public class VideoDetailController extends AbstractBaseController {
 				vd.setStoreInfo(name);
 				vd.setUrl(url);
 				vd.setStoreType("1");
+				
+				//设置视频时长
+				Double d = Double.parseDouble(duration);
+				Integer videoDuration = d.intValue();
+				TimeUtils time = new TimeUtils(0,0,videoDuration);
+				vd.setVideoDuration(time.toString());
 				
 				String type;
 				int index = name.lastIndexOf(".");
@@ -117,7 +125,8 @@ public class VideoDetailController extends AbstractBaseController {
 		IRestMessage msg = getRestMessage();
 		long now = System.currentTimeMillis();
 		StringMap policy = new StringMap();
-		policy.put("returnBody", "{\"key\": $(key), \"hash\": $(etag), \"videoBaseId\":$(x:videoBaseId)}");
+//		policy.put("returnBody", "{\"key\": $(key), \"hash\": $(etag), \"videoBaseId\":$(x:videoBaseId)}");
+		policy.put("returnBody", "{\"key\": $(key), \"hash\": $(etag), \"videoBaseId\":$(x:videoBaseId), \"avinfo\": $(avinfo)}");
 		String token = qnservice.getUploadToken(bucketName, null, 3600, policy, true);
 		
 		Integer vbid = Integer.parseInt(videoBaseId);

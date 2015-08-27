@@ -75,11 +75,13 @@ public class QNServiceImpl implements InitializingBean,QNService{
 	@Override
 	public String generateQrDownUrl(String link){
 		try {
-			URL url = new URL(link);
-			String path = url.getPath();
-			String key = path.substring(1);
-			String downloadUrl = link + "?download/" + key;
-			return downloadUrl;
+			if(!StringUtils.isEmpty(link)) {
+				URL url = new URL(link);
+				String path = url.getPath();
+				String key = path.substring(1);
+				String downloadUrl = link + "?download/" + key;
+				return downloadUrl;
+			}
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getStackTrace(e));
 		}

@@ -70,6 +70,9 @@
 			<if test="storeType != null">
 				store_type,
 			</if>
+			<if test="videoDuration != null">
+				video_duration,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="type != null">
@@ -89,6 +92,9 @@
 			</if>
 			<if test="storeType != null">
 				#{storeType,jdbcType=VARCHAR},
+			</if>
+			<if test="videoDuration != null">
+				#{videoDuration,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>

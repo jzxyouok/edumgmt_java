@@ -25,6 +25,8 @@ public class VideoDetail  {
     private String storeInfo;
 
     private String storeType;
+    
+    private String videoDuration;
 
     public String getUrl() {
         return url;
@@ -73,4 +75,12 @@ public class VideoDetail  {
     public void setStoreType(String storeType) {
         this.storeType = storeType == null ? null : storeType.trim();
     }
+
+	public String getVideoDuration() {
+		return videoDuration;
+	}
+
+	public void setVideoDuration(String videoDuration) {
+		this.videoDuration = videoDuration;
+	}
 }
