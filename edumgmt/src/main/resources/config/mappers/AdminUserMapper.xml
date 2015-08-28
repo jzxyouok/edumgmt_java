@@ -302,6 +302,8 @@
 			<if test="id != null">
 				and a.sh_company_id=#{id}
 			</if>
+		order by
+			a.update_time desc
 	</select>
 	
 	<select id="getAdminUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer">

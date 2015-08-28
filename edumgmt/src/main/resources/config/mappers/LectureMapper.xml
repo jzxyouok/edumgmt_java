@@ -5,16 +5,20 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	<result column="modify_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   
   <select id="selectAllLecture" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
-    id, name, CASE level
+    id, name, create_time, modify_time, CASE level
 	WHEN 1 THEN '特级'
 	WHEN 2 THEN '高级'
 	WHEN 3 THEN '中级'
 	ELSE '其他' END level
     from sh_lecture
+    where 1 = 1
+    order by modify_time desc
   </select>
   
   <select id="selectLectureById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -41,6 +45,12 @@
       <if test="level != null" >
         level,
       </if>
+      <if test="createTime != null">
+		create_time,
+	  </if>
+	  <if test="updateTime != null">
+		modify_time,
+	  </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -52,6 +62,12 @@
       <if test="level != null" >
         #{level,jdbcType=VARCHAR},
       </if>
+      <if test="createTime != null">
+		#{createTime,jdbcType=TIMESTAMP},
+	  </if>
+	  <if test="updateTime != null">
+		#{updateTime,jdbcType=TIMESTAMP},
+	  </if>
     </trim>
   </insert>
   
@@ -64,6 +80,9 @@
       <if test="level != null" >
         level = #{level,jdbcType=VARCHAR},
       </if>
+      <if test="updateTime != null">
+		modify_time = #{updateTime,jdbcType=TIMESTAMP},
+	  </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
