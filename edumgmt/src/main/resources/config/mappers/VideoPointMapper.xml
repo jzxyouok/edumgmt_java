@@ -71,26 +71,29 @@
 		<if test="difficulty != null and difficulty != ''">
 			and base.difficulty = #{difficulty}
 		</if>
-		<if test="keywordList != null and keywordList.size() > 0">
-			and kw.sh_keyword_id in 
+		
+		group by id
+		having 1=1
+		<if test="hasVideo == 1">
+			and videoUrl = '已上传'
+		</if>
+		<if test="hasVideo == 0">
+			and videoUrl = '未上传'
+		</if>
+		
+		<if test="keywordList != null and keywordList.size() > 0 ">
+			and keywordId in 
 			<foreach item="item" index="index" collection="keywordList"
 		      open="(" separator="," close=")">
 		        ${item}
 		  	</foreach>
 		</if>
-		<if test="knowledgePointList != null and knowledgePointList.size() > 0">
-			and pt.sh_knowledge_point_id  in 
+		<if test="knowledgePointList != null and knowledgePointList.size() > 0 " >
+			and knowledgeId  in 
 			<foreach item="item" index="index" collection="knowledgePointList"
 		      open="(" separator="," close=")">
 		        ${item}
 		  	</foreach>
-		</if>
-		group by id
-		<if test="hasVideo == 1">
-			having videoUrl = '已上传'
-		</if>
-		<if test="hasVideo == 0">
-			having videoUrl = '未上传'
 		</if>
 		order by base.updatetime desc
 	</select>
