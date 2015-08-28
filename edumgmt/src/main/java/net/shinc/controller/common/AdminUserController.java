@@ -80,7 +80,7 @@ public class AdminUserController extends AbstractBaseController {
 			int id = adminUserService.addAdminUser(adminUser);
 			logger.info("add AdminUserId ==>" + adminUser.getId());
 			if(id > 0) {
-				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+				iRestMessage.setCode(ErrorMessage.ADD_SUCCESS.getCode());
 				iRestMessage.setResult(id);
 			}
 		} catch (Exception e) {
@@ -173,7 +173,7 @@ public class AdminUserController extends AbstractBaseController {
 		try {
 			int i = adminUserService.deleteAdminUser(adminUser);
 			if(i > 0) {
-				msg.setCode(ErrorMessage.SUCCESS.getCode());
+				msg.setCode(ErrorMessage.DELETE_SUCCESS.getCode());
 				msg.setResult(i);
 			} else {
 				msg.setCode(ErrorMessage.DELETE_FAILED.getCode());
@@ -204,7 +204,7 @@ public class AdminUserController extends AbstractBaseController {
 			adminUser.setPassword(passService.encode(password));
 			int i = adminUserService.updateAdminUser(adminUser);
 			if(i > 0) {
-				msg.setCode(ErrorMessage.SUCCESS.getCode());
+				msg.setCode(ErrorMessage.UPDATE_SUCCESS.getCode());
 			} else {
 				msg.setCode(ErrorMessage.UPDATE_FAILED.getCode());
 			}
