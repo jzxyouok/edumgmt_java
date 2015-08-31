@@ -34,13 +34,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http
 		.authorizeRequests()
-//				.antMatchers("/adminUser/**").hasAnyAuthority("adminUserManage")
-//				.antMatchers("/adminUser/getAdminUserList").hasAnyAuthority("adminUserList")
+//				.antMatchers("/videoPastpaper/**").permitAll()
+				.antMatchers("/videoPastpaper/**").hasAnyAuthority("videoManage")
+				.antMatchers("/videoSelf/**").hasAnyAuthority("videoManage")
+				.antMatchers("/videoPoint/**").hasAnyAuthority("knowledgeManage")
+				.antMatchers("/keywordManager/**").hasAnyAuthority("keywordTagManage")
+				.antMatchers("/lectureManager/**").hasAnyAuthority("lectureManage")
+				.antMatchers("/adminUser/**").hasAnyAuthority("adminUserManage")
+				
 				.antMatchers("/loginFail").permitAll()
 				.antMatchers("/logoutSuccess").permitAll()
 				
 				.antMatchers("/manage/**").permitAll()
-				.antMatchers("/videoPastpaper/**").permitAll()
+				
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
