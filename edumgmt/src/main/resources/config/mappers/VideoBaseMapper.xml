@@ -176,4 +176,14 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
+	
+	<update id="updateQrCodeByVideoBaseById" parameterType="VideoBase">
+		update sh_video_base
+		<set>
+			<if test="qrcode != null">
+				qrcode = #{qrcode,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
 </mapper>

@@ -22,5 +22,7 @@ public interface VideoBaseMapper {
 	public List<VideoBase> getVideoBaseList(VideoBase videoBase);
 
 	public Integer getVideoBaseListCount(VideoBase videoBase);
+	
+	public Integer updateQrCodeByVideoBaseById(VideoBase videoBase);
 
 }

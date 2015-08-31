@@ -80,4 +80,13 @@ public class VideoBaseServiceImpl implements VideoBaseService {
 		return list;
 	}
 
+	@Override
+	public Integer updateQrCodeByVideoBaseById(VideoBase videoBase) {
+		if(null != videoBase) {
+			Integer integer = videoBaseMapper.updateQrCodeByVideoBaseById(videoBase);
+			return integer;
+		}
+		return 0;
+	}
+
 }
