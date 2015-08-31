@@ -34,7 +34,7 @@ public class VideoBase {
 
 	private String desc;
 
-	@NotEmpty(message = "{videoBase.profile.not.empty}")
+	
 	private String profile;
 
 	@NotEmpty(message = "{videoBase.difficulty.not.empty}")

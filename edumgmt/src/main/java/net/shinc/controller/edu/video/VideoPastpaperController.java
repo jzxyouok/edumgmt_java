@@ -71,22 +71,12 @@ public class VideoPastpaperController extends AbstractBaseController {
 	private String expires;
 
 	/**
-	 * @Title: getVideoPastpaperAndRelevantInfoList
-	 * @Description: 真题/模拟题视频列表 
-	 * 列表信息：{ "code": "SUCCESS", "message": "交易成功",
-	 *               "detail": null, "result": [{ "id": 10, "videoBase": {
-	 *               "questionId=题目id字符串": "12313354", "title": "title", "desc":
-	 *               "desc", "difficulty": "1", "questionNumber=题号": "66",
-	 *               "course": { "id": 2, "name": "数学", "shortName": "数" },
-	 *               "lecture=讲解人": { "id": 2, "name": "张天才", "level": "100" },
-	 *               "keywordList": [{ "id": 3, "name": "化学" }, { "id": 4,
-	 *               "name": "英语" }], "knowledgetPointList": [] },
-	 *               "questionBankType": { "id": 165, "name": "河北卷" },
-	 *               "questionBankYear": { "year": "2011" }, "questionType": {
-	 *               "id": 1, "name": "单选题" }, "questionBank": { "id": 1,
-	 *               "name": "中考真题", "type": "0" }, "hasVideo=是否有视频": null }] }
-	 * @param videoPastpaper
-	 * @return IRestMessage
+	* @Title: getVideoPastpaperAndRelevantInfoList
+	* @Description: 查询视频相关信息列表
+	* @param videoPastpaper
+	* @param page
+	* @param pageSize
+	* @return  IRestMessage
 	 */
 	@RequestMapping(value = "/getVideoPastpaperAndRelevantInfoList")
 	@ResponseBody
@@ -119,28 +109,15 @@ public class VideoPastpaperController extends AbstractBaseController {
 	}
 
 	/**
-	 * @Title: addVideoPastpaperAndRelevantInfo
-	 * @Description: 添加真题/模拟题视频详细信息 入参: { "questionbankId=题库id": 1,
-	 *               "questionbankYearId=年份id": 139, "questionTypeId=题型id": 1,
-	 *               "questionbankTypeId=题库版本id": 165, "videoBase=基础信息": {
-	 *               "adminUserId=添加人id": 2, "courseId=课程id": 2,
-	 *               "lectureId=讲解人id": 2, "questionId=题目id字符串": "12313354",
-	 *               "title=标题": "title", "desc=描述": "desc", "profile=简介":
-	 *               "profile", "difficulty=难度系数": "1", "questionNumber=题号":
-	 *               "66", "keywordList=插入关键字关系表": [ { "id=关键字id": 3 }, {
-	 *               "id=关键字id": 4 } ], "knowledgetPointList=插入知识点关系表": [ {
-	 *               "id=知识点id": 3 }, { "id=知识点id": 3 }
-	 *               ],"videoDetailList=插入视频详情表": [ { "type=视频格式": "1",
-	 *               "url=视频地址": "urla" }, { "type=视频格式": "2", "url=视频地址":
-	 *               "urlb" } ] } }
-	 * @param videoPastpaper
-	 * @param bindingResult
-	 * @param locale
-	 * @return IRestMessage
+	* @Title: addVideoPastpaperAndRelevantInfo
+	* @Description: 新增视频相关信息
+	* @param videoPastpaper
+	* @param bindingResult
+	* @param locale
+	* @return  IRestMessage
 	 */
 	@RequestMapping(value = "/addVideoPastpaperAndRelevantInfo")
 	@ResponseBody
-
 	public IRestMessage addVideoPastpaperAndRelevantInfo( @Valid VideoPastpaper videoPastpaper, BindingResult bindingResult, Locale locale) {
 
 		IRestMessage iRestMessage = getRestMessage();
@@ -180,7 +157,14 @@ public class VideoPastpaperController extends AbstractBaseController {
 		}
 		return iRestMessage;
 	}
-
+	/**
+	* @Title: updateVideoPastpaperAndRelevantInfo
+	* @Description: 更新视频相关信息
+	* @param videoPastpaper
+	* @param bindingResult
+	* @param locale
+	* @return  IRestMessage
+	 */
 	@RequestMapping(value = "/updateVideoPastpaperAndRelevantInfo")
 	@ResponseBody
 	public IRestMessage updateVideoPastpaperAndRelevantInfo(@Valid VideoPastpaper videoPastpaper, BindingResult bindingResult, Locale locale) {
