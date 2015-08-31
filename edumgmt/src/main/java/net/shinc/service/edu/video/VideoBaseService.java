@@ -39,5 +39,12 @@ public interface VideoBaseService {
 	 * @return
 	 */
 	public List<Map> appendQrUrl(List<Map> list);
+	
+	/**
+	 * 根据videoBaseId,更新二维码字段
+	 * @param videoBase
+	 * @return
+	 */
+	public Integer updateQrCodeByVideoBaseById(VideoBase videoBase);
 
 }

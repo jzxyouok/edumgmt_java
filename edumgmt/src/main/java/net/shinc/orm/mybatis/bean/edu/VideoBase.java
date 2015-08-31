@@ -62,6 +62,9 @@ public class VideoBase {
 
 	// 视频详情
 	private List<VideoDetail> videoDetailList;
+	
+	//二维码图片链接
+	private String qrcode;
 
 	public Integer getId() {
 		return id;
@@ -205,5 +208,13 @@ public class VideoBase {
 
 	public void setUpdatetime(Date updatetime) {
 		this.updatetime = updatetime;
+	}
+
+	public String getQrcode() {
+		return qrcode;
+	}
+
+	public void setQrcode(String qrcode) {
+		this.qrcode = qrcode;
 	}
 }
