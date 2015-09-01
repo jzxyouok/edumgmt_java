@@ -103,8 +103,9 @@ public class HttpClientUtils {
 	
 	public static void main(String[] args) {
 		HttpClientUtils client = new HttpClientUtils();
-//		client.post("http://localhost:8080/edumgmt/login", getAddParams());
-		String url = "http://7xkw22.com1.z0.glb.clouddn.com/o_19tna2i94k6l1clvlhetbt1qvmb.mp4?avinfo&e=1440674148&token=2vfqNhAmF6Mn9SVe6-g6wMaqIIfaSpX3oynfBWlr:Fltbd5JrQ5WTannydxeQYKAvI_8=";
-		client.get(url);
+		client.post("http://localhost:8080/edumgmt/login123", getAddParams());
+		
+//		String url = "http://7xkw22.com1.z0.glb.clouddn.com/o_19tna2i94k6l1clvlhetbt1qvmb.mp4?avinfo&e=1440674148&token=2vfqNhAmF6Mn9SVe6-g6wMaqIIfaSpX3oynfBWlr:Fltbd5JrQ5WTannydxeQYKAvI_8=";
+//		client.get(url);
 	}
 }
