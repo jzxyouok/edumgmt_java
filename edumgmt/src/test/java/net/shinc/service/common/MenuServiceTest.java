@@ -6,6 +6,7 @@ import java.util.List;
 import net.shinc.InfoMgmtApplication;
 import net.shinc.orm.mybatis.bean.common.AdminUser;
 import net.shinc.orm.mybatis.bean.common.Menu;
+import net.shinc.service.edu.KnowledgePointService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +22,8 @@ public class MenuServiceTest {
 
 	@Autowired
 	private MenuService menuService;
+	@Autowired
+	private KnowledgePointService knowledgePointService;
 	
 	@Test
 	public void testGetMenu(){
@@ -29,8 +32,16 @@ public class MenuServiceTest {
 		iterator(list);
 	}
 	
-	public void iterator(Collection<?> c){
-		for (Object object : c) {
+	@Test
+	public void selectCatPointByPId(){
+	
+		knowledgePointService.selectCatPointByPId(10);
+		
+	}
+	
+	
+	public void iterator(Collection<?> c){	
+		for (Object object : c) {	
 			System.out.println(object);
 		}
 	}

@@ -13,7 +13,7 @@
     select 
     <include refid="Base_Column_List" />
     from sh_keyword
-    order by id asc
+    order by id desc
   </select>
   
   <select id="selectKeyword" resultMap="BaseResultMap" parameterType="Keyword" >

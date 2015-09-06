@@ -115,7 +115,7 @@ public class VideoSelfController extends AbstractBaseController {
 		try {
 			videoSelfService.insertVideoSelf(videoSelf);
 			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
-				
+			iRestMessage.setResult(videoSelf.getVideoBaseId());	
 		} catch (Exception e) {
 			iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());
 			logger.error("添加自编题视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
@@ -161,6 +161,7 @@ public class VideoSelfController extends AbstractBaseController {
 		try {
 			videoSelfService.updateVideoSelf(videoSelf);
 			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			iRestMessage.setResult(videoSelf.getVideoBase().getId());
 		} catch (Exception e) {
 			logger.error("更新自编题视频失败==>" + ExceptionUtils.getStackTrace(e));
 		}

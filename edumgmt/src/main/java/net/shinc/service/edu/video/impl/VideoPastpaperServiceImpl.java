@@ -7,8 +7,6 @@ import java.util.Map;
 
 import net.shinc.orm.mybatis.bean.common.AdminUser;
 import net.shinc.orm.mybatis.bean.common.QueryBean;
-import net.shinc.orm.mybatis.bean.edu.Keyword;
-import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
 import net.shinc.orm.mybatis.bean.edu.VideoBase;
 import net.shinc.orm.mybatis.bean.edu.VideoBaseKeywordKey;
 import net.shinc.orm.mybatis.bean.edu.VideoBaseKnowledgePointKey;
@@ -19,6 +17,7 @@ import net.shinc.orm.mybatis.mappers.edu.VideoBaseKnowledgePointMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoBaseMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoDetailMapper;
 import net.shinc.orm.mybatis.mappers.edu.VideoPastpaperMapper;
+import net.shinc.service.edu.video.VideoBaseService;
 import net.shinc.service.edu.video.VideoPastpaperService;
 
 import org.apache.commons.lang3.StringUtils;
@@ -45,6 +44,8 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 	private VideoBaseKnowledgePointMapper videoBaseKnowledgePointMapper;
 	@Autowired
 	private VideoBaseKeywordMapper videoBaseKeywordMapper;
+	@Autowired
+	private VideoBaseService videoBaseService;
 	
 
 	@Override
@@ -60,6 +61,7 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 		videoBase.setAdminUserId(AdminUser.getCurrentUser().getId());
 		videoBase.setUpdatetime(new Date());
 		videoBase.setProfile(StringUtils.trim(videoBase.getProfile()));
+		videoBase.setQuestionId(String.valueOf(System.currentTimeMillis()));
 		videoBaseMapper.insertVideoBase(videoBase);
 		map.put("videoBaseId", videoBase.getId());
 		videoPastpaper.setVideoBaseId(videoBase.getId());
@@ -73,22 +75,23 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 		}
 
 		// 插入知识点关系
-		if (videoPastpaper.getVideoBase() != null && videoPastpaper.getVideoBase().getKnowledgetPointList() != null
-				&& videoPastpaper.getVideoBase().getKnowledgetPointList().size() > 0) {
-			for (KnowledgePoint vd : (List<KnowledgePoint>) videoPastpaper.getVideoBase().getKnowledgetPointList()) {
+		if (StringUtils.isNotEmpty(videoPastpaper.getKnowledgePointIds())) {
+			for (String id : StringUtils.split(videoPastpaper.getKnowledgePointIds(), ",")) {
 				VideoBaseKnowledgePointKey videoBaseKnowledgePointKey = new VideoBaseKnowledgePointKey();
 				videoBaseKnowledgePointKey.setVideoBaseId(videoBase.getId());
-				videoBaseKnowledgePointKey.setKnowledgePointId(vd.getId());
+				videoBaseKnowledgePointKey.setKnowledgePointId(Integer.valueOf(id));
 				videoBaseKnowledgePointMapper.insert(videoBaseKnowledgePointKey);
 			}
 		}
 
 		// 插入关键字关系
-		for (String keywordId : StringUtils.split(videoPastpaper.getKewordIds(), ",")) {
-			VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
-			videoBaseKeywordKey.setVideoBaseId(videoBase.getId());
-			videoBaseKeywordKey.setKeywordId(Integer.valueOf(keywordId));
-			videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
+		if (StringUtils.isNotEmpty(videoPastpaper.getKewordIds())) {
+			for (String keywordId : StringUtils.split(videoPastpaper.getKewordIds(), ",")) {
+				VideoBaseKeywordKey videoBaseKeywordKey = new VideoBaseKeywordKey();
+				videoBaseKeywordKey.setVideoBaseId(videoBase.getId());
+				videoBaseKeywordKey.setKeywordId(Integer.valueOf(keywordId));
+				videoBaseKeywordMapper.insertVideoKeyword(videoBaseKeywordKey);
+			}
 		}
 		videoPastpaperMapper.insertVideoPastpaper(videoPastpaper);
 		return map;
@@ -114,13 +117,17 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 		}
 
 		// 更新知识点关系
-		if (videoPastpaper.getVideoBase() != null && videoPastpaper.getVideoBase().getKnowledgetPointList() != null
-				&& videoPastpaper.getVideoBase().getKnowledgetPointList().size() > 0) {
-			for (KnowledgePoint vd : (List<KnowledgePoint>) videoPastpaper.getVideoBase().getKnowledgetPointList()) {
-				VideoBaseKnowledgePointKey videoBaseKnowledgePointKey = new VideoBaseKnowledgePointKey();
+		if (StringUtils.isNotEmpty(videoPastpaper.getKnowledgePointIds())) {
+			
+			VideoBaseKnowledgePointKey videoBaseKnowledgePointKey = new VideoBaseKnowledgePointKey();
+			videoBaseKnowledgePointKey.setVideoBaseId(videoBase.getId());	
+			videoBaseKnowledgePointMapper.deleteVideoBaseKnowledgePoint(videoBaseKnowledgePointKey);
+			
+			for (String id : StringUtils.split(videoPastpaper.getKnowledgePointIds(), ",")) {
+				videoBaseKnowledgePointKey = new VideoBaseKnowledgePointKey();
 				videoBaseKnowledgePointKey.setVideoBaseId(videoBase.getId());
-				videoBaseKnowledgePointKey.setKnowledgePointId(vd.getId());
-				videoBaseKnowledgePointMapper.deleteVideoBaseKnowledgePoint(videoBaseKnowledgePointKey);
+				videoBaseKnowledgePointKey.setKnowledgePointId(Integer.valueOf(id));
+				
 				videoBaseKnowledgePointMapper.insert(videoBaseKnowledgePointKey);
 			}
 		}
@@ -169,7 +176,8 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 
 	@Override
 	public List<Map> getVideoPastpaperAndRelevantInfoList(QueryBean queryBean,RowBounds rowBounds) {
-		return videoPastpaperMapper.getVideoPastpaperAndRelevantInfoList(queryBean, rowBounds);
+		List<Map> list = videoPastpaperMapper.getVideoPastpaperAndRelevantInfoList(queryBean, rowBounds);
+		return videoBaseService.appendQrUrl(list);
 	}
 
 }

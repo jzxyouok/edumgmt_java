@@ -33,6 +33,7 @@ public abstract class AbstractBaseController implements ApplicationContextAware 
 		AdminUser currentUser = AdminUser.getCurrentUser();
 		if(null != currentUser){
 			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("userId", currentUser.getId());
 			map.put("userName", currentUser.getUsername());
 			map.put("menuMap", currentUser.getMenuMap());
 			msg.setUserInfo(map);

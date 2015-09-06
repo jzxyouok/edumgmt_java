@@ -1,6 +1,7 @@
 package net.shinc.service.edu.video;
 
 import java.util.List;
+import java.util.Map;
 
 import net.shinc.orm.mybatis.bean.edu.VideoBase;
 
@@ -31,5 +32,19 @@ public interface VideoBaseService {
 	 * @return VideoBase
 	 */
 	public VideoBase getVideoBase(VideoBase videoBase);
+	
+	/**
+	 * 处理结果集，拼接二维码图片下载地址
+	 * @param list
+	 * @return
+	 */
+	public List<Map> appendQrUrl(List<Map> list);
+	
+	/**
+	 * 根据videoBaseId,更新二维码字段
+	 * @param videoBase
+	 * @return
+	 */
+	public Integer updateQrCodeByVideoBaseById(VideoBase videoBase);
 
 }

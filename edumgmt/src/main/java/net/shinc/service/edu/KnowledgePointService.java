@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.shinc.orm.mybatis.bean.edu.Course;
 import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
+import net.shinc.orm.mybatis.bean.edu.TreeNode;
 
 /**
  * @ClassName KnowledgePointService 
@@ -13,32 +14,18 @@ import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
  */
 public interface KnowledgePointService {
 
-	/**
-	 * 添加知识点
-	 * @param KnowledgePoint
-	 * @return
-	 */
 	public Integer addKnowledgePoint(KnowledgePoint knowledgePoint);
-	
 	/**
-	 * 修改知识点
-	 * @param KnowledgePoint
-	 * @return
+	* @Title: addKnowledgePointBaseVideo
+	* @Description: 插入知识点和视频关系
+	* @param ids
+	* @param videoBaseId  void
 	 */
+	
 	public Integer updateKnowledgePoint(KnowledgePoint knowledgePoint);
 	
-	/**
-	 * 删除知识点
-	 * @param KnowledgePoint
-	 * @return
-	 */
 	public Integer deleteKnowledgePointById(Integer id);
 	
-	/**
-	 * 根据id查询知识点
-	 * @param KnowledgePoint
-	 * @return
-	 */
 	public KnowledgePoint getKnowledgePointById(Integer id);
 	
 	/**
@@ -72,4 +59,18 @@ public interface KnowledgePointService {
 	 * @return
 	 */
 	public Boolean isUsedKnowledgePoint(KnowledgePoint knowledgePoint);
+	
+	/**
+	 * 递归知识点树结构列表
+	 * @Title: getKnowledgePointListTree
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param parentId
+	 * @return List<KnowledgePoint>
+	 */
+	List<TreeNode<KnowledgePoint>> getKnowledgePointListTree(Integer courseId);
+	
+	
+	List<KnowledgePoint> selectCatPointByPId(Integer pid);
+	
+	
 }

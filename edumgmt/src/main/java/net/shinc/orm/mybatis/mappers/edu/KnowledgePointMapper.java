@@ -3,6 +3,7 @@ package net.shinc.orm.mybatis.mappers.edu;
 import java.util.List;
 
 import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
+import net.shinc.orm.mybatis.bean.edu.TreeNode;
 
 /** 
  * @ClassName KnowledgePointMapper 
@@ -23,5 +24,15 @@ public interface KnowledgePointMapper {
     KnowledgePoint hasKnowledgePoint(KnowledgePoint record);
     
     List<KnowledgePoint> getKnowledgePointList(KnowledgePoint record);
+
+	/**
+	 * @Title: getKnowledgePointListTree
+	 * @Description: 知识点树结构列表
+	 * @return List<TreeNode<KnowledgePoint>>
+	 */
+    public List<TreeNode<KnowledgePoint>> getKnowledgePointListTree(Integer courseId);
+    
+    List<KnowledgePoint> selectCatPointByPId(Integer pid);
+    
 
 }

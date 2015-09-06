@@ -1,5 +1,6 @@
 package net.shinc.controller.edu.video;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -11,8 +12,13 @@ import net.shinc.common.ErrorMessage;
 import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
 import net.shinc.formbean.edu.video.VideoPastpaperQueryBean;
+import net.shinc.orm.mybatis.bean.edu.VideoDetail;
 import net.shinc.orm.mybatis.bean.edu.VideoPastpaper;
+import net.shinc.orm.mybatis.bean.edu.VideoPic;
+import net.shinc.service.common.QNService;
+import net.shinc.service.edu.video.VideoDetailService;
 import net.shinc.service.edu.video.VideoPastpaperService;
+import net.shinc.service.edu.video.VideoPicService;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
@@ -45,6 +51,24 @@ public class VideoPastpaperController extends AbstractBaseController {
 
 	@Autowired
 	private VideoPastpaperService videoPastpaperService;
+	
+	@Autowired
+	private VideoDetailService videoDetailService;
+	
+	@Autowired
+	private VideoPicService videoPicService;
+	
+	@Autowired
+	private QNService qnservice;
+	
+	@Value("${qiniu.eduonline.domain}")
+	private String domain;
+	
+	@Value("${qiniu.eduonline.bucketName}")
+	private String bucketName;
+	
+	@Value("${qiniu.eduonline.deadline}")
+	private String expires;
 
 	/**
 	 * @Title: getVideoPastpaperAndRelevantInfoList
@@ -168,9 +192,21 @@ public class VideoPastpaperController extends AbstractBaseController {
 		try {
 			videoPastpaperService.updateVideoPastpaper(videoPastpaper);
 			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			
+			//result放入视频和截图信息
+			Map<String,Object> resultMap = new HashMap<String,Object>();
+			Integer videoBaseId = videoPastpaper.getVideoBase().getId();
+			List<VideoDetail> list = videoDetailService.getVideoDetailListByVideoBaseId(videoBaseId);
+			List<VideoPic> pic = videoPicService.selectPicByVideoBaseId(videoBaseId, domain, Long.parseLong(expires));
+			resultMap.put("video", list);
+			resultMap.put("pic", pic);
+			resultMap.put("videoBaseId", videoBaseId);
+			iRestMessage.setResult(resultMap);
+			
 		} catch (Exception e) {
 			logger.error("更新真题/模拟题视频失败==>" + ExceptionUtils.getStackTrace(e));
 		}
 		return iRestMessage;
 	}
+	
 }

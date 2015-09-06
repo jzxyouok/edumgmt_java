@@ -73,7 +73,6 @@ dependencies {
 	compile 'org.apache.commons:commons-lang3:3.4'
 	compile 'com.qiniu:qiniu-java-sdk:7.0.+'
 	
-	
 }
 
 

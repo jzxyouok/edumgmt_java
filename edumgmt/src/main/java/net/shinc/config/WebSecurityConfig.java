@@ -34,13 +34,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http
 		.authorizeRequests()
-//				.antMatchers("/adminUser/**").hasAnyAuthority("adminUserManage")
-//				.antMatchers("/adminUser/getAdminUserList").hasAnyAuthority("adminUserList")
+//				.antMatchers("/videoPastpaper/**").permitAll()
+				.antMatchers("/videoPastpaper/**").hasAnyAuthority("videoManage")
+				.antMatchers("/videoSelf/**").hasAnyAuthority("videoManage")
+				.antMatchers("/videoPoint/**").hasAnyAuthority("knowledgeManage")
+				.antMatchers("/keywordManager/**").hasAnyAuthority("keywordTagManage")
+				.antMatchers("/lectureManager/**").hasAnyAuthority("lectureManage")
+				.antMatchers("/adminUser/**").hasAnyAuthority("adminUserManage")
+				
 				.antMatchers("/loginFail").permitAll()
 				.antMatchers("/logoutSuccess").permitAll()
 				
 				.antMatchers("/manage/**").permitAll()
-				.antMatchers("/videoPastpaper/**").permitAll()
+				
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
@@ -52,6 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 					}
 				})
 				.loginPage("/login")
+				.loginProcessingUrl("/login")
 				.successHandler(successHandler())
 				.failureHandler(failureHandler())
 				.permitAll()
@@ -67,8 +74,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.userDetailsService(dbUserDetailService()).passwordEncoder(defaultPasswordEncoder());
-		auth.userDetailsService(dbUserDetailService());
+		auth.userDetailsService(dbUserDetailService()).passwordEncoder(defaultPasswordEncoder());
+//		auth.userDetailsService(dbUserDetailService());
 	}
 
 	@Bean

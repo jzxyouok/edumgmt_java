@@ -19,6 +19,7 @@
 		base.question_number,
 		base.profile,
 		base.updatetime,
+		base.qrcode,
 
 		course.id courseId,
 		course.name courseName,
@@ -26,10 +27,13 @@
 		lecture.id lectureId,
 		lecture.name lectureName,
 		lecture.level lectureLevel,
-		group_concat(sk.name) keyword,
-	    cast(group_concat(sk.id) AS CHAR)  keywordId,
-	    group_concat(kp.name) knowledge,
-	    cast(group_concat(kp.id) AS CHAR)  knowledgeId
+		group_concat(distinct sk.name) keyword,
+	    cast(group_concat(distinct sk.id) AS CHAR)  keywordId,
+	    group_concat(distinct kp.name) knowledge,
+	    cast(group_concat(distinct kp.id) AS CHAR)  knowledgeId,
+	    case when group_concat(distinct vidoDetail.url) is null then '未上传'
+		when group_concat(distinct vidoDetail.url) is not null THEN '已上传'
+		end AS videoUrl
 
 		FROM
 		sh_video_base base
@@ -46,6 +50,7 @@
 
 		left join sh_video_base_knowledge_point pt on pt.sh_video_base_id = base.id
 		left join sh_knowledge_point kp on kp.id = pt.sh_knowledge_point_id
+		left join sh_video_detail vidoDetail on vidoDetail.sh_video_base_id=base.id
 
 		WHERE 1=1
 
@@ -66,24 +71,31 @@
 		<if test="difficulty != null and difficulty != ''">
 			and base.difficulty = #{difficulty}
 		</if>
-		<if test="hasVideo == '1'">
-			and exists (select 1 from sh_video_detail detail where detail.sh_video_base_id = base.id)
+		
+		group by id
+		having 1=1
+		<if test="hasVideo == 1">
+			and videoUrl = '已上传'
 		</if>
-		<if test="keywordList != null ">
-			and kw.sh_keyword_id in 
+		<if test="hasVideo == 0">
+			and videoUrl = '未上传'
+		</if>
+		
+		<if test="keywordList != null and keywordList.size() > 0 ">
+			and keywordId in 
 			<foreach item="item" index="index" collection="keywordList"
 		      open="(" separator="," close=")">
 		        ${item}
 		  	</foreach>
 		</if>
-		<if test="knowledgePointList != null">
-			and and pt.sh_knowledge_point_id  in 
+		<if test="knowledgePointList != null and knowledgePointList.size() > 0 " >
+			and knowledgeId  in 
 			<foreach item="item" index="index" collection="knowledgePointList"
 		      open="(" separator="," close=")">
 		        ${item}
 		  	</foreach>
 		</if>
-		group by id
+		order by base.updatetime desc
 	</select>
 
 	<select id="getVideoPointList" resultMap="BaseResultMap" parameterType="VideoPoint">

@@ -21,6 +21,10 @@ public class Lecture implements Serializable{
 
     private String level;
     
+    private String createTime;
+
+    private String updateTime;
+    
     private Integer videoPointNum;
     
 	private Integer videoQuestionNum;
@@ -81,5 +85,21 @@ public class Lecture implements Serializable{
 
 	public void setVideoNum(Integer videoNum) {
 		this.videoNum = videoNum;
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
 	}
 }

@@ -74,13 +74,13 @@ public class AdminUserController extends AbstractBaseController {
 			}
 			
 			String password = adminUser.getPassword();
-//			adminUser.setPassword(passService.encode(password));
-			System.out.println(passService.encode(password));
+			String encodePwd = passService.encode(password);
 			
+			adminUser.setPassword(encodePwd);
 			int id = adminUserService.addAdminUser(adminUser);
 			logger.info("add AdminUserId ==>" + adminUser.getId());
 			if(id > 0) {
-				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+				iRestMessage.setCode(ErrorMessage.ADD_SUCCESS.getCode());
 				iRestMessage.setResult(id);
 			}
 		} catch (Exception e) {
@@ -173,7 +173,7 @@ public class AdminUserController extends AbstractBaseController {
 		try {
 			int i = adminUserService.deleteAdminUser(adminUser);
 			if(i > 0) {
-				msg.setCode(ErrorMessage.SUCCESS.getCode());
+				msg.setCode(ErrorMessage.DELETE_SUCCESS.getCode());
 				msg.setResult(i);
 			} else {
 				msg.setCode(ErrorMessage.DELETE_FAILED.getCode());
@@ -199,14 +199,12 @@ public class AdminUserController extends AbstractBaseController {
 			return msg;
 		}
 		try {
-			logger.info("enabled--->"+ adminUser.isEnabled());
-			
-//			String password = adminUser.getPassword();
-//			adminUser.setPassword(passService.encode(password));
-			
+			logger.debug("enabled--->"+ adminUser.isEnabled());
+			String password = adminUser.getPassword();
+			adminUser.setPassword(passService.encode(password));
 			int i = adminUserService.updateAdminUser(adminUser);
 			if(i > 0) {
-				msg.setCode(ErrorMessage.SUCCESS.getCode());
+				msg.setCode(ErrorMessage.UPDATE_SUCCESS.getCode());
 			} else {
 				msg.setCode(ErrorMessage.UPDATE_FAILED.getCode());
 			}
@@ -231,13 +229,13 @@ public class AdminUserController extends AbstractBaseController {
 		IRestMessage msg = getRestMessage();
 		try {
 			AdminUser admin = adminUserService.getAdminUserById(adminUser.getId());
-			
-			if (null == adminUser.getPassword() || !admin.getPassword().equals(adminUser.getPassword())) {
+			boolean b = passService.matches(adminUser.getPassword(), admin.getPassword());
+			if (null == adminUser.getPassword() || !b) {
 				msg.setCode(ErrorMessage.PASSWORD_WRONG.getCode());
 				msg.setResult(admin);
 			} else {
 				if (null != newpassword1 && newpassword1.equals(newpassword2)) {
-					admin.setPassword(newpassword1);
+					admin.setPassword(passService.encode(newpassword1));
 					int m = adminUserService.updateAdminUser(admin);
 					if (m > 0) {
 						msg.setCode(ErrorMessage.SUCCESS.getCode());

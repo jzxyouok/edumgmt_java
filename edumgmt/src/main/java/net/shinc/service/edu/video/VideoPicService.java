@@ -14,7 +14,7 @@ public interface VideoPicService {
 	/**
 	 * 按照VideoBaseId选择截图（可能一个视频对应多张截图）
 	 */
-	public List<VideoPic> selectPicByVideoBaseId(Integer id);
+	public List<VideoPic> selectPicByVideoBaseId(Integer id, String domain, long expires);
 	/**
 	 * 按照Id选择截图
 	 */	
@@ -35,6 +35,13 @@ public interface VideoPicService {
 	 * 批量增加截图
 	 */
 	public Integer insertPicBatch(List<VideoPic> list);
+	
+	/**
+	 * 重组视频截图list中的store_info列表
+	 * @param list
+	 * @return
+	 */
+	public List<String> dealVideoPicStoreInfo(List<VideoPic> list);
 
 
 }

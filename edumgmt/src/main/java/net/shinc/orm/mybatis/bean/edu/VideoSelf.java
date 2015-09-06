@@ -15,7 +15,7 @@ public class VideoSelf {
 
 	private Integer videoBaseId;
 	
-	private String resourse;
+	private String resource;
 
 	private String type;
 
@@ -38,12 +38,22 @@ public class VideoSelf {
 
 	private String kewordIds;
 	
+	private String knowledgePointIds;
+	
 	public Integer getId() {
 		return id;
 	}
 
 	public String getKewordIds() {
 		return kewordIds;
+	}
+
+	public String getKnowledgePointIds() {
+		return knowledgePointIds;
+	}
+
+	public void setKnowledgePointIds(String knowledgePointIds) {
+		this.knowledgePointIds = knowledgePointIds;
 	}
 
 	public void setKewordIds(String kewordIds) {
@@ -54,12 +64,12 @@ public class VideoSelf {
 		this.id = id;
 	}
 
-	public String getResourse() {
-		return resourse;
+	public String getResource() {
+		return resource;
 	}
 
-	public void setResourse(String resourse) {
-		this.resourse = resourse;
+	public void setResource(String resource) {
+		this.resource = resource;
 	}
 
 	public QuestionType getQuestionType() {

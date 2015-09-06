@@ -114,6 +114,7 @@ public class VideoPointController extends AbstractBaseController {
 		try {
 			videoPointService.insertVideoPoint(videoPoint);
 			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			iRestMessage.setResult(videoPoint.getVideoBaseId());
 		} catch (Exception e) {
 			logger.error("添加知识点视频视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
 			iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());
@@ -173,6 +174,7 @@ public class VideoPointController extends AbstractBaseController {
 		try {
 			videoPointService.updateVideoPoint(videoPoint);
 			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			iRestMessage.setResult(videoPoint.getVideoBase().getId());
 		} catch (Exception e) {
 			logger.error("更新知识点视频视频失败==>" + ExceptionUtils.getStackTrace(e));
 		}

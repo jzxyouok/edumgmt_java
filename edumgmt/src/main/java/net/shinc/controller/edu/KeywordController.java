@@ -43,11 +43,16 @@ public class KeywordController extends AbstractBaseController{
 	public IRestMessage deleteKeywordById(@RequestParam(value="id",required = true) Integer id) {
 		IRestMessage msg = getRestMessage();
 		try {
+			Boolean b = keywordService.isUsed(id);
+			if(b) {
+				msg.setCode(ErrorMessage.KEYWORD_ISUSED.getCode());
+				return msg;
+			}
 			int i = keywordService.deleteKeywordById(id);
 			if(i > 0) {
 				msg.setCode(ErrorMessage.DELETE_SUCCESS.getCode());
 				msg.setResult(i);
-			}else {
+			} else {
 				msg.setCode(ErrorMessage.DELETE_FAILED.getCode());
 			}
 		} catch (Exception e) {

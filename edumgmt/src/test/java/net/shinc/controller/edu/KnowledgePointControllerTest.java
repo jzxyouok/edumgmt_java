@@ -97,5 +97,18 @@ public class KnowledgePointControllerTest {
 			e.printStackTrace();
 		}
 	}
+	
+
+	@Test
+    @WithMockUser(username="admin",password="admin",authorities={"adminUserList"})
+    public void getKnowledgePointListByParentId(){
+    	RequestBuilder reqbuild = MockMvcRequestBuilders.post("/knowledgePoint/getKnowledgePointTreeList")
+    			;
+    	try {
+    		mockMvc.perform(reqbuild).andDo(MockMvcResultHandlers.print());
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    }
 
 }

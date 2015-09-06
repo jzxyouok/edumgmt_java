@@ -73,7 +73,7 @@ public class VideoPicServiceTest {
 	@Test
 	@Transactional
 	public void teatSelectPicByVideoBaseId(){
-		List<VideoPic> list = videoPicService.selectPicByVideoBaseId(2);
+		List<VideoPic> list = videoPicService.selectPicByVideoBaseId(2,"",3600l);
 		for (VideoPic videoPic : list) {
 			System.out.println(videoPic);
 		}

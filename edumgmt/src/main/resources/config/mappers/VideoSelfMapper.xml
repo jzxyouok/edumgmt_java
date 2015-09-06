@@ -26,6 +26,7 @@
 		base.question_number,
 		base.profile,
 		base.updatetime,
+		base.qrcode,
 		course.id courseId,
 		course.name courseName,
 		qtype.id typeId,
@@ -33,10 +34,13 @@
 		lecture.id lectureId,
 		lecture.name lectureName,
 		lecture.level lectureLevel,
-		group_concat(sk.name) keyword,
-	    cast(group_concat(sk.id) AS CHAR)  keywordId,
-	    group_concat(kp.name) knowledge,
-	    cast(group_concat(kp.id) AS CHAR)  knowledgeId
+		group_concat(distinct sk.name) keyword,
+	    cast(group_concat(distinct sk.id) AS CHAR)  keywordId,
+	    group_concat(distinct kp.name) knowledge,
+	    cast(group_concat(distinct kp.id) AS CHAR)  knowledgeId,
+	    case when group_concat(distinct vidoDetail.url) is null then '未上传'
+		when group_concat(distinct vidoDetail.url) is not null THEN '已上传'
+		end AS videoUrl
 		FROM
 		sh_video_base base
 		INNER JOIN
@@ -51,6 +55,8 @@
 		left join sh_keyword sk on sk.id = kw.sh_keyword_id
 		left join sh_video_base_knowledge_point pt on pt.sh_video_base_id = base.id
 		left join sh_knowledge_point kp on kp.id = pt.sh_knowledge_point_id
+		left join sh_video_detail vidoDetail on vidoDetail.sh_video_base_id=base.id
+		
 
 		WHERE 1=1
 
@@ -70,29 +76,35 @@
 			and base.sh_lecture_id = #{lectureId}
 		</if>
 		<if test="questionDesc != null and questionDesc != ''">
-			and base.title like '%${questionDesc}%'
+			and base.profile like '%${questionDesc}%'
 		</if>
 		<if test="difficulty != null and difficulty != ''">
 			and base.difficulty = #{difficulty}
 		</if>
-		<if test="hasVideo == '1'">
-			and exists (select 1 from sh_video_detail detail where detail.sh_video_base_id = base.id)
+		
+		group by id
+		having 1=1
+	    <if test="hasVideo == 1">
+			and videoUrl = '已上传'
 		</if>
-		<if test="keywordList != null ">
-			and kw.sh_keyword_id in 
+		<if test="hasVideo == 0">
+			and videoUrl = '未上传'
+		</if>  
+		<if test="keywordList != null and keywordList.size() > 0 ">
+			and keywordId in 
 			<foreach item="item" index="index" collection="keywordList"
 		      open="(" separator="," close=")">
 		        ${item}
 		  	</foreach>
 		</if>
-		<if test="knowledgePointList != null">
-			and and pt.sh_knowledge_point_id  in 
+		<if test="knowledgePointList != null and knowledgePointList.size() > 0 " >
+			and knowledgeId  in 
 			<foreach item="item" index="index" collection="knowledgePointList"
 		      open="(" separator="," close=")">
 		        ${item}
 		  	</foreach>
-		</if> 
-		group by id
+		</if>
+		order by base.updatetime desc
 
 	</select>
 	<select id="getVideoSelfList" resultMap="BaseResultMap" parameterType="VideoSelf">
@@ -138,6 +150,9 @@
 			<if test="questionTypeId != null">
 				sh_question_type_id,
 			</if>
+			<if test="resource != null">
+				resource,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -151,6 +166,9 @@
 			</if>
 			<if test="questionTypeId != null">
 				#{questionTypeId,jdbcType=INTEGER},
+			</if>
+			<if test="resource != null">
+				#{resource},
 			</if>
 		</trim>
 	</insert>
@@ -166,18 +184,11 @@
 			<if test="questionTypeId != null">
 				sh_question_type_id = #{questionTypeId,jdbcType=INTEGER},
 			</if>
+			<if test="resource != null">
+				resource = #{resource},
+			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 </mapper>
 
-<!-- SELECT a_tab.id videoSelfId, b_tab.question_id, b_tab.title, b_tab.desc, b_tab.courseId, b_tab.courseName, b_tab.courseShortName, b_tab.question_number, b_tab.knowledgePointName, 
-	b_tab.knowledgePointId, b_tab.keywordName, b_tab.keywordId, b_tab.videoDetailUrl, b_tab.lectureId, b_tab.lectureName, b_tab.lectureLevel, b_tab.difficulty, e_tab.name questionTypeName, 
-	e_tab.id questionTypeId FROM (SELECT a_tab.id, a_tab.sh_video_base_id, a_tab.type, a_tab.sh_question_type_id FROM sh_video_self a_tab LIMIT 0 , 20)a_tab left join ( SELECT b_tab.id, 
-	b_tab.question_number, b_tab.question_id, b_tab.title, b_tab.desc, b_tab.sh_admin_user_id, b_tab.sh_course_id, b_tab.sh_lecture_id, a_tab.id courseId, a_tab.name courseName, 
-	a_tab.short courseShortName, c_tab.name lectureName, c_tab.level lectureLevel, c_tab.id lectureId, d_tab.knowledgePointName, d_tab.knowledgePointId, e_tab.keywordName, e_tab.keywordId, 
-	b_tab.difficulty, f_tab.url videoDetailUrl FROM sh_video_base b_tab left join sh_course a_tab on b_tab.sh_course_id = a_tab.id left join sh_lecture c_tab on c_tab.id = b_tab.sh_lecture_id 
-	left join ( select a_tab.sh_video_base_id,b_tab.name knowledgePointName,b_tab.id knowledgePointId from sh_video_base_knowledge_point a_tab left join sh_knowledge_point b_tab 
-	on a_tab.sh_knowledge_point_id=b_tab.id )d_tab on d_tab.sh_video_base_id = b_tab.id left join ( select a_tab.sh_video_base_id,b_tab.name keywordName,b_tab.id keywordId from 
-	sh_video_base_keyword a_tab left join sh_keyword b_tab on a_tab.sh_keyword_id=b_tab.id )e_tab on e_tab.sh_video_base_id = b_tab.id left join sh_video_detail f_tab on b_tab.id 
-	= f_tab.sh_video_base_id ) b_tab on a_tab.sh_video_base_id = b_tab.id left join sh_question_type e_tab on a_tab.sh_question_type_id = e_tab.id where 1=1 -->

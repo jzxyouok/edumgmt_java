@@ -1,13 +1,22 @@
 package net.shinc.service.edu.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import net.shinc.orm.mybatis.bean.edu.Course;
 import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
+import net.shinc.orm.mybatis.bean.edu.TreeNode;
 import net.shinc.orm.mybatis.mappers.edu.KnowledgePointMapper;
+import net.shinc.orm.mybatis.mappers.edu.VideoBaseKnowledgePointMapper;
 import net.shinc.service.edu.KnowledgePointService;
 import net.shinc.service.edu.video.VideoBaseKnowledgePointService;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +31,13 @@ public class KnowledgePointServiceImpl implements KnowledgePointService {
 
 	@Autowired
 	private KnowledgePointMapper knowledgePointMapper;
+	@Autowired
+	private VideoBaseKnowledgePointMapper videoBaseKnowledgePointMapper;
+	
 	
 	@Autowired
 	private VideoBaseKnowledgePointService videoBaseKnowledgePointService;
-
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	@Override
 	public Integer addKnowledgePoint(KnowledgePoint knowledgePoint) {
 		if(null != knowledgePoint) {
@@ -97,5 +109,74 @@ public class KnowledgePointServiceImpl implements KnowledgePointService {
 		}
 		return false;
 	}
-	
+	@Override
+	public List<TreeNode<KnowledgePoint>> getKnowledgePointListTree(Integer courseId) {
+		try {
+			
+			List<TreeNode<KnowledgePoint>> list = knowledgePointMapper.getKnowledgePointListTree(courseId);
+			
+			List<TreeNode<KnowledgePoint>> root = new ArrayList<TreeNode<KnowledgePoint>>();
+			Map<Integer,TreeNode<KnowledgePoint>> map = new HashMap();
+			// 无论父还是子都转化为 id为key 节点实体为value的map结构
+			for(Iterator<TreeNode<KnowledgePoint>> it = list.iterator(); it.hasNext();) {
+				TreeNode<KnowledgePoint> node = it.next();
+				map.put(node.getId(), node);
+			}
+			// 遍历添加子节点（判段如果是子节点，则根据父id从map中取出父对象，将子加入）
+			for(Iterator<TreeNode<KnowledgePoint>> it = list.iterator(); it.hasNext();) {
+				TreeNode<KnowledgePoint> node = it.next();
+				Integer parentId = node.getParent();
+				if(parentId == 0) {
+					root.add(node);
+					
+				} else {
+					TreeNode<KnowledgePoint> parent = map.get(parentId);
+					if(parent == null) {
+						logger.warn("can not find its parent for :" + node);
+					} else {
+						parent.addChild(node);
+					}
+					
+				}
+			}
+			return root;
+			
+			
+		} catch(Exception e) {
+			logger.error(ExceptionUtils.getStackTrace(e));
+			return null;
+		}
+	}
+
+
+	@Override
+	public List<KnowledgePoint> selectCatPointByPId(Integer pid) {
+		List<KnowledgePoint> collections = knowledgePointMapper.selectCatPointByPId(pid);
+		for (KnowledgePoint a : collections) {
+			
+			a.setName(null);
+			a.setCourseId(8);
+			knowledgePointMapper.updateKnowledgePoint(a);
+			
+			List listtemo = knowledgePointMapper.selectCatPointByPId(a.getId());
+			if(listtemo.size()>0){// you
+				a.setChildren(listtemo);
+				for (KnowledgePoint ac : (List<KnowledgePoint>)listtemo) {
+					
+					ac.setName(null);
+					ac.setCourseId(8);
+					knowledgePointMapper.updateKnowledgePoint(ac);
+					
+					List listtemoooo = knowledgePointMapper.selectCatPointByPId(ac.getId());
+					if (listtemoooo.size()>0) {// 还有子节点(递归调用)
+						ac.setChildren(this.selectCatPointByPId(ac.getId()));
+					} 
+				}
+			}
+			
+			
+		}
+		
+		return collections;
+	}
 }
