@@ -12,6 +12,7 @@ import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
 import net.shinc.formbean.edu.video.VideoPointQueryBean;
 import net.shinc.orm.mybatis.bean.edu.VideoPoint;
+import net.shinc.service.edu.video.VideoBaseService;
 import net.shinc.service.edu.video.VideoPointService;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -43,6 +44,9 @@ public class VideoPointController extends AbstractBaseController {
 
 	@Autowired
 	private VideoPointService videoPointService;
+	
+	@Autowired
+	private VideoBaseService videoBaseService;
 	
 	@Value("${page.count}")
 	private String limit;
@@ -114,7 +118,10 @@ public class VideoPointController extends AbstractBaseController {
 		try {
 			videoPointService.insertVideoPoint(videoPoint);
 			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
-			iRestMessage.setResult(videoPoint.getVideoBaseId());
+			
+			Integer vbid = videoPoint.getVideoBaseId();
+			videoBaseService.generateQRCodeAndUpload(vbid);
+			iRestMessage.setResult(vbid);
 		} catch (Exception e) {
 			logger.error("添加知识点视频视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
 			iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());

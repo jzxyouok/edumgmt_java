@@ -1,9 +1,9 @@
 package net.shinc.service.common.impl;
 
-import java.util.List;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
+import net.shinc.orm.mybatis.bean.edu.MyRet;
 import net.shinc.service.common.QNService;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -17,6 +17,7 @@ import org.thymeleaf.util.StringUtils;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
+import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.model.BatchStatus;
 import com.qiniu.storage.model.FileInfo;
 import com.qiniu.util.Auth;
@@ -52,6 +53,19 @@ public class QNServiceImpl implements InitializingBean,QNService{
 	
 	public String getUploadToken(String bucket, String key, long expires, StringMap policy, boolean strict) {
 		return auth.uploadToken(bucket, key, expires, policy, strict);
+	}
+	
+	@Override
+	public String getUploadToken(String bucket, long expires) {
+		return auth.uploadToken(bucket, null, expires, getPolicy(), true);
+	}
+	
+	@Override
+	public StringMap getPolicy() {
+		StringMap policy = new StringMap();
+//		policy.put("returnBody", "{\"key\": $(key), \"hash\": $(etag), \"videoBaseId\":$(x:videoBaseId)}");
+		policy.put("returnBody", "{\"key\": $(key), \"hash\": $(etag), \"videoBaseId\":$(x:videoBaseId), \"avinfo\": $(avinfo)}");
+		return policy;
 	}
 	
 	public String getDownloadUrl(String baseUrl, long expires) {
@@ -154,6 +168,38 @@ public class QNServiceImpl implements InitializingBean,QNService{
 		}
 	}
 	
+	/**
+     * 上传文件
+     * @param filePath 上传的文件路径
+     * @param key      上传文件保存的文件名
+     * @param token    上传凭证
+     * @return sourceLink 上传后的资源链接
+     */
+	public String upload(String filePath, String key, String token, String qrDomain) {
+		UploadManager uploadManager = new UploadManager();
+	    try {
+	        Response res = uploadManager.put(filePath, key, token);
+	        MyRet ret = res.jsonToObject(MyRet.class);
+	        logger.info(res.toString());
+	        logger.info(res.bodyString());
+	        if(res.isOK()) {
+	        	return qrDomain + key;
+	        }
+	        return null;
+	    } catch (QiniuException e) {
+	        Response r = e.response;
+	        // 请求失败时简单状态信息
+	        logger.error(r.toString());
+	        try {
+	            // 响应的文本信息
+	            logger.error(r.bodyString());
+	        } catch (QiniuException e1) {
+	            //ignore
+	        }
+	    }
+	    return null;
+	}
+	
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		auth = Auth.create(getAccessKey(), getSecretKey());
@@ -179,5 +225,6 @@ public class QNServiceImpl implements InitializingBean,QNService{
 	public void setSecretKey(String secretKey) {
 		this.secretKey = secretKey;
 	}
+
 	
 }

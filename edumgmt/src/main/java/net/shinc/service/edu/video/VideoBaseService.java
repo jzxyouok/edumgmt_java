@@ -46,5 +46,12 @@ public interface VideoBaseService {
 	 * @return
 	 */
 	public Integer updateQrCodeByVideoBaseById(VideoBase videoBase);
+	
+	/**
+	 * 生成二维码并上传
+	 * @param videoBaseId
+	 * @return
+	 */
+	public Integer generateQRCodeAndUpload(Integer videoBaseId);
 
 }

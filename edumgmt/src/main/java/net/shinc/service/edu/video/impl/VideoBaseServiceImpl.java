@@ -1,14 +1,19 @@
 package net.shinc.service.edu.video.impl;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 import net.shinc.orm.mybatis.bean.edu.VideoBase;
 import net.shinc.orm.mybatis.mappers.edu.VideoBaseMapper;
 import net.shinc.service.common.QNService;
+import net.shinc.service.common.QRService;
 import net.shinc.service.edu.video.VideoBaseService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -21,11 +26,34 @@ import org.springframework.util.CollectionUtils;
 @Service
 public class VideoBaseServiceImpl implements VideoBaseService {
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private VideoBaseMapper videoBaseMapper;
 	
 	@Autowired
 	private QNService qnService;
+	
+	@Autowired
+	private QRService qrService;
+	
+	@Value("${qrcode.tempPath}")
+	private String qrcodeTempPath;
+	
+	@Value("${php.play.video}")
+	private String playVideoPath;
+	
+	//二维码所在空间名称
+	@Value("${qiniu.eduonline.qrBucketName}")
+	private String qrBucketName;
+	
+	//二维码所在空间域名
+	@Value("${qiniu.eduonline.qrDomain}")
+	private String qrDomain;
+	
+	@Value("${qiniu.eduonline.deadline}")
+	private String expires;
+	
 	
 	@Override
 	public void deleteVideoBaseById(Integer id) {
@@ -86,6 +114,19 @@ public class VideoBaseServiceImpl implements VideoBaseService {
 			Integer integer = videoBaseMapper.updateQrCodeByVideoBaseById(videoBase);
 			return integer;
 		}
+		return 0;
+	}
+	
+	@Override
+	public Integer generateQRCodeAndUpload(Integer videoBaseId) {
+		//生成二维码
+		String qrImgAbPath = qrService.generateQrCode(qrcodeTempPath, playVideoPath, videoBaseId);
+		logger.info(qrImgAbPath);
+		File img = new File(qrImgAbPath);
+		//上传二维码
+		String link = qnService.upload(qrImgAbPath, img.getName(), qnService.getUploadToken(qrBucketName, Long.parseLong(expires)), qrDomain);
+		//更新数据库qrcode
+		updateQrCodeByVideoBaseById(new VideoBase(videoBaseId,link));
 		return 0;
 	}
 

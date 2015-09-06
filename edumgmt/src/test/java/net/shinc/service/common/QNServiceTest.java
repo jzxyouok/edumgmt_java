@@ -49,4 +49,13 @@ public class QNServiceTest {
 		String str = qnService.getDownloadUrl(baseUrl5, expires);
 		System.out.println(str);
 	}
+	
+	@Test
+	public void testUpload() {
+		String filePath = "/Users/guoshijie/work/files/qr_imgs/";
+		String key = "qr_img_test01.png";
+		String token = "2vfqNhAmF6Mn9SVe6-g6wMaqIIfaSpX3oynfBWlr:85qPc8tpp7AP-bVzQCZm7Ymj_Rc=:eyJzY29wZSI6InN0ZXZlbiIsInJldHVybkJvZHkiOiJ7XCJrZXlcIjogJChrZXkpLCBcImhhc2hcIjogJChldGFnKSwgXCJ2aWRlb0Jhc2VJZFwiOiQoeDp2aWRlb0Jhc2VJZCksIFwiYXZpbmZvXCI6ICQoYXZpbmZvKX0iLCJkZWFkbGluZSI6MTQ0MTUzODk0MX0=";
+		String qrDomain = "http://7xkw22.com1.z0.glb.clouddn.com/";
+		qnService.upload(filePath+key, key, token, qrDomain);
+	}
 }

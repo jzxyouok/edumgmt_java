@@ -12,6 +12,7 @@ import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
 import net.shinc.formbean.edu.video.VideoSelfQueryBean;
 import net.shinc.orm.mybatis.bean.edu.VideoSelf;
+import net.shinc.service.edu.video.VideoBaseService;
 import net.shinc.service.edu.video.VideoSelfService;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -21,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,6 +43,9 @@ public class VideoSelfController extends AbstractBaseController {
 
 	@Autowired
 	private VideoSelfService videoSelfService;
+	
+	@Autowired
+	private VideoBaseService videoBaseService;
 
 	@Value("${page.count}")
 	private String limit;
@@ -115,7 +118,10 @@ public class VideoSelfController extends AbstractBaseController {
 		try {
 			videoSelfService.insertVideoSelf(videoSelf);
 			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
-			iRestMessage.setResult(videoSelf.getVideoBaseId());	
+			Integer vbid = videoSelf.getVideoBaseId();
+			
+			videoBaseService.generateQRCodeAndUpload(vbid);
+			iRestMessage.setResult(vbid);	
 		} catch (Exception e) {
 			iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());
 			logger.error("添加自编题视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));

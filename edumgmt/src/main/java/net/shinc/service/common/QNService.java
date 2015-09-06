@@ -26,6 +26,10 @@ public interface QNService {
 	*/
 	public String getUploadToken(String bucket, String key, long expires, StringMap policy, boolean strict);
 	
+	public String getUploadToken(String bucket, long expires);
+	
+	public StringMap getPolicy();
+	
 	/**
 	 * 生成下载Url
 	 * baseUrl 待签名文件url，如 http://img.domain.com/u/3.jpg 、 http://img.domain.com/u/3.jpg?imageView2/1/w/120
@@ -77,4 +81,14 @@ public interface QNService {
 	 * @return
 	 */
 	public String generateQrDownUrl(String link);
+	
+	/**
+     * 上传文件
+     * @param filePath 上传的文件路径
+     * @param key      上传文件保存的文件名
+     * @param token    上传凭证
+     * @param qrDomain 二维码存储空间域名
+     * @return sourceLink
+     */
+	public String upload(String filePath, String key, String token,  String qrDomain);
 }

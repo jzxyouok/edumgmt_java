@@ -16,6 +16,7 @@ import net.shinc.orm.mybatis.bean.edu.VideoDetail;
 import net.shinc.orm.mybatis.bean.edu.VideoPastpaper;
 import net.shinc.orm.mybatis.bean.edu.VideoPic;
 import net.shinc.service.common.QNService;
+import net.shinc.service.edu.video.VideoBaseService;
 import net.shinc.service.edu.video.VideoDetailService;
 import net.shinc.service.edu.video.VideoPastpaperService;
 import net.shinc.service.edu.video.VideoPicService;
@@ -56,20 +57,25 @@ public class VideoPastpaperController extends AbstractBaseController {
 	private VideoDetailService videoDetailService;
 	
 	@Autowired
+	private VideoBaseService videoBaseService;
+	
+	@Autowired
 	private VideoPicService videoPicService;
 	
 	@Autowired
 	private QNService qnservice;
 	
+	//视频和截图所在空间域名
 	@Value("${qiniu.eduonline.domain}")
 	private String domain;
 	
+	//视频和截图所在空间名称
 	@Value("${qiniu.eduonline.bucketName}")
 	private String bucketName;
 	
 	@Value("${qiniu.eduonline.deadline}")
 	private String expires;
-
+	
 	/**
 	 * @Title: getVideoPastpaperAndRelevantInfoList
 	 * @Description: 真题/模拟题视频列表 
@@ -140,7 +146,6 @@ public class VideoPastpaperController extends AbstractBaseController {
 	 */
 	@RequestMapping(value = "/addVideoPastpaperAndRelevantInfo")
 	@ResponseBody
-
 	public IRestMessage addVideoPastpaperAndRelevantInfo( @Valid VideoPastpaper videoPastpaper, BindingResult bindingResult, Locale locale) {
 
 		IRestMessage iRestMessage = getRestMessage();
@@ -152,8 +157,12 @@ public class VideoPastpaperController extends AbstractBaseController {
 		try {
 			videoPastpaperService.insertVideoPastpaper(videoPastpaper);
 			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
-			iRestMessage.setResult(videoPastpaper.getVideoBaseId());
-			logger.info("videoBaseId:"+videoPastpaper.getVideoBaseId());
+			
+			Integer vbid = videoPastpaper.getVideoBaseId();
+			logger.info("videoBaseId:"+vbid);
+			
+			videoBaseService.generateQRCodeAndUpload(vbid);
+			iRestMessage.setResult(vbid);
 		} catch (Exception e) {
 			logger.error("添加真题/模拟题视频详细信息失败==>" + ExceptionUtils.getStackTrace(e));
 			iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());

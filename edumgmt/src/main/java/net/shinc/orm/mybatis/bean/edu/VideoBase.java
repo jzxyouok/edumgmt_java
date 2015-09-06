@@ -66,6 +66,13 @@ public class VideoBase {
 	//二维码图片链接
 	private String qrcode;
 
+	public VideoBase(){}
+	
+	public VideoBase(Integer id, String qrcode) {
+		this.id = id;
+		this.qrcode = qrcode;
+	}
+
 	public Integer getId() {
 		return id;
 	}
