@@ -34,7 +34,7 @@ public class DBConfig {
 	private ApplicationContext context;
 	
 	/**
-	 * @return 测试环境数据源
+	 * @return 开发环境数据源
 	 */
 	@Bean(name="dataSource",destroyMethod="close")
 	@Profile("develop")
@@ -44,6 +44,20 @@ public class DBConfig {
 		ds.setUsername(env.getProperty("develop.jdbc.username"));
 		ds.setPassword(env.getProperty("develop.jdbc.password"));
 		ds.setUrl(env.getProperty("develop.jdbc.url"));
+		return ds;
+	}
+	
+	/**
+	 * @return 测试环境数据源
+	 */
+	@Bean(name="dataSource",destroyMethod="close")
+	@Profile("test")
+	public DataSource testDataSource() {
+		BasicDataSource ds = new BasicDataSource();
+		ds.setDriverClassName(env.getProperty("jdbc.driver"));
+		ds.setUsername(env.getProperty("test.jdbc.username"));
+		ds.setPassword(env.getProperty("test.jdbc.password"));
+		ds.setUrl(env.getProperty("test.jdbc.url"));
 		return ds;
 	}
 	
