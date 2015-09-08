@@ -38,7 +38,6 @@ public interface VideoSelfService {
 
 	public List<VideoSelf> getVideoSelfList(VideoSelf videoSelf);
 
-	public Integer getVideoSelfListCount(VideoSelf videoSelf);
 
 	/**
 	 * @Title: getVideoSelf
@@ -56,11 +55,4 @@ public interface VideoSelfService {
 	 */
 	public List<Map> getVideoSelfAndRelevantInfoList(QueryBean queryBean, RowBounds rowBounds);
 
-	/**
-	 * @Title: getVideoSelfAndRelevantInfoListCount
-	 * @Description: 得到自编题以及其相关信息列表总条数
-	 * @param videoPastpaper
-	 * @return List<VideoPastpaper>
-	 */
-	public List<VideoSelf> getVideoSelfAndRelevantInfoListCount(VideoSelf videoSelf);
 }

@@ -13,11 +13,9 @@ import net.shinc.orm.mybatis.bean.edu.QuestionType;
  * @date 2015年7月31日 下午5:00:42  
  */
 public interface QuestionBankQuestionTypeMapper {
-    int deleteByPrimaryKey(QuestionBankQuestionTypeKey key);
+    Integer deleteByQuestionTypeId(QuestionBankQuestionTypeKey questionBankQuestionTypeKey);
 
-    int insert(QuestionBankQuestionTypeKey record);
+    Integer insert(QuestionBankQuestionTypeKey questionBankQuestionTypeKey);
 
-    int insertSelective(QuestionBankQuestionTypeKey record);
-    
     public List<QuestionType> getQuestionTypeByQuestionBank(QuestionBank questionBank);
 }

@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,19 +51,12 @@ public class VideoPointController extends AbstractBaseController {
 	private String limit;
 
 	/**
-	 * @Title: getVideoPointAndRelevantInfoList
-	 * @Description: 知识点视频视频列表 列表信息：{ "code": "SUCCESS", "message": "交易成功",
-	 *               "detail": null, "result": [{ "id=": 4,
-	 *               "videoBase": {
-	 *               "questionId=id字符串": "12313354", "title": "title", "desc": "desc",
-	 *               "difficulty=难度系数": "1",
-	 *               "questionNumber=题号": "66",
-	 *               "course": { "id": 2, "name": "数学", "shortName": "数" },
-	 *               "lecture": { "id": 2, "name": "张天才", "level": "100" },
-	 *               "keywordList": [{ "id": 3, "name": "化学" }, { "id": 4,
-	 *               "name": "英语" }], "knowledgetPointList": [], "userInfo": null }
-	 * @param videoPoint
-	 * @return IRestMessage
+	* @Title: getVideoPointAndRelevantInfoList
+	* @Description: 得到视频相关信息列表
+	* @param videoPointQueryBean
+	* @param page
+	* @param pageSize
+	* @return  IRestMessage
 	 */
 	@RequestMapping(value = "/getVideoPointAndRelevantInfoList")
 	@ResponseBody
@@ -95,17 +87,12 @@ public class VideoPointController extends AbstractBaseController {
 	}
 
 	/**
-	 * @Title: addVideoPointAndRelevantInfo
-	 * @Description: 添加知识点视频视频详细信息 入参：{ "videoBase": { "adminUserId=管理员id": 2,
-	 *               "courseId=课程id": 2, "lectureId=讲解人id": 2,
-	 *               "questionId=题号字符串": "12313354", "title=标题": "title",
-	 *               "desc=描述": "desc", "profile=简介": "profile",
-	 *               "difficulty=难度系数": "1", "questionNumber=题号": "66",,
-	 *               "keywordList=关键字列表": [{ "id": 3 }, { "id": 4 }] } }
-	 * @param videoPoint
-	 * @param bindingResult
-	 * @param locale
-	 * @return IRestMessage
+	* @Title: addVideoPointAndRelevantInfo
+	* @Description: 新增视频相关信息
+	* @param videoPoint
+	* @param bindingResult
+	* @param locale
+	* @return  IRestMessage
 	 */
 	@RequestMapping(value = "/addVideoPointAndRelevantInfo")
 	@ResponseBody

@@ -151,11 +151,6 @@ public class VideoSelfServiceImpl implements VideoSelfService {
 	}
 
 	@Override
-	public Integer getVideoSelfListCount(VideoSelf videoSelf) {
-		return videoSelfMapper.getVideoSelfListCount(videoSelf);
-	}
-
-	@Override
 	public VideoSelf getVideoSelf(VideoSelf videoSelf) {
 		List list = getVideoSelfList(videoSelf);
 		if (list != null && list.size() == 1) {
@@ -176,12 +171,6 @@ public class VideoSelfServiceImpl implements VideoSelfService {
 		List<Map> list = videoSelfMapper.getVideoSelfAndRelevantInfoList(queryBean,rowBounds);
 		List<Map> list2 = videoBaseService.appendQrUrl(list);
 		return list2;
-	}
-
-	@Override
-	public List<VideoSelf> getVideoSelfAndRelevantInfoListCount(VideoSelf videoSelf) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

@@ -3,6 +3,7 @@ package net.shinc.service.edu.questionbank.impl;
 import java.util.List;
 
 import net.shinc.orm.mybatis.bean.edu.QuestionBank;
+import net.shinc.orm.mybatis.bean.edu.QuestionBankQuestionTypeKey;
 import net.shinc.orm.mybatis.bean.edu.QuestionType;
 import net.shinc.orm.mybatis.mappers.edu.QuestionBankQuestionTypeMapper;
 import net.shinc.service.edu.questionbank.QuestionBankQuestionTypeService;
@@ -29,6 +30,16 @@ public class QuestionBankQuestionTypeServiceImpl implements QuestionBankQuestion
 			return list;
 		}
 		return null;
+	}
+
+	@Override
+	public Integer addQuestionTypeByQuestionBank(QuestionBankQuestionTypeKey questionBankQuestionTypeKey) {
+		return mapper.insert(questionBankQuestionTypeKey);
+	}
+
+	@Override
+	public Integer deleteQuestionTypeByQuestionBank(QuestionBankQuestionTypeKey questionBankQuestionTypeKey) {
+		return mapper.deleteByQuestionTypeId(questionBankQuestionTypeKey);
 	}
 
 }
