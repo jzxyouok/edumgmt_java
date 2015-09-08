@@ -23,20 +23,17 @@ public class QuestionTypeServiceImpl implements QuestionTypeService {
 	
 	@Override
 	public Integer addQuestionType(QuestionType questionType) {
-		// TODO Auto-generated method stub
-		return null;
+		return questionTypeMapper.insertQuestionType(questionType);
 	}
 
 	@Override
 	public Integer deleteQuestionType(QuestionType questionType) {
-		// TODO Auto-generated method stub
-		return null;
+		return questionTypeMapper.deleteQuestionTypeById(questionType.getId());
 	}
 
 	@Override
 	public Integer updateQuestionType(QuestionType questionType) {
-		// TODO Auto-generated method stub
-		return null;
+		return questionTypeMapper.updateQuestionType(questionType);
 	}
 
 	@Override

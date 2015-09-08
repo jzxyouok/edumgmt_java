@@ -76,6 +76,12 @@
 			<value>lectureManage</value>		    <!--   二级菜单  讲解人管理 -->
 			<url>/lecture/lectureList</url>
 		</menu>
+		<menu>
+			<level>2</level>
+			<parent>infoManage</parent>
+			<value>questionTypeManage</value>		    <!--   二级菜单  题型管理 -->
+			<url>/questionType/questionTypeList</url>
+		</menu>
 		<!--  信息管理 end  -->
 		
 		

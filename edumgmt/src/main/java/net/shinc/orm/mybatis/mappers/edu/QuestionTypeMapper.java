@@ -13,11 +13,11 @@ import net.shinc.orm.mybatis.bean.edu.QuestionType;
  */
 public interface QuestionTypeMapper {
 	
-	public void deleteQuestionTypeById(Integer id);
+	public Integer deleteQuestionTypeById(Integer id);
 
 	public Integer insertQuestionType(QuestionType questionType);
 
-	public void updateQuestionType(QuestionType questionType);
+	public Integer updateQuestionType(QuestionType questionType);
 
 	public QuestionType getQuestionTypeById(Integer id);
 

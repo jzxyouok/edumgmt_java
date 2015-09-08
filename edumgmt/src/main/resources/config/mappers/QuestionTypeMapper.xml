@@ -25,4 +25,41 @@
 			AND id=#{id}
 		</if>
 	</select>
+
+	<delete id="deleteQuestionTypeById" parameterType="java.lang.Integer">
+		delete from sh_question_type
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+
+	<insert id="insertQuestionType" parameterType="QuestionType">
+		insert into sh_question_type
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateQuestionType" parameterType="QuestionType">
+		update sh_lecture
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
 </mapper>
