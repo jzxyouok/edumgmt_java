@@ -152,11 +152,6 @@ public class VideoPointServiceImpl implements VideoPointService {
 	}
 
 	@Override
-	public Integer getVideoPointListCount(VideoPoint videoPoint) {
-		return videoPointMapper.getVideoPointListCount(videoPoint);
-	}
-
-	@Override
 	public VideoPoint getVideoPoint(VideoPoint videoPoint) {
 		List list = getVideoPointList(videoPoint);
 		if (list != null && list.size() == 1) {
@@ -177,12 +172,6 @@ public class VideoPointServiceImpl implements VideoPointService {
 		List<Map> list = videoPointMapper.getVideoPointAndRelevantInfoList(queryBean,rowBounds);
 		List<Map> list2 = videoBaseService.appendQrUrl(list);
 		return list2;
-	}
-
-	@Override
-	public List<VideoPoint> getVideoPointAndRelevantInfoListCount(VideoPoint videoPoint) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

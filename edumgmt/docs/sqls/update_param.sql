@@ -32,29 +32,12 @@ INSERT INTO `sh_course` (`id`,`name`,`short`) VALUES (11,'理科综合','理综'
 
 
 
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (1,'单选题');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (2,'不定项选择题');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (3,'填空题');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (4,'计算题');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (5,'解答题');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (6,'阅读简答题');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (7,'阅读选择题');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (8,'阅读填空题');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (9,'诗句填空题');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (10,'句型转换题');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (11,'简答题');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (12,'实验选择题');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (13,'实验填空题');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (14,'实验解答题');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (15,'实验计算题');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (16,'作图题');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (17,'单词拼写');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (18,'选词填空');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (19,'完型填空');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (20,'诗词填空');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (21,'诗词鉴赏');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (22,'书面表达');
-INSERT INTO `sh_question_type` (`id`,`name`) VALUES (23,'作文');
+INSERT INTO `sh_question_type` (`id`,`name`) VALUES (1,'单项选择题');
+INSERT INTO `sh_question_type` (`id`,`name`) VALUES (2,'多项选择题');
+INSERT INTO `sh_question_type` (`id`,`name`) VALUES (3,'不定项选择题');
+INSERT INTO `sh_question_type` (`id`,`name`) VALUES (4,'填空题');
+INSERT INTO `sh_question_type` (`id`,`name`) VALUES (5,'主观题');
+
 
 
 
@@ -153,98 +136,7 @@ INSERT INTO sh_questionbank_year(sh_questionbank_id,year) VALUES(4,'2019');
 INSERT INTO sh_questionbank_year(sh_questionbank_id,year) VALUES(4,'2020');
 
 
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,1);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,1);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,1);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,1);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,2);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,2);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,2);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,2);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,3);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,3);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,3);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,3);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,4);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,4);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,4);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,4);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,5);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,5);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,5);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,5);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,6);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,6);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,6);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,6);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,7);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,7);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,7);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,7);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,8);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,8);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,8);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,8);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,9);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,9);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,9);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,9);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,10);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,10);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,10);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,10);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,11);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,11);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,11);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,11);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,12);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,12);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,12);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,12);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,13);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,13);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,13);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,13);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,14);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,14);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,14);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,14);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,15);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,15);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,15);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,15);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,16);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,16);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,16);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,16);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,17);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,17);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,17);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,17);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,18);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,18);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,18);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,18);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,19);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,19);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,19);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,19);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,20);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,20);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,20);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,20);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,21);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,21);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,21);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,21);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,22);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,22);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,22);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,22);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (1,23);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (2,23);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (3,23);
-INSERT INTO `sh_questionbank_question_type` (`sh_questionbank_id`,`sh_question_type_id`) VALUES (4,23);
+
 
 
 

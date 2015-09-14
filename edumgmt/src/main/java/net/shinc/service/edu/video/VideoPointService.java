@@ -38,7 +38,6 @@ public interface VideoPointService {
 
 	public List<VideoPoint> getVideoPointList(VideoPoint videoPoint);
 
-	public Integer getVideoPointListCount(VideoPoint videoPoint);
 
 	/**
 	 * @Title: getVideoPoint
@@ -56,11 +55,4 @@ public interface VideoPointService {
 	 */
 	public List<Map> getVideoPointAndRelevantInfoList(QueryBean queryBean, RowBounds rowBounds);
 
-	/**
-	 * @Title: getVideoPointAndRelevantInfoListCount
-	 * @Description: 得到知识点视频以及其相关信息列表总条数
-	 * @param videoPastpaper
-	 * @return List<VideoPastpaper>
-	 */
-	public List<VideoPoint> getVideoPointAndRelevantInfoListCount(VideoPoint videoPoint);
 }

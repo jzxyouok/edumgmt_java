@@ -160,11 +160,6 @@ public class VideoPastpaperServiceImpl implements VideoPastpaperService {
 	}
 
 	@Override
-	public Integer getVideoPastpaperListCount(VideoPastpaper videoPastpaper) {
-		return videoPastpaperMapper.getVideoPastpaperListCount(videoPastpaper);
-	}
-
-	@Override
 	public VideoPastpaper getVideoPastpaper(VideoPastpaper videoPastpaper) {
 		List list = getVideoPastpaperList(videoPastpaper);
 		if (list != null && list.size() == 1) {

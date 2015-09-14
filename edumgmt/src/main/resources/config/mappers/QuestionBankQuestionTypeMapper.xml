@@ -5,51 +5,34 @@
 		<id column="sh_questionbank_id" property="questionBankId" jdbcType="INTEGER" />
 		<id column="sh_question_type_id" property="questionTypeId" jdbcType="INTEGER" />
 	</resultMap>
-	<delete id="deleteByPrimaryKey" parameterType="QuestionBankQuestionTypeKey">
+	<delete id="deleteByQuestionTypeId" parameterType="QuestionBankQuestionTypeKey">
 		delete from sh_questionbank_question_type
 		where sh_questionbank_id = #{questionBankId,jdbcType=INTEGER}
-		and sh_question_type_id = #{questionTypeId,jdbcType=INTEGER}
+		and
+		sh_question_type_id = #{questionTypeId,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" parameterType="QuestionBankQuestionTypeKey">
 		insert into sh_questionbank_question_type (sh_questionbank_id, sh_question_type_id
 		)
-		values (#{questionBankId,jdbcType=INTEGER}, #{questionTypeId,jdbcType=INTEGER}
+		values (#{questionBankId,jdbcType=INTEGER},
+		#{questionTypeId,jdbcType=INTEGER}
 		)
 	</insert>
-	<insert id="insertSelective" parameterType="QuestionBankQuestionTypeKey">
-		insert into sh_questionbank_question_type
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="questionBankId != null">
-				sh_questionbank_id,
-			</if>
-			<if test="questionTypeId != null">
-				sh_question_type_id,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="questionBankId != null">
-				#{questionBankId,jdbcType=INTEGER},
-			</if>
-			<if test="questionTypeId != null">
-				#{questionTypeId,jdbcType=INTEGER},
-			</if>
-		</trim>
-	</insert>
-	
-	<resultMap id="QuestionTypeMap" type="QuestionType" >
-	    <id column="id" property="id" jdbcType="INTEGER" />
-	    <result column="name" property="name" jdbcType="VARCHAR" />
+
+	<resultMap id="QuestionTypeMap" type="QuestionType">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
 	</resultMap>
 	<select id="getQuestionTypeByQuestionBank" parameterType="QuestionBank" resultMap="QuestionTypeMap">
 		select
-			a.id, a.name
-		from 
-			sh_question_type a
+		a.id, a.name
+		from
+		sh_question_type a
 		inner join
-			sh_questionbank_question_type b
+		sh_questionbank_question_type b
 		on
-			a.id = b.sh_question_type_id
+		a.id = b.sh_question_type_id
 		where
-			b.sh_questionbank_id = #{id}
+		b.sh_questionbank_id = #{id}
 	</select>
 </mapper>

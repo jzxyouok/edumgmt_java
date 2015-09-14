@@ -38,8 +38,6 @@ public interface VideoPastpaperService {
 
 	public List<VideoPastpaper> getVideoPastpaperList(VideoPastpaper videoPastpaper);
 
-	public Integer getVideoPastpaperListCount(VideoPastpaper videoPastpaper);
-
 	/**
 	 * @Title: getVideoPastpaper
 	 * @Description: 根据对象参数得到单个实例

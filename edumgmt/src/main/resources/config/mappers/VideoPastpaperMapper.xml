@@ -16,6 +16,9 @@
 		<if test="id != null">
 			AND id=#{id}
 		</if>
+		<if test="questionTypeId != null">
+			AND sh_question_type_id=#{questionTypeId}
+		</if>
 	</select>
 	<select id="getVideoPastpaperListCount" resultType="java.lang.Integer" parameterType="VideoPastpaper">
 		select count(*)

@@ -51,19 +51,12 @@ public class VideoSelfController extends AbstractBaseController {
 	private String limit;
 	
 	/**
-	 * @Title: getVideoSelfAndRelevantInfoList
-	 * @Description: 自编题视频列表 列表内容：{ "code": "SUCCESS", "message": "交易成功",
-	 *               "detail": null, "result": [{ "id": 3 "videoBase": {
-	 *               "questionId=id字符串": "12313354", "title": "title", "desc": "desc",
-	 *               "difficulty=难度系数": "1", "questionNumber": "66" "course": { "id":
-	 *               2, "name": "数学", "shortName": "数" }, "lecture=讲解人": { "id": 2,
-	 *               "name": "张天才", "level": "100" }, "keywordList=关键字列表": [{ "id": 3,
-	 *               "name": "化学" }, { "id": 4, "name": "英语" }],
-	 *               "knowledgetPointList": [], "videoDetailList": [{ "url":
-	 *               "urla" }, { "url": "urlb" }] }, "questionType=题型": { "id": 1,
-	 *               "name": "单选题" }, "hasVideo": null }], "userInfo": null }
-	 * @param videoSelf
-	 * @return IRestMessage
+	* @Title: getVideoSelfAndRelevantInfoList
+	* @Description: 得到视频相关信息列表
+	* @param videoSelfQueryBean
+	* @param page
+	* @param pageSize
+	* @return  IRestMessage
 	 */
 	@RequestMapping(value = "/getVideoSelfAndRelevantInfoList")
 	@ResponseBody
@@ -95,17 +88,12 @@ public class VideoSelfController extends AbstractBaseController {
 	}
 
 	/**
-	 * @Title: addVideoSelfAndRelevantInfo
-	 * @Description: 添加自编题视频详细信息 入参：{ "type": "0", "questionTypeId=题型id": 1,
-	 *               "videoBase": { "adminUserId=管理员id": 2, "courseId=课程id": 2,
-	 *               "lectureId=讲解人id": 2, "questionId": "12313354", "title":
-	 *               "title", "desc": "desc", "profile": "profile",
-	 *               "difficulty=难度系数": "1", "questionNumber": "66", "course": {
-	 *               "id": 1 }, "keywordList": [{ "id": 3 }, { "id": 4 }]} }
-	 * @param videoSelf
-	 * @param bindingResult
-	 * @param locale
-	 * @return IRestMessage
+	* @Title: addVideoSelfAndRelevantInfo
+	* @Description: 新增视频相关信息
+	* @param videoSelf
+	* @param bindingResult
+	* @param locale
+	* @return  IRestMessage
 	 */
 	@RequestMapping(value = "/addVideoSelfAndRelevantInfo")
 	@ResponseBody

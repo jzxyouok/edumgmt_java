@@ -53,8 +53,7 @@
 	    c.id courseid,
 	    c.name coursename,
 	    c.short courseshort,
-	    t.id typeid,
-	    t.name typename,
+	    
 	    y.id yearid,
 	    y.year yearname,
 	    bt.id versionid,
@@ -65,10 +64,7 @@
 	    sh_questionbank_course qc ON qc.sh_questionbank_id = q.id
 	        LEFT JOIN
 	    sh_course c ON qc.sh_course_id = c.id
-	        LEFT JOIN
-	    sh_questionbank_question_type qt ON qt.sh_questionbank_id = q.id
-	        LEFT JOIN
-	    sh_question_type t ON qt.sh_question_type_id = t.id
+	        
 	        LEFT JOIN
 	    sh_questionbank_year y ON y.sh_questionbank_id = q.id
 	        LEFT JOIN

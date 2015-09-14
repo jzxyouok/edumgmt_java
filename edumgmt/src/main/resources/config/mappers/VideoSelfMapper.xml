@@ -115,6 +115,9 @@
 		<if test="id != null">
 			AND id=#{id}
 		</if>
+		<if test="questionTypeId != null">
+			AND sh_question_type_id=#{questionTypeId}
+		</if>
 	</select>
 	<select id="getVideoSelfListCount" resultType="java.lang.Integer" parameterType="VideoSelf">
 		select count(*)
