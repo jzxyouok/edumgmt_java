@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.edu.CourseGradeHasVideoBaseMapper">
+	<resultMap id="BaseResultMap" type="CourseGradeHasVideoBase">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="sh_course_grade_id" property="shCourseGradeId" jdbcType="INTEGER" />
+		<result column="sh_video_base_id" property="shVideoBaseId" jdbcType="INTEGER" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+		<result column="video_type" property="videoType" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, sh_course_grade_id, sh_video_base_id, sort, add_time, video_type
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sh_course_grade_has_sh_video_base
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sh_course_grade_has_sh_video_base
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="CourseGradeHasVideoBase">
+		insert into sh_course_grade_has_sh_video_base (id, sh_course_grade_id, sh_video_base_id,
+		sort, add_time, video_type
+		)
+		values (#{id,jdbcType=INTEGER}, #{shCourseGradeId,jdbcType=INTEGER}, #{shVideoBaseId,jdbcType=INTEGER},
+		#{sort,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, #{videoType,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="CourseGradeHasVideoBase">
+		insert into sh_course_grade_has_sh_video_base
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="shCourseGradeId != null">
+				sh_course_grade_id,
+			</if>
+			<if test="shVideoBaseId != null">
+				sh_video_base_id,
+			</if>
+			<if test="sort != null">
+				sort,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+			<if test="videoType != null">
+				video_type,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="shCourseGradeId != null">
+				#{shCourseGradeId,jdbcType=INTEGER},
+			</if>
+			<if test="shVideoBaseId != null">
+				#{shVideoBaseId,jdbcType=INTEGER},
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=INTEGER},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="videoType != null">
+				#{videoType,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="CourseGradeHasVideoBase">
+		update sh_course_grade_has_sh_video_base
+		<set>
+			<if test="shCourseGradeId != null">
+				sh_course_grade_id = #{shCourseGradeId,jdbcType=INTEGER},
+			</if>
+			<if test="shVideoBaseId != null">
+				sh_video_base_id = #{shVideoBaseId,jdbcType=INTEGER},
+			</if>
+			<if test="sort != null">
+				sort = #{sort,jdbcType=INTEGER},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="videoType != null">
+				video_type = #{videoType,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="CourseGradeHasVideoBase">
+		update sh_course_grade_has_sh_video_base
+		set sh_course_grade_id = #{shCourseGradeId,jdbcType=INTEGER},
+		sh_video_base_id = #{shVideoBaseId,jdbcType=INTEGER},
+		sort = #{sort,jdbcType=INTEGER},
+		add_time = #{addTime,jdbcType=TIMESTAMP},
+		video_type = #{videoType,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

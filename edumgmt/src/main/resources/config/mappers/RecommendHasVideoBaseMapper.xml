@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.edu.RecommendHasVideoBaseMapper">
+	<resultMap id="BaseResultMap" type="RecommendHasVideoBase">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="sh_recommend_id" property="shRecommendId" jdbcType="INTEGER" />
+		<result column="sh_video_base_id" property="shVideoBaseId" jdbcType="INTEGER" />
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+		<result column="top_time" property="topTime" jdbcType="TIMESTAMP" />
+		<result column="video_type" property="videoType" jdbcType="VARCHAR" />
+		<result column="dimension" property="dimension" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, sh_recommend_id, sh_video_base_id, add_time, top_time, video_type, dimension
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sh_recommend_has_sh_video_base
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sh_recommend_has_sh_video_base
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="RecommendHasVideoBase">
+		insert into sh_recommend_has_sh_video_base (id, sh_recommend_id, sh_video_base_id,
+		add_time, top_time, video_type,
+		dimension)
+		values (#{id,jdbcType=INTEGER}, #{shRecommendId,jdbcType=INTEGER}, #{shVideoBaseId,jdbcType=INTEGER},
+		#{addTime,jdbcType=TIMESTAMP}, #{topTime,jdbcType=TIMESTAMP}, #{videoType,jdbcType=VARCHAR},
+		#{dimension,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="RecommendHasVideoBase">
+		insert into sh_recommend_has_sh_video_base
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="shRecommendId != null">
+				sh_recommend_id,
+			</if>
+			<if test="shVideoBaseId != null">
+				sh_video_base_id,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+			<if test="topTime != null">
+				top_time,
+			</if>
+			<if test="videoType != null">
+				video_type,
+			</if>
+			<if test="dimension != null">
+				dimension,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="shRecommendId != null">
+				#{shRecommendId,jdbcType=INTEGER},
+			</if>
+			<if test="shVideoBaseId != null">
+				#{shVideoBaseId,jdbcType=INTEGER},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="topTime != null">
+				#{topTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="videoType != null">
+				#{videoType,jdbcType=VARCHAR},
+			</if>
+			<if test="dimension != null">
+				#{dimension,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="RecommendHasVideoBase">
+		update sh_recommend_has_sh_video_base
+		<set>
+			<if test="shRecommendId != null">
+				sh_recommend_id = #{shRecommendId,jdbcType=INTEGER},
+			</if>
+			<if test="shVideoBaseId != null">
+				sh_video_base_id = #{shVideoBaseId,jdbcType=INTEGER},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="topTime != null">
+				top_time = #{topTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="videoType != null">
+				video_type = #{videoType,jdbcType=VARCHAR},
+			</if>
+			<if test="dimension != null">
+				dimension = #{dimension,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="RecommendHasVideoBase">
+		update sh_recommend_has_sh_video_base
+		set sh_recommend_id = #{shRecommendId,jdbcType=INTEGER},
+		sh_video_base_id = #{shVideoBaseId,jdbcType=INTEGER},
+		add_time = #{addTime,jdbcType=TIMESTAMP},
+		top_time = #{topTime,jdbcType=TIMESTAMP},
+		video_type = #{videoType,jdbcType=VARCHAR},
+		dimension = #{dimension,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

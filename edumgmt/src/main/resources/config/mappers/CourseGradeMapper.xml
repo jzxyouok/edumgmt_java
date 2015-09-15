@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.edu.CourseGradeMapper">
+	<resultMap id="BaseResultMap" type="CourseGrade">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="sh_course_id" property="shCourseId" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="sh_material_version_id" property="shMaterialVersionId" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, sh_course_id, name, type, sh_material_version_id
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sh_course_grade
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sh_course_grade
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="CourseGrade">
+		insert into sh_course_grade (id, sh_course_id, name,
+		type, sh_material_version_id)
+		values (#{id,jdbcType=INTEGER}, #{shCourseId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{type,jdbcType=VARCHAR}, #{shMaterialVersionId,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="CourseGrade">
+		insert into sh_course_grade
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="shCourseId != null">
+				sh_course_id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="shMaterialVersionId != null">
+				sh_material_version_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="shCourseId != null">
+				#{shCourseId,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="shMaterialVersionId != null">
+				#{shMaterialVersionId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="CourseGrade">
+		update sh_course_grade
+		<set>
+			<if test="shCourseId != null">
+				sh_course_id = #{shCourseId,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="shMaterialVersionId != null">
+				sh_material_version_id = #{shMaterialVersionId,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="CourseGrade">
+		update sh_course_grade
+		set sh_course_id = #{shCourseId,jdbcType=INTEGER},
+		name = #{name,jdbcType=VARCHAR},
+		type = #{type,jdbcType=VARCHAR},
+		sh_material_version_id = #{shMaterialVersionId,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>
