@@ -3,15 +3,15 @@ package net.shinc.orm.mybatis.mappers.edu;
 import net.shinc.orm.mybatis.bean.edu.RecommendHasVideoBase;
 
 public interface RecommendHasVideoBaseMapper {
-    int deleteByPrimaryKey(Integer id);
+    Integer deleteByPrimaryKey(Integer id);
 
-    int insert(RecommendHasVideoBase record);
+    Integer insert(RecommendHasVideoBase recommendHasVideoBase);
 
-    int insertSelective(RecommendHasVideoBase record);
+    Integer insertSelective(RecommendHasVideoBase recommendHasVideoBase);
 
     RecommendHasVideoBase selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(RecommendHasVideoBase record);
+    Integer updateByPrimaryKeySelective(RecommendHasVideoBase recommendHasVideoBase);
 
-    int updateByPrimaryKey(RecommendHasVideoBase record);
+    Integer updateByPrimaryKey(RecommendHasVideoBase recommendHasVideoBase);
 }

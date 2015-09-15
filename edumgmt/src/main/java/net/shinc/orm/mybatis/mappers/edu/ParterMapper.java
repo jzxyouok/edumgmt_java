@@ -3,15 +3,15 @@ package net.shinc.orm.mybatis.mappers.edu;
 import net.shinc.orm.mybatis.bean.edu.Parter;
 
 public interface ParterMapper {
-    int deleteByPrimaryKey(Integer id);
+    Integer deleteByPrimaryKey(Integer id);
 
-    int insert(Parter record);
+    Integer insert(Parter parter);
 
-    int insertSelective(Parter record);
+    Integer insertSelective(Parter parter);
 
     Parter selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Parter record);
+    Integer updateByPrimaryKeySelective(Parter parter);
 
-    int updateByPrimaryKey(Parter record);
+    Integer updateByPrimaryKey(Parter parter);
 }

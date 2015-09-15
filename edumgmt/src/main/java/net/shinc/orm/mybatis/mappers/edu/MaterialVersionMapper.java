@@ -3,15 +3,15 @@ package net.shinc.orm.mybatis.mappers.edu;
 import net.shinc.orm.mybatis.bean.edu.MaterialVersion;
 
 public interface MaterialVersionMapper {
-    int deleteByPrimaryKey(Integer id);
+    Integer deleteByPrimaryKey(Integer id);
 
-    int insert(MaterialVersion record);
+    Integer insert(MaterialVersion materialVersion);
 
-    int insertSelective(MaterialVersion record);
+    Integer insertSelective(MaterialVersion materialVersion);
 
     MaterialVersion selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(MaterialVersion record);
+    Integer updateByPrimaryKeySelective(MaterialVersion materialVersion);
 
-    int updateByPrimaryKey(MaterialVersion record);
+    Integer updateByPrimaryKey(MaterialVersion materialVersion);
 }

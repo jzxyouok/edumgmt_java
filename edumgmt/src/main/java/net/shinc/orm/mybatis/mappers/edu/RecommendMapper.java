@@ -3,15 +3,15 @@ package net.shinc.orm.mybatis.mappers.edu;
 import net.shinc.orm.mybatis.bean.edu.Recommend;
 
 public interface RecommendMapper {
-    int deleteByPrimaryKey(Integer id);
+    Integer deleteByPrimaryKey(Integer id);
 
-    int insert(Recommend record);
+    Integer insert(Recommend recommend);
 
-    int insertSelective(Recommend record);
+    Integer insertSelective(Recommend recommend);
 
     Recommend selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Recommend record);
+    Integer updateByPrimaryKeySelective(Recommend recommend);
 
-    int updateByPrimaryKey(Recommend record);
+    Integer updateByPrimaryKey(Recommend recommend);
 }

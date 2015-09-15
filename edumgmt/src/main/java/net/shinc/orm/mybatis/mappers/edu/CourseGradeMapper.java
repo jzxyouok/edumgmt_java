@@ -3,15 +3,15 @@ package net.shinc.orm.mybatis.mappers.edu;
 import net.shinc.orm.mybatis.bean.edu.CourseGrade;
 
 public interface CourseGradeMapper {
-    int deleteByPrimaryKey(Integer id);
+    Integer deleteByPrimaryKey(Integer id);
 
-    int insert(CourseGrade record);
+    Integer insert(CourseGrade courseGrade);
 
-    int insertSelective(CourseGrade record);
+    Integer insertSelective(CourseGrade courseGrade);
 
     CourseGrade selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(CourseGrade record);
+    Integer updateByPrimaryKeySelective(CourseGrade courseGrade);
 
-    int updateByPrimaryKey(CourseGrade record);
+    Integer updateByPrimaryKey(CourseGrade courseGrade);
 }

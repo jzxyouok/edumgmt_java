@@ -3,15 +3,15 @@ package net.shinc.orm.mybatis.mappers.edu;
 import net.shinc.orm.mybatis.bean.edu.ProblemHasVideoBase;
 
 public interface ProblemHasVideoBaseMapper {
-    int deleteByPrimaryKey(Integer id);
+    Integer deleteByPrimaryKey(Integer id);
 
-    int insert(ProblemHasVideoBase record);
+    Integer insert(ProblemHasVideoBase problemHasVideoBase);
 
-    int insertSelective(ProblemHasVideoBase record);
+    Integer insertSelective(ProblemHasVideoBase problemHasVideoBase);
 
     ProblemHasVideoBase selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(ProblemHasVideoBase record);
+    Integer updateByPrimaryKeySelective(ProblemHasVideoBase problemHasVideoBase);
 
-    int updateByPrimaryKey(ProblemHasVideoBase record);
+    Integer updateByPrimaryKey(ProblemHasVideoBase problemHasVideoBase);
 }

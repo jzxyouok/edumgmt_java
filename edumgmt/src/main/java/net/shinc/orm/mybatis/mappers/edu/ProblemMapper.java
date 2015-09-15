@@ -3,15 +3,15 @@ package net.shinc.orm.mybatis.mappers.edu;
 import net.shinc.orm.mybatis.bean.edu.Problem;
 
 public interface ProblemMapper {
-    int deleteByPrimaryKey(Integer id);
+    Integer deleteByPrimaryKey(Integer id);
 
-    int insert(Problem record);
+    Integer insert(Problem problem);
 
-    int insertSelective(Problem record);
+    Integer insertSelective(Problem problem);
 
     Problem selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Problem record);
+    Integer updateByPrimaryKeySelective(Problem problem);
 
-    int updateByPrimaryKey(Problem record);
+    Integer updateByPrimaryKey(Problem problem);
 }

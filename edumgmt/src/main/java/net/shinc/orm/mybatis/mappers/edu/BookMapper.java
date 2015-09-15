@@ -3,15 +3,15 @@ package net.shinc.orm.mybatis.mappers.edu;
 import net.shinc.orm.mybatis.bean.edu.Book;
 
 public interface BookMapper {
-    int deleteByPrimaryKey(Integer id);
+    Integer deleteByPrimaryKey(Integer id);
 
-    int insert(Book record);
+    Integer insert(Book book);
 
-    int insertSelective(Book record);
+    Integer insertSelective(Book book);
 
     Book selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Book record);
+    Integer updateByPrimaryKeySelective(Book book);
 
-    int updateByPrimaryKey(Book record);
+    Integer updateByPrimaryKey(Book book);
 }
