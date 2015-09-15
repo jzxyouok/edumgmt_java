@@ -3,36 +3,35 @@
 <mapper namespace="net.shinc.orm.mybatis.mappers.edu.ProblemMapper">
 	<resultMap id="BaseResultMap" type="Problem">
 		<id column="id" property="id" jdbcType="INTEGER" />
-		<result column="sh_book_id" property="shBookId" jdbcType="INTEGER" />
+		<result column="sh_book_id" property="bookId" jdbcType="INTEGER" />
 		<result column="status" property="status" jdbcType="VARCHAR" />
 		<result column="content" property="content" jdbcType="VARCHAR" />
 	</resultMap>
-	<sql id="Base_Column_List">
-		id, sh_book_id, status, content
-	</sql>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
-		<include refid="Base_Column_List" />
+		id, sh_book_id, status, content
 		from sh_problem
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+	<select id="findAll" parameterType="Problem" resultMap="BaseResultMap">
+		select
+		id, name
+		from sh_parter
+		where 1 = 1
+		
+		<!-- 加入查询条件 -->
+	</select>
+	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from sh_problem
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" parameterType="Problem">
-		insert into sh_problem (id, sh_book_id, status,
-		content)
-		values (#{id,jdbcType=INTEGER}, #{shBookId,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR},
-		#{content,jdbcType=VARCHAR})
-	</insert>
-	<insert id="insertSelective" parameterType="Problem">
 		insert into sh_problem
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				id,
 			</if>
-			<if test="shBookId != null">
+			<if test="bookId != null">
 				sh_book_id,
 			</if>
 			<if test="status != null">
@@ -46,8 +45,8 @@
 			<if test="id != null">
 				#{id,jdbcType=INTEGER},
 			</if>
-			<if test="shBookId != null">
-				#{shBookId,jdbcType=INTEGER},
+			<if test="bookId != null">
+				#{bookId,jdbcType=INTEGER},
 			</if>
 			<if test="status != null">
 				#{status,jdbcType=VARCHAR},
@@ -57,11 +56,11 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="Problem">
+	<update id="update" parameterType="Problem">
 		update sh_problem
 		<set>
-			<if test="shBookId != null">
-				sh_book_id = #{shBookId,jdbcType=INTEGER},
+			<if test="bookId != null">
+				sh_book_id = #{bookId,jdbcType=INTEGER},
 			</if>
 			<if test="status != null">
 				status = #{status,jdbcType=VARCHAR},
@@ -70,13 +69,6 @@
 				content = #{content,jdbcType=VARCHAR},
 			</if>
 		</set>
-		where id = #{id,jdbcType=INTEGER}
-	</update>
-	<update id="updateByPrimaryKey" parameterType="Problem">
-		update sh_problem
-		set sh_book_id = #{shBookId,jdbcType=INTEGER},
-		status = #{status,jdbcType=VARCHAR},
-		content = #{content,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 </mapper>

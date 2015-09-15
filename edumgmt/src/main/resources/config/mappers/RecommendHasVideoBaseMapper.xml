@@ -3,44 +3,41 @@
 <mapper namespace="net.shinc.orm.mybatis.mappers.edu.RecommendHasVideoBaseMapper">
 	<resultMap id="BaseResultMap" type="RecommendHasVideoBase">
 		<id column="id" property="id" jdbcType="INTEGER" />
-		<result column="sh_recommend_id" property="shRecommendId" jdbcType="INTEGER" />
-		<result column="sh_video_base_id" property="shVideoBaseId" jdbcType="INTEGER" />
+		<result column="sh_recommend_id" property="recommendId" jdbcType="INTEGER" />
+		<result column="sh_video_base_id" property="videoBaseId" jdbcType="INTEGER" />
 		<result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
 		<result column="top_time" property="topTime" jdbcType="TIMESTAMP" />
 		<result column="video_type" property="videoType" jdbcType="VARCHAR" />
 		<result column="dimension" property="dimension" jdbcType="VARCHAR" />
 	</resultMap>
-	<sql id="Base_Column_List">
-		id, sh_recommend_id, sh_video_base_id, add_time, top_time, video_type, dimension
-	</sql>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
-		<include refid="Base_Column_List" />
+		id, sh_recommend_id, sh_video_base_id, add_time, top_time, video_type, dimension
 		from sh_recommend_has_sh_video_base
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+	<select id="findAll" parameterType="RecommendHasVideoBase" resultMap="BaseResultMap">
+		select
+		id, sh_recommend_id, sh_video_base_id, add_time, top_time, video_type, dimension
+		from sh_recommend_has_sh_video_base
+		where 1 = 1
+		
+		<!-- 加入查询条件 -->
+	</select>
+	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from sh_recommend_has_sh_video_base
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" parameterType="RecommendHasVideoBase">
-		insert into sh_recommend_has_sh_video_base (id, sh_recommend_id, sh_video_base_id,
-		add_time, top_time, video_type,
-		dimension)
-		values (#{id,jdbcType=INTEGER}, #{shRecommendId,jdbcType=INTEGER}, #{shVideoBaseId,jdbcType=INTEGER},
-		#{addTime,jdbcType=TIMESTAMP}, #{topTime,jdbcType=TIMESTAMP}, #{videoType,jdbcType=VARCHAR},
-		#{dimension,jdbcType=VARCHAR})
-	</insert>
-	<insert id="insertSelective" parameterType="RecommendHasVideoBase">
 		insert into sh_recommend_has_sh_video_base
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				id,
 			</if>
-			<if test="shRecommendId != null">
+			<if test="recommendId != null">
 				sh_recommend_id,
 			</if>
-			<if test="shVideoBaseId != null">
+			<if test="videoBaseId != null">
 				sh_video_base_id,
 			</if>
 			<if test="addTime != null">
@@ -60,11 +57,11 @@
 			<if test="id != null">
 				#{id,jdbcType=INTEGER},
 			</if>
-			<if test="shRecommendId != null">
-				#{shRecommendId,jdbcType=INTEGER},
+			<if test="recommendId != null">
+				#{recommendId,jdbcType=INTEGER},
 			</if>
-			<if test="shVideoBaseId != null">
-				#{shVideoBaseId,jdbcType=INTEGER},
+			<if test="videoBaseId != null">
+				#{videoBaseId,jdbcType=INTEGER},
 			</if>
 			<if test="addTime != null">
 				#{addTime,jdbcType=TIMESTAMP},
@@ -80,14 +77,14 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="RecommendHasVideoBase">
+	<update id="update" parameterType="RecommendHasVideoBase">
 		update sh_recommend_has_sh_video_base
 		<set>
-			<if test="shRecommendId != null">
-				sh_recommend_id = #{shRecommendId,jdbcType=INTEGER},
+			<if test="recommendId != null">
+				sh_recommend_id = #{recommendId,jdbcType=INTEGER},
 			</if>
-			<if test="shVideoBaseId != null">
-				sh_video_base_id = #{shVideoBaseId,jdbcType=INTEGER},
+			<if test="videoBaseId != null">
+				sh_video_base_id = #{videoBaseId,jdbcType=INTEGER},
 			</if>
 			<if test="addTime != null">
 				add_time = #{addTime,jdbcType=TIMESTAMP},
@@ -102,16 +99,6 @@
 				dimension = #{dimension,jdbcType=VARCHAR},
 			</if>
 		</set>
-		where id = #{id,jdbcType=INTEGER}
-	</update>
-	<update id="updateByPrimaryKey" parameterType="RecommendHasVideoBase">
-		update sh_recommend_has_sh_video_base
-		set sh_recommend_id = #{shRecommendId,jdbcType=INTEGER},
-		sh_video_base_id = #{shVideoBaseId,jdbcType=INTEGER},
-		add_time = #{addTime,jdbcType=TIMESTAMP},
-		top_time = #{topTime,jdbcType=TIMESTAMP},
-		video_type = #{videoType,jdbcType=VARCHAR},
-		dimension = #{dimension,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 </mapper>

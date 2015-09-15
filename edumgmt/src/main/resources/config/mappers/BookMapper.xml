@@ -3,37 +3,55 @@
 <mapper namespace="net.shinc.orm.mybatis.mappers.edu.BookMapper">
 	<resultMap id="BaseResultMap" type="Book">
 		<id column="id" property="id" jdbcType="INTEGER" />
-		<result column="sh_parter_id" property="shParterId" jdbcType="INTEGER" />
+		<result column="sh_parter_id" property="parterId" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="status" property="status" jdbcType="VARCHAR" />
 		<result column="num_reservation" property="numReservation" jdbcType="VARCHAR" />
+		<result column="videoNum" property="videoNum" />
 	</resultMap>
-	<sql id="Base_Column_List">
-		id, sh_parter_id, name, status, num_reservation
-	</sql>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
-		<include refid="Base_Column_List" />
+		id, sh_parter_id, name, status, num_reservation
 		from sh_book
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+	<select id="findAll" parameterType="Book" resultMap="BaseResultMap">
+		SELECT 
+		    t1.id, t1.sh_parter_id, t1.name, t1.status, t1.num_reservation, COUNT(t3.id) videoNum
+		FROM
+		    sh_book t1
+		        LEFT JOIN
+		    sh_problem t2 ON t1.id = t2.sh_book_id
+		        LEFT JOIN
+		    sh_problem_has_sh_video_base t3 ON t2.id = t3.sh_problem_id
+		         AND t3.id IS NOT NULL
+	        where 1=1
+			<if test="book != null">
+				<if test="name != null and name != '' ">
+					AND t1.name like '%${name}%'
+				</if>
+				<if test="status != null and status != '' ">
+					AND t1.status = #{status}
+				</if>
+				<if test="parterId != null ">
+					AND t1.sh_parter_id = #{parterId}
+				</if>
+			</if>
+	                
+		GROUP BY t2.id
+		
+	</select>
+	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from sh_book
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="Book">
-		insert into sh_book (id, sh_parter_id, name,
-		status, num_reservation)
-		values (#{id,jdbcType=INTEGER}, #{shParterId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
-		#{status,jdbcType=VARCHAR}, #{numReservation,jdbcType=VARCHAR})
-	</insert>
-	<insert id="insertSelective" parameterType="Book">
+	<insert id="insert" parameterType="Book" useGeneratedKeys="true" keyProperty="id">
 		insert into sh_book
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				id,
 			</if>
-			<if test="shParterId != null">
+			<if test="parterId != null">
 				sh_parter_id,
 			</if>
 			<if test="name != null">
@@ -50,8 +68,8 @@
 			<if test="id != null">
 				#{id,jdbcType=INTEGER},
 			</if>
-			<if test="shParterId != null">
-				#{shParterId,jdbcType=INTEGER},
+			<if test="parterId != null">
+				#{parterId,jdbcType=INTEGER},
 			</if>
 			<if test="name != null">
 				#{name,jdbcType=VARCHAR},
@@ -64,11 +82,11 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="Book">
+	<update id="update" parameterType="Book">
 		update sh_book
 		<set>
-			<if test="shParterId != null">
-				sh_parter_id = #{shParterId,jdbcType=INTEGER},
+			<if test="parterId != null">
+				sh_parter_id = #{parterId,jdbcType=INTEGER},
 			</if>
 			<if test="name != null">
 				name = #{name,jdbcType=VARCHAR},
@@ -80,14 +98,6 @@
 				num_reservation = #{numReservation,jdbcType=VARCHAR},
 			</if>
 		</set>
-		where id = #{id,jdbcType=INTEGER}
-	</update>
-	<update id="updateByPrimaryKey" parameterType="Book">
-		update sh_book
-		set sh_parter_id = #{shParterId,jdbcType=INTEGER},
-		name = #{name,jdbcType=VARCHAR},
-		status = #{status,jdbcType=VARCHAR},
-		num_reservation = #{numReservation,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 </mapper>

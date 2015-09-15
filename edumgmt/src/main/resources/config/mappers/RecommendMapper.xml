@@ -10,28 +10,25 @@
 		<result column="description" property="description" jdbcType="VARCHAR" />
 		<result column="logo" property="logo" jdbcType="VARCHAR" />
 	</resultMap>
-	<sql id="Base_Column_List">
-		id, add_time, top_time, location, title, description, logo
-	</sql>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
-		<include refid="Base_Column_List" />
+		id, add_time, top_time, location, title, description, logo
 		from sh_recommend
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from sh_recommend
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
+	<select id="findAll" parameterType="Recommend" resultMap="BaseResultMap">
+		select
+		id, add_time, top_time, location, title, description, logo
+		from sh_recommend
+		where 1 = 1
+		
+		<!-- 加入查询条件 -->
+	</select>
 	<insert id="insert" parameterType="Recommend">
-		insert into sh_recommend (id, add_time, top_time,
-		location, title, description,
-		logo)
-		values (#{id,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, #{topTime,jdbcType=TIMESTAMP},
-		#{location,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
-		#{logo,jdbcType=VARCHAR})
-	</insert>
-	<insert id="insertSelective" parameterType="Recommend">
 		insert into sh_recommend
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -80,7 +77,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="Recommend">
+	<update id="update" parameterType="Recommend">
 		update sh_recommend
 		<set>
 			<if test="addTime != null">
@@ -102,16 +99,6 @@
 				logo = #{logo,jdbcType=VARCHAR},
 			</if>
 		</set>
-		where id = #{id,jdbcType=INTEGER}
-	</update>
-	<update id="updateByPrimaryKey" parameterType="Recommend">
-		update sh_recommend
-		set add_time = #{addTime,jdbcType=TIMESTAMP},
-		top_time = #{topTime,jdbcType=TIMESTAMP},
-		location = #{location,jdbcType=VARCHAR},
-		title = #{title,jdbcType=VARCHAR},
-		description = #{description,jdbcType=VARCHAR},
-		logo = #{logo,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 </mapper>

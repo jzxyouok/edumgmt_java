@@ -1,17 +1,15 @@
 package net.shinc.orm.mybatis.mappers.edu;
 
-import net.shinc.orm.mybatis.bean.edu.CourseGrade;
+import java.util.List;
 
-public interface CourseGradeMapper {
-    Integer deleteByPrimaryKey(Integer id);
-
-    Integer insert(CourseGrade courseGrade);
-
-    Integer insertSelective(CourseGrade courseGrade);
-
-    CourseGrade selectByPrimaryKey(Integer id);
-
-    Integer updateByPrimaryKeySelective(CourseGrade courseGrade);
-
-    Integer updateByPrimaryKey(CourseGrade courseGrade);
+import net.shinc.orm.mybatis.bean.edu.Course;
+import net.shinc.orm.mybatis.mappers.common.CommonMapper;
+/**
+  * @ClassName: CourseGradeMapper
+  * @Description: 得到课程列表含课程视频数量
+  * @author hushichong
+  * @date 2015年9月15日 下午9:36:50
+ */
+public interface CourseGradeMapper extends CommonMapper{
+    public List<Course> getCourseList();
 }
