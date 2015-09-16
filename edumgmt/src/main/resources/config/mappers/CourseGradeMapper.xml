@@ -8,12 +8,6 @@
 		<result column="type" property="type" jdbcType="VARCHAR" />
 		<result column="sh_material_version_id" property="materialVersionId" jdbcType="INTEGER" />
 	</resultMap>
-	<resultMap id="CourseResultMap" type="Course">
-		<id column="id" property="id" jdbcType="INTEGER" />
-		<result column="name" property="name" jdbcType="VARCHAR" />
-		<result column="short" property="shortName" />
-		<result column="videoNum" property="videoNum" />
-	</resultMap>
 	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		id, sh_course_id, name, type, sh_material_version_id
@@ -28,24 +22,82 @@
 		
 		<!-- 加入查询条件 -->
 	</select>
-	<select id="getCourseList" resultMap="CourseResultMap">
+	<select id="getCourseGradeVideoBaseList" parameterType="CourseGradeHasVideoBase" resultType="java.util.HashMap">
 		SELECT 
-		    t1.id,t1.name,t1.short, COUNT(t3.id) videoNum
-		FROM
-		    sh_course t1
-		        LEFT JOIN
-		    sh_course_grade t2 ON t1.id = t2.sh_course_id
-		        LEFT JOIN
-		    sh_course_grade_has_sh_video_base t3 ON t2.id = t3.sh_course_grade_id
-            AND t3.id IS NOT NULL
-            where 1=1
-            <!-- 加入查询条件 -->
-		GROUP BY t1.id
+				past.id videoPastpaperId,
+				base.question_id,
+				base.id,
+			    base.title,
+			    base.desc,
+			    base.difficulty,
+			    base.status,
+			    base.question_number,
+			    base.profile,
+			    base.updatetime,
+			    base.qrcode,
+			    bank.id bankid,
+			    bank.name bankname,
+			    course.id courseId,
+			    course.name courseName,
+			    bt.id btid,
+			    bt.name btname,
+			    year.id yearid,
+			    year.year year,
+			    qtype.id typeId,
+			    qtype.name typeName,
+			    lecture.id lectureId,
+			    lecture.name lectureName,
+			    lecture.level lectureLevel,
+			    group_concat(distinct sk.name) keyword,
+			    cast(group_concat(distinct sk.id) AS CHAR)  keywordId,
+			    group_concat(distinct kp.name) knowledge,
+			    cast(group_concat(distinct kp.id) AS CHAR)  knowledgeId,
+			    case when group_concat(distinct vidoDetail.url) is null then '未上传'
+				when group_concat(distinct vidoDetail.url) is not null THEN '已上传'
+				end AS videoUrl
+			    
+			    
+			FROM
+				sh_course_grade_has_sh_video_base courseGrade left join
+			    sh_video_base base on courseGrade.sh_video_base_id = base.id
+			         INNER JOIN
+			     sh_video_pastpaper past ON past.sh_video_base_id = base.id
+			        LEFT JOIN
+			    sh_questionbank bank ON bank.id = past.sh_questionbank_id
+			        LEFT JOIN
+			    sh_course course ON course.id = base.sh_course_id
+			        LEFT JOIN
+			    sh_questionbank_type bt ON bt.id = past.sh_questionbank_type_id
+			        LEFT JOIN
+			    sh_questionbank_year year ON year.id = past.sh_questionbank_year_id
+			        LEFT JOIN
+			    sh_question_type qtype ON qtype.id = past.sh_question_type_id
+			        LEFT JOIN
+			    sh_lecture lecture ON lecture.id = base.sh_lecture_id
+			    left join sh_video_base_keyword kw on kw.sh_video_base_id = base.id
+			    left join sh_keyword sk on sk.id = kw.sh_keyword_id
+			    
+			    left join sh_video_base_knowledge_point pt on pt.sh_video_base_id = base.id
+			    left join sh_knowledge_point kp on kp.id = pt.sh_knowledge_point_id
+			    left join sh_video_detail vidoDetail on vidoDetail.sh_video_base_id=base.id
+			    
+			WHERE 1=1  
+				<if test="courseGradeId != null">
+					and courseGrade.id = #{courseGradeId}
+				</if>
+			    group by id
+			    having 1=1
+			    <if test="hasVideo == 1">
+					and videoUrl = '已上传'
+				</if>
+				<if test="hasVideo == 0">
+					and videoUrl = '未上传'
+				</if>  
+			    
+			    order by base.updatetime desc
 		
-		
+		<!-- 加入查询条件 -->
 	</select>
-	
-	
 	
 	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from sh_course_grade

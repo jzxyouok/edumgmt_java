@@ -1,9 +1,13 @@
 package net.shinc.service.edu.recommend;
 
 import java.util.List;
+import java.util.Map;
 
+import net.shinc.orm.mybatis.bean.common.QueryBean;
 import net.shinc.orm.mybatis.bean.edu.Recommend;
 import net.shinc.orm.mybatis.bean.edu.RecommendHasVideoBase;
+
+import org.apache.ibatis.session.RowBounds;
 
 /**
  * @ClassName: RecommendService
@@ -33,6 +37,12 @@ public interface RecommendService {
 
 	public Integer deleteRecommendVideoBaseById(Integer id);
 
-	public List<Recommend> getRecommendVideoBaseList(RecommendHasVideoBase recommendHasVideoBase);
+	/**
+	 * @Title: getRecommendVideoBaseList
+	 * @Description: 得到推荐视频列表
+	 * @param recommendHasVideoBase
+	 * @return List<Map>
+	 */
+	public List<Map> getRecommendVideoBaseList(RecommendHasVideoBase recommendHasVideoBase);
 
 }

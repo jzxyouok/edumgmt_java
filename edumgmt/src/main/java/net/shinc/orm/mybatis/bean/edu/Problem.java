@@ -10,6 +10,10 @@ public class Problem {
 	private String content;
 	
 	private String videoBaseIds;
+	
+	private String twoCode;
+	
+	private String videoNum;
 
 	public Integer getId() {
 		return id;
@@ -19,8 +23,24 @@ public class Problem {
 		return bookId;
 	}
 
+	public String getVideoNum() {
+		return videoNum;
+	}
+
+	public void setVideoNum(String videoNum) {
+		this.videoNum = videoNum;
+	}
+
 	public String getVideoBaseIds() {
 		return videoBaseIds;
+	}
+
+	public String getTwoCode() {
+		return twoCode;
+	}
+
+	public void setTwoCode(String twoCode) {
+		this.twoCode = twoCode;
 	}
 
 	public void setVideoBaseIds(String videoBaseIds) {

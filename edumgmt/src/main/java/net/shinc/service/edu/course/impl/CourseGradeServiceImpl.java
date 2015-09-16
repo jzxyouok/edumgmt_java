@@ -1,6 +1,7 @@
 package net.shinc.service.edu.course.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import net.shinc.orm.mybatis.bean.edu.CourseGrade;
 import net.shinc.orm.mybatis.bean.edu.CourseGradeHasVideoBase;
@@ -21,7 +22,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CourseGradeServiceImpl implements CourseGradeService {
-	
+
 	@Autowired
 	private CourseGradeMapper courseGradeMapper;
 	@Autowired
@@ -55,7 +56,7 @@ public class CourseGradeServiceImpl implements CourseGradeService {
 	@Override
 	public Integer addCourseGradeVideoBase(CourseGrade courseGrade) {
 		int i = 0;
-		if(StringUtils.isNotEmpty(courseGrade.getVideoBaseIds())){
+		if (StringUtils.isNotEmpty(courseGrade.getVideoBaseIds())) {
 			for (String videoBaseId : StringUtils.split(courseGrade.getVideoBaseIds(), ",")) {
 				CourseGradeHasVideoBase c = new CourseGradeHasVideoBase();
 				c.setCourseGradeId(courseGrade.getId());
@@ -74,11 +75,9 @@ public class CourseGradeServiceImpl implements CourseGradeService {
 	}
 
 	@Override
-	public List<CourseGrade> getCourseGradeVideoBaseList(CourseGradeHasVideoBase courseGradeHasVideoBase) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Map> getCourseGradeVideoBaseList(CourseGradeHasVideoBase courseGradeHasVideoBase) {
+		return courseGradeMapper.getCourseGradeVideoBaseList(courseGradeHasVideoBase);
 	}
 
-	
 
 }

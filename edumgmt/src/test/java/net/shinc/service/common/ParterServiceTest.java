@@ -5,6 +5,8 @@ import java.util.List;
 import net.shinc.InfoMgmtApplication;
 import net.shinc.orm.mybatis.bean.edu.Parter;
 import net.shinc.service.edu.business.ParterService;
+import net.shinc.service.edu.business.ProblemService;
+import net.shinc.service.edu.course.CourseGradeService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +24,10 @@ public class ParterServiceTest {
 
 	@Autowired
 	private ParterService parterService;
+	@Autowired
+	private CourseGradeService courseGradeService;
+	@Autowired
+	private ProblemService problemService;
 	
 	@Test
 	public void add(){
@@ -65,7 +71,5 @@ public class ParterServiceTest {
 		System.out.println(g.toJson(parterService.deleteParterById(4)));
 		
 	}
-	
-	
 	
 }

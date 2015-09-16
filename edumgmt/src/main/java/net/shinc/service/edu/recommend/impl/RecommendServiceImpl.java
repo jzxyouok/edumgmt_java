@@ -1,7 +1,9 @@
 package net.shinc.service.edu.recommend.impl;
 
 import java.util.List;
+import java.util.Map;
 
+import net.shinc.orm.mybatis.bean.common.QueryBean;
 import net.shinc.orm.mybatis.bean.edu.Recommend;
 import net.shinc.orm.mybatis.bean.edu.RecommendHasVideoBase;
 import net.shinc.orm.mybatis.mappers.edu.RecommendHasVideoBaseMapper;
@@ -9,6 +11,7 @@ import net.shinc.orm.mybatis.mappers.edu.RecommendMapper;
 import net.shinc.service.edu.recommend.RecommendService;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,10 +76,8 @@ public class RecommendServiceImpl implements RecommendService {
 	}
 
 	@Override
-	public List<Recommend> getRecommendVideoBaseList(RecommendHasVideoBase recommendHasVideoBase) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Map> getRecommendVideoBaseList(RecommendHasVideoBase recommendHasVideoBase){
+		return recommendMapper.getRecommendVideoBaseList(recommendHasVideoBase);
 	}
-
 
 }
