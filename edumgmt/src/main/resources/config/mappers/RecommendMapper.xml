@@ -9,10 +9,11 @@
 		<result column="title" property="title" jdbcType="VARCHAR" />
 		<result column="description" property="description" jdbcType="VARCHAR" />
 		<result column="logo" property="logo" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
 	</resultMap>
 	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
-		id, add_time, top_time, location, title, description, logo
+		id, add_time, top_time, location, title, description, logo,type
 		from sh_recommend
 		where id = #{id,jdbcType=INTEGER}
 	</select>
@@ -22,10 +23,17 @@
 	</delete>
 	<select id="findAll" parameterType="Recommend" resultMap="BaseResultMap">
 		select
-		id, add_time, top_time, location, title, description, logo
+		id, add_time, top_time, location, title, description, logo,type
 		from sh_recommend
 		where 1 = 1
-		
+		<if test="title != null">
+			<if test="title != null">
+				and title like '%${title}%'
+			</if>
+			<if test="description != null">
+				and description like '%${description}%'
+			</if>
+		</if>
 		<!-- 加入查询条件 -->
 	</select>
 	<select id="getRecommendVideoBaseList" parameterType="RecommendHasVideoBase" resultType="java.util.HashMap">
@@ -62,8 +70,6 @@
 			    case when group_concat(distinct vidoDetail.url) is null then '未上传'
 				when group_concat(distinct vidoDetail.url) is not null THEN '已上传'
 				end AS videoUrl
-			    
-			   
 			    
 			FROM
 				sh_recommend_has_sh_video_base recommend left join
@@ -107,7 +113,6 @@
 		<!-- 加入查询条件 -->
 	</select>
 	
-	
 	<insert id="insert" parameterType="Recommend">
 		insert into sh_recommend
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -132,6 +137,9 @@
 			<if test="logo != null">
 				logo,
 			</if>
+			<if test="type != null">
+				type,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -155,6 +163,9 @@
 			<if test="logo != null">
 				#{logo,jdbcType=VARCHAR},
 			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
 		</trim>
 	</insert>
 	<update id="update" parameterType="Recommend">
@@ -177,6 +188,9 @@
 			</if>
 			<if test="logo != null">
 				logo = #{logo,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				logo = #{type,jdbcType=VARCHAR},
 			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}

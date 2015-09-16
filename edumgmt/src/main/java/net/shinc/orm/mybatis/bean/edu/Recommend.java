@@ -16,11 +16,21 @@ public class Recommend {
 	private String description;
 
 	private String logo;
-	
+
 	private String videoBaseIds;
+
+	private String type;// 1单视频2视频组
 
 	public Integer getId() {
 		return id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public void setId(Integer id) {
