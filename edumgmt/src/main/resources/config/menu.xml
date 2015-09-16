@@ -82,8 +82,8 @@
 		<menu>
 			<level>2</level>
 			<parent>recommendManage</parent>
-			<value>recommendListManage</value>  <!--   二级菜单  知识点结构管理 -->
-			<url>/knowledge/recommendList</url>
+			<value>recommendListManage</value>  <!--   二级菜单  推荐信息 -->
+			<url>/recommend/recommendList</url>
 		</menu>
 		
 		<!--  推荐管理 end  -->
