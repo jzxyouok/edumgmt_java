@@ -31,6 +31,7 @@
 			
 		</if>
 	</select>
+	
 	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from sh_course_grade_has_sh_video_base
 		where id = #{id,jdbcType=INTEGER}

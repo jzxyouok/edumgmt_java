@@ -1,6 +1,7 @@
 package net.shinc.service.edu.course;
 
 import java.util.List;
+import java.util.Map;
 
 import net.shinc.orm.mybatis.bean.edu.CourseGrade;
 import net.shinc.orm.mybatis.bean.edu.CourseGradeHasVideoBase;
@@ -33,6 +34,12 @@ public interface CourseGradeService {
 
 	public Integer deleteCourseGradeVideoBaseById(Integer id);
 
-	public List<CourseGrade> getCourseGradeVideoBaseList(CourseGradeHasVideoBase courseGradeHasVideoBase);
+	/**
+	 * @Title: getCourseGradeBaseList
+	 * @Description: 得到课程年级视频列表
+	 * @param courseGradeHasVideoBase
+	 * @return List<Map>
+	 */
+	public List<Map> getCourseGradeVideoBaseList(CourseGradeHasVideoBase courseGradeHasVideoBase);
 
 }

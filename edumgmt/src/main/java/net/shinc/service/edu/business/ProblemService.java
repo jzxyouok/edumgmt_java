@@ -1,6 +1,7 @@
 package net.shinc.service.edu.business;
 
 import java.util.List;
+import java.util.Map;
 
 import net.shinc.orm.mybatis.bean.edu.Problem;
 import net.shinc.orm.mybatis.bean.edu.ProblemHasVideoBase;
@@ -33,5 +34,11 @@ public interface ProblemService {
 
 	public Integer deleteProblemVideoBaseById(Integer id);
 
-	public List<ProblemHasVideoBase> getProblemVideoBaseList(ProblemHasVideoBase problemHasVideoBase);
+	/**
+	 * @Title: getProblemVideoBaseList
+	 * @Description: 得到题视频列表
+	 * @param problemHasVideoBase
+	 * @return List<Map>
+	 */
+	public List<Map> getProblemVideoBaseList(ProblemHasVideoBase problemHasVideoBase);
 }

@@ -1,6 +1,7 @@
 package net.shinc.service.edu.business.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import net.shinc.orm.mybatis.bean.edu.Problem;
 import net.shinc.orm.mybatis.bean.edu.ProblemHasVideoBase;
@@ -73,11 +74,9 @@ public class ProblemServiceImpl implements ProblemService {
 	}
 
 	@Override
-	public List<ProblemHasVideoBase> getProblemVideoBaseList(ProblemHasVideoBase problemHasVideoBase) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Map> getProblemVideoBaseList(ProblemHasVideoBase problemHasVideoBase) {
+		return problemMapper.getProblemVideoBaseList(problemHasVideoBase);
 	}
 
-	
 
 }

@@ -28,6 +28,86 @@
 		
 		<!-- 加入查询条件 -->
 	</select>
+	<select id="getRecommendVideoBaseList" parameterType="RecommendHasVideoBase" resultType="java.util.HashMap">
+		SELECT 
+				recommend.id recommendId,
+				past.id videoPastpaperId,
+				base.question_id,
+				base.id,
+			    base.title,
+			    base.desc,
+			    base.difficulty,
+			    base.status,
+			    base.question_number,
+			    base.profile,
+			    base.updatetime,
+			    base.qrcode,
+			    bank.id bankid,
+			    bank.name bankname,
+			    course.id courseId,
+			    course.name courseName,
+			    bt.id btid,
+			    bt.name btname,
+			    year.id yearid,
+			    year.year year,
+			    qtype.id typeId,
+			    qtype.name typeName,
+			    lecture.id lectureId,
+			    lecture.name lectureName,
+			    lecture.level lectureLevel,
+			    group_concat(distinct sk.name) keyword,
+			    cast(group_concat(distinct sk.id) AS CHAR)  keywordId,
+			    group_concat(distinct kp.name) knowledge,
+			    cast(group_concat(distinct kp.id) AS CHAR)  knowledgeId,
+			    case when group_concat(distinct vidoDetail.url) is null then '未上传'
+				when group_concat(distinct vidoDetail.url) is not null THEN '已上传'
+				end AS videoUrl
+			    
+			   
+			    
+			FROM
+				sh_recommend_has_sh_video_base recommend left join
+			    sh_video_base base on recommend.sh_video_base_id = base.id
+			         INNER JOIN
+			     sh_video_pastpaper past ON past.sh_video_base_id = base.id
+			        LEFT JOIN
+			    sh_questionbank bank ON bank.id = past.sh_questionbank_id
+			        LEFT JOIN
+			    sh_course course ON course.id = base.sh_course_id
+			        LEFT JOIN
+			    sh_questionbank_type bt ON bt.id = past.sh_questionbank_type_id
+			        LEFT JOIN
+			    sh_questionbank_year year ON year.id = past.sh_questionbank_year_id
+			        LEFT JOIN
+			    sh_question_type qtype ON qtype.id = past.sh_question_type_id
+			        LEFT JOIN
+			    sh_lecture lecture ON lecture.id = base.sh_lecture_id
+			    left join sh_video_base_keyword kw on kw.sh_video_base_id = base.id
+			    left join sh_keyword sk on sk.id = kw.sh_keyword_id
+			    
+			    left join sh_video_base_knowledge_point pt on pt.sh_video_base_id = base.id
+			    left join sh_knowledge_point kp on kp.id = pt.sh_knowledge_point_id
+			    left join sh_video_detail vidoDetail on vidoDetail.sh_video_base_id=base.id
+			    
+			WHERE 1=1  
+				<if test="recommendId != null">
+					and recommend.id = #{recommendId}
+				</if>
+			    group by id
+			    having 1=1
+			    <if test="hasVideo == 1">
+					and videoUrl = '已上传'
+				</if>
+				<if test="hasVideo == 0">
+					and videoUrl = '未上传'
+				</if>  
+			    
+			    order by base.updatetime desc
+		
+		<!-- 加入查询条件 -->
+	</select>
+	
+	
 	<insert id="insert" parameterType="Recommend">
 		insert into sh_recommend
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -101,4 +181,5 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
+	
 </mapper>
