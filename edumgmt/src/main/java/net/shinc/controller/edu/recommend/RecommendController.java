@@ -37,6 +37,12 @@ public class RecommendController extends AbstractBaseController {
 	@Autowired
 	private RecommendService recommendService;
 
+	/**
+	 * @Title: getRecommendList
+	 * @Description: 得推荐列表
+	 * @param recommend
+	 * @return IRestMessage
+	 */
 	@RequestMapping(value = "/getRecommendList")
 	@ResponseBody
 	public IRestMessage getRecommendList(Recommend recommend) {
@@ -56,6 +62,12 @@ public class RecommendController extends AbstractBaseController {
 		return msg;
 	}
 
+	/**
+	 * @Title: getRecommendVideoBaseList
+	 * @Description: 得到推荐视频列表
+	 * @param recommend
+	 * @return IRestMessage
+	 */
 	@RequestMapping(value = "/getRecommendVideoBaseList")
 	@ResponseBody
 	public IRestMessage getRecommendVideoBaseList(Recommend recommend) {
@@ -77,6 +89,13 @@ public class RecommendController extends AbstractBaseController {
 		return msg;
 	}
 
+	/**
+	 * @Title: addRecommend
+	 * @Description: 添加推荐
+	 * @param recommend
+	 * @param bindingResult
+	 * @return IRestMessage
+	 */
 	@RequestMapping(value = "/addRecommend")
 	@ResponseBody
 	public IRestMessage addRecommend(@Valid Recommend recommend, BindingResult bindingResult) {
@@ -96,14 +115,17 @@ public class RecommendController extends AbstractBaseController {
 		return iRestMessage;
 	}
 
+	/**
+	 * @Title: getRecommendInfo
+	 * @Description: 得到推荐信息
+	 * @param id
+	 * @param bindingResult
+	 * @return IRestMessage
+	 */
 	@RequestMapping(value = "/getRecommendInfo")
 	@ResponseBody
-	public IRestMessage getRecommendInfo(@RequestParam(value = "id", required = true) Integer id, BindingResult bindingResult) {
+	public IRestMessage getRecommendInfo(@RequestParam(value = "id") Integer id) {
 		IRestMessage iRestMessage = getRestMessage();
-		if (bindingResult.hasErrors()) {
-			iRestMessage.setDetail(ShincUtil.getErrorFields(bindingResult));
-			return iRestMessage;
-		}
 		try {
 			Recommend recommend = recommendService.getRecommendById(id);
 			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
@@ -115,9 +137,16 @@ public class RecommendController extends AbstractBaseController {
 		return iRestMessage;
 	}
 
+	/**
+	 * @Title: updateRecommend
+	 * @Description: 更新推荐信息
+	 * @param recommend
+	 * @param bindingResult
+	 * @return IRestMessage
+	 */
 	@RequestMapping(value = "/updateRecommend")
 	@ResponseBody
-	public IRestMessage updateRecommendAndRelevantInfo(@Valid Recommend recommend, BindingResult bindingResult) {
+	public IRestMessage updateRecommend(@Valid Recommend recommend, BindingResult bindingResult) {
 		IRestMessage iRestMessage = getRestMessage();
 		if (bindingResult.hasErrors()) {
 			iRestMessage.setDetail(ShincUtil.getErrorFields(bindingResult));
@@ -134,6 +163,12 @@ public class RecommendController extends AbstractBaseController {
 		return iRestMessage;
 	}
 
+	/**
+	 * @Title: deleteRecommend
+	 * @Description: 删除推荐信息，推荐下有时暂不支持删除
+	 * @param recommend
+	 * @return IRestMessage
+	 */
 	@RequestMapping(value = "/deleteRecommend")
 	@ResponseBody
 	public IRestMessage deleteRecommend(Recommend recommend) {
@@ -141,9 +176,9 @@ public class RecommendController extends AbstractBaseController {
 		try {
 			if (recommendService.isRecommendHasVideo(recommendService.getRecommendById(recommend.getId()))) {
 				iRestMessage.setCode(ErrorMessage.DELETE_FAILED.getCode());
-				iRestMessage.setMessage("改推荐下已存在视频暂不支持删除");
+				iRestMessage.setMessage("该推荐下已存在视频暂不支持删除");
 				return iRestMessage;
-			} 
+			}
 			recommendService.deleteRecommendById(recommend.getId());
 			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
 			iRestMessage.setMessage("删除成功");

@@ -12,7 +12,6 @@ public class Book {
 
 	private String status;
 	
-	@NotNull(message = "{book.numReservation.not.empty}")
 	private String numReservation;
 	
 	//视频数量

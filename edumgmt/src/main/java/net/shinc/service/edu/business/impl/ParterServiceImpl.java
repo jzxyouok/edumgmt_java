@@ -2,7 +2,9 @@ package net.shinc.service.edu.business.impl;
 
 import java.util.List;
 
+import net.shinc.orm.mybatis.bean.edu.Book;
 import net.shinc.orm.mybatis.bean.edu.Parter;
+import net.shinc.orm.mybatis.mappers.edu.BookMapper;
 import net.shinc.orm.mybatis.mappers.edu.ParterMapper;
 import net.shinc.service.edu.business.ParterService;
 
@@ -20,6 +22,9 @@ public class ParterServiceImpl implements ParterService {
 	
 	@Autowired
 	private ParterMapper parterMapper;
+	
+	@Autowired
+	private BookMapper bookMapper;
 
 	@Override
 	public Integer addParter(Parter parter) {
@@ -44,6 +49,17 @@ public class ParterServiceImpl implements ParterService {
 	@Override
 	public List<Parter> getParterList(Parter parter) {
 		return parterMapper.findAll(parter);
+	}
+
+	@Override
+	public boolean isHasBook(Parter parter) {
+		Book b = new Book();
+		b.setParterId(parter.getId());
+		List list = bookMapper.findAll(b);
+		if(list == null || list.size() == 0){
+			return false;
+		}
+		return true;
 	}
 
 	

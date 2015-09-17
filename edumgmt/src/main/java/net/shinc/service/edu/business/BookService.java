@@ -21,4 +21,6 @@ public interface BookService {
 	public Book getBookById(Integer id);
 	
 	public List<Book> getBookList(Book book);
+	
+	public boolean isHasVideo(Book book);
 }

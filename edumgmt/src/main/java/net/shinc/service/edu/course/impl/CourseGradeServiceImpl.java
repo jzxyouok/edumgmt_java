@@ -80,7 +80,7 @@ public class CourseGradeServiceImpl implements CourseGradeService {
 	}
 
 	@Override
-	public boolean isCourseGradeHasVideo(CourseGrade courseGrade) {
+	public boolean isHasVideo(CourseGrade courseGrade) {
 		CourseGradeHasVideoBase courseGradeHasVideoBase = new CourseGradeHasVideoBase();
 		courseGradeHasVideoBase.setCourseGradeId(courseGrade.getId());
 		List list = courseGradeHasVideoBaseMapper.findAll(courseGradeHasVideoBase);

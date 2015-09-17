@@ -38,7 +38,7 @@
 				</if>
 			</if>
 	                
-		GROUP BY t2.id
+		GROUP BY t1.id
 		
 	</select>
 	<delete id="deleteById" parameterType="java.lang.Integer">

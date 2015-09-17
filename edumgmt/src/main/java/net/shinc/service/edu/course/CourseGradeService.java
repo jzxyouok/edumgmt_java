@@ -49,6 +49,6 @@ public interface CourseGradeService {
 	 * @param recommend
 	 * @return boolean
 	 */
-	public boolean isCourseGradeHasVideo(CourseGrade courseGrade);
+	public boolean isHasVideo(CourseGrade courseGrade);
 
 }

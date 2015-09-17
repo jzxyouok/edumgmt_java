@@ -5,6 +5,7 @@ import java.util.List;
 import net.shinc.orm.mybatis.bean.edu.Book;
 import net.shinc.orm.mybatis.bean.edu.Problem;
 import net.shinc.orm.mybatis.mappers.edu.BookMapper;
+import net.shinc.orm.mybatis.mappers.edu.ProblemMapper;
 import net.shinc.service.edu.business.BookService;
 
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +23,9 @@ public class BookServiceImpl implements BookService {
 	
 	@Autowired
 	private BookMapper bookMapper;
+	
+	@Autowired
+	private ProblemMapper problemMapper;
 
 	@Override
 	public Integer addBook(Book book) {
@@ -58,6 +62,17 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<Book> getBookList(Book book) {
 		return bookMapper.findAll(book);
+	}
+
+	@Override
+	public boolean isHasVideo(Book book) {
+		Problem problem = new Problem();
+		problem.setBookId(book.getId());
+		List list = problemMapper.findAll(problem);
+		if(list == null || list.size() == 0){
+			return false;
+		}
+		return true;
 	}
 
 	
