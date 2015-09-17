@@ -21,7 +21,7 @@
 		from sh_recommend_has_sh_course_grade
 		where 1 = 1
 		<if test="recommendId != null">
-			sh_recommend_id = #{recommendId,jdbcType=INTEGER},
+			and sh_recommend_id = #{recommendId,jdbcType=INTEGER},
 		</if>
 		<!-- 加入查询条件 -->
 	</select>
@@ -58,7 +58,7 @@
 		update sh_recommend_has_sh_course_grade
 		<set>
 			<if test="recommendId != null">
-				sh_recommend_id = #{recommendId,jdbcType=INTEGER},
+				and sh_recommend_id = #{recommendId,jdbcType=INTEGER},
 			</if>
 			<if test="courseGradeId != null">
 				sh_course_grade_id = #{courseGradeId,jdbcType=INTEGER},
