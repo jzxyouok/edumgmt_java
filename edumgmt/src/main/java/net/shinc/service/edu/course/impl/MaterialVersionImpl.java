@@ -38,7 +38,7 @@ public class MaterialVersionImpl implements MaterialVersionService {
 
 	@Override
 	public MaterialVersion getMaterialVersionById(Integer id) {
-		return materialVersionMapper.findById(id);
+		return (MaterialVersion)materialVersionMapper.findById(id);
 	}
 
 	@Override

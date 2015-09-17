@@ -18,7 +18,9 @@
 		id, sh_problem_id, sh_video_base_id, video_type
 		from sh_problem_has_sh_video_base
 		where 1 = 1
-		
+		<if test="problemId != null">
+			sh_problem_id = #{problemId,jdbcType=INTEGER},
+		</if>
 		<!-- 加入查询条件 -->
 	</select>
 	<delete id="deleteById" parameterType="java.lang.Integer">

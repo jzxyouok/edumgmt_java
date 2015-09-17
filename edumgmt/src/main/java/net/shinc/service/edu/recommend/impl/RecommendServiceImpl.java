@@ -1,17 +1,18 @@
 package net.shinc.service.edu.recommend.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import net.shinc.orm.mybatis.bean.common.QueryBean;
 import net.shinc.orm.mybatis.bean.edu.Recommend;
+import net.shinc.orm.mybatis.bean.edu.RecommendHasCourseGrade;
 import net.shinc.orm.mybatis.bean.edu.RecommendHasVideoBase;
+import net.shinc.orm.mybatis.mappers.edu.RecommendHasCourseGradeMapper;
 import net.shinc.orm.mybatis.mappers.edu.RecommendHasVideoBaseMapper;
 import net.shinc.orm.mybatis.mappers.edu.RecommendMapper;
 import net.shinc.service.edu.recommend.RecommendService;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +27,17 @@ public class RecommendServiceImpl implements RecommendService {
 	
 	@Autowired
 	private RecommendMapper recommendMapper;
+	
 	@Autowired
 	private RecommendHasVideoBaseMapper recommendHasVideoBaseMapper;
 	
+	@Autowired
+	private RecommendHasCourseGradeMapper recommendHasCourseGradeMapper;
+	
 	@Override
 	public Integer addRecommend(Recommend recommend) {
+		recommend.setAddTime(new Date());
+		recommend.setTopTime(new Date());
 		return recommendMapper.insert(recommend);
 	}
 
@@ -53,7 +60,7 @@ public class RecommendServiceImpl implements RecommendService {
 	public List<Recommend> getRecommendList(Recommend recommend) {
 		return recommendMapper.findAll(recommend);
 	}
-
+	
 	@Override
 	public Integer addRecommendVideoBase(Recommend recommend) {
 		int i = 0;
@@ -79,5 +86,29 @@ public class RecommendServiceImpl implements RecommendService {
 	public List<Map> getRecommendVideoBaseList(RecommendHasVideoBase recommendHasVideoBase){
 		return recommendMapper.getRecommendVideoBaseList(recommendHasVideoBase);
 	}
+
+	@Override
+	public boolean isRecommendHasVideo(Recommend recommend) {
+		if (recommend.getType().equals("1")) {// 单视频
+			RecommendHasVideoBase recommendHasVideoBase = new RecommendHasVideoBase();
+			recommendHasVideoBase.setRecommendId(recommend.getId());
+			List list = recommendHasVideoBaseMapper.findAll(recommendHasVideoBase);
+			if(list == null || list.size() == 0){
+				return false;
+			}
+		}
+		if (recommend.getType().equals("2")) {// 视频库
+			RecommendHasCourseGrade recommendHasCourseGrade = new RecommendHasCourseGrade();
+			recommendHasCourseGrade.setRecommendId(recommend.getId());
+			List list = recommendHasCourseGradeMapper.findAll(recommendHasCourseGrade);
+			if(list == null || list.size() == 0){
+				return false;
+			}
+		}
+		return true;
+		
+	}
+
+	
 
 }

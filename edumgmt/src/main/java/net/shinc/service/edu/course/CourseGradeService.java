@@ -5,6 +5,7 @@ import java.util.Map;
 
 import net.shinc.orm.mybatis.bean.edu.CourseGrade;
 import net.shinc.orm.mybatis.bean.edu.CourseGradeHasVideoBase;
+import net.shinc.orm.mybatis.bean.edu.CourseGrade;
 
 /**
  * @ClassName: CourseGradeService
@@ -41,5 +42,13 @@ public interface CourseGradeService {
 	 * @return List<Map>
 	 */
 	public List<Map> getCourseGradeVideoBaseList(CourseGradeHasVideoBase courseGradeHasVideoBase);
+	
+	/**
+	 * @Title: isCourseGradeHasVideo
+	 * @Description: 该推荐下是否有视频
+	 * @param recommend
+	 * @return boolean
+	 */
+	public boolean isCourseGradeHasVideo(CourseGrade courseGrade);
 
 }

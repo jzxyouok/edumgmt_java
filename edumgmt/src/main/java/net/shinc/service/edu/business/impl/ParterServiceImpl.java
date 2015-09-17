@@ -38,7 +38,7 @@ public class ParterServiceImpl implements ParterService {
 
 	@Override
 	public Parter getParterById(Integer id) {
-		return parterMapper.findById(id);
+		return (Parter)parterMapper.findById(id);
 	}
 
 	@Override

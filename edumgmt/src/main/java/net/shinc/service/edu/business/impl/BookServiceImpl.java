@@ -52,7 +52,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public Book getBookById(Integer id) {
-		return bookMapper.findById(id);
+		return (Book)bookMapper.findById(id);
 	}
 
 	@Override

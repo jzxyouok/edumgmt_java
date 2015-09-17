@@ -9,6 +9,7 @@ import net.shinc.common.ErrorMessage;
 import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
 import net.shinc.orm.mybatis.bean.edu.Recommend;
+import net.shinc.orm.mybatis.bean.edu.RecommendHasCourseGrade;
 import net.shinc.orm.mybatis.bean.edu.RecommendHasVideoBase;
 import net.shinc.service.edu.recommend.RecommendService;
 
@@ -136,28 +137,14 @@ public class RecommendController extends AbstractBaseController {
 
 	@RequestMapping(value = "/deleteRecommend")
 	@ResponseBody
-	public IRestMessage deleteRecommend(Recommend recommend, BindingResult bindingResult) {
+	public IRestMessage deleteRecommend(Recommend recommend) {
 		IRestMessage iRestMessage = getRestMessage();
-		if (bindingResult.hasErrors()) {
-			iRestMessage.setDetail(ShincUtil.getErrorFields(bindingResult));
-			return iRestMessage;
-		}
 		try {
-			recommend = recommendService.getRecommendById(recommend.getId());
-			// 推荐下有视频则不能删除
-			if (recommend.getType().equals("1")) {// 单视频
-				RecommendHasVideoBase recommendHasVideoBase = new RecommendHasVideoBase();
-				recommendHasVideoBase.setRecommendId(recommend.getId());
-				List list = recommendService.getRecommendVideoBaseList(recommendHasVideoBase);
-				if (list == null || list.size() == 0) {
-					iRestMessage.setCode(ErrorMessage.DELETE_FAILED.getCode());
-					iRestMessage.setMessage("改推荐下已存在视频暂不支持删除");
-					return iRestMessage;
-				}
-			} else if (recommend.getType().equals("2")) {// 视频组
-				// 查询关系表有无数据
+			if (recommendService.isRecommendHasVideo(recommendService.getRecommendById(recommend.getId()))) {
+				iRestMessage.setCode(ErrorMessage.DELETE_FAILED.getCode());
+				iRestMessage.setMessage("改推荐下已存在视频暂不支持删除");
 				return iRestMessage;
-			}
+			} 
 			recommendService.deleteRecommendById(recommend.getId());
 			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
 			iRestMessage.setMessage("删除成功");

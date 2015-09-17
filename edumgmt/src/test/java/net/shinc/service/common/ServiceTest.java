@@ -4,9 +4,10 @@ import java.util.List;
 
 import net.shinc.InfoMgmtApplication;
 import net.shinc.orm.mybatis.bean.edu.Parter;
+import net.shinc.orm.mybatis.bean.edu.Recommend;
 import net.shinc.service.edu.business.ParterService;
-import net.shinc.service.edu.business.ProblemService;
 import net.shinc.service.edu.course.CourseGradeService;
+import net.shinc.service.edu.recommend.RecommendService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,55 +21,64 @@ import com.google.gson.Gson;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = InfoMgmtApplication.class)
 @WebAppConfiguration
-public class ParterServiceTest {
+public class ServiceTest {
 
 	@Autowired
 	private ParterService parterService;
 	@Autowired
 	private CourseGradeService courseGradeService;
 	@Autowired
-	private ProblemService problemService;
+	private RecommendService recommendService;
 	
 	@Test
 	public void add(){
-		Parter parter = new Parter();
-		parter.setName("111");
-		Integer asdfa= parterService.addParter(parter);
-		System.out.println(asdfa);
+		Recommend recommend = new Recommend();
+		recommend.setTitle("111");
+		recommend.setLocation("1");
+		recommend.setDescription("q2343");
+		recommend.setLogo("sadfsda");
+		try {
+			Integer adfas = recommendService.addRecommend(recommend);
+			System.out.println("111111111");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		
 	} 
 	
 	@Test
-	public void getList(){
-		Parter parter = new Parter();
-		parter.setName("111");
-		List list = parterService.getParterList(null);
+	public void findAll(){
+		List list = recommendService.getRecommendList(null);
 		Gson g = new Gson();
 		System.out.println(g.toJson(list));
 		
 	}
 	
 	@Test
-	public void getById(){
+	public void findById(){
 		Gson g = new Gson();
-		System.out.println(g.toJson(parterService.getParterById(1)));
+		System.out.println(g.toJson(recommendService.getRecommendById(1)));
 		
 	}
 	
 	@Test
 	public void update(){
-		Parter parter = new Parter();
-		parter.setName("222");
-		parter.setId(4);
+		Recommend recommend = new Recommend();
+		recommend.setId(3);
+		recommend.setTitle("22222");
+		recommend.setLocation("1");
+		recommend.setDescription("q2343");
+		recommend.setLogo("sadfsda");
 		Gson g = new Gson();
-		System.out.println(g.toJson(parterService.updateParter(parter)));
+		System.out.println(g.toJson(recommendService.updateRecommend(recommend)));
 		
 	}
 	
 	@Test
 	public void delete(){
 		Gson g = new Gson();
-		System.out.println(g.toJson(parterService.deleteParterById(4)));
+		System.out.println(g.toJson(recommendService.deleteRecommendById(3)));
 		
 	}
 	

@@ -21,8 +21,9 @@
 		id, sh_recommend_id, sh_video_base_id, add_time, top_time, video_type, dimension
 		from sh_recommend_has_sh_video_base
 		where 1 = 1
-		
-		<!-- 加入查询条件 -->
+		<if test="recommendId != null">
+			sh_recommend_id = #{recommendId,jdbcType=INTEGER},
+		</if>
 	</select>
 	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from sh_recommend_has_sh_video_base

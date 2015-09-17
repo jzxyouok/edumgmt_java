@@ -11,7 +11,7 @@
 		<result column="logo" property="logo" jdbcType="VARCHAR" />
 		<result column="type" property="type" jdbcType="VARCHAR" />
 	</resultMap>
-	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		id, add_time, top_time, location, title, description, logo,type
 		from sh_recommend

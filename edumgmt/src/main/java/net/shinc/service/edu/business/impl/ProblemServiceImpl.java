@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ProblemServiceImpl implements ProblemService {
-	
+
 	@Autowired
 	private ProblemMapper problemMapper;
 	@Autowired
@@ -44,7 +44,7 @@ public class ProblemServiceImpl implements ProblemService {
 
 	@Override
 	public Problem getProblemById(Integer id) {
-		return problemMapper.findById(id);
+		return (Problem)problemMapper.findById(id);
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class ProblemServiceImpl implements ProblemService {
 	@Override
 	public Integer addProblemVideoBase(Problem problem) {
 		int i = 0;
-		if(StringUtils.isNotEmpty(problem.getVideoBaseIds())){
+		if (StringUtils.isNotEmpty(problem.getVideoBaseIds())) {
 			for (String videoBaseId : StringUtils.split(problem.getVideoBaseIds(), ",")) {
 				ProblemHasVideoBase p = new ProblemHasVideoBase();
 				p.setProblemId(problem.getId());
@@ -67,7 +67,7 @@ public class ProblemServiceImpl implements ProblemService {
 		}
 		return i;
 	}
-	
+
 	@Override
 	public Integer deleteProblemVideoBaseById(Integer id) {
 		return problemHasVideoBaseMapper.deleteById(id);
@@ -78,5 +78,15 @@ public class ProblemServiceImpl implements ProblemService {
 		return problemMapper.getProblemVideoBaseList(problemHasVideoBase);
 	}
 
+	@Override
+	public boolean isProblemHasVideo(Problem problem) {
+		ProblemHasVideoBase problemHasVideoBase = new ProblemHasVideoBase();
+		problemHasVideoBase.setProblemId(problem.getId());
+		List list = problemHasVideoBaseMapper.findAll(problemHasVideoBase);
+		if (list == null || list.size() == 0) {
+			return false;
+		}
+		return true;
+	}
 
 }

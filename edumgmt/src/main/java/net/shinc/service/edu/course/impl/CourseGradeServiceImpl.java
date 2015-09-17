@@ -45,7 +45,7 @@ public class CourseGradeServiceImpl implements CourseGradeService {
 
 	@Override
 	public CourseGrade getCourseGradeById(Integer id) {
-		return courseGradeMapper.findById(id);
+		return (CourseGrade)courseGradeMapper.findById(id);
 	}
 
 	@Override
@@ -77,6 +77,17 @@ public class CourseGradeServiceImpl implements CourseGradeService {
 	@Override
 	public List<Map> getCourseGradeVideoBaseList(CourseGradeHasVideoBase courseGradeHasVideoBase) {
 		return courseGradeMapper.getCourseGradeVideoBaseList(courseGradeHasVideoBase);
+	}
+
+	@Override
+	public boolean isCourseGradeHasVideo(CourseGrade courseGrade) {
+		CourseGradeHasVideoBase courseGradeHasVideoBase = new CourseGradeHasVideoBase();
+		courseGradeHasVideoBase.setCourseGradeId(courseGrade.getId());
+		List list = courseGradeHasVideoBaseMapper.findAll(courseGradeHasVideoBase);
+		if (list == null || list.size() == 0) {
+			return false;
+		}
+		return true;
 	}
 
 

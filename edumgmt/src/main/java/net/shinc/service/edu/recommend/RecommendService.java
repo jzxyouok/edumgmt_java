@@ -3,11 +3,8 @@ package net.shinc.service.edu.recommend;
 import java.util.List;
 import java.util.Map;
 
-import net.shinc.orm.mybatis.bean.common.QueryBean;
 import net.shinc.orm.mybatis.bean.edu.Recommend;
 import net.shinc.orm.mybatis.bean.edu.RecommendHasVideoBase;
-
-import org.apache.ibatis.session.RowBounds;
 
 /**
  * @ClassName: RecommendService
@@ -16,7 +13,6 @@ import org.apache.ibatis.session.RowBounds;
  * @date 2015年9月15日 下午1:03:21
  */
 public interface RecommendService {
-
 	public Integer addRecommend(Recommend recommend);
 
 	public Integer updateRecommend(Recommend recommend);
@@ -44,5 +40,13 @@ public interface RecommendService {
 	 * @return List<Map>
 	 */
 	public List<Map> getRecommendVideoBaseList(RecommendHasVideoBase recommendHasVideoBase);
+
+	/**
+	 * @Title: isRecommendHasVideo
+	 * @Description: 该推荐下是否有视频
+	 * @param recommend
+	 * @return boolean
+	 */
+	public boolean isRecommendHasVideo(Recommend recommend);
 
 }

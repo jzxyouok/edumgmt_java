@@ -5,6 +5,7 @@ import java.util.Map;
 
 import net.shinc.orm.mybatis.bean.edu.Problem;
 import net.shinc.orm.mybatis.bean.edu.ProblemHasVideoBase;
+import net.shinc.orm.mybatis.bean.edu.Problem;
 
 /**
  * @ClassName: ProblemService
@@ -41,4 +42,12 @@ public interface ProblemService {
 	 * @return List<Map>
 	 */
 	public List<Map> getProblemVideoBaseList(ProblemHasVideoBase problemHasVideoBase);
+	
+	/**
+	 * @Title: isProblemHasVideo
+	 * @Description: 该题下是否有视频
+	 * @param recommend
+	 * @return boolean
+	 */
+	public boolean isProblemHasVideo(Problem problem);
 }
