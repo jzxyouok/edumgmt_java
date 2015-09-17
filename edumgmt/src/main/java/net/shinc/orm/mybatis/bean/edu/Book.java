@@ -6,10 +6,12 @@ public class Book {
 	private Integer id;
 
 	private Integer parterId;
+	
 	@NotNull(message = "{book.name.not.empty}")
 	private String name;
 
 	private String status;
+	
 	@NotNull(message = "{book.numReservation.not.empty}")
 	private String numReservation;
 	

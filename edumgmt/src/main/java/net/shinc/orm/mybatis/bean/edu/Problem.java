@@ -1,12 +1,15 @@
 package net.shinc.orm.mybatis.bean.edu;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Problem {
 	private Integer id;
 
 	private Integer bookId;
 
 	private String status;
-
+	
+	@NotEmpty(message = "{problem.content.not.empty}")
 	private String content;
 	
 	private String videoBaseIds;

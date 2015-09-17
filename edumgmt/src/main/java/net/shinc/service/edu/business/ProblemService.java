@@ -5,7 +5,6 @@ import java.util.Map;
 
 import net.shinc.orm.mybatis.bean.edu.Problem;
 import net.shinc.orm.mybatis.bean.edu.ProblemHasVideoBase;
-import net.shinc.orm.mybatis.bean.edu.Problem;
 
 /**
  * @ClassName: ProblemService

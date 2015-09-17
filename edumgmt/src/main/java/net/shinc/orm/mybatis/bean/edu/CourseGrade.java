@@ -1,14 +1,21 @@
 package net.shinc.orm.mybatis.bean.edu;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class CourseGrade {
 	private Integer id;
 
 	private Integer courseId;
 
+	@NotEmpty(message = "{courseGrade.name.not.empty}")
 	private String name;
 
+	@NotEmpty(message = "{courseGrade.type.not.empty}")
 	private String type;
 
+	@NotNull(message = "{courseGrade.materialVersionId.not.empty}")
 	private Integer materialVersionId;
 	
 	private String videoBaseIds;

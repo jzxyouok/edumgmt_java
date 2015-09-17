@@ -2,23 +2,30 @@ package net.shinc.orm.mybatis.bean.edu;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Recommend {
 	private Integer id;
 
 	private Date addTime;
 
 	private Date topTime;
-
+	
+	@NotEmpty(message = "{recommend.location.not.empty}")
 	private String location;
 
+	@NotEmpty(message = "{recommend.title.not.empty}")
 	private String title;
 
+	@NotEmpty(message = "{recommend.description.not.empty}")
 	private String description;
 
+	@NotEmpty(message = "{recommend.logo.not.empty}")
 	private String logo;
 
 	private String videoBaseIds;
 
+	@NotEmpty(message = "{type.not.empty}")
 	private String type;// 1单视频2视频组
 
 	public Integer getId() {
