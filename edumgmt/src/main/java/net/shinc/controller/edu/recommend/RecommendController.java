@@ -9,7 +9,6 @@ import net.shinc.common.ErrorMessage;
 import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
 import net.shinc.orm.mybatis.bean.edu.Recommend;
-import net.shinc.orm.mybatis.bean.edu.RecommendHasCourseGrade;
 import net.shinc.orm.mybatis.bean.edu.RecommendHasVideoBase;
 import net.shinc.service.edu.recommend.RecommendService;
 
