@@ -68,6 +68,12 @@
 			<value>courseManage</value>          <!--   一级菜单  课程分类管理 -->
 			<url>none</url>
 		</menu>
+		<menu>
+			<level>2</level>
+			<parent>courseManage</parent>
+			<value>courseListManage</value>  <!--   二级菜单  课程分类信息 -->
+			<url>/course/courseList</url>
+		</menu>
 		
 		<!--  课程分类管理 end  -->
 		

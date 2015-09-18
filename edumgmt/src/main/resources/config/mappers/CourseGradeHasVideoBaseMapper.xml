@@ -21,15 +21,13 @@
 		from sh_course_grade_has_sh_video_base
 		where 1 = 1
 		
-		<if test="courseGradeHasVideoBase != null">
-			<if test="courseGradeId != null">
-				AND sh_course_grade_id = #{courseGradeId}
-			</if>
-			<if test="videoBaseId != null">
-				AND sh_video_base_id = #{videoBaseId}
-			</if>
-			
+		<if test="courseGradeId != null">
+			AND sh_course_grade_id = #{courseGradeId}
 		</if>
+		<if test="videoBaseId != null">
+			AND sh_video_base_id = #{videoBaseId}
+		</if>
+			
 	</select>
 	
 	<delete id="deleteById" parameterType="java.lang.Integer">
