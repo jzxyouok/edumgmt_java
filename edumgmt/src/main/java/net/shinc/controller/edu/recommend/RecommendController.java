@@ -106,7 +106,7 @@ public class RecommendController extends AbstractBaseController {
 		}
 		try {
 			recommendService.addRecommend(recommend);
-			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			iRestMessage.setCode(ErrorMessage.ADD_SUCCESS.getCode());
 			iRestMessage.setMessage("添加成功");
 		} catch (Exception e) {
 			logger.error("添加推荐失败==>" + ExceptionUtils.getStackTrace(e));
@@ -154,7 +154,7 @@ public class RecommendController extends AbstractBaseController {
 		}
 		try {
 			recommendService.updateRecommend(recommend);
-			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			iRestMessage.setCode(ErrorMessage.UPDATE_SUCCESS.getCode());
 			iRestMessage.setMessage("修改成功");
 		} catch (Exception e) {
 			logger.error("更新推荐失败==>" + ExceptionUtils.getStackTrace(e));

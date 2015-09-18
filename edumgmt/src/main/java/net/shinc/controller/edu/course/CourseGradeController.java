@@ -10,7 +10,6 @@ import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
 import net.shinc.orm.mybatis.bean.edu.CourseGrade;
 import net.shinc.orm.mybatis.bean.edu.CourseGradeHasVideoBase;
-import net.shinc.orm.mybatis.bean.edu.Recommend;
 import net.shinc.service.edu.course.CourseGradeService;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
