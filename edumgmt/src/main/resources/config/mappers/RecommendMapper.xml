@@ -190,7 +190,7 @@
 				logo = #{logo,jdbcType=VARCHAR},
 			</if>
 			<if test="type != null">
-				logo = #{type,jdbcType=VARCHAR},
+				type = #{type,jdbcType=VARCHAR},
 			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}

@@ -148,6 +148,7 @@ public class RecommendController extends AbstractBaseController {
 	@ResponseBody
 	public IRestMessage updateRecommend(@Valid Recommend recommend, BindingResult bindingResult) {
 		IRestMessage iRestMessage = getRestMessage();
+		recommend.setId(2);
 		if (bindingResult.hasErrors()) {
 			iRestMessage.setDetail(ShincUtil.getErrorFields(bindingResult));
 			return iRestMessage;
