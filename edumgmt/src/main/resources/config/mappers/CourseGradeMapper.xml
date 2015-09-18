@@ -20,6 +20,9 @@
 		from sh_course_grade
 		where 1 = 1
 		
+		<if test="courseId != null">
+			and sh_course_id = #{courseId}
+		</if> 
 		<!-- 加入查询条件 -->
 	</select>
 	<select id="getCourseGradeVideoBaseList" parameterType="CourseGradeHasVideoBase" resultType="java.util.HashMap">

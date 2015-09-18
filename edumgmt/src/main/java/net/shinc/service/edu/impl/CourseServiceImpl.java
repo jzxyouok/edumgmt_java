@@ -67,4 +67,9 @@ public class CourseServiceImpl implements CourseService {
 		return courseMapper.selectCourse(course);
 	}
 
+	@Override
+	public List<Course> getCourse_videoNum(Course course) {
+		return courseMapper.getCourse_videoNum();
+	}
+
 }
