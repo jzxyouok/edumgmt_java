@@ -67,9 +67,12 @@ public class RecommendServiceImpl implements RecommendService {
 		if(StringUtils.isNotEmpty(recommend.getVideoBaseIds())){
 			for (String videoBaseId : StringUtils.split(recommend.getVideoBaseIds(), ",")) {
 				RecommendHasVideoBase r = new RecommendHasVideoBase();
+				r.setAddTime(new Date());
+				r.setTopTime(new Date());
 				r.setRecommendId(recommend.getId());
 				r.setVideoBaseId(Integer.valueOf(videoBaseId));
-				r.setVideoType("1");
+				r.setVideoType(recommend.getVideoType());
+				r.setDimension("9");// 这一版推荐视频不按初中高中维度排，后期会把这个字段删除掉
 				recommendHasVideoBaseMapper.insert(r);
 				i++;
 			}

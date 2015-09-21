@@ -114,6 +114,29 @@ public class RecommendController extends AbstractBaseController {
 		}
 		return iRestMessage;
 	}
+	/**
+	 * @Title: addRecommendVideoBase
+	 * @Description: 添加推荐
+	 * @param recommend
+	 * @param bindingResult
+	 * @return IRestMessage
+	 */
+	@RequestMapping(value = "/addRecommendVideoBase")
+	@ResponseBody
+	public IRestMessage addRecommendVideoBase(Recommend recommend) {
+		IRestMessage iRestMessage = getRestMessage();
+		
+		try {
+			recommendService.addRecommendVideoBase(recommend);
+			iRestMessage.setCode(ErrorMessage.ADD_SUCCESS.getCode());
+			iRestMessage.setMessage("添加成功");
+		} catch (Exception e) {
+			logger.error("添加推荐失败==>" + ExceptionUtils.getStackTrace(e));
+			iRestMessage.setCode(ErrorMessage.ERROR_DEFAULT.getCode());
+		}
+		return iRestMessage;
+	}
+	
 
 	/**
 	 * @Title: getRecommendInfo
