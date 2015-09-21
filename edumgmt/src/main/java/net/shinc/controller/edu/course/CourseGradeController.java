@@ -106,7 +106,7 @@ public class CourseGradeController extends AbstractBaseController {
 		}
 		try {
 			courseGradeService.addCourseGrade(courseGrade);
-			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			iRestMessage.setCode(ErrorMessage.ADD_SUCCESS.getCode());
 			iRestMessage.setMessage("添加成功");
 		} catch (Exception e) {
 			logger.error("添加课程科目失败==>" + ExceptionUtils.getStackTrace(e));
@@ -154,7 +154,7 @@ public class CourseGradeController extends AbstractBaseController {
 		}
 		try {
 			courseGradeService.updateCourseGrade(courseGrade);
-			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			iRestMessage.setCode(ErrorMessage.UPDATE_SUCCESS.getCode());
 			iRestMessage.setMessage("修改成功");
 		} catch (Exception e) {
 			logger.error("更新课程科目失败==>" + ExceptionUtils.getStackTrace(e));
@@ -180,7 +180,7 @@ public class CourseGradeController extends AbstractBaseController {
 			// 课程科目下有视频则不能删除
 			if (courseGradeService.isHasVideo(courseGrade)) {
 				iRestMessage.setCode(ErrorMessage.DELETE_FAILED.getCode());
-				iRestMessage.setMessage("改课程科目下已有视频存在暂不支持删除");
+				iRestMessage.setMessage("该课程科目下已有视频存在暂不支持删除");
 				return iRestMessage;
 			}
 			courseGradeService.deleteCourseGradeById(courseGrade.getId());
