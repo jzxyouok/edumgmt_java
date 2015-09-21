@@ -10,12 +10,32 @@
 		<result column="description" property="description" jdbcType="VARCHAR" />
 		<result column="logo" property="logo" jdbcType="VARCHAR" />
 		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="courseGradeId" property="courseGradeId" jdbcType="INTEGER" />
+		<result column="courseId" property="courseId" jdbcType="INTEGER" />
+		<result column="isTop" property="isTop" jdbcType="INTEGER" />
+		
 	</resultMap>
 	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-		select
-		id, add_time, top_time, location, title, description, logo,type
-		from sh_recommend
-		where id = #{id,jdbcType=INTEGER}
+		SELECT 
+		    t1.*, t2.sh_course_grade_id courseGradeId,t4.id courseId
+		FROM
+		    (SELECT 
+		        t1.id,
+		            t1.add_time,
+		            t1.top_time,
+		            t1.location,
+		            t1.title,
+		            t1.description,
+		            t1.logo,
+		            t1.type
+		    FROM
+		        sh_recommend t1
+		    where t1.id = #{id,jdbcType=INTEGER})t1
+		        LEFT JOIN
+		    sh_recommend_has_sh_course_grade t2 ON t1.id = t2.sh_recommend_id
+		    left join sh_course_grade t3 on t3.id = t2.sh_course_grade_id
+		    left join sh_course t4 on t4.id = t3.sh_course_id 
+		
 	</select>
 	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from sh_recommend
@@ -23,7 +43,8 @@
 	</delete>
 	<select id="findAll" parameterType="Recommend" resultMap="BaseResultMap">
 		select
-		id, add_time, top_time, location, title, description, logo,type
+		id, add_time, top_time, location, title, description, logo,type,
+		CASE  WHEN top_time>add_time THEN 1 ELSE 0 END as isTop
 		from sh_recommend
 		where 1 = 1
 		<if test="title != null">
@@ -113,7 +134,7 @@
 		<!-- 加入查询条件 -->
 	</select>
 	
-	<insert id="insert" parameterType="Recommend">
+	<insert id="insert" parameterType="Recommend" useGeneratedKeys="true" keyProperty="id">
 		insert into sh_recommend
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">

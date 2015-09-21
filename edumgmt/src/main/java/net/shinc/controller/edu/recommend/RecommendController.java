@@ -1,5 +1,6 @@
 package net.shinc.controller.edu.recommend;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -185,6 +186,27 @@ public class RecommendController extends AbstractBaseController {
 		}
 		return iRestMessage;
 	}
+	
+	/**
+	 * @Title: deleteRecommendVideo
+	 * @Description: 删除推荐视频
+	 * @param recommend
+	 * @return IRestMessage
+	 */
+	@RequestMapping(value = "/deleteRecommendVideo")
+	@ResponseBody
+	public IRestMessage deleteRecommendVideo(Recommend recommend) {
+		IRestMessage iRestMessage = getRestMessage();
+		try {
+			recommendService.deleteRecommendVideoBaseById(recommend.getId());
+			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			iRestMessage.setMessage("删除成功");
+		} catch (Exception e) {
+			logger.error("删除推荐失败==>" + ExceptionUtils.getStackTrace(e));
+			iRestMessage.setCode(ErrorMessage.ERROR_DEFAULT.getCode());
+		}
+		return iRestMessage;
+	}
 
 	/**
 	 * @Title: deleteRecommend
@@ -210,5 +232,48 @@ public class RecommendController extends AbstractBaseController {
 			iRestMessage.setCode(ErrorMessage.ERROR_DEFAULT.getCode());
 		}
 		return iRestMessage;
+	}
+	
+	/**
+	* @Title: topRecommend
+	* @Description: 置顶
+	* @param recommend
+	* @return  IRestMessage
+	 */
+	@RequestMapping(value = "/topRecommend")
+	@ResponseBody
+	public IRestMessage topRecommend(Recommend recommend) {
+		IRestMessage msg = getRestMessage();
+		try {
+			recommend = recommendService.getRecommendById(recommend.getId());
+			recommend.setTopTime(new Date());
+			recommendService.updateRecommend(recommend);
+			msg.setCode(ErrorMessage.SUCCESS.getCode());
+		} catch (Exception e) {
+			logger.error("推荐置顶失败==>" + ExceptionUtils.getStackTrace(e));
+			msg.setCode(ErrorMessage.ERROR_DEFAULT.getCode());
+		}
+		return msg;
+	}
+	/**
+	* @Title: downRecommend
+	* @Description: 取消置顶
+	* @param recommend
+	* @return  IRestMessage
+	 */
+	@RequestMapping(value = "/downRecommend")
+	@ResponseBody
+	public IRestMessage downRecommend(Recommend recommend) {
+		IRestMessage msg = getRestMessage();
+		try {
+			recommend = recommendService.getRecommendById(recommend.getId());
+			recommend.setTopTime(recommend.getAddTime());
+			recommendService.updateRecommend(recommend);
+			msg.setCode(ErrorMessage.SUCCESS.getCode());
+		} catch (Exception e) {
+			logger.error("推荐取消置顶失败==>" + ExceptionUtils.getStackTrace(e));
+			msg.setCode(ErrorMessage.ERROR_DEFAULT.getCode());
+		}
+		return msg;
 	}
 }

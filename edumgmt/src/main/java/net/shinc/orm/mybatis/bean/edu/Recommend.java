@@ -10,7 +10,7 @@ public class Recommend {
 	private Date addTime;
 
 	private Date topTime;
-	
+
 	@NotEmpty(message = "{recommend.location.not.empty}")
 	private String location;
 
@@ -27,15 +27,46 @@ public class Recommend {
 
 	@NotEmpty(message = "{type.not.empty}")
 	private String type;// 1单视频2视频组
-	
+
 	private String videoType;// 1真题模拟题2自编题3知识点
+
+	private Integer courseGradeId;
+	
+	private Integer courseId;
+	
+	private Integer isTop;// 1已置顶0未置顶
 
 	public Integer getId() {
 		return id;
 	}
 
+	public Integer getCourseGradeId() {
+		return courseGradeId;
+	}
+
+	public void setCourseGradeId(Integer courseGradeId) {
+		this.courseGradeId = courseGradeId;
+	}
+
+	public Integer getIsTop() {
+		return isTop;
+	}
+
+	public void setIsTop(Integer isTop) {
+		this.isTop = isTop;
+	}
+
 	public String getType() {
 		return type;
+	}
+
+	
+	public Integer getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(Integer courseId) {
+		this.courseId = courseId;
 	}
 
 	public void setType(String type) {

@@ -29,6 +29,10 @@
 		delete from sh_recommend_has_sh_course_grade
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
+	<delete id="deleteByRecommendId" parameterType="java.lang.Integer">
+		delete from sh_recommend_has_sh_course_grade
+		where sh_recommend_id = #{recommendId,jdbcType=INTEGER}
+	</delete>
 	<insert id="insert" parameterType="RecommendHasCourseGrade">
 		insert into sh_recommend_has_sh_course_grade
 		<trim prefix="(" suffix=")" suffixOverrides=",">

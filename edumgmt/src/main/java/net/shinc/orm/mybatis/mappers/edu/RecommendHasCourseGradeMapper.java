@@ -8,4 +8,5 @@ import net.shinc.orm.mybatis.mappers.common.CommonMapper;
  * @date 2015年9月17日 上午11:17:07
  */
 public interface RecommendHasCourseGradeMapper extends CommonMapper {
+	public void deleteByRecommendId(Integer recommendId);
 }
