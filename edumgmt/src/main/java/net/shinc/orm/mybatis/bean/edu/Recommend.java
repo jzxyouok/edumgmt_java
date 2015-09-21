@@ -27,6 +27,8 @@ public class Recommend {
 
 	@NotEmpty(message = "{type.not.empty}")
 	private String type;// 1单视频2视频组
+	
+	private String videoType;// 1真题模拟题2自编题3知识点
 
 	public Integer getId() {
 		return id;
@@ -38,6 +40,14 @@ public class Recommend {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getVideoType() {
+		return videoType;
+	}
+
+	public void setVideoType(String videoType) {
+		this.videoType = videoType;
 	}
 
 	public void setId(Integer id) {

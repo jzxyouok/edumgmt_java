@@ -1,11 +1,11 @@
 package net.shinc.service.edu.course.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import net.shinc.orm.mybatis.bean.edu.CourseGrade;
 import net.shinc.orm.mybatis.bean.edu.CourseGradeHasVideoBase;
-import net.shinc.orm.mybatis.bean.edu.ProblemHasVideoBase;
 import net.shinc.orm.mybatis.mappers.edu.CourseGradeHasVideoBaseMapper;
 import net.shinc.orm.mybatis.mappers.edu.CourseGradeMapper;
 import net.shinc.service.edu.course.CourseGradeService;
@@ -59,6 +59,7 @@ public class CourseGradeServiceImpl implements CourseGradeService {
 		if (StringUtils.isNotEmpty(courseGrade.getVideoBaseIds())) {
 			for (String videoBaseId : StringUtils.split(courseGrade.getVideoBaseIds(), ",")) {
 				CourseGradeHasVideoBase c = new CourseGradeHasVideoBase();
+				c.setAddTime(new Date());
 				c.setCourseGradeId(courseGrade.getId());
 				c.setVideoBaseId(Integer.valueOf(videoBaseId));
 				c.setVideoType("1");
