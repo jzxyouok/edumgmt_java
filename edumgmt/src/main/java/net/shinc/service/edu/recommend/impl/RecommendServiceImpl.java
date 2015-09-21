@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import net.shinc.orm.mybatis.bean.edu.CourseGradeHasVideoBase;
 import net.shinc.orm.mybatis.bean.edu.Recommend;
 import net.shinc.orm.mybatis.bean.edu.RecommendHasCourseGrade;
 import net.shinc.orm.mybatis.bean.edu.RecommendHasVideoBase;
@@ -36,14 +37,36 @@ public class RecommendServiceImpl implements RecommendService {
 	
 	@Override
 	public Integer addRecommend(Recommend recommend) {
-		recommend.setAddTime(new Date());
-		recommend.setTopTime(new Date());
-		return recommendMapper.insert(recommend);
+		Integer result = null;
+		if(StringUtils.isNotEmpty(recommend.getType()) && recommend.getType().equals("1")){
+			recommend.setAddTime(new Date());
+			recommend.setTopTime(new Date());
+			result = recommendMapper.insert(recommend);
+		}
+		if(StringUtils.isNotEmpty(recommend.getType()) && recommend.getType().equals("2")){
+			recommend.setAddTime(new Date());
+			recommend.setTopTime(new Date());
+			recommendMapper.insert(recommend);
+			RecommendHasCourseGrade recommendHasCourseGrade = new RecommendHasCourseGrade();
+			recommendHasCourseGrade.setCourseGradeId(recommend.getCourseGradeId());
+			recommendHasCourseGrade.setRecommendId(recommend.getId());
+			result = recommendHasCourseGradeMapper.insert(recommendHasCourseGrade);
+		}
+		return result;
 	}
 
 	@Override
 	public Integer updateRecommend(Recommend recommend) {
-		return recommendMapper.update(recommend);
+		Integer result = null;
+		recommendMapper.update(recommend);
+		RecommendHasCourseGrade recommendHasCourseGrade = new RecommendHasCourseGrade();
+		recommendHasCourseGrade.setCourseGradeId(recommend.getCourseGradeId());
+		recommendHasCourseGrade.setRecommendId(recommend.getId());
+		recommendHasCourseGradeMapper.deleteByRecommendId(recommend.getId());;
+		if(StringUtils.isNotEmpty(recommend.getType()) && recommend.getType().equals("2")){
+			result = recommendHasCourseGradeMapper.insert(recommendHasCourseGrade);
+		}
+		return result;
 	}
 
 	@Override

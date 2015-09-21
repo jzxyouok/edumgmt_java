@@ -17,12 +17,22 @@ public class RecommendHasVideoBase {
 
 	private String dimension;
 
+	private String hasVideo;
+	
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getHasVideo() {
+		return hasVideo;
+	}
+
+	public void setHasVideo(String hasVideo) {
+		this.hasVideo = hasVideo;
 	}
 
 	public Integer getRecommendId() {

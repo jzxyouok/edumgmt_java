@@ -39,7 +39,7 @@ public class CourseGradeController extends AbstractBaseController {
 
 	/**
 	 * @Title: getCourseGradeList
-	 * @Description: 得到某课程科目列表，含视频数量
+	 * @Description: 得到某课程科目
 	 * @param courseGrade
 	 * @return IRestMessage
 	 */
