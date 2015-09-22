@@ -26,16 +26,14 @@
 		    sh_problem_has_sh_video_base t3 ON t2.id = t3.sh_problem_id
 		         AND t3.id IS NOT NULL
 	        where 1=1
-			<if test="book != null">
-				<if test="name != null and name != '' ">
-					AND t1.name like '%${name}%'
-				</if>
-				<if test="status != null and status != '' ">
-					AND t1.status = #{status}
-				</if>
-				<if test="parterId != null ">
-					AND t1.sh_parter_id = #{parterId}
-				</if>
+			<if test="name != null and name != '' ">
+				AND t1.name like '%${name}%'
+			</if>
+			<if test="status != null and status != '' ">
+				AND t1.status = #{status}
+			</if>
+			<if test="parterId != null ">
+				AND t1.sh_parter_id = #{parterId}
 			</if>
 	                
 		GROUP BY t1.id

@@ -67,7 +67,7 @@ public class ParterController extends AbstractBaseController {
 
 	/**
 	 * @Title: getParterBookList
-	 * @Description: 得到书商书列表
+	 * @Description: 得到书商_书列表
 	 * @param parter
 	 * @return IRestMessage
 	 */
@@ -109,7 +109,7 @@ public class ParterController extends AbstractBaseController {
 		}
 		try {
 			parterService.addParter(parter);
-			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			iRestMessage.setCode(ErrorMessage.ADD_SUCCESS.getCode());
 			iRestMessage.setMessage("添加成功");
 		} catch (Exception e) {
 			logger.error("添加书商失败==>" + ExceptionUtils.getStackTrace(e));
@@ -157,7 +157,7 @@ public class ParterController extends AbstractBaseController {
 		}
 		try {
 			parterService.updateParter(parter);
-			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			iRestMessage.setCode(ErrorMessage.UPDATE_SUCCESS.getCode());
 			iRestMessage.setMessage("修改成功");
 		} catch (Exception e) {
 			logger.error("更新书商失败==>" + ExceptionUtils.getStackTrace(e));
