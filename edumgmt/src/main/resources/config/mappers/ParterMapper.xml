@@ -35,10 +35,8 @@
 		    sh_problem_has_sh_video_base t3 ON t2.id = t3.sh_problem_id
 		        AND t3.id IS NOT NULL
 		WHERE 1 = 1
-		<if test="parter != null">
-			<if test="name != null and name != '' ">
-				AND name like '%${name}%'
-			</if>
+		<if test="name != null and name != '' ">
+			AND name like '%${name}%'
 		</if>
 		GROUP BY t0.id
 	</select>

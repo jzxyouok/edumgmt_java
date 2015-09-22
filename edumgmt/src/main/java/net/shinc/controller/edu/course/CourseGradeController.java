@@ -10,6 +10,7 @@ import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
 import net.shinc.orm.mybatis.bean.edu.CourseGrade;
 import net.shinc.orm.mybatis.bean.edu.CourseGradeHasVideoBase;
+import net.shinc.orm.mybatis.bean.edu.Recommend;
 import net.shinc.service.edu.course.CourseGradeService;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -188,6 +189,45 @@ public class CourseGradeController extends AbstractBaseController {
 			iRestMessage.setMessage("删除成功");
 		} catch (Exception e) {
 			logger.error("删除课程科目失败==>" + ExceptionUtils.getStackTrace(e));
+			iRestMessage.setCode(ErrorMessage.ERROR_DEFAULT.getCode());
+		}
+		return iRestMessage;
+	}
+	
+	@RequestMapping(value = "/deleteCourseGradeVideo")
+	@ResponseBody
+	public IRestMessage deleteCourseGradeVideo(@RequestParam(value = "courseGradeHasVideoId") Integer courseGradeHasVideoId) {
+		IRestMessage iRestMessage = getRestMessage();
+		try {
+			courseGradeService.deleteCourseGradeVideoBaseById(courseGradeHasVideoId);
+			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			iRestMessage.setMessage("删除成功");
+		} catch (Exception e) {
+			logger.error("删除课程视频失败==>" + ExceptionUtils.getStackTrace(e));
+			iRestMessage.setCode(ErrorMessage.ERROR_DEFAULT.getCode());
+		}
+		return iRestMessage;
+	}
+	
+	
+	
+	/**
+	 * @Title: addCourseGradeVideoBase
+	 * @Description: 添加年级视频
+	 * @param courseGrade
+	 * @return IRestMessage
+	 */
+	@RequestMapping(value = "/addCourseGradeVideoBase")
+	@ResponseBody
+	public IRestMessage addCourseGradeVideoBase(CourseGrade courseGrade) {
+		IRestMessage iRestMessage = getRestMessage();
+		
+		try {
+			courseGradeService.addCourseGradeVideoBase(courseGrade);
+			iRestMessage.setCode(ErrorMessage.ADD_SUCCESS.getCode());
+			iRestMessage.setMessage("添加成功");
+		} catch (Exception e) {
+			logger.error("添加年级视频失败==>" + ExceptionUtils.getStackTrace(e));
 			iRestMessage.setCode(ErrorMessage.ERROR_DEFAULT.getCode());
 		}
 		return iRestMessage;

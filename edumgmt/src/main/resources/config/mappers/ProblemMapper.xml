@@ -28,7 +28,9 @@
 		        LEFT JOIN
 		    sh_problem_has_sh_video_base t2 ON t1.id = t2.sh_problem_id
 		WHERE 1 = 1 
-		<!-- 加入查询条件 -->
+		<if test="bookId != null">
+			and sh_book_id = #{bookId}
+		</if>
 		GROUP BY t1.id
 		
 		
