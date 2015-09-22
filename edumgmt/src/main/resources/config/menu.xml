@@ -68,7 +68,7 @@
 		
 		<!--  课程分类管理 begin  -->
 		
-		<menu>s
+		<menu>
 			<level>1</level>
 			<parent>courseManage</parent>
 			<value>courseManage</value>          <!--   一级菜单  课程分类管理 -->
