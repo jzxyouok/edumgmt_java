@@ -78,7 +78,7 @@ public class BookController extends AbstractBaseController {
 		}
 		try {
 			bookService.addBook(book);
-			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			iRestMessage.setCode(ErrorMessage.ADD_SUCCESS.getCode());
 			iRestMessage.setMessage("添加成功");
 		} catch (Exception e) {
 			logger.error("添加书失败==>" + ExceptionUtils.getStackTrace(e));
@@ -126,7 +126,7 @@ public class BookController extends AbstractBaseController {
 		}
 		try {
 			bookService.updateBook(book);
-			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+			iRestMessage.setCode(ErrorMessage.UPDATE_SUCCESS.getCode());
 			iRestMessage.setMessage("修改成功");
 		} catch (Exception e) {
 			logger.error("更新书失败==>" + ExceptionUtils.getStackTrace(e));
