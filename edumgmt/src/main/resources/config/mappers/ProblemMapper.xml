@@ -102,7 +102,7 @@
 		delete from sh_problem
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="Problem">
+	<insert id="insert" parameterType="Problem" useGeneratedKeys="true" keyProperty="id">
 		insert into sh_problem
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
