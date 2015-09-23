@@ -8,6 +8,8 @@ public class ProblemHasVideoBase {
 	private Integer videoBaseId;
 
 	private String videoType;
+	
+	private String hasVideo;
 
 	public Integer getId() {
 		return id;
@@ -15,6 +17,14 @@ public class ProblemHasVideoBase {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getHasVideo() {
+		return hasVideo;
+	}
+
+	public void setHasVideo(String hasVideo) {
+		this.hasVideo = hasVideo;
 	}
 
 	public Integer getProblemId() {

@@ -1,12 +1,15 @@
 package net.shinc.service.edu.recommend.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import net.shinc.orm.mybatis.bean.edu.CourseGradeHasVideoBase;
 import net.shinc.orm.mybatis.bean.edu.Recommend;
 import net.shinc.orm.mybatis.bean.edu.RecommendHasCourseGrade;
 import net.shinc.orm.mybatis.bean.edu.RecommendHasVideoBase;
+import net.shinc.orm.mybatis.mappers.edu.CourseGradeMapper;
 import net.shinc.orm.mybatis.mappers.edu.RecommendHasCourseGradeMapper;
 import net.shinc.orm.mybatis.mappers.edu.RecommendHasVideoBaseMapper;
 import net.shinc.orm.mybatis.mappers.edu.RecommendMapper;
@@ -29,6 +32,9 @@ public class RecommendServiceImpl implements RecommendService {
 	private RecommendMapper recommendMapper;
 	
 	@Autowired
+	private CourseGradeMapper courseGradeMapper;
+	
+	@Autowired
 	private RecommendHasVideoBaseMapper recommendHasVideoBaseMapper;
 	
 	@Autowired
@@ -36,18 +42,44 @@ public class RecommendServiceImpl implements RecommendService {
 	
 	@Override
 	public Integer addRecommend(Recommend recommend) {
-		recommend.setAddTime(new Date());
-		recommend.setTopTime(new Date());
-		return recommendMapper.insert(recommend);
+		Integer result = null;
+		if(StringUtils.isNotEmpty(recommend.getType()) && recommend.getType().equals("1")){
+			recommend.setAddTime(new Date());
+			recommend.setTopTime(new Date());
+			result = recommendMapper.insert(recommend);
+		}
+		if(StringUtils.isNotEmpty(recommend.getType()) && recommend.getType().equals("2")){
+			recommend.setAddTime(new Date());
+			recommend.setTopTime(new Date());
+			recommendMapper.insert(recommend);
+			RecommendHasCourseGrade recommendHasCourseGrade = new RecommendHasCourseGrade();
+			recommendHasCourseGrade.setCourseGradeId(recommend.getCourseGradeId());
+			recommendHasCourseGrade.setRecommendId(recommend.getId());
+			result = recommendHasCourseGradeMapper.insert(recommendHasCourseGrade);
+		}
+		return result;
 	}
 
 	@Override
 	public Integer updateRecommend(Recommend recommend) {
-		return recommendMapper.update(recommend);
+		Integer result = null;
+		recommendMapper.update(recommend);
+		RecommendHasCourseGrade recommendHasCourseGrade = new RecommendHasCourseGrade();
+		recommendHasCourseGrade.setCourseGradeId(recommend.getCourseGradeId());
+		recommendHasCourseGrade.setRecommendId(recommend.getId());
+		recommendHasCourseGradeMapper.deleteByRecommendId(recommend.getId());;
+		if(StringUtils.isNotEmpty(recommend.getType()) && recommend.getType().equals("2")){
+			result = recommendHasCourseGradeMapper.insert(recommendHasCourseGrade);
+		}
+		return result;
 	}
 
 	@Override
 	public Integer deleteRecommendById(Integer id) {
+		Recommend recommend = recommendMapper.findById(id);
+		if(recommend.getType().equals("2")){
+			recommendHasCourseGradeMapper.deleteByRecommendId(id);
+		}
 		return recommendMapper.deleteById(id);
 	}
 
@@ -81,13 +113,31 @@ public class RecommendServiceImpl implements RecommendService {
 	}
 
 	@Override
-	public Integer deleteRecommendVideoBaseById(Integer id) {
-		return recommendHasVideoBaseMapper.deleteById(id);
+	public Integer deleteRecommendVideoBase(Recommend recommend) {
+		return recommendHasVideoBaseMapper.deleteById(recommend.getId());
 	}
 
 	@Override
-	public List<Map> getRecommendVideoBaseList(RecommendHasVideoBase recommendHasVideoBase){
-		return recommendMapper.getRecommendVideoBaseList(recommendHasVideoBase);
+	public List<Map> getRecommendVideoBaseList(Recommend recommend){
+		List list = new ArrayList();
+		if (recommend.getType().equals("1")) {// 单视频
+			RecommendHasVideoBase recommendHasVideoBase = new RecommendHasVideoBase();
+			recommendHasVideoBase.setRecommendId(recommend.getId());
+			list = recommendMapper.getRecommendVideoBaseList(recommendHasVideoBase);
+		}
+		if (recommend.getType().equals("2")) {// 视频库
+			RecommendHasCourseGrade recommendHasCourseGrade = new RecommendHasCourseGrade();
+			recommendHasCourseGrade.setRecommendId(recommend.getId());
+			list = recommendHasCourseGradeMapper.findAll(recommendHasCourseGrade);
+			if(list.size() > 0){
+				recommendHasCourseGrade = (RecommendHasCourseGrade)list.get(0);
+				Integer courseGradeId = recommendHasCourseGrade.getCourseGradeId();
+				CourseGradeHasVideoBase courseGradeHasVideoBase = new CourseGradeHasVideoBase();
+				courseGradeHasVideoBase.setCourseGradeId(courseGradeId);
+				list = courseGradeMapper.getCourseGradeVideoBaseList(courseGradeHasVideoBase);
+			}
+		}
+		return list;
 	}
 
 	@Override
@@ -100,13 +150,8 @@ public class RecommendServiceImpl implements RecommendService {
 				return false;
 			}
 		}
-		if (recommend.getType().equals("2")) {// 视频库
-			RecommendHasCourseGrade recommendHasCourseGrade = new RecommendHasCourseGrade();
-			recommendHasCourseGrade.setRecommendId(recommend.getId());
-			List list = recommendHasCourseGradeMapper.findAll(recommendHasCourseGrade);
-			if(list == null || list.size() == 0){
-				return false;
-			}
+		if (recommend.getType().equals("2")) {// 视频库 相当于引入一个库，支持整体删除
+			return false;
 		}
 		return true;
 		

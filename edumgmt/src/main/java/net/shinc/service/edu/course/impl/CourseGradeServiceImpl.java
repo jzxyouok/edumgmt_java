@@ -63,6 +63,7 @@ public class CourseGradeServiceImpl implements CourseGradeService {
 				c.setCourseGradeId(courseGrade.getId());
 				c.setVideoBaseId(Integer.valueOf(videoBaseId));
 				c.setVideoType("1");
+				c.setSort(0);
 				courseGradeHasVideoBaseMapper.insert(c);
 				i++;
 			}

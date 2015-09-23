@@ -152,7 +152,7 @@ public class BookController extends AbstractBaseController {
 			// 书下有视频则不能删除
 			if (bookService.isHasVideo(book)) {
 				iRestMessage.setCode(ErrorMessage.DELETE_FAILED.getCode());
-				iRestMessage.setMessage("改书下已有视频存在暂不支持删除");
+				iRestMessage.setMessage("该书下已有视频存在暂不支持删除");
 				return iRestMessage;
 			}
 			bookService.deleteBookById(book.getId());

@@ -10,12 +10,32 @@
 		<result column="description" property="description" jdbcType="VARCHAR" />
 		<result column="logo" property="logo" jdbcType="VARCHAR" />
 		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="courseGradeId" property="courseGradeId" jdbcType="INTEGER" />
+		<result column="courseId" property="courseId" jdbcType="INTEGER" />
+		<result column="isTop" property="isTop" jdbcType="INTEGER" />
+		
 	</resultMap>
 	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-		select
-		id, add_time, top_time, location, title, description, logo,type
-		from sh_recommend
-		where id = #{id,jdbcType=INTEGER}
+		SELECT 
+		    t1.*, t2.sh_course_grade_id courseGradeId,t4.id courseId
+		FROM
+		    (SELECT 
+		        t1.id,
+		            t1.add_time,
+		            t1.top_time,
+		            t1.location,
+		            t1.title,
+		            t1.description,
+		            t1.logo,
+		            t1.type
+		    FROM
+		        sh_recommend t1
+		    where t1.id = #{id,jdbcType=INTEGER})t1
+		        LEFT JOIN
+		    sh_recommend_has_sh_course_grade t2 ON t1.id = t2.sh_recommend_id
+		    left join sh_course_grade t3 on t3.id = t2.sh_course_grade_id
+		    left join sh_course t4 on t4.id = t3.sh_course_id 
+		
 	</select>
 	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from sh_recommend
@@ -23,7 +43,8 @@
 	</delete>
 	<select id="findAll" parameterType="Recommend" resultMap="BaseResultMap">
 		select
-		id, add_time, top_time, location, title, description, logo,type
+		id, add_time, top_time, location, title, description, logo,type,
+		CASE  WHEN top_time>add_time THEN 1 ELSE 0 END as isTop
 		from sh_recommend
 		where 1 = 1
 		<if test="title != null">
@@ -38,68 +59,55 @@
 	</select>
 	<select id="getRecommendVideoBaseList" parameterType="RecommendHasVideoBase" resultType="java.util.HashMap">
 		SELECT 
-				recommend.id recommendId,
-				past.id videoPastpaperId,
-				base.question_id,
-				base.id,
-			    base.title,
-			    base.desc,
-			    base.difficulty,
-			    base.status,
-			    base.question_number,
-			    base.profile,
-			    base.updatetime,
-			    base.qrcode,
-			    bank.id bankid,
-			    bank.name bankname,
-			    course.id courseId,
-			    course.name courseName,
-			    bt.id btid,
-			    bt.name btname,
-			    year.id yearid,
-			    year.year year,
-			    qtype.id typeId,
-			    qtype.name typeName,
-			    lecture.id lectureId,
-			    lecture.name lectureName,
-			    lecture.level lectureLevel,
-			    group_concat(distinct sk.name) keyword,
-			    cast(group_concat(distinct sk.id) AS CHAR)  keywordId,
-			    group_concat(distinct kp.name) knowledge,
-			    cast(group_concat(distinct kp.id) AS CHAR)  knowledgeId,
-			    case when group_concat(distinct vidoDetail.url) is null then '未上传'
-				when group_concat(distinct vidoDetail.url) is not null THEN '已上传'
-				end AS videoUrl
-			    
-			FROM
-				sh_recommend_has_sh_video_base recommend left join
-			    sh_video_base base on recommend.sh_video_base_id = base.id
-			         INNER JOIN
-			     sh_video_pastpaper past ON past.sh_video_base_id = base.id
-			        LEFT JOIN
-			    sh_questionbank bank ON bank.id = past.sh_questionbank_id
-			        LEFT JOIN
-			    sh_course course ON course.id = base.sh_course_id
-			        LEFT JOIN
-			    sh_questionbank_type bt ON bt.id = past.sh_questionbank_type_id
-			        LEFT JOIN
-			    sh_questionbank_year year ON year.id = past.sh_questionbank_year_id
-			        LEFT JOIN
-			    sh_question_type qtype ON qtype.id = past.sh_question_type_id
-			        LEFT JOIN
-			    sh_lecture lecture ON lecture.id = base.sh_lecture_id
-			    left join sh_video_base_keyword kw on kw.sh_video_base_id = base.id
-			    left join sh_keyword sk on sk.id = kw.sh_keyword_id
-			    
-			    left join sh_video_base_knowledge_point pt on pt.sh_video_base_id = base.id
-			    left join sh_knowledge_point kp on kp.id = pt.sh_knowledge_point_id
-			    left join sh_video_detail vidoDetail on vidoDetail.sh_video_base_id=base.id
+		    recommend.sh_recommend_id recommendId,
+		    recommend.id recommendHasVideoBaseId,
+		    base.question_id,
+		    base.id,
+		    base.title,
+		    base.desc,
+		    base.difficulty,
+		    base.status,
+		    base.question_number,
+		    base.profile,
+		    base.updatetime,
+		    base.qrcode,
+		    course.id courseId,
+		    course.name courseName,
+		    lecture.id lectureId,
+		    lecture.name lectureName,
+		    lecture.level lectureLevel,
+		    GROUP_CONCAT(DISTINCT sk.name) keyword,
+		    CAST(GROUP_CONCAT(DISTINCT sk.id) AS CHAR) keywordId,
+		    GROUP_CONCAT(DISTINCT kp.name) knowledge,
+		    CAST(GROUP_CONCAT(DISTINCT kp.id) AS CHAR) knowledgeId,
+		    CASE
+		        WHEN GROUP_CONCAT(DISTINCT vidoDetail.url) IS NULL THEN '未上传'
+		        WHEN GROUP_CONCAT(DISTINCT vidoDetail.url) IS NOT NULL THEN '已上传'
+		    END AS videoUrl
+		FROM
+		    sh_recommend_has_sh_video_base recommend
+		        LEFT JOIN
+		    sh_video_base base ON recommend.sh_video_base_id = base.id
+		        LEFT JOIN
+		    sh_course course ON course.id = base.sh_course_id
+		        LEFT JOIN
+		    sh_lecture lecture ON lecture.id = base.sh_lecture_id
+		        LEFT JOIN
+		    sh_video_base_keyword kw ON kw.sh_video_base_id = base.id
+		        LEFT JOIN
+		    sh_keyword sk ON sk.id = kw.sh_keyword_id
+		        LEFT JOIN
+		    sh_video_base_knowledge_point pt ON pt.sh_video_base_id = base.id
+		        LEFT JOIN
+		    sh_knowledge_point kp ON kp.id = pt.sh_knowledge_point_id
+		        LEFT JOIN
+		    sh_video_detail vidoDetail ON vidoDetail.sh_video_base_id = base.id
 			    
 			WHERE 1=1  
 				<if test="recommendId != null">
-					and recommend.id = #{recommendId}
+					and recommend.sh_recommend_id = #{recommendId}
 				</if>
-			    group by id
+			    group by recommend.id
 			    having 1=1
 			    <if test="hasVideo == 1">
 					and videoUrl = '已上传'
@@ -113,7 +121,7 @@
 		<!-- 加入查询条件 -->
 	</select>
 	
-	<insert id="insert" parameterType="Recommend">
+	<insert id="insert" parameterType="Recommend" useGeneratedKeys="true" keyProperty="id">
 		insert into sh_recommend
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">

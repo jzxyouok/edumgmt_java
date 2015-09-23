@@ -31,7 +31,7 @@ public interface RecommendService {
 	 */
 	public Integer addRecommendVideoBase(Recommend recommend);
 
-	public Integer deleteRecommendVideoBaseById(Integer id);
+	public Integer deleteRecommendVideoBase(Recommend recommend);
 
 	/**
 	 * @Title: getRecommendVideoBaseList
@@ -39,7 +39,7 @@ public interface RecommendService {
 	 * @param recommendHasVideoBase
 	 * @return List<Map>
 	 */
-	public List<Map> getRecommendVideoBaseList(RecommendHasVideoBase recommendHasVideoBase);
+	public List<Map> getRecommendVideoBaseList(Recommend recommend);
 
 	/**
 	 * @Title: isRecommendHasVideo

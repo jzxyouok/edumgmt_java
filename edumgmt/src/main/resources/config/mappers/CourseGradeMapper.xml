@@ -27,68 +27,55 @@
 	</select>
 	<select id="getCourseGradeVideoBaseList" parameterType="CourseGradeHasVideoBase" resultType="java.util.HashMap">
 		SELECT 
-				past.id videoPastpaperId,
-				base.question_id,
-				base.id,
-			    base.title,
-			    base.desc,
-			    base.difficulty,
-			    base.status,
-			    base.question_number,
-			    base.profile,
-			    base.updatetime,
-			    base.qrcode,
-			    bank.id bankid,
-			    bank.name bankname,
-			    course.id courseId,
-			    course.name courseName,
-			    bt.id btid,
-			    bt.name btname,
-			    year.id yearid,
-			    year.year year,
-			    qtype.id typeId,
-			    qtype.name typeName,
-			    lecture.id lectureId,
-			    lecture.name lectureName,
-			    lecture.level lectureLevel,
-			    group_concat(distinct sk.name) keyword,
-			    cast(group_concat(distinct sk.id) AS CHAR)  keywordId,
-			    group_concat(distinct kp.name) knowledge,
-			    cast(group_concat(distinct kp.id) AS CHAR)  knowledgeId,
-			    case when group_concat(distinct vidoDetail.url) is null then '未上传'
-				when group_concat(distinct vidoDetail.url) is not null THEN '已上传'
-				end AS videoUrl
-			    
-			    
-			FROM
-				sh_course_grade_has_sh_video_base courseGrade left join
-			    sh_video_base base on courseGrade.sh_video_base_id = base.id
-			         INNER JOIN
-			     sh_video_pastpaper past ON past.sh_video_base_id = base.id
-			        LEFT JOIN
-			    sh_questionbank bank ON bank.id = past.sh_questionbank_id
-			        LEFT JOIN
-			    sh_course course ON course.id = base.sh_course_id
-			        LEFT JOIN
-			    sh_questionbank_type bt ON bt.id = past.sh_questionbank_type_id
-			        LEFT JOIN
-			    sh_questionbank_year year ON year.id = past.sh_questionbank_year_id
-			        LEFT JOIN
-			    sh_question_type qtype ON qtype.id = past.sh_question_type_id
-			        LEFT JOIN
-			    sh_lecture lecture ON lecture.id = base.sh_lecture_id
-			    left join sh_video_base_keyword kw on kw.sh_video_base_id = base.id
-			    left join sh_keyword sk on sk.id = kw.sh_keyword_id
-			    
-			    left join sh_video_base_knowledge_point pt on pt.sh_video_base_id = base.id
-			    left join sh_knowledge_point kp on kp.id = pt.sh_knowledge_point_id
-			    left join sh_video_detail vidoDetail on vidoDetail.sh_video_base_id=base.id
+		    courseGrade.sh_course_grade_id courseGradeId,
+		    courseGrade.id courseGradeHasVideoBaseId,
+		    base.question_id,
+		    base.id,
+		    base.title,
+		    base.desc,
+		    base.difficulty,
+		    base.status,
+		    base.question_number,
+		    base.profile,
+		    base.updatetime,
+		    base.qrcode,
+		    course.id courseId,
+		    course.name courseName,
+		    lecture.id lectureId,
+		    lecture.name lectureName,
+		    lecture.level lectureLevel,
+		    GROUP_CONCAT(DISTINCT sk.name) keyword,
+		    CAST(GROUP_CONCAT(DISTINCT sk.id) AS CHAR) keywordId,
+		    GROUP_CONCAT(DISTINCT kp.name) knowledge,
+		    CAST(GROUP_CONCAT(DISTINCT kp.id) AS CHAR) knowledgeId,
+		    CASE
+		        WHEN GROUP_CONCAT(DISTINCT vidoDetail.url) IS NULL THEN '未上传'
+		        WHEN GROUP_CONCAT(DISTINCT vidoDetail.url) IS NOT NULL THEN '已上传'
+		    END AS videoUrl
+		FROM
+		    sh_course_grade_has_sh_video_base courseGrade
+		        LEFT JOIN
+		    sh_video_base base ON courseGrade.sh_video_base_id = base.id
+		        LEFT JOIN
+		    sh_course course ON course.id = base.sh_course_id
+		        LEFT JOIN
+		    sh_lecture lecture ON lecture.id = base.sh_lecture_id
+		        LEFT JOIN
+		    sh_video_base_keyword kw ON kw.sh_video_base_id = base.id
+		        LEFT JOIN
+		    sh_keyword sk ON sk.id = kw.sh_keyword_id
+		        LEFT JOIN
+		    sh_video_base_knowledge_point pt ON pt.sh_video_base_id = base.id
+		        LEFT JOIN
+		    sh_knowledge_point kp ON kp.id = pt.sh_knowledge_point_id
+		        LEFT JOIN
+		    sh_video_detail vidoDetail ON vidoDetail.sh_video_base_id = base.id
 			    
 			WHERE 1=1  
 				<if test="courseGradeId != null">
-					and courseGrade.id = #{courseGradeId}
+					and courseGrade.sh_course_grade_id = #{courseGradeId}
 				</if>
-			    group by id
+			    group by courseGrade.id
 			    having 1=1
 			    <if test="hasVideo == 1">
 					and videoUrl = '已上传'
