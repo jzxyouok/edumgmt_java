@@ -31,10 +31,10 @@ public class QRServiceImpl implements QRService {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public String generateQrCode(String filePath, String phpPath, Integer videoBaseId) {
+	public String generateQrCode(String filePath, String phpPath, String content) {
 		try {
 			 MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-		     String content = phpPath + videoBaseId.toString();
+		     
 		     logger.info("content"+content);
 		     
 		     Map hints = new HashMap();

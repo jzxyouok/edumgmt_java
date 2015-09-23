@@ -3,26 +3,35 @@ package net.shinc.orm.mybatis.bean.edu;
 import javax.validation.constraints.NotNull;
 
 public class Parter {
-    private Integer id;
+	private Integer id;
 
-    @NotNull(message = "{parter.name.not.empty}")
-    private String name;
-    //视频数量
-    private String videoNum;
-    //预定视频数量
+	@NotNull(message = "{parter.name.not.empty}")
+	private String name;
+	// 视频数量
+	private String videoNum;
+	// 预定视频数量
 	private String videoReservationNum;
-    
+	// 书的数量
+	private String bookNum;
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getVideoNum() {
+	public String getVideoNum() {
 		return videoNum;
+	}
+
+	public String getBookNum() {
+		return bookNum;
+	}
+
+	public void setBookNum(String bookNum) {
+		this.bookNum = bookNum;
 	}
 
 	public void setVideoNum(String videoNum) {
@@ -38,10 +47,10 @@ public class Parter {
 	}
 
 	public String getName() {
-        return name;
-    }
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public void setName(String name) {
+		this.name = name == null ? null : name.trim();
+	}
 }

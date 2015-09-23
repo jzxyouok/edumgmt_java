@@ -120,7 +120,8 @@ public class VideoBaseServiceImpl implements VideoBaseService {
 	@Override
 	public Integer generateQRCodeAndUpload(Integer videoBaseId) {
 		//生成二维码
-		String qrImgAbPath = qrService.generateQrCode(qrcodeTempPath, playVideoPath, videoBaseId);
+		String content = playVideoPath + videoBaseId.toString();
+		String qrImgAbPath = qrService.generateQrCode(qrcodeTempPath, playVideoPath, content);
 		logger.info(qrImgAbPath);
 		File img = new File(qrImgAbPath);
 		//上传二维码

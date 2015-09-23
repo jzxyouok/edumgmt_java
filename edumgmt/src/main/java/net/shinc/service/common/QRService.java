@@ -15,6 +15,6 @@ public interface QRService {
 	 * @param videoBaseId 
 	 * @return 二维码的绝对路径
 	 */
-	public String generateQrCode(String filePath, String phpPath, Integer videoBaseId);
+	public String generateQrCode(String filePath, String phpPath, String content);
 
 }
