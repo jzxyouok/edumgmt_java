@@ -1,7 +1,9 @@
 package net.shinc.controller.edu.recommend;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -10,17 +12,21 @@ import net.shinc.common.ErrorMessage;
 import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
 import net.shinc.orm.mybatis.bean.edu.Recommend;
+import net.shinc.service.common.QNService;
 import net.shinc.service.edu.recommend.RecommendService;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.qiniu.util.StringMap;
 
 /**
  * @ClassName: RecommendController
@@ -37,6 +43,15 @@ public class RecommendController extends AbstractBaseController {
 	@Autowired
 	private RecommendService recommendService;
 
+	@Autowired
+	private QNService qnservice;
+	
+	@Value("${qiniu.eduonline.domain}")
+	private String domain;
+	
+	@Value("${qiniu.eduonline.bucketName}")
+	private String bucketName;
+	
 	/**
 	 * @Title: getRecommendList
 	 * @Description: 得推荐列表
@@ -49,8 +64,18 @@ public class RecommendController extends AbstractBaseController {
 		IRestMessage msg = getRestMessage();
 		try {
 			List<Recommend> list = recommendService.getRecommendList(recommend);
+			
+			StringMap policy = qnservice.getPolicy();
+			String token = qnservice.getUploadToken(bucketName, null, 3600, policy, true);
+			// 七牛token
+			Map map = new HashMap();
+			map.put("domain", domain);
+			map.put("upToken", token);
+			
 			if (null != list && list.size() > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
+				msg.setContent(map);
+				msg.setDetail("detail");
 				msg.setResult(list);
 			} else {
 				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
