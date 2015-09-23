@@ -1,15 +1,22 @@
 package net.shinc.service.edu.business.impl;
 
+import java.io.File;
 import java.util.List;
 
 import net.shinc.orm.mybatis.bean.edu.Book;
 import net.shinc.orm.mybatis.bean.edu.Problem;
+import net.shinc.orm.mybatis.bean.edu.VideoBase;
 import net.shinc.orm.mybatis.mappers.edu.BookMapper;
 import net.shinc.orm.mybatis.mappers.edu.ProblemMapper;
+import net.shinc.service.common.QNService;
+import net.shinc.service.common.QRService;
 import net.shinc.service.edu.business.BookService;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,17 +28,39 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookServiceImpl implements BookService {
 	
-	@Autowired
-	private BookMapper bookMapper;
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
+	private BookMapper bookMapper;
+
+	@Autowired
 	private ProblemMapper problemMapper;
+
+	@Autowired
+	private QNService qnService;
+
+	@Autowired
+	private QRService qrService;
+	
+	@Value("${qrcode.tempPath}")
+	private String qrcodeTempPath;
+	
+	@Value("${php.play.video}")
+	private String playVideoPath;
+	
+	//二维码所在空间名称
+	@Value("${qiniu.eduonline.qrBucketName}")
+	private String qrBucketName;
+	
+	//二维码所在空间域名
+	@Value("${qiniu.eduonline.qrDomain}")
+	private String qrDomain;
 
 	@Override
 	public Integer addBook(Book book) {
 		Integer record = bookMapper.insert(book);
-		if(record != null && record == 1){
-			if(StringUtils.isNotEmpty(book.getNumReservation())){
+		if (record != null && record == 1) {
+			if (StringUtils.isNotEmpty(book.getNumReservation())) {
 				// 插入题表
 				for (int i = 0; i < Integer.valueOf(book.getNumReservation()); i++) {
 					Problem p = new Problem();
@@ -41,7 +70,17 @@ public class BookServiceImpl implements BookService {
 			return record;
 		}
 		return null;
-		
+
+//		// 生成二维码
+//		String qrImgAbPath = qrService.generateQrCode(qrcodeTempPath, playVideoPath, videoBaseId);
+//		logger.info(qrImgAbPath);
+//		File img = new File(qrImgAbPath);
+//		// 上传二维码
+//		String link = qnService.upload(qrImgAbPath, img.getName(), qnService.getUploadToken(qrBucketName, Long.parseLong(expires)), qrDomain);
+//		// 更新数据库qrcode
+//		updateQrCodeByVideoBaseById(new VideoBase(videoBaseId, link));
+//		return 0;
+
 	}
 
 	@Override
@@ -56,7 +95,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public Book getBookById(Integer id) {
-		return (Book)bookMapper.findById(id);
+		return (Book) bookMapper.findById(id);
 	}
 
 	@Override
@@ -69,12 +108,10 @@ public class BookServiceImpl implements BookService {
 		Problem problem = new Problem();
 		problem.setBookId(book.getId());
 		List list = problemMapper.findAll(problem);
-		if(list == null || list.size() == 0){
+		if (list == null || list.size() == 0) {
 			return false;
 		}
 		return true;
 	}
-
-	
 
 }

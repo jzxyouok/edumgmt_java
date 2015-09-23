@@ -28,7 +28,8 @@ public class QRServiceTest {
 		String filePath = "/Users/guoshijie/work/files/qr_imgs";
 		String phpPath = "http://192.168.1.226:8009/index?id=";
 		Integer videoBaseId = 258;
-		qrService.generateQrCode(filePath, phpPath, videoBaseId);
+		String content = phpPath+videoBaseId.toString();
+		qrService.generateQrCode(filePath, phpPath, content);
 	}
 	
 }

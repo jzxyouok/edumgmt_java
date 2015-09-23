@@ -6,6 +6,7 @@
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="videoNum" property="videoNum" jdbcType="VARCHAR" />
 		<result column="videoReservationNum" property="videoReservationNum" jdbcType="VARCHAR" />
+		<result column="bookNum" property="bookNum" jdbcType="VARCHAR" />
 	</resultMap>
 	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
@@ -24,7 +25,8 @@
 		        FROM
 		            sh_book t1
 		        WHERE
-		            t1.sh_parter_id = t0.id) videoReservationNum
+		            t1.sh_parter_id = t0.id) videoReservationNum,
+		            count(t1.id) bookNum
 		FROM
 		    sh_parter t0
 		        LEFT JOIN

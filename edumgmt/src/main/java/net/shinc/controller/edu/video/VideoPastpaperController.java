@@ -137,7 +137,6 @@ public class VideoPastpaperController extends AbstractBaseController {
 			iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
 			
 			Integer vbid = videoPastpaper.getVideoBaseId();
-			logger.info("videoBaseId:"+vbid);
 			
 			videoBaseService.generateQRCodeAndUpload(vbid);
 			iRestMessage.setResult(vbid);
