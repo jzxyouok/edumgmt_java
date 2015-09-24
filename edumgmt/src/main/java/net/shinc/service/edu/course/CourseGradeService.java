@@ -42,7 +42,7 @@ public interface CourseGradeService {
 	 * @return List<Map>
 	 */
 	public List<Map> getCourseGradeVideoBaseList(CourseGradeHasVideoBase courseGradeHasVideoBase);
-	
+
 	/**
 	 * @Title: isCourseGradeHasVideo
 	 * @Description: 该推荐下是否有视频
@@ -50,5 +50,12 @@ public interface CourseGradeService {
 	 * @return boolean
 	 */
 	public boolean isHasVideo(CourseGrade courseGrade);
+
+	/**
+	 * @Title: updateCourseGradeHasVideoBase
+	 * @Description: 更新年级视频关系
+	 * @param courseGradeHasVideoBase
+	 */
+	public void updateCourseGradeHasVideoBase(CourseGradeHasVideoBase courseGradeHasVideoBase);
 
 }

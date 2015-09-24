@@ -71,7 +71,8 @@ public class BookServiceImpl implements BookService {
 					Problem p = new Problem();
 					p.setBookId(book.getId());
 					p.setStatus("1");
-					problemMapper.insert(p);
+					// 优化为批量插入
+					//problemMapper.insert(p);
 					list.add(p);
 				}
 			}
@@ -79,17 +80,17 @@ public class BookServiceImpl implements BookService {
 		logger.info("生成二维码数量："+list.size());
 
 		// 生成二维码
-		for (Problem p : (List<Problem>)list) {
-			String content = phpPath + book.getParterId().toString()+"_"+book.getId().toString()+"_"+p.getId().toString();
-			String qrImgAbPath = qrService.generateQrCode(qrcodeTempPath, phpPath, content);
-			
-			File img = new File(qrImgAbPath);
-			// 上传二维码
-			String link = qnService.upload(qrImgAbPath, img.getName(), qnService.getUploadToken(qrBucketName, Long.parseLong(expires)), qrDomain);
-			// 更新数据库qrcode
-			p.setTwoCode(link);
-			problemMapper.update(p);
-		}
+//		for (Problem p : (List<Problem>)list) {
+//			String content = phpPath + book.getParterId().toString()+"_"+book.getId().toString()+"_"+p.getId().toString();
+//			String qrImgAbPath = qrService.generateQrCode(qrcodeTempPath, phpPath, content);
+//			
+//			File img = new File(qrImgAbPath);
+//			// 上传二维码
+//			String link = qnService.upload(qrImgAbPath, img.getName(), qnService.getUploadToken(qrBucketName, Long.parseLong(expires)), qrDomain);
+//			// 更新数据库qrcode
+//			p.setTwoCode(link);
+//			problemMapper.update(p);
+//		}
 		return record;
 
 	}
