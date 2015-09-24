@@ -259,4 +259,26 @@ public class CourseGradeController extends AbstractBaseController {
 		}
 		return iRestMessage;
 	}
+	
+	/**
+	 * @Title: addCourseGradeVideoBase
+	 * @Description: 添加年级视频
+	 * @param courseGrade
+	 * @return IRestMessage
+	 */
+	@RequestMapping(value = "/updateCourseGradeHashVideoBase")
+	@ResponseBody
+	public IRestMessage updateCourseGradeHashVideoBase(CourseGradeHasVideoBase courseGradeHasVideoBase) {
+		IRestMessage iRestMessage = getRestMessage();
+		
+		try {
+			courseGradeService.updateCourseGradeHasVideoBase(courseGradeHasVideoBase);
+			iRestMessage.setCode(ErrorMessage.ADD_SUCCESS.getCode());
+			iRestMessage.setMessage("修改成功");
+		} catch (Exception e) {
+			logger.error("修改年级视频失败==>" + ExceptionUtils.getStackTrace(e));
+			iRestMessage.setCode(ErrorMessage.ERROR_DEFAULT.getCode());
+		}
+		return iRestMessage;
+	}
 }

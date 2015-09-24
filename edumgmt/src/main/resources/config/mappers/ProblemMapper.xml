@@ -117,6 +117,9 @@
 			<if test="content != null">
 				content,
 			</if>
+			<if test="twoCode != null">
+				two_code,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -131,6 +134,10 @@
 			<if test="content != null">
 				#{content,jdbcType=VARCHAR},
 			</if>
+			<if test="twoCode != null">
+				#{twoCode,jdbcType=VARCHAR},
+			</if>
+			
 		</trim>
 	</insert>
 	<update id="update" parameterType="Problem">
@@ -144,6 +151,9 @@
 			</if>
 			<if test="content != null">
 				content = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="twoCode != null">
+				two_code = #{twoCode,jdbcType=VARCHAR},
 			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}

@@ -92,5 +92,10 @@ public class CourseGradeServiceImpl implements CourseGradeService {
 		return true;
 	}
 
+	@Override
+	public void updateCourseGradeHasVideoBase(CourseGradeHasVideoBase courseGradeHasVideoBase) {
+		courseGradeHasVideoBaseMapper.update(courseGradeHasVideoBase);
+	}
+
 
 }
