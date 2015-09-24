@@ -39,6 +39,7 @@
 		SELECT 
 		    courseGrade.sh_course_grade_id courseGradeId,
 		    courseGrade.id courseGradeHasVideoBaseId,
+		    courseGrade.sort,
 		    base.question_id,
 		    base.id,
 		    base.title,
