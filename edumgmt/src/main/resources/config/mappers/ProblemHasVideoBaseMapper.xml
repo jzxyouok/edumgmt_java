@@ -19,7 +19,7 @@
 		from sh_problem_has_sh_video_base
 		where 1 = 1
 		<if test="problemId != null">
-			sh_problem_id = #{problemId,jdbcType=INTEGER},
+			and sh_problem_id = #{problemId,jdbcType=INTEGER}
 		</if>
 		<!-- 加入查询条件 -->
 	</select>

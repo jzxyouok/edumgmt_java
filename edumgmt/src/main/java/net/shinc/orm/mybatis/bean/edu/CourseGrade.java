@@ -19,6 +19,8 @@ public class CourseGrade {
 	private Integer materialVersionId;
 	
 	private String videoBaseIds;
+	
+	private String materialVersionName;
 
 	public Integer getId() {
 		return id;
@@ -30,6 +32,14 @@ public class CourseGrade {
 
 	public String getName() {
 		return name;
+	}
+
+	public String getMaterialVersionName() {
+		return materialVersionName;
+	}
+
+	public void setMaterialVersionName(String materialVersionName) {
+		this.materialVersionName = materialVersionName;
 	}
 
 	public String getVideoBaseIds() {

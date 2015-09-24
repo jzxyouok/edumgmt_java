@@ -7,6 +7,8 @@
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="type" property="type" jdbcType="VARCHAR" />
 		<result column="sh_material_version_id" property="materialVersionId" jdbcType="INTEGER" />
+		<result column="materialVersionName" property="materialVersionName" jdbcType="VARCHAR" />
+		
 	</resultMap>
 	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
@@ -15,10 +17,18 @@
 		where id = #{id,jdbcType=INTEGER}
 	</select>
 	<select id="findAll" parameterType="CourseGrade" resultMap="BaseResultMap">
-		select
-		id, sh_course_id, name, type, sh_material_version_id
-		from sh_course_grade
-		where 1 = 1
+		SELECT 
+		    t1.id,
+		    t1.sh_course_id,
+		    t1.name,
+		    t1.type,
+		    t1.sh_material_version_id,
+		    t2.name materialVersionName
+		FROM
+		    sh_course_grade t1,
+		    sh_material_version t2
+		WHERE
+		    t1.sh_material_version_id = t2.id
 		
 		<if test="courseId != null">
 			and sh_course_id = #{courseId}
