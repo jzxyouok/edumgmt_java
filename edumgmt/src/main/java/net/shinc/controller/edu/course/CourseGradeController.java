@@ -10,8 +10,9 @@ import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
 import net.shinc.orm.mybatis.bean.edu.CourseGrade;
 import net.shinc.orm.mybatis.bean.edu.CourseGradeHasVideoBase;
-import net.shinc.orm.mybatis.bean.edu.Recommend;
+import net.shinc.orm.mybatis.bean.edu.MaterialVersion;
 import net.shinc.service.edu.course.CourseGradeService;
+import net.shinc.service.edu.course.MaterialVersionService;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
@@ -37,6 +38,9 @@ public class CourseGradeController extends AbstractBaseController {
 
 	@Autowired
 	private CourseGradeService courseGradeService;
+	
+	@Autowired
+	private MaterialVersionService materialVersionService;
 
 	/**
 	 * @Title: getCourseGradeList
@@ -58,6 +62,31 @@ public class CourseGradeController extends AbstractBaseController {
 			}
 		} catch (Exception e) {
 			logger.error("课程科目列表查询失败==>" + ExceptionUtils.getStackTrace(e));
+			msg.setCode(ErrorMessage.ERROR_DEFAULT.getCode());
+		}
+		return msg;
+	}
+
+	/**
+	* @Title: getMaterialVersionList
+	* @Description: 得到教材列表
+	* @param materialVersion
+	* @return  IRestMessage
+	 */
+	@RequestMapping(value = "/getMaterialVersionList")
+	@ResponseBody
+	public IRestMessage getMaterialVersionList(MaterialVersion materialVersion) {
+		IRestMessage msg = getRestMessage();
+		try {
+			List<MaterialVersion> list = materialVersionService.getMaterialVersionList(materialVersion);
+			if (null != list && list.size() > 0) {
+				msg.setCode(ErrorMessage.SUCCESS.getCode());
+				msg.setResult(list);
+			} else {
+				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
+			}
+		} catch (Exception e) {
+			logger.error("教材列表查询失败==>" + ExceptionUtils.getStackTrace(e));
 			msg.setCode(ErrorMessage.ERROR_DEFAULT.getCode());
 		}
 		return msg;
@@ -208,8 +237,6 @@ public class CourseGradeController extends AbstractBaseController {
 		}
 		return iRestMessage;
 	}
-	
-	
 	
 	/**
 	 * @Title: addCourseGradeVideoBase

@@ -15,7 +15,6 @@ public class RestMessage implements IRestMessage {
 	private String code;
 	private String message;
 	private String detail;
-	private String detail2;
 	private Object result;
 	private MessageSource messageSource;
 	private Locale locale;
