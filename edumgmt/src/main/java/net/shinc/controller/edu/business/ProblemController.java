@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -159,5 +158,58 @@ public class ProblemController extends AbstractBaseController {
 		}
 		return iRestMessage;
 	}
+	
+	/**
+	 * @Title: addProblem
+	 * @Description: 添加题目
+	 * @param problem
+	 * @param bindingResult
+	 * @return IRestMessage
+	 */
+	@RequestMapping(value = "/addProblem")
+	@ResponseBody
+	public IRestMessage addProblem(@Valid Problem problem, BindingResult bindingResult) {
+		IRestMessage iRestMessage = getRestMessage();
+		if (bindingResult.hasErrors()) {
+			iRestMessage.setDetail(ShincUtil.getErrorFields(bindingResult));
+			return iRestMessage;
+		}
+		try {
+			problemService.addProblem(problem);
+			iRestMessage.setCode(ErrorMessage.ADD_SUCCESS.getCode());
+			iRestMessage.setMessage("添加成功");
+		} catch (Exception e) {
+			logger.error("添加书失败==>" + ExceptionUtils.getStackTrace(e));
+			iRestMessage.setCode(ErrorMessage.ERROR_DEFAULT.getCode());
+		}
+		return iRestMessage;
+	}
+	
+	/**
+	 * @Title: updateProblem
+	 * @Description: 更新题目信息
+	 * @param problem
+	 * @param bindingResult
+	 * @return IRestMessage
+	 */
+	@RequestMapping(value = "/updateProblem")
+	@ResponseBody
+	public IRestMessage updateProblem(@Valid Problem problem, BindingResult bindingResult) {
+		IRestMessage iRestMessage = getRestMessage();
+		if (bindingResult.hasErrors()) {
+			iRestMessage.setDetail(ShincUtil.getErrorFields(bindingResult));
+			return iRestMessage;
+		}
+		try {
+			problemService.updateProblem(problem);
+			iRestMessage.setCode(ErrorMessage.UPDATE_SUCCESS.getCode());
+			iRestMessage.setMessage("修改成功");
+		} catch (Exception e) {
+			logger.error("更新书失败==>" + ExceptionUtils.getStackTrace(e));
+			iRestMessage.setCode(ErrorMessage.ERROR_DEFAULT.getCode());
+		}
+		return iRestMessage;
+	}
+
 
 }
