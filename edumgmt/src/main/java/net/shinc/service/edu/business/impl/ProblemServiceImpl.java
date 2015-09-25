@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @ClassName: ProblemService
- * @Description: 书商服务接口实现
+ * @Description: 题目服务接口实现
  * @author hushichong
  * @date 2015年9月15日 下午1:03:21
  */

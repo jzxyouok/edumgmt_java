@@ -2,6 +2,8 @@ package net.shinc.service.edu.business;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import net.shinc.orm.mybatis.bean.edu.Book;
 
 /**
@@ -23,4 +25,6 @@ public interface BookService {
 	public List<Book> getBookList(Book book);
 	
 	public boolean isHasVideo(Book book);
+	
+	public void dwonTwoCode(Book book, HttpServletResponse httpServletResponse) throws Exception;
 }
