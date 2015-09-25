@@ -150,5 +150,20 @@
 		</menu>
 		<!--  教师管理 end   -->
 		
+		<!--  用户列表 begin   -->
+		<menu>
+			<level>1</level>
+			<parent>customerManage</parent>
+			<value>customerManage</value>          <!--   一级菜单  用户列表 -->
+			<url>none</url>
+		</menu>
+		<menu>
+			<level>2</level>
+			<parent>customerManage</parent>
+			<value>customerListManage</value>            <!--   二级菜单  用户信息 -->
+			<url>/customer/customerList</url>
+		</menu>
+		<!--  用户列表 end   -->
+		
 	</menus>
 </contents>
