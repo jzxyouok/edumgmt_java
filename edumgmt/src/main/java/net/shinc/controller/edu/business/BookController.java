@@ -1,7 +1,18 @@
 package net.shinc.controller.edu.business;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import net.shinc.common.AbstractBaseController;
@@ -9,12 +20,23 @@ import net.shinc.common.ErrorMessage;
 import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
 import net.shinc.orm.mybatis.bean.edu.Book;
+import net.shinc.orm.mybatis.bean.edu.Problem;
+import net.shinc.service.common.QNService;
 import net.shinc.service.edu.business.BookService;
+import net.shinc.service.edu.business.ProblemService;
+import net.shinc.utils.FileUtilsShiHe;
+import net.shinc.utils.HttpClientUtils;
+import net.shinc.utils.FileUtilsZip;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +57,18 @@ public class BookController extends AbstractBaseController {
 
 	@Autowired
 	private BookService bookService;
+
+	@Autowired
+	private ProblemService problemService;
+
+	@Autowired
+	private QNService qiniuservice;
+
+	@Autowired
+	protected HttpServletResponse httpServletResponse;
+
+	@Value("${qrcode.tempPath}")
+	private String tempPath;
 
 	/**
 	 * @Title: getBookList
@@ -163,5 +197,23 @@ public class BookController extends AbstractBaseController {
 			iRestMessage.setCode(ErrorMessage.ERROR_DEFAULT.getCode());
 		}
 		return iRestMessage;
+	}
+
+	/**
+	 * @Title: exportTwoCode
+	 * @Description: 二维码下载
+	 * @param book
+	 * @return IRestMessage
+	 */
+	@RequestMapping(value = "/exportTwoCode")
+	@ResponseBody
+	public IRestMessage exportTwoCode(Book book) {
+		IRestMessage iRestMessage = getRestMessage();
+		try {
+			bookService.dwonTwoCode(book,httpServletResponse);
+		} catch (Exception e) {
+			logger.error("导出书二维码失败==>" + ExceptionUtils.getStackTrace(e));
+		}
+		return null;
 	}
 }

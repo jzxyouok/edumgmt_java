@@ -46,6 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/logoutSuccess").permitAll()
 				
 				.antMatchers("/manage/**").permitAll()
+				// 下载功能改好后删除
+				.antMatchers("/book/**").permitAll()
 				
 				.anyRequest().authenticated()
 				.and()

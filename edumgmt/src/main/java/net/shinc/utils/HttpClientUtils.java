@@ -20,21 +20,45 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @ClassName HttpClientUtils 
+ * @ClassName HttpClientUtils
  * @Description 发送post请求与get请求
- * @author guoshijie 
+ * @author guoshijie
  * @date 2015年8月14日 下午3:05:33
  */
 public class HttpClientUtils {
-	
+
 	private static Logger logger = Logger.getLogger(HttpClientUtils.class);
 	private static String charset = "UTF-8";
 
 	@Autowired
 	private CloseableHttpClient httpClient;
-	
+
+	/**
+	 * @Title: get_HttpResponse
+	 * @Description: 模拟get求，返回HttpResponse
+	 * @param url
+	 * @return HttpResponse
+	 */
+	public HttpResponse get_HttpResponse(String url) {
+		HttpGet get = new HttpGet();
+		try {
+			CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+			get.setURI(URI.create(url));
+			// get.setHeader("X-Forwarded-For", RandomUtils.generateIp());
+
+			HttpResponse httpResponse = httpClient.execute(get);
+			return httpResponse;
+		} catch (Exception e) {
+			logger.info(ExceptionUtils.getStackTrace(e));
+		} finally {
+			get.releaseConnection();
+		}
+		return null;
+	}
+
 	/**
 	 * 发送post请求
+	 * 
 	 * @param postUrl
 	 * @param params
 	 * @return
@@ -44,17 +68,17 @@ public class HttpClientUtils {
 		try {
 			CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 			post.setURI(URI.create(postUrl));
-			
+
 			HttpEntity entity = new UrlEncodedFormEntity(params, charset);
 			post.setEntity(entity);
-//			post.setHeader("X-Forwarded-For", RandomUtils.generateIp());
-			
+			// post.setHeader("X-Forwarded-For", RandomUtils.generateIp());
+
 			HttpResponse res = httpClient.execute(post);
 			Header[] headers = res.getAllHeaders();
-			for(int i = 0; i < headers.length; i++) {
-				logger.info("responseHeaders["+i+"]: "+headers[i]);
+			for (int i = 0; i < headers.length; i++) {
+				logger.info("responseHeaders[" + i + "]: " + headers[i]);
 			}
-			
+
 			String result = EntityUtils.toString(res.getEntity());
 			logger.info("responseBody: " + UnicodeUtils.decodeUnicode(result));
 			return result;
@@ -65,20 +89,20 @@ public class HttpClientUtils {
 		}
 		return null;
 	}
-	
+
 	public String get(String url) {
 		HttpGet get = new HttpGet();
 		try {
 			CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 			get.setURI(URI.create(url));
-//			get.setHeader("X-Forwarded-For", RandomUtils.generateIp());
-			
+			// get.setHeader("X-Forwarded-For", RandomUtils.generateIp());
+
 			HttpResponse res = httpClient.execute(get);
 			Header[] headers = res.getAllHeaders();
-			for(int i = 0; i < headers.length; i++) {
-				logger.info("responseHeaders["+i+"]: "+headers[i]);
+			for (int i = 0; i < headers.length; i++) {
+				logger.info("responseHeaders[" + i + "]: " + headers[i]);
 			}
-			
+
 			String result = EntityUtils.toString(res.getEntity());
 			logger.info("responseBody: " + UnicodeUtils.decodeUnicode(result));
 			return result;
@@ -89,9 +113,10 @@ public class HttpClientUtils {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 准备请求参数
+	 * 
 	 * @return
 	 */
 	public static List<NameValuePair> getAddParams() {
@@ -100,12 +125,13 @@ public class HttpClientUtils {
 		list.add(new BasicNameValuePair("password", "admin"));
 		return list;
 	}
-	
+
 	public static void main(String[] args) {
 		HttpClientUtils client = new HttpClientUtils();
 		client.post("http://localhost:8080/edumgmt/login123", getAddParams());
-		
-//		String url = "http://7xkw22.com1.z0.glb.clouddn.com/o_19tna2i94k6l1clvlhetbt1qvmb.mp4?avinfo&e=1440674148&token=2vfqNhAmF6Mn9SVe6-g6wMaqIIfaSpX3oynfBWlr:Fltbd5JrQ5WTannydxeQYKAvI_8=";
-//		client.get(url);
+
+		// String url =
+		// "http://7xkw22.com1.z0.glb.clouddn.com/o_19tna2i94k6l1clvlhetbt1qvmb.mp4?avinfo&e=1440674148&token=2vfqNhAmF6Mn9SVe6-g6wMaqIIfaSpX3oynfBWlr:Fltbd5JrQ5WTannydxeQYKAvI_8=";
+		// client.get(url);
 	}
 }
