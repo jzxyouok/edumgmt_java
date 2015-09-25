@@ -73,6 +73,8 @@ dependencies {
 	compile 'org.apache.commons:commons-lang3:3.4'
 	compile 'com.qiniu:qiniu-java-sdk:7.0.+'
 	compile 'com.google.zxing:core:3.2.1'
+	
+	compile 'org.json:json:20090211'
 }
 
 

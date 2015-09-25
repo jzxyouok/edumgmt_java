@@ -47,14 +47,14 @@
 		CASE  WHEN top_time>add_time THEN 1 ELSE 0 END as isTop
 		from sh_recommend
 		where 1 = 1
-		<if test="title != null">
+		<!-- <if test="title != null"> -->
 			<if test="title != null">
 				and title like '%${title}%'
 			</if>
 			<if test="description != null">
 				and description like '%${description}%'
 			</if>
-		</if>
+		<!-- </if> -->
 		<!-- 加入查询条件 -->
 	</select>
 	<select id="getRecommendVideoBaseList" parameterType="RecommendHasVideoBase" resultType="java.util.HashMap">
