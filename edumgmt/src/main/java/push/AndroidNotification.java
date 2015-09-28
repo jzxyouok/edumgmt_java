@@ -17,7 +17,6 @@ public abstract class AndroidNotification extends UmengNotification {
 	
 	// Set key/value in the rootJson, for the keys can be set please see ROOT_KEYS, PAYLOAD_KEYS, 
 	// BODY_KEYS and POLICY_KEYS.
-	@Override
 	public boolean setPredefinedKeyValue(String key, Object value) throws Exception {
 		if (ROOT_KEYS.contains(key)) {
 			// This key should be in the root level
@@ -72,6 +71,7 @@ public abstract class AndroidNotification extends UmengNotification {
 	}
 	
 	// Set extra key/value for Android notification
+	// 放域外的其它的 key value 值
 	public boolean setExtraField(String key, String value) throws Exception {
 		JSONObject payloadJson = null;
 		JSONObject extraJson = null;
