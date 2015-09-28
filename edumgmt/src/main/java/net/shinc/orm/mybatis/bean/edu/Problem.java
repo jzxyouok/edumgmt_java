@@ -9,7 +9,6 @@ public class Problem {
 
 	private String status;
 	
-	@NotEmpty(message = "{problem.content.not.empty}")
 	private String content;
 	
 	private String videoBaseIds;

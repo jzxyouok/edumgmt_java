@@ -31,7 +31,7 @@
 		<if test="bookId != null">
 			and sh_book_id = #{bookId}
 		</if>
-		GROUP BY t1.id
+		GROUP BY t1.id desc
 		
 		
 	</select>
