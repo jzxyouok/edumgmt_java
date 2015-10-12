@@ -52,7 +52,7 @@
 	    q.type,
 	    c.id courseid,
 	    c.name coursename,
-	    c.short courseshort,
+	    c.short_name courseshort,
 	    
 	    y.id yearid,
 	    y.year yearname,

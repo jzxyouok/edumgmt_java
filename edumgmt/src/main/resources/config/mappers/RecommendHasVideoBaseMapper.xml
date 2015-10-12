@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.edu.RecommendHasVideoBaseMapper">
+	<resultMap id="BaseResultMap" type="RecommendHasVideoBase">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="sh_recommend_id" property="recommendId" jdbcType="INTEGER" />
+		<result column="sh_video_base_id" property="videoBaseId" jdbcType="INTEGER" />
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+		<result column="top_time" property="topTime" jdbcType="TIMESTAMP" />
+		<result column="video_type" property="videoType" jdbcType="VARCHAR" />
+		<result column="dimension" property="dimension" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		id, sh_recommend_id, sh_video_base_id, add_time, top_time, video_type, dimension
+		from sh_recommend_has_sh_video_base
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findAll" parameterType="RecommendHasVideoBase" resultMap="BaseResultMap">
+		select
+		id, sh_recommend_id, sh_video_base_id, add_time, top_time, video_type, dimension
+		from sh_recommend_has_sh_video_base
+		where 1 = 1
+		<if test="recommendId != null">
+			and sh_recommend_id = #{recommendId,jdbcType=INTEGER}
+		</if>
+	</select>
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from sh_recommend_has_sh_video_base
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="RecommendHasVideoBase">
+		insert into sh_recommend_has_sh_video_base
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="recommendId != null">
+				sh_recommend_id,
+			</if>
+			<if test="videoBaseId != null">
+				sh_video_base_id,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+			<if test="topTime != null">
+				top_time,
+			</if>
+			<if test="videoType != null">
+				video_type,
+			</if>
+			<if test="dimension != null">
+				dimension,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="recommendId != null">
+				#{recommendId,jdbcType=INTEGER},
+			</if>
+			<if test="videoBaseId != null">
+				#{videoBaseId,jdbcType=INTEGER},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="topTime != null">
+				#{topTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="videoType != null">
+				#{videoType,jdbcType=VARCHAR},
+			</if>
+			<if test="dimension != null">
+				#{dimension,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="RecommendHasVideoBase">
+		update sh_recommend_has_sh_video_base
+		<set>
+			<if test="recommendId != null">
+				and sh_recommend_id = #{recommendId,jdbcType=INTEGER}
+			</if>
+			<if test="videoBaseId != null">
+				sh_video_base_id = #{videoBaseId,jdbcType=INTEGER},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="topTime != null">
+				top_time = #{topTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="videoType != null">
+				video_type = #{videoType,jdbcType=VARCHAR},
+			</if>
+			<if test="dimension != null">
+				dimension = #{dimension,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -57,6 +57,24 @@ public class CourseController extends AbstractBaseController {
 		return msg;
 	}
 	
+	@RequestMapping(value = "/getCourse_videoNum")
+	@ResponseBody
+	public IRestMessage getCourse_videoNum() {
+		IRestMessage msg = getRestMessage();
+		try {
+			List<Course> list = courseService.getCourse_videoNum(new Course());
+			if(null != list && list.size() > 0) {
+				msg.setCode(ErrorMessage.SUCCESS.getCode());
+				msg.setResult(list);
+			} else {
+				msg.setCode(ErrorMessage.RESULT_EMPTY.getCode());
+			}
+		} catch (Exception e) {
+			logger.error("课程列表查询失败==>" + ExceptionUtils.getStackTrace(e));
+		}
+		return msg;
+	}
+	
 	@RequestMapping(value = "/getCourseById")
 	@ResponseBody
 	public IRestMessage getCourseById(Course course) {

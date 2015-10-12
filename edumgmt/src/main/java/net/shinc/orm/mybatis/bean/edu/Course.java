@@ -15,6 +15,9 @@ public class Course {
     private String name;
 
     private String shortName;
+    
+    //视频数量
+  	private String videoNum;
 
     public Integer getId() {
         return id;
@@ -34,6 +37,14 @@ public class Course {
 
 	public String getShortName() {
 		return shortName;
+	}
+
+	public String getVideoNum() {
+		return videoNum;
+	}
+
+	public void setVideoNum(String videoNum) {
+		this.videoNum = videoNum;
 	}
 
 	public void setShortName(String shortName) {

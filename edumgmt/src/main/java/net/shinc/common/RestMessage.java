@@ -1,7 +1,5 @@
 package net.shinc.common;
 
-
-
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -10,10 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 
-
-
 public class RestMessage implements IRestMessage {
-	
+
 	Logger logger = LoggerFactory.getLogger(getClass());
 	public static final String PLACEHOLDER_PREFIX = "RestMessage.";
 	private String code;
@@ -22,69 +18,77 @@ public class RestMessage implements IRestMessage {
 	private Object result;
 	private MessageSource messageSource;
 	private Locale locale;
-	private Map<String,Object> userInfo;
+	private Map<String, Object> userInfo;
 	public Object pageInfo;
-	
-	public RestMessage(String code, MessageSource messageSource, Locale locale){
-		
+	private Map content;
+
+	public RestMessage(String code, MessageSource messageSource, Locale locale) {
+
 		this.messageSource = messageSource;
 		this.locale = locale;
-		
+
 		logger.info("RestMessageCreated");
-		
+
 		this.code = code;
-		if(messageSource == null) {
+		if (messageSource == null) {
 			this.message = code;
 		} else {
 			try {
 				this.message = messageSource.getMessage(PLACEHOLDER_PREFIX + code, null, locale);
-			} catch(Exception e) {
+			} catch (Exception e) {
 				throw e;
 			}
 		}
 	}
-	
+
 	public String getCode() {
 		return code;
 	}
+
 	public void setCode(String code) {
 		this.code = code;
 		try {
 			this.message = messageSource.getMessage(PLACEHOLDER_PREFIX + code, null, locale);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			throw e;
 		}
 	}
+
 	public String getMessage() {
 		return message;
 	}
+
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
 	public String getDetail() {
 		return detail;
 	}
+
 	public void setDetail(String detail) {
 		this.detail = detail;
 	}
+
 	public Object getResult() {
 		return result;
 	}
+
 	public void setResult(Object result) {
 		this.result = result;
 	}
 
 	@Override
-	public Map<String,Object> getUserInfo() {
+	public Map<String, Object> getUserInfo() {
 		return this.userInfo;
 	}
 
 	@Override
-	public void setUserInfo(Map<String,Object> map) {
-		if(this.userInfo == null) {
-			this.userInfo = new HashMap<String,Object>();
+	public void setUserInfo(Map<String, Object> map) {
+		if (this.userInfo == null) {
+			this.userInfo = new HashMap<String, Object>();
 		}
-		if(map != null) {
+		if (map != null) {
 			this.userInfo.putAll(map);
 		}
 	}
@@ -92,14 +96,23 @@ public class RestMessage implements IRestMessage {
 	@Override
 	public void setPageInfo(Object o) {
 		this.pageInfo = o;
-		
+
 	}
 
 	@Override
 	public Object getPageInfo() {
-		
+
 		return this.pageInfo;
 	}
 
+	@Override
+	public void setContent(Map content) {
+		this.content = content;
+	}
+
+	@Override
+	public Map getContent() {
+		return this.content;
+	}
 
 }

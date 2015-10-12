@@ -74,7 +74,19 @@ public class DBConfig {
 		ds.setUrl(env.getProperty("product.jdbc.url"));
 		return ds;
 	}
-	
+	/**
+	 * @return 本地环境
+	 */
+	@Bean(name="dataSource",destroyMethod="close")
+	@Profile("localhost")
+	public DataSource localhostDataSource() {
+		BasicDataSource ds = new BasicDataSource();
+		ds.setDriverClassName(env.getProperty("jdbc.driver"));
+		ds.setUsername(env.getProperty("localhost.jdbc.username"));
+		ds.setPassword(env.getProperty("localhost.jdbc.password"));
+		ds.setUrl(env.getProperty("localhost.jdbc.url"));
+		return ds;
+	}
 	@Bean
 	public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws IOException {
 		SqlSessionFactoryBean fb = new SqlSessionFactoryBean();

@@ -50,6 +50,56 @@
 		</menu>
 		<!--  知识点管理 end  -->
 		
+		<!--  业务管理 begin  -->
+		<menu>
+			<level>1</level>
+			<parent>businessManage</parent>
+			<value>businessManage</value>          <!--   一级菜单  业务管理 -->
+			<url>none</url>
+		</menu>
+		<menu>
+			<level>2</level>
+			<parent>businessManage</parent>
+			<value>businessListManage</value>  <!--   二级菜单  合作商信息 -->
+			<url>/business/businessList</url>
+		</menu>
+		
+		<!--  业务管理 end  -->
+		
+		<!--  课程分类管理 begin  -->
+		
+		<menu>
+			<level>1</level>
+			<parent>courseManage</parent>
+			<value>courseManage</value>          <!--   一级菜单  课程分类管理 -->
+			<url>none</url>
+		</menu>
+		<menu>
+			<level>2</level>
+			<parent>courseManage</parent>
+			<value>courseListManage</value>  <!--   二级菜单  课程分类信息 -->
+			<url>/course/courseList</url>
+		</menu>
+		
+		<!--  课程分类管理 end  -->
+		
+		<!--  推荐管理 begin  -->
+		
+		<menu>
+			<level>1</level>
+			<parent>recommendManage</parent>
+			<value>recommendManage</value>          <!--   一级菜单  推荐管理 -->
+			<url>none</url>
+		</menu>
+		<menu>
+			<level>2</level>
+			<parent>recommendManage</parent>
+			<value>recommendListManage</value>  <!--   二级菜单  推荐信息 -->
+			<url>/recommend/recommendList</url>
+		</menu>
+		
+		<!--  推荐管理 end  -->
+		
 		
 		<!--  信息管理 begin  -->
 		<menu>
@@ -99,6 +149,21 @@
 			<url>/user/userList</url>
 		</menu>
 		<!--  教师管理 end   -->
+		
+		<!--  用户列表 begin   -->
+		<menu>
+			<level>1</level>
+			<parent>customerManage</parent>
+			<value>customerManage</value>          <!--   一级菜单  用户列表 -->
+			<url>none</url>
+		</menu>
+		<menu>
+			<level>2</level>
+			<parent>customerManage</parent>
+			<value>customerListManage</value>            <!--   二级菜单  用户信息 -->
+			<url>/customer/customerList</url>
+		</menu>
+		<!--  用户列表 end   -->
 		
 	</menus>
 </contents>

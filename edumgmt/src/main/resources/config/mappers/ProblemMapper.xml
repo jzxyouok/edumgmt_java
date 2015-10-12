@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.edu.ProblemMapper">
+	<resultMap id="BaseResultMap" type="Problem">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="sh_book_id" property="bookId" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="two_code" property="twoCode" jdbcType="VARCHAR" />
+		<result column="videoNum" property="videoNum" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		id, sh_book_id, status, content,two_code
+		from sh_problem
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findAll" parameterType="Problem" resultMap="BaseResultMap">
+		SELECT 
+		    t1.id,
+		    t1.sh_book_id,
+		    t1.status,
+		    t1.content,
+		    t1.two_code,
+		    COUNT(t2.id) videoNum
+		FROM
+		    sh_problem t1
+		        LEFT JOIN
+		    sh_problem_has_sh_video_base t2 ON t1.id = t2.sh_problem_id
+		WHERE 1 = 1 
+		<if test="bookId != null">
+			and sh_book_id = #{bookId}
+		</if>
+		GROUP BY t1.id desc
+		
+		
+	</select>
+	<select id="getProblemVideoBaseList" parameterType="ProblemHasVideoBase" resultType="java.util.HashMap">
+		SELECT 
+		    problem.sh_problem_id problemId,
+		    problem.id problemHasVideoBaseId,
+		    base.question_id,
+		    base.id,
+		    base.title,
+		    base.desc,
+		    base.difficulty,
+		    base.status,
+		    base.question_number,
+		    base.profile,
+		    base.updatetime,
+		    base.qrcode,
+		    course.id courseId,
+		    course.name courseName,
+		    lecture.id lectureId,
+		    lecture.name lectureName,
+		    lecture.level lectureLevel,
+		    GROUP_CONCAT(DISTINCT sk.name) keyword,
+		    CAST(GROUP_CONCAT(DISTINCT sk.id) AS CHAR) keywordId,
+		    GROUP_CONCAT(DISTINCT kp.name) knowledge,
+		    CAST(GROUP_CONCAT(DISTINCT kp.id) AS CHAR) knowledgeId,
+		    CASE
+		        WHEN GROUP_CONCAT(DISTINCT vidoDetail.url) IS NULL THEN '未上传'
+		        WHEN GROUP_CONCAT(DISTINCT vidoDetail.url) IS NOT NULL THEN '已上传'
+		    END AS videoUrl
+		FROM
+		    sh_problem_has_sh_video_base problem
+		        LEFT JOIN
+		    sh_video_base base ON problem.sh_video_base_id = base.id
+		        LEFT JOIN
+		    sh_course course ON course.id = base.sh_course_id
+		        LEFT JOIN
+		    sh_lecture lecture ON lecture.id = base.sh_lecture_id
+		        LEFT JOIN
+		    sh_video_base_keyword kw ON kw.sh_video_base_id = base.id
+		        LEFT JOIN
+		    sh_keyword sk ON sk.id = kw.sh_keyword_id
+		        LEFT JOIN
+		    sh_video_base_knowledge_point pt ON pt.sh_video_base_id = base.id
+		        LEFT JOIN
+		    sh_knowledge_point kp ON kp.id = pt.sh_knowledge_point_id
+		        LEFT JOIN
+		    sh_video_detail vidoDetail ON vidoDetail.sh_video_base_id = base.id
+			    
+			WHERE 1=1  
+				<if test="problemId != null">
+					and problem.sh_problem_id = #{problemId}
+				</if>
+			    group by id
+			    having 1=1
+			    <if test="hasVideo == 1">
+					and videoUrl = '已上传'
+				</if>
+				<if test="hasVideo == 0">
+					and videoUrl = '未上传'
+				</if>  
+			    
+			    order by base.updatetime desc
+		
+		<!-- 加入查询条件 -->
+	</select>
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from sh_problem
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="Problem" useGeneratedKeys="true" keyProperty="id">
+		insert into sh_problem
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="bookId != null">
+				sh_book_id,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="twoCode != null">
+				two_code,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="bookId != null">
+				#{bookId,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="twoCode != null">
+				#{twoCode,jdbcType=VARCHAR},
+			</if>
+			
+		</trim>
+	</insert>
+	<update id="update" parameterType="Problem">
+		update sh_problem
+		<set>
+			<if test="bookId != null">
+				sh_book_id = #{bookId,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="twoCode != null">
+				two_code = #{twoCode,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.edu.RecommendHasCourseGradeMapper">
+	<resultMap id="BaseResultMap" type="RecommendHasCourseGrade">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="sh_recommend_id" property="recommendId" jdbcType="INTEGER" />
+		<result column="sh_course_grade_id" property="courseGradeId" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, sh_recommend_id, sh_course_grade_id
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sh_recommend_has_sh_course_grade
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findAll" parameterType="RecommendHasCourseGrade" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sh_recommend_has_sh_course_grade
+		where 1 = 1
+		<if test="recommendId != null">
+			and sh_recommend_id = #{recommendId,jdbcType=INTEGER}
+		</if>
+		<!-- 加入查询条件 -->
+	</select>
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from sh_recommend_has_sh_course_grade
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByRecommendId" parameterType="java.lang.Integer">
+		delete from sh_recommend_has_sh_course_grade
+		where sh_recommend_id = #{recommendId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="RecommendHasCourseGrade">
+		insert into sh_recommend_has_sh_course_grade
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="recommendId != null">
+				sh_recommend_id,
+			</if>
+			<if test="courseGradeId != null">
+				sh_course_grade_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="recommendId != null">
+				#{recommendId,jdbcType=INTEGER},
+			</if>
+			<if test="courseGradeId != null">
+				#{courseGradeId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="RecommendHasCourseGrade">
+		update sh_recommend_has_sh_course_grade
+		<set>
+			<if test="recommendId != null">
+				and sh_recommend_id = #{recommendId,jdbcType=INTEGER}
+			</if>
+			<if test="courseGradeId != null">
+				sh_course_grade_id = #{courseGradeId,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

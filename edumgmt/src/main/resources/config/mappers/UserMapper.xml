@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.edu.UserMapper">
+	<resultMap id="BaseResultMap" type="User">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="sh_area_id" property="areaId" jdbcType="INTEGER" />
+		<result column="sh_grade_id" property="gradeId" jdbcType="INTEGER" />
+		<result column="sh_school_id" property="schoolId" jdbcType="INTEGER" />
+		<result column="user_class" property="userClass" jdbcType="INTEGER" />
+		<result column="tel" property="tel" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="nick" property="nick" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="CHAR" />
+		<result column="face" property="face" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<select id="findAll" parameterType="Recommend" resultMap="BaseResultMap">
+		select
+		id, sh_area_id, sh_grade_id, sh_school_id, user_class, tel, password, name, nick,
+		sex, face, create_time
+		from sh_user
+		where 1 = 1
+		<!-- 加入查询条件 -->
+	</select>
+	
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		id, sh_area_id, sh_grade_id, sh_school_id, user_class, tel, password, name, nick,
+		sex, face, create_time
+		from sh_user
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from sh_user
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="User">
+		insert into sh_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="areaId != null">
+				sh_area_id,
+			</if>
+			<if test="gradeId != null">
+				sh_grade_id,
+			</if>
+			<if test="schoolId != null">
+				sh_school_id,
+			</if>
+			<if test="userClass != null">
+				user_class,
+			</if>
+			<if test="tel != null">
+				tel,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="nick != null">
+				nick,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="face != null">
+				face,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="areaId != null">
+				#{areaId,jdbcType=INTEGER},
+			</if>
+			<if test="gradeId != null">
+				#{gradeId,jdbcType=INTEGER},
+			</if>
+			<if test="schoolId != null">
+				#{schoolId,jdbcType=INTEGER},
+			</if>
+			<if test="userClass != null">
+				#{userClass,jdbcType=INTEGER},
+			</if>
+			<if test="tel != null">
+				#{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="nick != null">
+				#{nick,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=CHAR},
+			</if>
+			<if test="face != null">
+				#{face,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="User">
+		update sh_user
+		<set>
+			<if test="areaId != null">
+				sh_area_id = #{areaId,jdbcType=INTEGER},
+			</if>
+			<if test="gradeId != null">
+				sh_grade_id = #{gradeId,jdbcType=INTEGER},
+			</if>
+			<if test="schoolId != null">
+				sh_school_id = #{schoolId,jdbcType=INTEGER},
+			</if>
+			<if test="userClass != null">
+				user_class = #{userClass,jdbcType=INTEGER},
+			</if>
+			<if test="tel != null">
+				tel = #{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="nick != null">
+				nick = #{nick,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=CHAR},
+			</if>
+			<if test="face != null">
+				face = #{face,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -31,11 +31,11 @@
 	<resultMap id="CourseResultMap" type="Course" >
 	    <id column="id" property="id" jdbcType="INTEGER" />
 	    <result column="name" property="name" jdbcType="VARCHAR" />
-	    <result column="short" property="shortName" jdbcType="VARCHAR" />
+	    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
   	</resultMap>
 	<select id="getCourseListByQuestionBank" parameterType="QuestionBank" resultMap="CourseResultMap">
 		select
-			a.id, a.name, a.short
+			a.id, a.name, a.short_name
 		from
 			sh_course a
 		inner join

@@ -27,4 +27,6 @@ public interface CourseService {
 	public Boolean hasCourse(Course course);
 	
 	public List<Course> selectCourse(Course course);
+	
+	public List<Course> getCourse_videoNum(Course course);
 }

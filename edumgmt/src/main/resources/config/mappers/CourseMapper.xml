@@ -4,12 +4,13 @@
 	<resultMap id="BaseResultMap" type="Course">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
-		<result column="short" property="shortName" jdbcType="VARCHAR" />
+		<result column="short_name" property="shortName" jdbcType="VARCHAR" />
+		<result column="videoNum" property="videoNum" />
 	</resultMap>
 
 	<select id="selectCourseById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
-		id, name, short
+		id, name, short_name
 		from
 		sh_course
 		where
@@ -18,7 +19,7 @@
 
 	<select id="selectCourse" resultMap="BaseResultMap" parameterType="Course">
 		select
-		id, name, short
+		id, name, short_name
 		from
 		sh_course
 		where 1 = 1
@@ -26,10 +27,25 @@
 			and name = #{name}
 		</if>
 		<if test="null != shortName">
-			and short = #{shortName}
+			and short_name = #{shortName}
 		</if>
 	</select>
-
+	<select id="getCourse_videoNum" resultMap="BaseResultMap">
+		SELECT 
+		    t1.id,t1.name,t1.short_name, COUNT(t3.id) videoNum
+		FROM
+		    sh_course t1
+		        LEFT JOIN
+		    sh_course_grade t2 ON t1.id = t2.sh_course_id
+		        LEFT JOIN
+		    sh_course_grade_has_sh_video_base t3 ON t2.id = t3.sh_course_grade_id
+            AND t3.id IS NOT NULL
+            where 1=1
+            <!-- 加入查询条件 -->
+		GROUP BY t1.id
+		
+		
+	</select>
 	<delete id="deleteCourseById" parameterType="java.lang.Integer">
 		delete from sh_course
 		where id = #{id,jdbcType=INTEGER}
@@ -45,7 +61,7 @@
 				name,
 			</if>
 			<if test="shortName != null">
-				short,
+				short_name,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -68,7 +84,7 @@
 				name = #{name,jdbcType=VARCHAR},
 			</if>
 			<if test="shortName != null">
-				short = #{shortName,jdbcType=VARCHAR},
+				short_name = #{shortName,jdbcType=VARCHAR},
 			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
