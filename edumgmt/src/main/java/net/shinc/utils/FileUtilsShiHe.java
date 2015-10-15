@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  */
 public class FileUtilsShiHe {
 
-	private Logger logger = LoggerFactory.getLogger(getClass());
+	private static Logger logger = LoggerFactory.getLogger(FileUtilsShiHe.class);
 
 	/**
 	 * 文件下载
@@ -30,7 +30,7 @@ public class FileUtilsShiHe {
 	 * @param str
 	 * @param fileName导出后文件名
 	 */
-	public HttpServletResponse downFile(HttpServletResponse response, String filePath, String fileName) {
+	public static HttpServletResponse downFile(HttpServletResponse response, String filePath, String fileName) {
 		try {
 			String path = filePath;
 			File file = new File(path);
@@ -54,7 +54,8 @@ public class FileUtilsShiHe {
 				bouts.close();
 
 			} else {
-				response.sendRedirect("../error.jsp");
+				logger.error("文件下载出错文件不存在");
+				response.getOutputStream().write(-1);
 			}
 		} catch (IOException e) {
 			logger.error("文件下载出错", e);

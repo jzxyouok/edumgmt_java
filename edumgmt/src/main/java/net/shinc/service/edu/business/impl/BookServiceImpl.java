@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +23,12 @@ import net.shinc.utils.HttpClientUtils;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,7 +145,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public void dwonTwoCode(Book book,HttpServletResponse httpServletResponse) throws Exception {
-		String downPath = tempPath + "/down";
+		String downPath = tempPath;
 		List fileNameList = new ArrayList();
 		Problem p = new Problem();
 		p.setBookId(book.getId());
@@ -148,33 +153,50 @@ public class BookServiceImpl implements BookService {
 		HttpClientUtils httpClientUtils = new HttpClientUtils();
 		for (Problem problem : (List<Problem>) list) {
 			String twoCode = problem.getTwoCode();
-			// 下载二维码到本地
-			HttpResponse httpResponse = httpClientUtils.get_HttpResponse(twoCode);
-			HttpEntity httpEntity = httpResponse.getEntity();
-			String fileName = StringUtils.substringAfterLast(twoCode, "/");
-			FileUtils.deleteQuietly(new File(tempPath + "/down/book_" + book.getId().toString() + "/book_" + book.getId().toString() + ".zip"));
-			File file = new File(downPath + "/book_" + book.getId().toString());
-			// 如果文件夹不存在则创建
-			if (!file.exists() && !file.isDirectory()) {
-				System.out.println("//不存在");
-				file.mkdir();
-			} else {
-				System.out.println("//目录存在");
-			}
-			if (httpEntity.isStreaming()) {
-				InputStream in = httpEntity.getContent();
-				FileOutputStream fileOutputStream = new FileOutputStream(downPath + "/book_" + book.getId().toString() + "/" + fileName);
-				byte[] bs = new byte[1024 * 4];
-				int len = -1;
-				while ((len = in.read(bs)) != -1) {
-					fileOutputStream.write(bs, 0, len);
+			HttpGet get = new HttpGet();
+			try {
+				CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+				get.setURI(URI.create(twoCode));
+				// get.setHeader("X-Forwarded-For", RandomUtils.generateIp());
+
+				HttpResponse httpResponse = httpClient.execute(get);
+				HttpEntity httpEntity = httpResponse.getEntity();
+				String fileName = StringUtils.substringAfterLast(twoCode, "/");
+				FileUtils.deleteQuietly(new File(tempPath + "/down/book_" + book.getId().toString() + "/book_" + book.getId().toString() + ".zip"));
+				File file = new File(downPath + "/book_" + book.getId().toString());
+				// 如果文件夹不存在则创建
+				if (!file.exists() && !file.isDirectory()) {
+					System.out.println("//不存在");
+					System.out.println(file.mkdir());
+				} else {
+					System.out.println("//目录存在");
 				}
+				if (httpEntity.isStreaming()) {
+					InputStream in = httpEntity.getContent();
+					File f = new File(downPath + "/book_" + book.getId().toString() + "/" + fileName);
+					if(!f.exists()) {
+						f.createNewFile();
+					}
+					FileOutputStream fileOutputStream = new FileOutputStream(f);
+					byte[] bs = new byte[1024 * 4];
+					int len = -1;
+					while ((len = in.read(bs)) != -1) {
+						fileOutputStream.write(bs, 0, len);
+					}
+					fileOutputStream.flush();
+					fileOutputStream.close();
+				}
+				fileNameList.add(fileName);
+			} catch (Exception e) {
+				logger.info(ExceptionUtils.getStackTrace(e));
+			} finally {
+				get.releaseConnection();
 			}
-			fileNameList.add(fileName);
+			
 
 		}
-		new FileUtilsZip().generateZip(downPath + "/book_" + book.getId().toString(), downPath + "/book_" + book.getId().toString() + "/", false);
-		new FileUtilsShiHe().downFile(httpServletResponse, downPath + "/book_" + book.getId().toString() + "/book_" + book.getId().toString() + ".zip", "book_"
+		FileUtilsZip.generateZip(downPath + "/book_" + book.getId().toString(), downPath + "/book_" + book.getId().toString() + "/", false);
+		FileUtilsShiHe.downFile(httpServletResponse, downPath + "/book_" + book.getId().toString() + "/book_" + book.getId().toString() + ".zip", "book_"
 				+ book.getId().toString() + ".zip");
 		
 	}
