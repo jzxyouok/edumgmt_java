@@ -147,57 +147,84 @@ public class BookServiceImpl implements BookService {
 	public void dwonTwoCode(Book book,HttpServletResponse httpServletResponse) throws Exception {
 		String downPath = tempPath;
 		List fileNameList = new ArrayList();
+		
+		/*
+		 * 查询书下面的题列表信息
+		 */
 		Problem p = new Problem();
 		p.setBookId(book.getId());
+		
+		String bookName = "book_qrcode_" + book.getId();
+		String bookZipName = bookName + ".zip";
+		String bookZipPath = tempPath + "/" + bookZipName;
+		String bookDir = tempPath + "/" + bookName;
+		
+		File dir = new File(bookDir);
+		if(!dir.isDirectory()) {
+			if(!dir.mkdir()) {
+				logger.error("创建文件夹失败:" + dir.getAbsolutePath());
+				return ;
+			}
+		}
+		
+		
+		FileUtils.deleteQuietly(new File(bookZipPath));
+		
+		String bookPrefix = "qr_" + book.getId() + "_";
+		
 		List list = problemMapper.findAll(p);
-		HttpClientUtils httpClientUtils = new HttpClientUtils();
 		for (Problem problem : (List<Problem>) list) {
 			String twoCode = problem.getTwoCode();
+			String suffix = "." + StringUtils.substringAfterLast(twoCode, ".");
 			HttpGet get = new HttpGet();
+			FileOutputStream fileOutputStream = null;
 			try {
 				CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-				get.setURI(URI.create(twoCode));
-				// get.setHeader("X-Forwarded-For", RandomUtils.generateIp());
+				try {
+					get.setURI(URI.create(twoCode));
+				} catch(Exception e) {
+					logger.warn("get uri fail:problemid=" + problem.getId());
+					continue;
+				}
+				
 
 				HttpResponse httpResponse = httpClient.execute(get);
 				HttpEntity httpEntity = httpResponse.getEntity();
-				String fileName = StringUtils.substringAfterLast(twoCode, "/");
-				FileUtils.deleteQuietly(new File(tempPath + "/down/book_" + book.getId().toString() + "/book_" + book.getId().toString() + ".zip"));
-				File file = new File(downPath + "/book_" + book.getId().toString());
-				// 如果文件夹不存在则创建
-				if (!file.exists() && !file.isDirectory()) {
-					System.out.println("//不存在");
-					System.out.println(file.mkdir());
-				} else {
-					System.out.println("//目录存在");
-				}
+				
+				
 				if (httpEntity.isStreaming()) {
+					
+					String fileName = bookPrefix + problem.getId() + suffix;
+					String filePath = bookDir + "/" + fileName;
 					InputStream in = httpEntity.getContent();
-					File f = new File(downPath + "/book_" + book.getId().toString() + "/" + fileName);
+					File f = new File(filePath);
 					if(!f.exists()) {
 						f.createNewFile();
 					}
-					FileOutputStream fileOutputStream = new FileOutputStream(f);
+					fileOutputStream = new FileOutputStream(f);
 					byte[] bs = new byte[1024 * 4];
 					int len = -1;
 					while ((len = in.read(bs)) != -1) {
 						fileOutputStream.write(bs, 0, len);
 					}
 					fileOutputStream.flush();
-					fileOutputStream.close();
+					fileNameList.add(fileName);
 				}
-				fileNameList.add(fileName);
+				
 			} catch (Exception e) {
 				logger.info(ExceptionUtils.getStackTrace(e));
 			} finally {
 				get.releaseConnection();
+				if(fileOutputStream != null) {
+					fileOutputStream.close();
+					fileOutputStream = null;
+				}
 			}
 			
 
 		}
-		FileUtilsZip.generateZip(downPath + "/book_" + book.getId().toString(), downPath + "/book_" + book.getId().toString() + "/", false);
-		FileUtilsShiHe.downFile(httpServletResponse, downPath + "/book_" + book.getId().toString() + "/book_" + book.getId().toString() + ".zip", "book_"
-				+ book.getId().toString() + ".zip");
+		FileUtilsZip.generateZip(bookDir, bookZipPath, false);
+		FileUtilsShiHe.downFile(httpServletResponse, bookZipPath, bookZipName);
 		
 	}
 

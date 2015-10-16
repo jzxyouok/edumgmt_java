@@ -83,6 +83,14 @@ public interface QNService {
 	public String generateQrDownUrl(String link);
 	
 	/**
+	 * 上传二维码图片
+	 * @param filePath 本地文件路径
+	 * @param key 远程存储文件名
+	 * @return
+	 */
+	public String uploadQrCode(String filePath,String key);
+	
+	/**
      * 上传文件
      * @param filePath 上传的文件路径
      * @param key      上传文件保存的文件名

@@ -11,6 +11,7 @@ import net.shinc.utils.UUIDUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.google.zxing.BarcodeFormat;
@@ -28,6 +29,26 @@ import com.google.zxing.common.BitMatrix;
 public class QRServiceImpl implements QRService {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
+	
+	@Value("${qrcode.tempPath}")
+	private String qrcodeTempPath;
+	
+	/**
+	 * 扫描二维码访问的地址
+	 */
+	@Value("${api.php.host}")
+	private String apiHost;
+	
+	public String generateQrCode(Map<String,Object> param) {
+		if(param == null || param.size() == 0) return "";
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(apiHost).append("?");
+		for(Map.Entry<String, Object> entry : param.entrySet()) {
+			sb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+		}
+		return generateQrCode(qrcodeTempPath,apiHost,sb.toString());
+	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
@@ -52,5 +73,6 @@ public class QRServiceImpl implements QRService {
 		 }
 		return null;
 	}
+	
 
 }

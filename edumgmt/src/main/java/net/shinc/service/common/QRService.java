@@ -1,5 +1,7 @@
 package net.shinc.service.common;
 
+import java.util.Map;
+
 /**
  * @ClassName QRService 
  * @Description 生成二维码服务接口
@@ -7,6 +9,13 @@ package net.shinc.service.common;
  * @date 2015年9月6日 下午4:50:16
  */
 public interface QRService {
+	
+	
+	/**
+	 * @param param 二维码所带参数
+	 * @return
+	 */
+	public String generateQrCode(Map<String,Object> param);
 	
 	/**
 	 * 生成二维码

@@ -12,6 +12,7 @@ import net.shinc.service.edu.course.CourseGradeService;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -64,8 +65,12 @@ public class CourseGradeServiceImpl implements CourseGradeService {
 				c.setVideoBaseId(Integer.valueOf(videoBaseId));
 				c.setVideoType("1");
 				c.setSort(0);
-				courseGradeHasVideoBaseMapper.insert(c);
-				i++;
+				try {
+					courseGradeHasVideoBaseMapper.insert(c);
+					i++;
+				} catch(DuplicateKeyException e) {
+					
+				}
 			}
 		}
 		return i;

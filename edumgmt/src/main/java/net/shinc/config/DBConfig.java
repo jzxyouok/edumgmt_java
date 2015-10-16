@@ -24,7 +24,7 @@ import org.springframework.core.io.ClassPathResource;
  */
 @Configuration
 @PropertySource("classpath:config/properties/config_${spring.profiles.active}.properties")
-@MapperScan(basePackages={"net.shinc.orm.mybatis.mappers"})
+@MapperScan(basePackages={"net.shinc.orm.mybatis.mappers.common","net.shinc.orm.mybatis.mappers.edu"})
 public class DBConfig {
     
 	@Autowired

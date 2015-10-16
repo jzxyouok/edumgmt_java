@@ -16,6 +16,7 @@ public class Problem {
 	private String twoCode;
 	
 	private String videoNum;
+	private String videoType; 
 
 	public Integer getId() {
 		return id;
@@ -72,4 +73,13 @@ public class Problem {
 	public void setContent(String content) {
 		this.content = content == null ? null : content.trim();
 	}
+
+	public String getVideoType() {
+		return videoType;
+	}
+
+	public void setVideoType(String videoType) {
+		this.videoType = videoType;
+	}
+	
 }

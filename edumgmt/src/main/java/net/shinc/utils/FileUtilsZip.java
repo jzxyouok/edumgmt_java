@@ -12,6 +12,10 @@ import java.util.zip.ZipOutputStream;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @ClassName: ZipFileUtils
  * @Description: 文件夹压缩打包工具类型
@@ -19,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2015年9月25日 下午12:33:43
  */
 public class FileUtilsZip {
+	protected static Logger logger = LoggerFactory.getLogger(FileUtilsZip.class);
 	/**
 	 * 把接受的全部文件打成压缩包
 	 *
@@ -102,7 +107,7 @@ public class FileUtilsZip {
 					FileInputStream IN = new FileInputStream(inputFile);
 					BufferedInputStream bins = new BufferedInputStream(IN, 512);
 					// org.apache.tools.zip.ZipEntry
-					System.out.println("需要打包文件inputFile：[" + inputFile.getName() + " ] ");
+					logger.info("需要打包文件inputFile：[" + inputFile.getName() + " ] ");
 					ZipEntry entry = new ZipEntry(inputFile.getName());
 					ouputStream.putNextEntry(entry);
 					// 向压缩文件中输出数据
@@ -185,6 +190,7 @@ public class FileUtilsZip {
 		List<File> files = new ArrayList<File>();
 		File file = new File(path);
 		if (!file.exists()) {
+			logger.error("待压缩文件不存在:" + file.getAbsolutePath());
 			throw new Exception("原因文件：[ " + file.getPath() + " ]不存在，打包失败！");
 		}
 		if (file.exists() && file.isFile()) {
@@ -196,19 +202,11 @@ public class FileUtilsZip {
 			}
 		}
 		File outFile = new File(returnPath);
-		File fileMidir = new File(outFile.getParent());
-		if (!fileMidir.exists()) {
-			boolean isMkDirs = fileMidir.mkdirs();
-			if (!isMkDirs) {
-				throw new Exception("存放压缩文件目录：[ " + outFile.getName() + " ]，创建目录失败！");
-			}
-		}
-		if (!outFile.exists() || !outFile.isFile()) {
-			if (!outFile.isFile()) {
-				outFile = new File(outFile.getPath() + "/" + outFile.getName() + ".zip");
-			}
+		
+		if (!outFile.exists()) {
 			boolean isMkDirs = outFile.createNewFile();
 			if (!isMkDirs) {
+				logger.error("压缩文件目录：[ " + outFile.getName() + " ]，创建压缩文件失败！");
 				throw new Exception("压缩文件目录：[ " + outFile.getName() + " ]，创建压缩文件失败！");
 			}
 		}
@@ -226,7 +224,7 @@ public class FileUtilsZip {
 				zipFile(files, zipOut);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(ExceptionUtils.getStackTrace(e));
 		} finally {
 			zipOut.close();
 			fous.close();

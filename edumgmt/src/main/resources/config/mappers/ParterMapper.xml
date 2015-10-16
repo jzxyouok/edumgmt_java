@@ -18,29 +18,34 @@
 	<select id="findAll" parameterType="Parter" resultMap="BaseResultMap">
 		
 		SELECT 
-		    t0.id,t0.name,
-		    COUNT(t3.id) videoNum,
+		    t.id,
+		    t.name,
+			(select COUNT(b.id) AS bookNum from sh_book b where b.sh_parter_id=t.id) bookNum,
+			
+			(select SUM(b.num_reservation) AS videoReservationNum from sh_book b where b.sh_parter_id=t.id) videoReservationNum,
+		 
 		    (SELECT 
-		            SUM(t1.num_reservation)
+		            COUNT(d.id)
 		        FROM
-		            sh_book t1
+		            sh_parter a,
+		            sh_book b,
+		            sh_problem c,
+		            sh_problem_has_sh_video_base d
 		        WHERE
-		            t1.sh_parter_id = t0.id) videoReservationNum,
-		            count(t1.id) bookNum
+		            a.id = b.sh_parter_id
+		                AND b.id = c.sh_book_id
+		                AND c.id = d.sh_problem_id
+		                AND a.id = t.id) videoNum
 		FROM
-		    sh_parter t0
-		        LEFT JOIN
-		    sh_book t1 ON t0.id = t1.sh_parter_id
-		        LEFT JOIN
-		    sh_problem t2 ON t1.id = t2.sh_book_id
-		        LEFT JOIN
-		    sh_problem_has_sh_video_base t3 ON t2.id = t3.sh_problem_id
-		        AND t3.id IS NOT NULL
-		WHERE 1 = 1
+		    sh_parter t
+		WHERE
+		1=1
 		<if test="name != null and name != '' ">
-			AND name like '%${name}%'
+			AND t.name like '%${name}%'
 		</if>
-		GROUP BY t0.id
+		GROUP BY t.id
+		
+		
 	</select>
 	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from sh_parter

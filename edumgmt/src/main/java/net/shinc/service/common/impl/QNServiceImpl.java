@@ -46,6 +46,14 @@ public class QNServiceImpl implements InitializingBean,QNService{
 	@Value("${qiniu.eduonline.deadline}")
 	private String expires;
 	
+	//二维码所在空间名称
+	@Value("${qiniu.eduonline.qrBucketName}")
+	private String qrBucketName;
+	
+	//二维码所在空间域名
+	@Value("${qiniu.eduonline.qrDomain}")
+	private String qrDomain;
+	
 	public Auth auth;
 	
 	public QNServiceImpl() {
@@ -166,6 +174,17 @@ public class QNServiceImpl implements InitializingBean,QNService{
 		    	logger.error(ExceptionUtils.getStackTrace(e1));
 		    }
 		}
+	}
+	
+	/**
+	 * 上传二维码图片
+	 * @param filePath 本地文件路径
+	 * @param key 远程存储文件名
+	 * @return
+	 */
+	public String uploadQrCode(String filePath,String key) {
+		String token = getUploadToken(qrBucketName, Long.parseLong(expires));
+		return upload(filePath, key, token, qrDomain);
 	}
 	
 	/**
