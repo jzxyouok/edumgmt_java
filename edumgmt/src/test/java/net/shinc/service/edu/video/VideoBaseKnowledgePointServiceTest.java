@@ -3,7 +3,7 @@ package net.shinc.service.edu.video;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.shinc.InfoMgmtApplication;
+import net.shinc.EdumgmtApplication;
 import net.shinc.orm.mybatis.bean.edu.VideoBaseKnowledgePointKey;
 
 import org.junit.Test;
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2015年8月4日 下午4:44:17  
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = InfoMgmtApplication.class)
+@SpringApplicationConfiguration(classes = EdumgmtApplication.class)
 @WebAppConfiguration
 public class VideoBaseKnowledgePointServiceTest {
 

@@ -2,8 +2,7 @@ package net.shinc.service.common;
 
 import java.util.List;
 
-import net.shinc.InfoMgmtApplication;
-import net.shinc.orm.mybatis.bean.edu.Parter;
+import net.shinc.EdumgmtApplication;
 import net.shinc.orm.mybatis.bean.edu.Recommend;
 import net.shinc.service.edu.business.ParterService;
 import net.shinc.service.edu.course.CourseGradeService;
@@ -19,7 +18,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.google.gson.Gson;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = InfoMgmtApplication.class)
+@SpringApplicationConfiguration(classes = EdumgmtApplication.class)
 @WebAppConfiguration
 public class ServiceTest {
 

@@ -1,6 +1,6 @@
 package net.shinc.controller.common;
 
-import net.shinc.InfoMgmtApplication;
+import net.shinc.EdumgmtApplication;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +26,7 @@ import org.springframework.web.context.WebApplicationContext;
  * @date 2015年9月17日 下午12:33:41
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = InfoMgmtApplication.class)
+@SpringApplicationConfiguration(classes = EdumgmtApplication.class)
 @WebAppConfiguration
 public class ControllerTest {
 

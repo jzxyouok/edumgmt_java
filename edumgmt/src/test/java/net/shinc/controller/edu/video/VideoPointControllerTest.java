@@ -3,8 +3,7 @@ package net.shinc.controller.edu.video;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.shinc.InfoMgmtApplication;
-import net.shinc.orm.mybatis.bean.edu.Course;
+import net.shinc.EdumgmtApplication;
 import net.shinc.orm.mybatis.bean.edu.Keyword;
 import net.shinc.orm.mybatis.bean.edu.KnowledgePoint;
 import net.shinc.orm.mybatis.bean.edu.VideoBase;
@@ -37,7 +36,7 @@ import com.google.gson.Gson;
   * @date 2015年8月5日 上午11:00:21
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = InfoMgmtApplication.class)
+@SpringApplicationConfiguration(classes = EdumgmtApplication.class)
 @WebAppConfiguration
 public class VideoPointControllerTest {
 

@@ -2,7 +2,7 @@ package net.shinc.service.edu.video;
 
 import java.util.List;
 
-import net.shinc.InfoMgmtApplication;
+import net.shinc.EdumgmtApplication;
 import net.shinc.orm.mybatis.bean.edu.VideoDetail;
 
 import org.junit.Test;
@@ -14,7 +14,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = InfoMgmtApplication.class)
+@SpringApplicationConfiguration(classes = EdumgmtApplication.class)
 @WebAppConfiguration
 public class VideoDetailServiceTest {
 

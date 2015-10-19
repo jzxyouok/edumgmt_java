@@ -3,7 +3,7 @@ package net.shinc.service.common;
 import java.util.Collection;
 import java.util.List;
 
-import net.shinc.InfoMgmtApplication;
+import net.shinc.EdumgmtApplication;
 import net.shinc.orm.mybatis.bean.common.AdminUser;
 import net.shinc.orm.mybatis.bean.common.Menu;
 import net.shinc.service.edu.KnowledgePointService;
@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = InfoMgmtApplication.class)
+@SpringApplicationConfiguration(classes = EdumgmtApplication.class)
 @WebAppConfiguration
 public class MenuServiceTest {
 

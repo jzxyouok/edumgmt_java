@@ -3,7 +3,7 @@ package net.shinc.controller.common;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.shinc.InfoMgmtApplication;
+import net.shinc.EdumgmtApplication;
 import net.shinc.orm.mybatis.bean.common.Authority;
 import net.shinc.orm.mybatis.bean.common.Company;
 
@@ -34,7 +34,7 @@ import com.google.gson.Gson;
  * @date 2015年7月16日 下午5:52:57
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = InfoMgmtApplication.class)
+@SpringApplicationConfiguration(classes = EdumgmtApplication.class)
 @WebAppConfiguration
 public class AuthorityControllerTest {
 

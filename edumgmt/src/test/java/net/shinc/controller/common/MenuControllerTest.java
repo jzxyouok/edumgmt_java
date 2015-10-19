@@ -1,6 +1,6 @@
 package net.shinc.controller.common;
 
-import net.shinc.InfoMgmtApplication;
+import net.shinc.EdumgmtApplication;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = InfoMgmtApplication.class)
+@SpringApplicationConfiguration(classes = EdumgmtApplication.class)
 @WebAppConfiguration
 public class MenuControllerTest {
 

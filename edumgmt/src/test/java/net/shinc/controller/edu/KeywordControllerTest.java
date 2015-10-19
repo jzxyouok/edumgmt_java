@@ -1,6 +1,6 @@
 package net.shinc.controller.edu;
 
-import net.shinc.InfoMgmtApplication;
+import net.shinc.EdumgmtApplication;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +26,7 @@ import org.springframework.web.context.WebApplicationContext;
  * @date 2015年8月4日 下午12:33:37  
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = InfoMgmtApplication.class)
+@SpringApplicationConfiguration(classes = EdumgmtApplication.class)
 @WebAppConfiguration
 public class KeywordControllerTest {
 	@Autowired  

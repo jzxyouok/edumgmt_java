@@ -1,6 +1,6 @@
 package net.shinc.service.edu.video;
 
-import net.shinc.InfoMgmtApplication;
+import net.shinc.EdumgmtApplication;
 import net.shinc.orm.mybatis.bean.edu.VideoBase;
 
 import org.junit.Test;
@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2015年8月31日 上午11:01:38
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = InfoMgmtApplication.class)
+@SpringApplicationConfiguration(classes = EdumgmtApplication.class)
 @WebAppConfiguration
 public class VideoBaseServiceTest {
 	

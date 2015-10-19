@@ -18,11 +18,11 @@ apply plugin: 'idea'
 apply plugin: 'spring-boot' 
 apply plugin: 'io.spring.dependency-management' 
 apply plugin: 'war'
-mainClassName = "net.shinc.InfoMgmtApplication"
+mainClassName = "net.shinc.EdumgmtApplication"
 
 
 bootRepackage {
-	mainClass = "net.shinc.InfoMgmtApplication"
+	mainClass = "net.shinc.EdumgmtApplication"
 }
 
 war {
@@ -72,7 +72,7 @@ dependencies {
 	compile 'com.github.miemiedev:mybatis-paginator:1.2.17'
 	compile 'com.google.code.gson:gson:2.3.1'
 	compile 'org.apache.commons:commons-lang3:3.4'
-	compile 'com.qiniu:qiniu-java-sdk:7.0.+'
+	compile 'com.qiniu:qiniu-java-sdk:7.0.5'
 	compile 'com.google.zxing:core:3.2.1'
 	
 	compile 'org.json:json:20090211'

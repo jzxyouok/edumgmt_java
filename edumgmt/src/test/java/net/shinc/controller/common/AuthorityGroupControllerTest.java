@@ -3,7 +3,7 @@ package net.shinc.controller.common;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.shinc.InfoMgmtApplication;
+import net.shinc.EdumgmtApplication;
 import net.shinc.orm.mybatis.bean.common.AuthGroupHasAuth;
 import net.shinc.orm.mybatis.bean.common.Authority;
 import net.shinc.orm.mybatis.bean.common.AuthorityGroup;
@@ -29,7 +29,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.google.gson.Gson;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = InfoMgmtApplication.class)
+@SpringApplicationConfiguration(classes = EdumgmtApplication.class)
 @WebAppConfiguration
 public class AuthorityGroupControllerTest {
 	

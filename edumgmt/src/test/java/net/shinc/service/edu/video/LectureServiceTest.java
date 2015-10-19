@@ -1,6 +1,6 @@
 package net.shinc.service.edu.video;
 
-import net.shinc.InfoMgmtApplication;
+import net.shinc.EdumgmtApplication;
 import net.shinc.orm.mybatis.bean.edu.Lecture;
 import net.shinc.service.edu.LectureService;
 
@@ -18,7 +18,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
  * @date 2015年8月4日 下午9:38:35
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = InfoMgmtApplication.class)
+@SpringApplicationConfiguration(classes = EdumgmtApplication.class)
 @WebAppConfiguration
 public class LectureServiceTest {
 
