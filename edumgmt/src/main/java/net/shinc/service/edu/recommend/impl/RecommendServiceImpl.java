@@ -17,6 +17,7 @@ import net.shinc.service.edu.recommend.RecommendService;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -105,7 +106,12 @@ public class RecommendServiceImpl implements RecommendService {
 				r.setVideoBaseId(Integer.valueOf(videoBaseId));
 				r.setVideoType(recommend.getVideoType());
 				r.setDimension("9");// 这一版推荐视频不按初中高中维度排，后期会把这个字段删除掉
-				recommendHasVideoBaseMapper.insert(r);
+				try {
+					recommendHasVideoBaseMapper.insert(r);
+				}catch(DuplicateKeyException e) {
+					
+				}
+				
 				i++;
 			}
 		}
