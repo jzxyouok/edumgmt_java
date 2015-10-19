@@ -27,4 +27,11 @@ public interface BookService {
 	public boolean isHasVideo(Book book);
 	
 	public void dwonTwoCode(Book book, HttpServletResponse httpServletResponse) throws Exception;
+	
+	/**
+	 * 是否已到题目数上限
+	 * @param bookId
+	 * @return
+	 */
+	public boolean checkMaxProblem(Long bookId);
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.shinc.service.common.QNService;
 import net.shinc.service.common.QRService;
 import net.shinc.utils.MatrixToImageWriter;
 import net.shinc.utils.UUIDUtils;
@@ -11,6 +12,7 @@ import net.shinc.utils.UUIDUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -39,15 +41,28 @@ public class QRServiceImpl implements QRService {
 	@Value("${api.php.host}")
 	private String apiHost;
 	
+	@Autowired
+	private QNService qnService;
+	
+	
 	public String generateQrCode(Map<String,Object> param) {
 		if(param == null || param.size() == 0) return "";
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append(apiHost).append("?");
-		for(Map.Entry<String, Object> entry : param.entrySet()) {
-			sb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+		try {
+			StringBuilder sb = new StringBuilder();
+			sb.append(apiHost).append("?");
+			for(Map.Entry<String, Object> entry : param.entrySet()) {
+				sb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+			}
+			sb.deleteCharAt(sb.length() - 1);
+			String qrImgAbPath = generateQrCode(qrcodeTempPath,apiHost,sb.toString());
+			File img = new File(qrImgAbPath);
+			//上传二维码
+			String link = qnService.uploadQrCode(qrImgAbPath, img.getName());
+			return link;
+		}catch(Exception e) {
+			logger.error("生成二维码失败:" + ExceptionUtils.getStackTrace(e));
+			return null;
 		}
-		return generateQrCode(qrcodeTempPath,apiHost,sb.toString());
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -56,7 +71,7 @@ public class QRServiceImpl implements QRService {
 		try {
 			 MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
 		     
-		     logger.info("content"+content);
+		     logger.info("qrCode content"+content);
 		     
 		     Map hints = new HashMap();
 		     hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
@@ -66,7 +81,7 @@ public class QRServiceImpl implements QRService {
 		     File file = new File(filePath, qrName);
 		     MatrixToImageWriter.writeToFile(bitMatrix, "png", file);
 		     String abName = file.getAbsolutePath();
-		     logger.info(abName);
+		     logger.info("生成二维码" + abName);
 		     return abName;
 		 } catch (Exception e) {
 			 logger.error(ExceptionUtils.getStackTrace(e));

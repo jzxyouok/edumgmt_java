@@ -10,10 +10,22 @@ import java.util.Map;
  */
 public interface QRService {
 	
+	/**
+	 * 二维码携带信息类型
+	 */
+	public static final String QRPARAM_TYPE_BASEID = "0";
+	public static final String QRPARAM_TYPE_PROBLEMID = "1";
+	
+	
+	public static final String QRPARAM_ID = "id";
+	public static final String QRPARAM_TYPE = "type";
+	public static final String QRPARAM_BOOKID = "bookId";
+	
 	
 	/**
+	 *  生成二维码信息并上传至七牛服务器
 	 * @param param 二维码所带参数
-	 * @return
+	 * @return  二维码的七牛服务器地址
 	 */
 	public String generateQrCode(Map<String,Object> param);
 	

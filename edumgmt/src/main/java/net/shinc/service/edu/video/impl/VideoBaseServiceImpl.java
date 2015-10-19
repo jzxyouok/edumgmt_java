@@ -1,6 +1,6 @@
 package net.shinc.service.edu.video.impl;
 
-import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.thymeleaf.util.StringUtils;
 
 /**
   * @ClassName: VideoBaseServiceImpl
@@ -118,23 +117,21 @@ public class VideoBaseServiceImpl implements VideoBaseService {
 		return 0;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public Integer generateQRCodeAndUpload(Integer videoBaseId) {
-		//生成二维码
-		String content = playVideoPath + videoBaseId.toString();
-		String qrImgAbPath = qrService.generateQrCode(qrcodeTempPath, playVideoPath, content);
-		logger.info(qrImgAbPath);
+		Map param = new HashMap();
+		param.put(QRService.QRPARAM_TYPE, QRService.QRPARAM_TYPE_BASEID);
+		param.put(QRService.QRPARAM_ID, String.valueOf(videoBaseId));
 		
-		if(StringUtils.isEmpty(qrImgAbPath)) {
-			return 0;
-		} else {
-			File img = new File(qrImgAbPath);
-			//上传二维码
-			String link = qnService.upload(qrImgAbPath, img.getName(), qnService.getUploadToken(qrBucketName, Long.parseLong(expires)), qrDomain);
+		String link = qrService.generateQrCode(param);
+		if(link != null) {
 			//更新数据库qrcode
 			Integer num = updateQrCodeByVideoBaseById(new VideoBase(videoBaseId,link));
 			return num;
 		}
+
+		return 0;
 	}
 
 }

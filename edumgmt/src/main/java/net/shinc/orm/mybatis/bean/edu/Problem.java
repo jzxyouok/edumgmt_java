@@ -1,10 +1,11 @@
 package net.shinc.orm.mybatis.bean.edu;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class Problem {
 	private Integer id;
 
+	@NotNull
 	private Integer bookId;
 
 	private String status;

@@ -43,21 +43,15 @@ public class ProblemServiceImpl implements ProblemService {
 	@Autowired
 	private QRService qrService;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Integer addProblem(Problem problem) {
 		Map param = new HashMap();
-		param.put("bookId", problem.getBookId());
-		param.put("problemId", problem.getId());
-		String qrImgAbPath = qrService.generateQrCode(param);
-		if(StringUtils.isEmpty(qrImgAbPath)) {
-			logger.error("生成二维码失败");
-			return 0;
-		} else {
-			File img = new File(qrImgAbPath);
-			//上传二维码
-			String link = qnService.uploadQrCode(qrImgAbPath, img.getName());
-			problem.setTwoCode(link);
-		}
+		param.put(QRService.QRPARAM_BOOKID, problem.getBookId());
+		param.put(QRService.QRPARAM_TYPE, QRService.QRPARAM_TYPE_PROBLEMID);
+		param.put(QRService.QRPARAM_ID, problem.getId());
+		String link = qrService.generateQrCode(param);
+		problem.setTwoCode(link);
 		return problemMapper.insert(problem);
 	}
 

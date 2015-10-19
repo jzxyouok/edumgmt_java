@@ -14,6 +14,8 @@ public class Book {
 	
 	private String numReservation;
 	
+	private String problemNum;
+	
 	//视频数量
 	private String videoNum;
 
@@ -64,4 +66,13 @@ public class Book {
 	public void setNumReservation(String numReservation) {
 		this.numReservation = numReservation == null ? null : numReservation.trim();
 	}
+
+	public String getProblemNum() {
+		return problemNum;
+	}
+
+	public void setProblemNum(String problemNum) {
+		this.problemNum = problemNum;
+	}
+	
 }

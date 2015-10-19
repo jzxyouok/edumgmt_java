@@ -8,8 +8,10 @@ import net.shinc.common.AbstractBaseController;
 import net.shinc.common.ErrorMessage;
 import net.shinc.common.IRestMessage;
 import net.shinc.common.ShincUtil;
+import net.shinc.orm.mybatis.bean.edu.Book;
 import net.shinc.orm.mybatis.bean.edu.Problem;
 import net.shinc.orm.mybatis.bean.edu.ProblemHasVideoBase;
+import net.shinc.service.edu.business.BookService;
 import net.shinc.service.edu.business.ProblemService;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -35,6 +37,9 @@ public class ProblemController extends AbstractBaseController {
 
 	@Autowired
 	private ProblemService problemService;
+	
+	@Autowired
+	private BookService bookServce;
 
 	/**
 	 * @Title: getProblemList
@@ -174,10 +179,20 @@ public class ProblemController extends AbstractBaseController {
 			iRestMessage.setDetail(ShincUtil.getErrorFields(bindingResult));
 			return iRestMessage;
 		}
+		
+		//校验是否已到书的最大视频数量
+		
 		try {
-			problemService.addProblem(problem);
-			iRestMessage.setCode(ErrorMessage.ADD_SUCCESS.getCode());
-			iRestMessage.setMessage("添加成功");
+			boolean max = bookServce.checkMaxProblem(Long.valueOf(problem.getBookId()));
+			if(max) {
+				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
+				iRestMessage.setMessage("已达最大题目数，新增失败");
+			} else {
+				problemService.addProblem(problem);
+				iRestMessage.setCode(ErrorMessage.ADD_SUCCESS.getCode());
+				iRestMessage.setMessage("添加成功");
+			}
+			
 		} catch (Exception e) {
 			logger.error("添加书失败==>" + ExceptionUtils.getStackTrace(e));
 			iRestMessage.setCode(ErrorMessage.ERROR_DEFAULT.getCode());

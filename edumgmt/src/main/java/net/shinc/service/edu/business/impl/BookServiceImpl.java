@@ -2,11 +2,12 @@ package net.shinc.service.edu.business.impl;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,12 +15,10 @@ import net.shinc.orm.mybatis.bean.edu.Book;
 import net.shinc.orm.mybatis.bean.edu.Problem;
 import net.shinc.orm.mybatis.mappers.edu.BookMapper;
 import net.shinc.orm.mybatis.mappers.edu.ProblemMapper;
-import net.shinc.service.common.QNService;
 import net.shinc.service.common.QRService;
 import net.shinc.service.edu.business.BookService;
 import net.shinc.utils.FileUtilsShiHe;
 import net.shinc.utils.FileUtilsZip;
-import net.shinc.utils.HttpClientUtils;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -46,6 +45,9 @@ public class BookServiceImpl implements BookService {
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
+	@Value("${qrcode.tempPath}")
+	private String tempPath;
+	
 	@Autowired
 	private BookMapper bookMapper;
 
@@ -55,33 +57,13 @@ public class BookServiceImpl implements BookService {
 	private HttpServletResponse httpServletResponse;
 	
 	@Autowired
-	private QNService qnService;
-
-	@Autowired
 	private QRService qrService;
-	
-	@Value("${qrcode.tempPath}")
-	private String tempPath;
-	
-	@Value("${php.play.video}")
-	private String phpPath;
-	
-	//二维码所在空间名称
-	@Value("${qiniu.eduonline.qrBucketName}")
-	private String qrBucketName;
-	
-	//二维码所在空间域名
-	@Value("${qiniu.eduonline.qrDomain}")
-	private String qrDomain;
-	
-	@Value("${qiniu.eduonline.deadline}")
-	private String expires;
 
 	@Override
 	public Integer addBook(Book book) {
 		List list = new ArrayList();
 		Integer record = bookMapper.insert(book);
-		if (record != null && record == 1) {
+		/*if (record != null && record == 1) {
 			if (StringUtils.isNotEmpty(book.getNumReservation())) {
 				// 插入题表
 				for (int i = 0; i < Integer.valueOf(book.getNumReservation()); i++) {
@@ -93,21 +75,24 @@ public class BookServiceImpl implements BookService {
 					list.add(p);
 				}
 			}
-		}
-		logger.info("生成二维码数量："+list.size());
+		}*/
+		/*logger.info("生成二维码数量："+list.size());
 
 		// 生成二维码
 		for (Problem p : (List<Problem>)list) {
-			String content = phpPath + book.getParterId().toString()+"_"+book.getId().toString()+"_"+p.getId().toString();
-			String qrImgAbPath = qrService.generateQrCode(tempPath, phpPath, content);
+			@SuppressWarnings("rawtypes")
+			Map param = new HashMap();
+			param.put(QRService.QRPARAM_BOOKID, book.getId());
+			param.put(QRService.QRPARAM_TYPE, QRService.QRPARAM_TYPE_PROBLEMID);
+			param.put(QRService.QRPARAM_ID, p.getId());
+			String link = qrService.generateQrCode(param);
 			
-			File img = new File(qrImgAbPath);
-			// 上传二维码
-			String link = qnService.upload(qrImgAbPath, img.getName(), qnService.getUploadToken(qrBucketName, Long.parseLong(expires)), qrDomain);
 			// 更新数据库qrcode
 			p.setTwoCode(link);
-			problemMapper.update(p);
-		}
+			if(link != null) {
+				problemMapper.update(p);
+			}
+		}*/
 		return record;
 
 	}
@@ -228,4 +213,12 @@ public class BookServiceImpl implements BookService {
 		
 	}
 
+	@Override
+	public boolean checkMaxProblem(Long bookId) {
+		Integer o = bookMapper.checkMaxProblem(bookId);
+		if(o == null) return false;
+		return o == 1 ? true : false;
+	}
+
+	
 }
