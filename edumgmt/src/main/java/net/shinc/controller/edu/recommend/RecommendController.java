@@ -71,10 +71,9 @@ public class RecommendController extends AbstractBaseController {
 			Map map = new HashMap();
 			map.put("domain", domain);
 			map.put("upToken", token);
-			
+			msg.setContent(map);
 			if (null != list && list.size() > 0) {
 				msg.setCode(ErrorMessage.SUCCESS.getCode());
-				msg.setContent(map);
 				msg.setDetail("detail");
 				msg.setResult(list);
 			} else {

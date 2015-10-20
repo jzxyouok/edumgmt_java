@@ -25,7 +25,7 @@ public class PasswordEncoderServiceTest {
 	
 	@Test
 	public void testEncode() {
-		String password = "admin";
+		String password = "youknowthisisshinc";
 		String pwd = pwdService.encode(password);  //$2a$10$GrRnqJFzBu7Iv4d2EInUPeuvAyyFCQY8hBoxppg/loVq59KWwoaKC
 		System.out.println(pwd);
 	}
