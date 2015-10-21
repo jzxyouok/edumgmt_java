@@ -11,7 +11,6 @@ import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
 public class ContainerConfig implements ServletContextInitializer {
 
 	@Value("${session.timeout.minutes}")
