@@ -111,6 +111,12 @@
 		<menu>
 			<level>2</level>
 			<parent>infoManage</parent>
+			<value>pushMessageManage</value>		    <!--   二级菜单  推送信息管理 -->
+			<url>/pushmessage/getAll</url>
+		</menu>
+		<menu>
+			<level>2</level>
+			<parent>infoManage</parent>
 			<value>questionTypeManage</value>		    <!--   二级菜单  题型管理 -->
 			<url>/questionType/questionTypeList</url>
 		</menu>

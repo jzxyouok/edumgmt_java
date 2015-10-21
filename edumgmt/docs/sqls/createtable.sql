@@ -966,7 +966,16 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COMMENT = '自编题信息';
 
-
+CREATE TABLE IF NOT EXISTS `sh_eduonline`.`sh_pushmessage` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(128) NOT NULL,
+  `content` LONGTEXT NOT NULL,
+  `type` VARCHAR(1) NOT NULL DEFAULT '0' COMMENT '消息类型,0=对所有用户推送，其他待扩展',
+  `create_time` datetime NOT NULL,
+  `user_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+COMMENT = '推送信息';
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

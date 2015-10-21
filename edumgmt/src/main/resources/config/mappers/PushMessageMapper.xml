@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.shinc.orm.mybatis.mappers.edu.PushMessageMapper">
+
+	<select id="findById" resultType="PushMessage" parameterType="java.lang.Integer">
+		select id,title,content,type from sh_pushmessage
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findAll" parameterType="PushMessage" resultType="PushMessage">
+		SELECT 
+			a.id,
+			a.title,
+			a.content,
+			a.type,
+			a.create_time createTime,
+			date_format(a.create_time,'%Y-%m-%d %T') createTimeStr,
+			b.id userId,
+			b.nickname userName
+		FROM
+			sh_pushmessage a
+				LEFT JOIN
+			sh_admin_user b ON b.id = a.user_id
+		ORDER BY a.create_time DESC
+	</select>
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from sh_pushmessage
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="PushMessage" useGeneratedKeys="true" keyProperty="id">
+		insert into sh_pushmessage(title,content,type,create_time,user_id)values(#{title},#{content},#{type},#{createTime},#{userId})
+	</insert>
+	
+</mapper>
+

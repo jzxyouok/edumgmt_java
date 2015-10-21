@@ -6,7 +6,7 @@
 		<result column="sh_area_id" property="areaId" jdbcType="INTEGER" />
 		<result column="sh_grade_id" property="gradeId" jdbcType="INTEGER" />
 		<result column="sh_school_id" property="schoolId" jdbcType="INTEGER" />
-		<result column="user_class" property="userClass" jdbcType="INTEGER" />
+		<result column="user_class" property="userClass" jdbcType="VARCHAR" />
 		<result column="tel" property="tel" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
 		<result column="name" property="name" jdbcType="VARCHAR" />

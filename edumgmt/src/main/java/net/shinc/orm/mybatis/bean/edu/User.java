@@ -11,7 +11,7 @@ public class User {
 
 	private Integer schoolId;
 
-	private Integer userClass;
+	private String userClass;
 
 	private String tel;
 
@@ -35,9 +35,6 @@ public class User {
 		this.id = id;
 	}
 
-	public Integer getUserClass() {
-		return userClass;
-	}
 
 	public Integer getAreaId() {
 		return areaId;
@@ -63,7 +60,12 @@ public class User {
 		this.schoolId = schoolId;
 	}
 
-	public void setUserClass(Integer userClass) {
+
+	public String getUserClass() {
+		return userClass;
+	}
+
+	public void setUserClass(String userClass) {
 		this.userClass = userClass;
 	}
 

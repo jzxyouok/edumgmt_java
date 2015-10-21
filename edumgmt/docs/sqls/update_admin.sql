@@ -29,6 +29,7 @@ INSERT INTO `sh_authority` (`id`,`sh_company_id`,`authority`,`remark`) VALUES (1
 INSERT INTO `sh_authority` (`id`,`sh_company_id`,`authority`,`remark`) VALUES (20,1,'businessListManage','合作商信息');
 INSERT INTO `sh_authority` (`id`,`sh_company_id`,`authority`,`remark`) VALUES (21,1,'customerManage','用户列表');
 INSERT INTO `sh_authority` (`id`,`sh_company_id`,`authority`,`remark`) VALUES (22,1,'customerListManage','用户信息');
+INSERT INTO `sh_authority` (`id`,`sh_company_id`,`authority`,`remark`) VALUES (23,1,'pushMessageManage','推送信息管理');
 
 INSERT INTO `sh_authority_group` (`id`,`sh_company_id`,`name`,`remark`) VALUES (1,1,'advancedAdmin','超级管理员');
 INSERT INTO `sh_authority_group` (`id`,`sh_company_id`,`name`,`remark`) VALUES (2,1,'normalAdmin','普通管理员');
@@ -55,6 +56,7 @@ INSERT INTO `sh_authority_group_has_sh_authority` (`sh_authority_group_id`,`sh_a
 INSERT INTO `sh_authority_group_has_sh_authority` (`sh_authority_group_id`,`sh_authority_id`) VALUES (1,20);
 INSERT INTO `sh_authority_group_has_sh_authority` (`sh_authority_group_id`,`sh_authority_id`) VALUES (1,21);
 INSERT INTO `sh_authority_group_has_sh_authority` (`sh_authority_group_id`,`sh_authority_id`) VALUES (1,22);
+INSERT INTO `sh_authority_group_has_sh_authority` (`sh_authority_group_id`,`sh_authority_id`) VALUES (1,23);
 
 INSERT INTO `sh_authority_group_has_sh_authority` (`sh_authority_group_id`,`sh_authority_id`) VALUES (2,1);
 INSERT INTO `sh_authority_group_has_sh_authority` (`sh_authority_group_id`,`sh_authority_id`) VALUES (2,2);
