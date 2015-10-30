@@ -5,7 +5,6 @@ import javax.validation.constraints.NotNull;
 public class Problem {
 	private Integer id;
 
-	@NotNull
 	private Integer bookId;
 
 	private String status;

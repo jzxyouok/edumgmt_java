@@ -183,7 +183,7 @@ public class ParterController extends AbstractBaseController {
 
 			if (parterService.isHasBook(parter)) {
 				iRestMessage.setCode(ErrorMessage.DELETE_FAILED.getCode());
-				iRestMessage.setMessage("改书商下已有书存在暂不支持删除");
+				iRestMessage.setMessage("该书商下已有书存在暂不支持删除");
 				return iRestMessage;
 			}
 			parterService.deleteParterById(parter.getId());

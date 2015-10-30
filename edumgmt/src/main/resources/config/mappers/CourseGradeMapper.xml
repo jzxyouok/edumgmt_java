@@ -35,6 +35,33 @@
 		</if> 
 		<!-- 加入查询条件 -->
 	</select>
+	
+	<select id="selectCourseGradeList" parameterType="CourseGrade" resultType="map">
+		SELECT 
+		    a.id,
+		    a.name,
+		    a.type,
+		    b.name course,
+		    c.name version,
+		    COUNT(*) count
+		FROM
+		    sh_course_grade a
+		        LEFT JOIN
+		    sh_course b ON a.sh_course_id = b.id
+		        LEFT JOIN
+		    sh_material_version c ON a.sh_material_version_id = c.id
+		        LEFT JOIN
+		    sh_course_grade_has_sh_video_base d ON d.sh_course_grade_id = a.id
+		WHERE 1=1
+		<if test="courseId != null">
+			and a.sh_course_id = #{courseId}
+		</if> 
+		GROUP BY a.id
+		
+		
+		<!-- 加入查询条件 -->
+	</select>
+	
 	<select id="getCourseGradeVideoBaseList" parameterType="CourseGradeHasVideoBase" resultType="java.util.HashMap">
 		SELECT 
 		    courseGrade.sh_course_grade_id courseGradeId,

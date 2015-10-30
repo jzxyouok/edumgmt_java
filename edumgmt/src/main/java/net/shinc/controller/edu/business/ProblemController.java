@@ -183,7 +183,8 @@ public class ProblemController extends AbstractBaseController {
 		//校验是否已到书的最大视频数量
 		
 		try {
-			boolean max = bookServce.checkMaxProblem(Long.valueOf(problem.getBookId()));
+//			boolean max = bookServce.checkMaxProblem(Long.valueOf(problem.getBookId()));
+			boolean max =false;
 			if(max) {
 				iRestMessage.setCode(ErrorMessage.SUCCESS.getCode());
 				iRestMessage.setMessage("已达最大题目数，新增失败");

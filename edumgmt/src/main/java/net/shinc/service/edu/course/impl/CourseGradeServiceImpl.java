@@ -11,6 +11,7 @@ import net.shinc.orm.mybatis.mappers.edu.CourseGradeMapper;
 import net.shinc.service.edu.course.CourseGradeService;
 
 import org.apache.commons.lang3.StringUtils;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class CourseGradeServiceImpl implements CourseGradeService {
 
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+	
 	@Autowired
 	private CourseGradeMapper courseGradeMapper;
 	@Autowired
@@ -51,7 +55,7 @@ public class CourseGradeServiceImpl implements CourseGradeService {
 
 	@Override
 	public List<CourseGrade> getCourseGradeList(CourseGrade courseGrade) {
-		return courseGradeMapper.findAll(courseGrade);
+		return this.sqlSession.selectList("net.shinc.orm.mybatis.mappers.edu.CourseGradeMapper.selectCourseGradeList", courseGrade);
 	}
 
 	@Override

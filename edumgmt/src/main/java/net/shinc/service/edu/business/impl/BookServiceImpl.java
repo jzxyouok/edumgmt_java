@@ -63,7 +63,7 @@ public class BookServiceImpl implements BookService {
 	public Integer addBook(Book book) {
 		List list = new ArrayList();
 		Integer record = bookMapper.insert(book);
-		/*if (record != null && record == 1) {
+		if (record != null && record == 1) {
 			if (StringUtils.isNotEmpty(book.getNumReservation())) {
 				// 插入题表
 				for (int i = 0; i < Integer.valueOf(book.getNumReservation()); i++) {
@@ -75,8 +75,8 @@ public class BookServiceImpl implements BookService {
 					list.add(p);
 				}
 			}
-		}*/
-		/*logger.info("生成二维码数量："+list.size());
+		}
+		logger.info("生成二维码数量："+list.size());
 
 		// 生成二维码
 		for (Problem p : (List<Problem>)list) {
@@ -92,7 +92,7 @@ public class BookServiceImpl implements BookService {
 			if(link != null) {
 				problemMapper.update(p);
 			}
-		}*/
+		}
 		return record;
 
 	}
