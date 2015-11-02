@@ -6,6 +6,8 @@ public class Problem {
 	private Integer id;
 
 	private Integer bookId;
+	
+	private Integer seq;
 
 	private String status;
 	
@@ -81,5 +83,15 @@ public class Problem {
 	public void setVideoType(String videoType) {
 		this.videoType = videoType;
 	}
+
+	public Integer getSeq() {
+		return seq;
+	}
+
+	public void setSeq(Integer seq) {
+		this.seq = seq;
+	}
+	
+	
 	
 }

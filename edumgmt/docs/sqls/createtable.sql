@@ -441,6 +441,7 @@ COMMENT = '播放历史';
 CREATE TABLE IF NOT EXISTS `sh_eduonline`.`sh_problem` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `sh_book_id` INT(11) NOT NULL,
+  `seq` INT(11) NULL DEFAULT 0 ,
   `status` VARCHAR(1) NOT NULL DEFAULT '1' COMMENT '0关1开',
   `content` VARCHAR(256) NULL DEFAULT NULL,
   `two_code` VARCHAR(255) NULL DEFAULT NULL,

@@ -18,6 +18,9 @@ public class Book {
 	
 	//视频数量
 	private String videoNum;
+	
+	//拥有视频的二维码数量
+	private String countHasVideo;
 
 	public Integer getId() {
 		return id;
@@ -73,6 +76,14 @@ public class Book {
 
 	public void setProblemNum(String problemNum) {
 		this.problemNum = problemNum;
+	}
+
+	public String getCountHasVideo() {
+		return countHasVideo;
+	}
+
+	public void setCountHasVideo(String countHasVideo) {
+		this.countHasVideo = countHasVideo;
 	}
 	
 }

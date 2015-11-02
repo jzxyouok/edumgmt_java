@@ -8,6 +8,7 @@
 		<result column="status" property="status" jdbcType="VARCHAR" />
 		<result column="num_reservation" property="numReservation" jdbcType="VARCHAR" />
 		<result column="problemNum" property="problemNum" />
+		<result column="countHasVideo" property="countHasVideo" />
 	</resultMap>
 	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
@@ -27,7 +28,19 @@
 		        FROM
 		            sh_problem t2
 		        WHERE
-		            t2.sh_book_id = t1.id) problemNum
+		            t2.sh_book_id = t1.id) problemNum,
+		     (SELECT 
+		            COUNT(*)
+		        FROM
+		            sh_problem a
+		        WHERE
+		            a.sh_book_id = t1.id
+		                AND EXISTS( SELECT 
+		                    1
+		                FROM
+		                    sh_problem_has_sh_video_base b
+		                WHERE
+		                    b.sh_problem_id = a.id)) countHasVideo
 		FROM
 		    sh_book t1
 		WHERE

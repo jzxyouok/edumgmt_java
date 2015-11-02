@@ -65,10 +65,12 @@ public class BookServiceImpl implements BookService {
 		Integer record = bookMapper.insert(book);
 		if (record != null && record == 1) {
 			if (StringUtils.isNotEmpty(book.getNumReservation())) {
+				Integer seq = 1;
 				// 插入题表
 				for (int i = 0; i < Integer.valueOf(book.getNumReservation()); i++) {
 					Problem p = new Problem();
 					p.setBookId(book.getId());
+					p.setSeq(seq++);
 					p.setStatus("1");
 					// 优化为批量插入
 					problemMapper.insert(p);
@@ -179,7 +181,7 @@ public class BookServiceImpl implements BookService {
 				
 				if (httpEntity.isStreaming()) {
 					
-					String fileName = bookPrefix + problem.getId() + suffix;
+					String fileName = bookPrefix + problem.getSeq() + suffix;
 					String filePath = bookDir + "/" + fileName;
 					InputStream in = httpEntity.getContent();
 					File f = new File(filePath);

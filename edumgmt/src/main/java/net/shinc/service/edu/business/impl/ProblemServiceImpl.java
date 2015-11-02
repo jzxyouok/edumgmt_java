@@ -14,6 +14,7 @@ import net.shinc.service.common.QRService;
 import net.shinc.service.edu.business.ProblemService;
 
 import org.apache.commons.lang3.StringUtils;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,9 @@ public class ProblemServiceImpl implements ProblemService {
 	private ProblemHasVideoBaseMapper problemHasVideoBaseMapper;
 	
 	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
+	
+	@Autowired
 	private QNService qnService;
 	
 	@Autowired
@@ -52,6 +56,15 @@ public class ProblemServiceImpl implements ProblemService {
 		param.put(QRService.QRPARAM_ID, problem.getId());
 		String link = qrService.generateQrCode(param);
 		problem.setTwoCode(link);
+		
+		Integer seq = this.sqlSessionTemplate.selectOne("net.shinc.orm.mybatis.mappers.edu.ProblemMapper.selectMaxSeq", problem.getBookId());
+		if(seq != null) {
+			seq++;
+		} else {
+			seq = 1;
+		}
+		problem.setSeq(seq);
+		
 		return problemMapper.insert(problem);
 	}
 
