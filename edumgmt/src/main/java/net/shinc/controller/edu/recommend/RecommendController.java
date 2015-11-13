@@ -126,6 +126,12 @@ public class RecommendController extends AbstractBaseController {
 			iRestMessage.setDetail(ShincUtil.getErrorFields(bindingResult));
 			return iRestMessage;
 		}
+		boolean full = recommendService.isPositonFull(recommend.getLocation());
+		if(full) {
+			iRestMessage.setCode(ErrorMessage.ERROR_DEFAULT.getCode());
+			iRestMessage.setMessage("当前位置推荐数量已达上限，不能继续添加");
+			return iRestMessage;
+		}
 		try {
 			recommendService.addRecommend(recommend);
 			iRestMessage.setCode(ErrorMessage.ADD_SUCCESS.getCode());

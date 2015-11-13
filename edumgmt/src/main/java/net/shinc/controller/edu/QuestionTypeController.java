@@ -75,6 +75,13 @@ public class QuestionTypeController extends AbstractBaseController{
 			iRestMessage.setDetail(ShincUtil.getErrorFields(bindingResult));
 			return iRestMessage;
 		}
+		List<QuestionType> list = questionTypeService.getQuestionTypeList(questionType);
+		if(list != null && list.size() > 0) {
+			iRestMessage.setCode(ErrorMessage.ADD_FAILED.getCode());
+			iRestMessage.setMessage("该题型已存在，添加失败");
+			return iRestMessage;
+		}
+		
 		try {
 			Integer num = questionTypeService.addQuestionType(questionType);
 			if (num > 0) {

@@ -55,6 +55,7 @@
 				and description like '%${description}%'
 			</if>
 		<!-- </if> -->
+		order by location asc
 		<!-- 加入查询条件 -->
 	</select>
 	<select id="getRecommendVideoBaseList" parameterType="RecommendHasVideoBase" resultType="java.util.HashMap">
@@ -203,5 +204,8 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
+	<select id="numOfPosition" resultType="int" parameterType="java.lang.String">
+		select count(*) count from sh_recommend where location=#{position}
+	</select>
 	
 </mapper>

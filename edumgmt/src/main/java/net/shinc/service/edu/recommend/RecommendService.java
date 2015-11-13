@@ -47,5 +47,11 @@ public interface RecommendService {
 	 * @return boolean
 	 */
 	public boolean isRecommendHasVideo(Recommend recommend);
+	
+	/**
+	 * 判断当前位置是否已满
+	 * @return
+	 */
+	public boolean isPositonFull(String position);
 
 }

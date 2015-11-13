@@ -16,6 +16,7 @@ import net.shinc.orm.mybatis.mappers.edu.RecommendMapper;
 import net.shinc.service.edu.recommend.RecommendService;
 
 import org.apache.commons.lang3.StringUtils;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,9 @@ public class RecommendServiceImpl implements RecommendService {
 	
 	@Autowired
 	private RecommendHasCourseGradeMapper recommendHasCourseGradeMapper;
+	
+	@Autowired
+	private SqlSessionTemplate sqlSession;
 	
 	@Override
 	public Integer addRecommend(Recommend recommend) {
@@ -163,6 +167,29 @@ public class RecommendServiceImpl implements RecommendService {
 		
 	}
 
+	
+	/**
+	 * 判断当前位置是否已满
+	 * @return
+	 */
+	public boolean isPositonFull(String position) {
+		if(position == null || "".equals(position)) {
+			return false;
+		} 
+		int i = this.sqlSession.selectOne("net.shinc.orm.mybatis.mappers.edu.RecommendMapper.numOfPosition", position);
+		if("1".equals(position)) {
+			if (i >= 4) {
+				return true;
+			}
+		} else if("2".equals(position)) {
+			if(i >= 6) {
+				return true;
+			}
+		} else {
+			return false;
+		}
+		return false;
+	}
 	
 
 }

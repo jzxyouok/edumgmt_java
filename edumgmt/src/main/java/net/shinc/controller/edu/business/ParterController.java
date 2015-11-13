@@ -17,6 +17,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -111,7 +112,11 @@ public class ParterController extends AbstractBaseController {
 			parterService.addParter(parter);
 			iRestMessage.setCode(ErrorMessage.ADD_SUCCESS.getCode());
 			iRestMessage.setMessage("添加成功");
-		} catch (Exception e) {
+		} catch(DuplicateKeyException ee) {
+			iRestMessage.setCode(ErrorMessage.ERROR_DEFAULT.getCode());
+			iRestMessage.setMessage("该书商已存在");
+		} 
+		catch (Exception e) {
 			logger.error("添加书商失败==>" + ExceptionUtils.getStackTrace(e));
 			iRestMessage.setCode(ErrorMessage.ERROR_DEFAULT.getCode());
 		}

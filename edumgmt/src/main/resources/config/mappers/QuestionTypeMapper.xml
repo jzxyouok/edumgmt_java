@@ -24,6 +24,9 @@
 		<if test="id != null">
 			AND id=#{id}
 		</if>
+		<if test="name != null">
+			AND name=#{name}
+		</if>
 	</select>
 
 	<delete id="deleteQuestionTypeById" parameterType="java.lang.Integer">
