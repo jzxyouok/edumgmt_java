@@ -1,5 +1,7 @@
 package net.shinc.web.servlet.listener;
 
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
@@ -15,20 +17,19 @@ public class DefaultHttpSessionListener implements HttpSessionListener {
 	
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
-		HttpSession s = se.getSession();
-		if (s != null) {
-			s.setMaxInactiveInterval(timeout * 60);
-			logger.info("session created:" + s.getId());
-		}
+		
+		logger.info("session created:" + se.getSession().getId());
 	}
 
 	@Override
 	public void sessionDestroyed(HttpSessionEvent se) {
 		HttpSession s = se.getSession();
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss S");
 		if(s != null) {
-			logger.debug("session destroyed:" + s.getId());
+			logger.info("session destroyed:" + s.getId());
+			logger.info("last session access:" + fmt.format(s.getLastAccessedTime()));
 		} else {
-			logger.debug("session destroyed");
+			logger.info("session destroyed");
 		}
 	}
 

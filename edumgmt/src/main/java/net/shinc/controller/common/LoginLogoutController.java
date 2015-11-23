@@ -1,7 +1,10 @@
 package net.shinc.controller.common;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import net.shinc.common.AbstractBaseController;
 import net.shinc.common.ErrorMessage;
@@ -76,7 +79,10 @@ public class LoginLogoutController extends AbstractBaseController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/testLogin")
-	public Map testLogin() {
+	public Map testLogin(HttpSession session) {
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss S");
+		logger.info("session access:" + fmt.format(session.getLastAccessedTime()));
+		logger.info("session interval seconds:" + session.getMaxInactiveInterval());
 		Map map = new HashMap();
 		map.put("code", "SUCCESS");
 		return map;
