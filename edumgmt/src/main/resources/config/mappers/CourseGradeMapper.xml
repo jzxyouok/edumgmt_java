@@ -43,7 +43,7 @@
 		    a.type,
 		    b.name course,
 		    c.name version,
-		    COUNT(*) count
+		    (select count(*) from sh_course_grade_has_sh_video_base d where d.sh_course_grade_id=a.id) count
 		FROM
 		    sh_course_grade a
 		        LEFT JOIN

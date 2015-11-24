@@ -12,8 +12,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import net.shinc.orm.mybatis.bean.edu.Book;
+import net.shinc.orm.mybatis.bean.edu.Parter;
 import net.shinc.orm.mybatis.bean.edu.Problem;
 import net.shinc.orm.mybatis.mappers.edu.BookMapper;
+import net.shinc.orm.mybatis.mappers.edu.ParterMapper;
 import net.shinc.orm.mybatis.mappers.edu.ProblemMapper;
 import net.shinc.service.common.QRService;
 import net.shinc.service.edu.business.BookService;
@@ -53,6 +55,9 @@ public class BookServiceImpl implements BookService {
 
 	@Autowired
 	private ProblemMapper problemMapper;
+	
+	@Autowired
+	private ParterMapper partnerMapper;
 
 	private HttpServletResponse httpServletResponse;
 	
@@ -135,13 +140,17 @@ public class BookServiceImpl implements BookService {
 		String downPath = tempPath;
 		List fileNameList = new ArrayList();
 		
+		Book bookInfo = bookMapper.findById(book.getId());
+		Parter partnerInfo = partnerMapper.findById(bookInfo.getParterId());
+		
+		
 		/*
 		 * 查询书下面的题列表信息
 		 */
 		Problem p = new Problem();
 		p.setBookId(book.getId());
 		
-		String bookName = "book_qrcode_" + book.getId();
+		String bookName =  partnerInfo.getName() + "_" + bookInfo.getName();
 		String bookZipName = bookName + ".zip";
 		String bookZipPath = tempPath + "/" + bookZipName;
 		String bookDir = tempPath + "/" + bookName;
@@ -157,7 +166,7 @@ public class BookServiceImpl implements BookService {
 		
 		FileUtils.deleteQuietly(new File(bookZipPath));
 		
-		String bookPrefix = "qr_" + book.getId() + "_";
+		String bookPrefix = "qr_" + bookName + "_";
 		
 		List list = problemMapper.findAll(p);
 		for (Problem problem : (List<Problem>) list) {
