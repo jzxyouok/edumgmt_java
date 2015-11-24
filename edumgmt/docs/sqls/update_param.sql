@@ -1,13 +1,6 @@
 
 
---truncate table sh_questionbank_year;
---truncate table sh_questionbank_type;
---truncate table sh_questionbank_course;
---truncate table sh_questionbank_question_type;
 
---truncate table sh_questionbank;
---truncate table sh_course;
---truncate table sh_question_type;
 
 
 
