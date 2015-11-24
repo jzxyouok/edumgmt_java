@@ -89,7 +89,7 @@ public class BookServiceImpl implements BookService {
 		for (Problem p : (List<Problem>)list) {
 			@SuppressWarnings("rawtypes")
 			Map param = new HashMap();
-			param.put(QRService.QRPARAM_BOOKID, book.getId());
+			param.put(QRService.QRPARAM_PROBLEMID, p.getId());
 			param.put(QRService.QRPARAM_TYPE, QRService.QRPARAM_TYPE_PROBLEMID);
 			param.put(QRService.QRPARAM_ID, p.getId());
 			String link = qrService.generateQrCode(param);

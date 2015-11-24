@@ -19,7 +19,7 @@ public interface QRService {
 	
 	public static final String QRPARAM_ID = "id";
 	public static final String QRPARAM_TYPE = "type";
-	public static final String QRPARAM_BOOKID = "bookId";
+	public static final String QRPARAM_PROBLEMID = "problemId";
 	
 	
 	/**

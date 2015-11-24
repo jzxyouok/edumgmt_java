@@ -51,7 +51,7 @@ public class ProblemServiceImpl implements ProblemService {
 	@Override
 	public Integer addProblem(Problem problem) {
 		Map param = new HashMap();
-		param.put(QRService.QRPARAM_BOOKID, problem.getBookId());
+		param.put(QRService.QRPARAM_PROBLEMID, problem.getId());
 		param.put(QRService.QRPARAM_TYPE, QRService.QRPARAM_TYPE_PROBLEMID);
 		param.put(QRService.QRPARAM_ID, problem.getId());
 		String link = qrService.generateQrCode(param);
